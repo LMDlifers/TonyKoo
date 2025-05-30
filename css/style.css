@@ -155,8 +155,10 @@ img#headerImage {
 
 .resumeSubsection {
     /* spacing in between each listing */
-    padding: 20px 0;
+    padding: 40px 0;
+    
 }
+
 
 /* icons */
 img.resumeIcon {
