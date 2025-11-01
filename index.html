@@ -67,6 +67,18 @@
                     <a class="nav-link" href="#contact" aria-label="Navigate to Contact section">Contact</a>
                 </li>
             </ul>
+
+            <!-- Search Bar -->
+            <div class="search-container ml-auto">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search portfolio..." aria-label="Search portfolio">
+                <i class="fas fa-search search-icon"></i>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <!-- Dark Mode Toggle -->
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </nav>
 
@@ -82,6 +94,31 @@
 
     <!-- Scroll Progress Bar -->
     <div id="scrollProgress"></div>
+
+    <!-- Quick Jump Sidebar -->
+    <div id="quickJumpSidebar" class="quick-jump-sidebar">
+        <div class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#about" class="sidebar-link" data-section="about">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="#resume" class="sidebar-link" data-section="resume">
+                <i class="fas fa-file-alt"></i>
+                <span>Resume</span>
+            </a>
+            <a href="#portfolio" class="sidebar-link" data-section="portfolio">
+                <i class="fas fa-briefcase"></i>
+                <span>Portfolio</span>
+            </a>
+            <a href="#contact" class="sidebar-link" data-section="contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </div>
 
     <section id="about" class="aboutSection section" aria-label="About section">
         <div class="container">

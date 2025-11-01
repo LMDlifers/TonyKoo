@@ -4,6 +4,208 @@ $(document).ready(function(){
         $('#loadingScreen').addClass('hidden');
     }, 1500);
 
+    // Dark Mode Toggle
+    const darkModeToggle = $('#darkModeToggle');
+    const body = $('body');
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.addClass('dark-mode');
+    }
+
+    darkModeToggle.on('click', function() {
+        body.toggleClass('dark-mode');
+
+        // Save preference
+        if (body.hasClass('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+
+    // Search Functionality
+    const searchInput = $('#searchInput');
+    const searchResults = $('#searchResults');
+    let searchTimeout;
+
+    // Searchable content
+    const searchableContent = [];
+
+    // Index all searchable content
+    function indexContent() {
+        // Index resume sections
+        $('.resumeSubsection').each(function() {
+            const $section = $(this);
+            const title = $section.find('.resumeName').text();
+            const role = $section.find('.resumeRole').text();
+            const content = $section.text().substring(0, 200);
+            const id = $section.closest('section').attr('id');
+
+            if (title) {
+                searchableContent.push({
+                    title: title,
+                    subtitle: role,
+                    content: content,
+                    element: $section,
+                    section: id
+                });
+            }
+        });
+
+        // Index portfolio items
+        $('.filterItem').each(function() {
+            const $item = $(this);
+            const title = $item.find('.filterItemName').text();
+            const content = $item.find('.filterItemDesc').text().substring(0, 200);
+
+            if (title) {
+                searchableContent.push({
+                    title: title,
+                    subtitle: 'Portfolio Project',
+                    content: content,
+                    element: $item,
+                    section: 'portfolio'
+                });
+            }
+        });
+
+        // Index skills
+        $('.resumeSkill').each(function() {
+            const skill = $(this).text();
+            searchableContent.push({
+                title: skill,
+                subtitle: 'Skill',
+                content: '',
+                element: $(this),
+                section: 'resume'
+            });
+        });
+    }
+
+    indexContent();
+
+    searchInput.on('input', function() {
+        clearTimeout(searchTimeout);
+        const query = $(this).val().trim().toLowerCase();
+
+        if (query.length < 2) {
+            searchResults.removeClass('active').html('');
+            return;
+        }
+
+        searchTimeout = setTimeout(function() {
+            performSearch(query);
+        }, 300);
+    });
+
+    function performSearch(query) {
+        const results = searchableContent.filter(item => {
+            return item.title.toLowerCase().includes(query) ||
+                   item.content.toLowerCase().includes(query) ||
+                   item.subtitle.toLowerCase().includes(query);
+        });
+
+        displayResults(results, query);
+    }
+
+    function displayResults(results, query) {
+        if (results.length === 0) {
+            searchResults.html('<div class="no-results">No results found</div>').addClass('active');
+            return;
+        }
+
+        let html = '';
+        results.slice(0, 8).forEach(result => {
+            const highlightedTitle = highlightText(result.title, query);
+            const highlightedContent = highlightText(result.content.substring(0, 100), query);
+
+            html += `
+                <div class="search-result-item" data-section="${result.section}">
+                    <div class="search-result-title">${highlightedTitle}</div>
+                    <div class="search-result-context">${result.subtitle}</div>
+                    ${highlightedContent ? `<div class="search-result-context">${highlightedContent}...</div>` : ''}
+                </div>
+            `;
+        });
+
+        searchResults.html(html).addClass('active');
+
+        // Handle result click
+        $('.search-result-item').on('click', function() {
+            const section = $(this).data('section');
+            const targetPosition = $('#' + section).offset().top;
+            const navHeight = $('#navigation').outerHeight();
+
+            $('html, body').animate({
+                scrollTop: targetPosition - navHeight - 20
+            }, 800);
+
+            searchResults.removeClass('active');
+            searchInput.val('');
+        });
+    }
+
+    function highlightText(text, query) {
+        if (!text) return '';
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span class="search-result-highlight">$1</span>');
+    }
+
+    // Close search results when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.search-container').length) {
+            searchResults.removeClass('active');
+        }
+    });
+
+    // Sidebar Toggle
+    const sidebar = $('#quickJumpSidebar');
+    const sidebarToggle = $('#sidebarToggle');
+
+    sidebarToggle.on('click', function(e) {
+        e.stopPropagation();
+        sidebar.toggleClass('active');
+    });
+
+    // Close sidebar when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.quick-jump-sidebar').length) {
+            sidebar.removeClass('active');
+        }
+    });
+
+    // Update active section in sidebar on scroll
+    $(window).on('scroll', function() {
+        const scrollPos = $(window).scrollTop() + 100;
+
+        $('section[id]').each(function() {
+            const section = $(this);
+            const sectionTop = section.offset().top;
+            const sectionBottom = sectionTop + section.outerHeight();
+            const sectionId = section.attr('id');
+
+            if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                $('.sidebar-link').removeClass('active-section');
+                $(`.sidebar-link[data-section="${sectionId}"]`).addClass('active-section');
+            }
+        });
+    });
+
+    // Sidebar link clicks
+    $('.sidebar-link').on('click', function(e) {
+        e.preventDefault();
+        const target = $(this).attr('href');
+        const targetPosition = $(target).offset().top;
+        const navHeight = $('#navigation').outerHeight();
+
+        $('html, body').animate({
+            scrollTop: targetPosition - navHeight - 20
+        }, 800);
+
+        sidebar.removeClass('active');
+    });
+
     // Typing Animation
     const phrases = [
         "Business Analytics Student",
