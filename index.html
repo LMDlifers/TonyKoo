@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Tony Koo</title>
-    <meta name="keywords" content="Tony Koo" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony Koo - Business Analytics & Quantitative Developer</title>
+    <meta name="description" content="Portfolio of Tony Koo, Business Analytics student at NUS specializing in Financial Analytics, Quantitative Development, and Machine Learning" />
+    <meta name="keywords" content="Tony Koo, Business Analytics, NUS, Quantitative Developer, Data Science, Machine Learning, Portfolio" />
     <meta name="author" content="Tony Koo" />
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tony Koo - Business Analytics & Quantitative Developer" />
+    <meta property="og:description" content="Portfolio of Tony Koo, Business Analytics student at NUS specializing in Financial Analytics and Machine Learning" />
+    <meta property="og:url" content="https://lmdlifers.github.io/TonyKoo/" />
 
     <link rel="stylesheet" type="text/css" href="css/superslides.css">
     <link rel="stylesheet" type="text/css" href="css/all.min.css">
@@ -31,46 +40,45 @@
 </head>
 
 <body>
-    <nav id="navigation" class="shadow-sm navbar navbar-expand-lg">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="images/portfolio/tonykoo.png" alt="Logo" width="30" height="30"
+    <nav id="navigation" class="shadow-sm navbar navbar-expand-lg" role="navigation" aria-label="Main navigation">
+        <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Tony Koo - Home">
+            <img src="images/portfolio/tonykoo.png" alt="Tony Koo Logo" width="30" height="30"
                 class="d-inline-block align-text-top mr-2">
             Tony Koo
         </a>
 
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
             <i class="fas fa-bars"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#about" aria-label="Navigate to About section">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#resume">Resume</a>
+                    <a class="nav-link" href="#resume" aria-label="Navigate to Resume section">Resume</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#portfolio">Portfolio</a>
+                    <a class="nav-link" href="#portfolio" aria-label="Navigate to Portfolio section">Portfolio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link" href="#contact" aria-label="Navigate to Contact section">Contact</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div>
-        <img id="headerImage" src="images/header2.png">
-    </div>
+    <header>
+        <img id="headerImage" src="images/header2.png" alt="Portfolio header banner">
+    </header>
 
-    <div id="about" class="aboutSection section">
+    <section id="about" class="aboutSection section" aria-label="About section">
         <div class="container">
             <div class="row">
                 <!-- Code -->
-                <div id="code">
+                <div id="code" role="region" aria-label="Personal information displayed as JSON">
                     <div id="console">
                         {
                         <br />
@@ -135,13 +143,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- RESUME -->
-    <div id="resume" class="resumeSection section">
-        <p class="sectionTitle">Resume</p>
+    <section id="resume" class="resumeSection section" aria-label="Resume section">
+        <h2 class="sectionTitle">Resume</h2>
         <!-- EDUCATION -->
-        <p class="sectionTagline">Education</p>
+        <h3 class="sectionTagline">Education</h3>
         <div class="container">
             <!-- nus -->
             <div class="row resumeSubsection">
@@ -260,7 +268,7 @@
         </div>
 
         <!-- EXPERIENCE -->
-        <p class="sectionTagline">Work Experience</p>
+        <h3 class="sectionTagline">Work Experience</h3>
         <div class="container">
             <!-- Tradition -->
             <div class="row resumeSubsection">
@@ -335,11 +343,11 @@
                 </div>
             </div>
 
-            <!-- PORTFOLIO -->
+    </section>
 
-
-            <div id="portfolio" class="portfolioSection section">
-                <p class="sectionTitle">Portfolio</p>
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolioSection section" aria-label="Portfolio section">
+        <h2 class="sectionTitle">Portfolio</h2>
                 <div class="container">
                     <!-- Control buttons -->
                     <div class="row">
@@ -463,24 +471,25 @@
                         </div>
                     </div>
                 </div>
-            </div>
+    </section>
 
-            <div id="contact" class="contactSection section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <p class="sectionTitle">get in touch</p>
+    <!-- CONTACT -->
+    <section id="contact" class="contactSection section" aria-label="Contact section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="sectionTitle">get in touch</h2>
 
-                            <a href="https://github.com/LMDlifers" class="contactLink">Github</a> |
-                            <a href="https://www.linkedin.com" class="contactLink">LinkedIn</a> |
-                            <a href="mailto:tonykooyelong@u.nus.edu" class="contactLink">Email</a> |
-                            <a href="tel:+6585112579" class="contactLink">Mobile</a>
+                    <a href="https://github.com/LMDlifers" class="contactLink" target="_blank" rel="noopener noreferrer" aria-label="Visit my Github profile">Github</a> |
+                    <a href="https://www.linkedin.com" class="contactLink" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">LinkedIn</a> |
+                    <a href="mailto:tonykooyelong@u.nus.edu" class="contactLink" aria-label="Send me an email">Email</a> |
+                    <a href="tel:+6585112579" class="contactLink" aria-label="Call me">Mobile</a>
 
-                            <p class="copyright">&copy 2025 Tony Koo</p>
-                        </div>
-                    </div>
+                    <p class="copyright">&copy; 2025 Tony Koo. All rights reserved.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

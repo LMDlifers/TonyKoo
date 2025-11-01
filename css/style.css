@@ -14,6 +14,7 @@ html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -23,6 +24,7 @@ body {
     letter-spacing: 1px;
     background-color: #ffffff;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 /* NAVIGATION SETTINGS */
@@ -34,6 +36,8 @@ body {
     font-family: 'Karla', sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 /* valarylim brand name */
@@ -60,10 +64,29 @@ body {
 /* set colour for links */
 .nav-link {
     color: #4C5364;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
 }
 
 .nav-link:hover {
     color: #4A6FA5;
+    transform: translateY(-2px);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #4A6FA5;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
 }
 
 /* fix navigation to the top of page */
@@ -75,6 +98,15 @@ body {
 /* HEADER */
 img#headerImage {
     width: 100%;
+    display: block;
+    object-fit: cover;
+    max-height: 500px;
+}
+
+@media (max-width: 768px) {
+    img#headerImage {
+        max-height: 300px;
+    }
 }
 
 /* SECTIONS - GENERAL */
@@ -88,6 +120,20 @@ img#headerImage {
     text-transform: uppercase;
     font-size: 13px;
     text-align: center;
+    font-weight: 700;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background-color: #4A6FA5;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .sectionTagline {
@@ -110,25 +156,52 @@ img#headerImage {
 
 /* console */
 #code {
-    border-radius: 5px;
-    width:750px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 750px;
     margin: 0 auto;
     padding-top: 15px;
     font-size: 30px;
     background: #ccc;
-    height: 380px;
+    min-height: 380px;
+    height: auto;
     text-align: left;
     font-family: 'Inconsolata', monospace;
     font-size: 14px;
     color: #fafafa;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
  }
-    
+
+#code:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
 #console {
-    width: 750px;
+    width: 100%;
+    max-width: 750px;
     padding: 60px 80px;
-    height: 380px;
+    min-height: 380px;
+    height: auto;
     margin: 0 auto;
     background: #383737;
+}
+
+@media (max-width: 768px) {
+    #code {
+        width: 95%;
+        font-size: 12px;
+    }
+
+    #console {
+        padding: 40px 30px;
+        font-size: 12px;
+    }
+
+    .jsonDetails {
+        padding-left: 20px;
+    }
 }
 
 .jsonDetails {
@@ -239,6 +312,14 @@ img.resumeIcon {
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
     border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.resumeSkill:hover {
+    background-color: #4A6FA5;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(74,111,165,0.3);
 }
 
 table {
@@ -272,18 +353,33 @@ th, td {
     margin: 10px 5px;
     background-color: #f1f1f1;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-  
+
 /* Add a dark background to the active button */
 .btn.active {
     background-color: #4A6FA5;
     color: #ffffff;
     font-weight: bold;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(74,111,165,0.3);
 }
 
 .btn:hover {
     font-weight: bold;
     background-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .btn {
+        width: 120px;
+        font-size: 11px;
+        padding: 8px 8px;
+        margin: 5px 2px;
+    }
 }
 
 .itemsContainer {
@@ -302,6 +398,23 @@ th, td {
     margin: 20px;
     display: none;
     border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.filterItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+@media (max-width: 768px) {
+    .filterItem {
+        width: 90%;
+        height: auto;
+        min-height: 600px;
+        margin: 15px auto;
+    }
 }
 
 /* The "show" class is added to the filtered elements */
@@ -349,14 +462,129 @@ th, td {
     text-align: center;
 }
 
-
-.contactLink, .contactLink:hover {
+.contactLink {
     color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.contactLink:hover {
+    color: white;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.contactLink::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.contactLink:hover::after {
+    width: 80%;
 }
 
 .copyright {
     margin: 30px 5px;
-    font-size: 10px; 
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+/* FADE-IN ANIMATIONS */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* LINK STYLING */
+a {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: 2px solid #4A6FA5;
+    outline-offset: 2px;
+}
+
+/* REDUCED MOTION PREFERENCE */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ABOUT SECTION RESPONSIVE */
+@media (max-width: 768px) {
+    .aboutSection {
+        padding: 40px 20px;
+    }
+}
+
+/* RESUME SECTION RESPONSIVE */
+@media (max-width: 768px) {
+    .resumeSection {
+        margin: 20px 30px !important;
+    }
+
+    .resumeSubsection {
+        padding: 30px 0;
+    }
+
+    .resumeName {
+        font-size: 16px;
+    }
+
+    .resumeDesc, .resumeRole {
+        font-size: 14px;
+    }
+}
+
+/* PORTFOLIO SECTION RESPONSIVE */
+@media (max-width: 768px) {
+    .portfolioSection {
+        padding: 40px 20px;
+    }
+
+    .itemsContainer {
+        text-align: center;
+    }
+}
+
+/* SMOOTH IMAGE LOADING */
+img {
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* FOCUS VISIBLE FOR BETTER ACCESSIBILITY */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #4A6FA5;
+    outline-offset: 2px;
 }
 
 /* ENDS HERE */
