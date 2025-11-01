@@ -1,14 +1,21 @@
 $(document).ready(function(){
+    // Smooth scroll to sections
     $('#navigation li a').click(function(e) {
         e.preventDefault();
 
         var targetElement = $(this).attr('href');
         var targetPosition = $(targetElement).offset().top;
+        var navHeight = $('#navigation').outerHeight();
+
         $('html, body').animate({
-            scrollTop: targetPosition - 50
-        }, 'slow');
+            scrollTop: targetPosition - navHeight - 20
+        }, 800);
+
+        // Close mobile menu after click
+        $('.navbar-collapse').collapse('hide');
     });
 
+    // Sticky navigation
     const nav = $('#navigation');
     const navTop = nav.offset().top;
 
@@ -24,6 +31,22 @@ $(document).ready(function(){
             body.removeClass('fixedNav');
         }
     };
+
+    // Add smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // Observe all resume subsections for fade-in effect
+    document.querySelectorAll('.resumeSubsection, .filterItem').forEach(el => {
+        observer.observe(el);
+    });
 });
 
 filterSelection("all");
