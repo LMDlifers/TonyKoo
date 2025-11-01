@@ -70,9 +70,18 @@
         </div>
     </nav>
 
-    <header>
+    <header id="heroSection">
         <img id="headerImage" src="images/header2.png" alt="Portfolio header banner">
+        <div class="heroOverlay">
+            <h1 class="heroTitle">Tony Koo</h1>
+            <p class="heroSubtitle">
+                <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+            </p>
+        </div>
     </header>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress"></div>
 
     <section id="about" class="aboutSection section" aria-label="About section">
         <div class="container">
@@ -80,65 +89,75 @@
                 <!-- Code -->
                 <div id="code" role="region" aria-label="Personal information displayed as JSON">
                     <div id="console">
-                        {
-                        <br />
-                        <span class="jsonDetails">
-                            "name": "Tony Koo Ye Long",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "education": "National University of Singapore",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "degree": "BSc. Business Analytics (Computing)",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "specialisation": "Financial Analytics (In-Progress)",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "expectedGraduation": "May 2026",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "knownLanguages": ["Python", "R", "Java", "SQL", "JS", "VBA"],
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "interests": ["Squash", "Hiking", "Backpacking", "Cooking"],
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "resume": "
-                            <a href="./files/Resume_TonyKoo.pdf" download="Resume_TonyKoo.pdf">
-                                Resume.pdf
-                            </a>",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "github": "
-                            <a href="https://github.com/LMDlifers">
-                                https://github.com/LMDlifers
-                            </a>",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "linkedin": "
-                            <a href="www.linkedin.com">
-                                -Maintenance-
-                            </a>",
-                        </span>
-                        <br />
-                        <span class="jsonDetails">
-                            "email": "
-                            <a href="mailto:tonykooyelong@u.nus.edu">
-                                tonykooyelong@u.nus.edu
-                            </a>"
-                        </span>
-                        <br />
-                        }
+                        <div class="console-header">
+                            <span class="console-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </span>
+                            <span class="console-title">tony-koo.json</span>
+                        </div>
+                        <div class="console-content">
+                            {
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"name"</span>: <span class="json-string">"Tony Koo Ye Long"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"education"</span>: <span class="json-string">"National University of Singapore"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"degree"</span>: <span class="json-string">"BSc. Business Analytics (Computing)"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"specialisation"</span>: <span class="json-string">"Financial Analytics (In-Progress)"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"expectedGraduation"</span>: <span class="json-string">"May 2026"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"knownLanguages"</span>: [<span class="json-string">"Python"</span>, <span class="json-string">"R"</span>, <span class="json-string">"Java"</span>, <span class="json-string">"SQL"</span>, <span class="json-string">"JS"</span>, <span class="json-string">"VBA"</span>],
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"interests"</span>: [<span class="json-string">"Squash"</span>, <span class="json-string">"Hiking"</span>, <span class="json-string">"Backpacking"</span>, <span class="json-string">"Cooking"</span>],
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"resume"</span>: <span class="json-string">"
+                                <a href="./files/Resume_TonyKoo.pdf" download="Resume_TonyKoo.pdf">
+                                    Resume.pdf
+                                </a>"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"github"</span>: <span class="json-string">"
+                                <a href="https://github.com/LMDlifers">
+                                    https://github.com/LMDlifers
+                                </a>"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"linkedin"</span>: <span class="json-string">"
+                                <a href="www.linkedin.com">
+                                    -Maintenance-
+                                </a>"</span>,
+                            </span>
+                            <br />
+                            <span class="jsonDetails">
+                                <span class="json-key">"email"</span>: <span class="json-string">"
+                                <a href="mailto:tonykooyelong@u.nus.edu">
+                                    tonykooyelong@u.nus.edu
+                                </a>"</span>
+                            </span>
+                            <br />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -490,6 +509,19 @@
             </div>
         </div>
     </section>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loader">
+            <div class="spinner"></div>
+            <p class="loading-text">Loading Portfolio...</p>
+        </div>
+    </div>
 
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
