@@ -81,6 +81,76 @@ $(document).ready(function () {
         section: "resume",
       });
     });
+
+    // Index testimonials
+    $(".testimonialCard").each(function () {
+      const $card = $(this);
+      const name = $card.find(".testimonialName").text();
+      const company = $card.find(".testimonialCompany").text();
+      const content = $card.find(".testimonialQuote p").text().substring(0, 200);
+
+      if (name) {
+        searchableContent.push({
+          title: name,
+          subtitle: "Testimonial from " + company,
+          content: content,
+          element: $card,
+          section: "testimonials",
+        });
+      }
+    });
+
+    // Index writing/articles
+    $(".writingCard").each(function () {
+      const $card = $(this);
+      const title = $card.find(".writingTitle a").text();
+      const content = $card.find(".writingExcerpt").text().substring(0, 200);
+
+      if (title) {
+        searchableContent.push({
+          title: title,
+          subtitle: "Technical Writing",
+          content: content,
+          element: $card,
+          section: "writing",
+        });
+      }
+    });
+
+    // Index certifications
+    $(".certCard").each(function () {
+      const $card = $(this);
+      const title = $card.find(".certTitle").text();
+      const issuer = $card.find(".certIssuer").text();
+      const content = $card.find(".certTopics").text();
+
+      if (title) {
+        searchableContent.push({
+          title: title,
+          subtitle: "Certification from " + issuer,
+          content: content,
+          element: $card,
+          section: "certifications",
+        });
+      }
+    });
+
+    // Index technical expertise
+    $(".expertiseCategory").each(function () {
+      const $cat = $(this);
+      const title = $cat.find(".expertiseTitle").text();
+      const content = $cat.find(".expertiseList").text().substring(0, 200);
+
+      if (title) {
+        searchableContent.push({
+          title: title,
+          subtitle: "Technical Expertise",
+          content: content,
+          element: $cat,
+          section: "resume",
+        });
+      }
+    });
   }
 
   indexContent();
@@ -232,9 +302,11 @@ $(document).ready(function () {
 
   // Typing Animation
   const phrases = [
-    "Engineering Self-Reflective RL for Finance",
-    "Optimizing High-Frequency Data Pipelines",
-    "Architecting Low-Latency Algorithmic Systems",
+    "Architecting Low-Latency Algorithmic Trading Systems",
+    "Engineering Self-Reflective RL for Financial Analytics",
+    "Optimizing Fixed Income Yield Curve Models",
+    "Building High-Performance Data Pipelines for Finance",
+    "Developing Machine Learning Solutions for Quant Finance",
   ];
   let phraseIndex = 0;
   let charIndex = 0;
