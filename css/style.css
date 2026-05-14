@@ -1553,14 +1553,14 @@ body.dark-mode .expertiseList li::before {
 }
 
 .filterItem {
-    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    background: #ffffff;
     width: 520px;
     min-height: 0;
     max-height: none;
     margin: 20px;
     display: none;
     border-radius: 8px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.08),
+    box-shadow: 0 12px 34px rgba(31, 41, 51, 0.09),
                 0 0 0 1px rgba(0,0,0,0.05);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     overflow-y: visible;
@@ -1588,7 +1588,7 @@ body.dark-mode .expertiseList li::before {
 
 .filterItem:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 44px rgba(74,111,165,0.18),
+    box-shadow: 0 18px 44px rgba(31, 41, 51, 0.14),
                 0 0 0 1px rgba(74,111,165,0.1);
 }
 
@@ -1611,22 +1611,27 @@ body.dark-mode .expertiseList li::before {
 .filterItemImg {
     vertical-align: top;
     width: 100%;
-    height: 230px;
+    height: 300px;
     object-fit: cover;
     border-radius: 8px 8px 0 0;
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    background: #f4f7fb;
+    border-bottom: 1px solid #dde6ef;
 }
 
 /* description */
 .filterItemDesc {
-    padding: 0 30px;
-    line-height: 22px;
+    padding: 0;
+    line-height: 1.65;
 }
 
 .filterItemName {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
     text-transform: uppercase;
+    line-height: 1.35;
+    margin: 0 0 14px 0;
+    letter-spacing: 0.04em;
 }
 
 .filterItemLink {
@@ -1660,16 +1665,16 @@ body.dark-mode .expertiseList li::before {
 
 /* Enhanced Portfolio Project Cards */
 .filterItemContent {
-    padding: 20px 30px 26px;
+    padding: 28px 34px 30px;
 }
 
 .filterItemProblem,
 .filterItemArchitecture,
 .filterItemResults {
     display: block;
-    margin: 12px 0;
-    line-height: 1.6;
-    font-size: 13px;
+    margin: 14px 0;
+    line-height: 1.65;
+    font-size: 14px;
 }
 
 .filterItemProblem strong,
@@ -1678,7 +1683,7 @@ body.dark-mode .expertiseList li::before {
     color: #3d5a85;
     font-weight: 700;
     display: inline-block;
-    min-width: 90px;
+    min-width: 78px;
 }
 
 body.dark-mode .filterItemProblem strong,
@@ -1736,8 +1741,16 @@ body.dark-mode .techBadge:hover {
 /* Mobile responsiveness for project cards */
 @media (max-width: 768px) {
     .filterItem {
-        min-height: 550px;
+        min-height: 0;
         max-height: none;
+    }
+
+    .filterItemImg {
+        height: 220px;
+    }
+
+    .filterItemContent {
+        padding: 24px 24px 28px;
     }
 
     .filterItemProblem strong,
@@ -2612,16 +2625,15 @@ a:focus-visible {
 .filterItem:nth-child(5) { animation-delay: 0.5s; }
 .filterItem:nth-child(6) { animation-delay: 0.6s; }
 
-/* IMAGE HOVER ZOOM */
 .filterItemImg {
-    transition: transform 0.25s ease;
+    transition: filter 0.25s ease;
     border-radius: 8px 8px 0 0;
     position: relative;
     z-index: 1;
 }
 
 .filterItem:hover .filterItemImg {
-    transform: scale(1.02);
+    filter: saturate(1.04) contrast(1.02);
 }
 
 .filterItemDesc {
