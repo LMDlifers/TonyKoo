@@ -302,11 +302,11 @@ $(document).ready(function () {
 
   // Typing Animation
   const phrases = [
-    "Architecting Low-Latency Algorithmic Trading Systems",
-    "Engineering Self-Reflective RL for Financial Analytics",
-    "Optimizing Fixed Income Yield Curve Models",
-    "Building High-Performance Data Pipelines for Finance",
-    "Developing Machine Learning Solutions for Quant Finance",
+    "Quantitative Developer & AI Data Systems Engineer",
+    "Building Agentic Analytics Systems",
+    "Engineering Privacy-Safe Data Workflows",
+    "Developing Fixed Income and Trading Tooling",
+    "Turning Complex Datasets into Decision Systems",
   ];
   let phraseIndex = 0;
   let charIndex = 0;
@@ -379,30 +379,6 @@ $(document).ready(function () {
   $(window).on("scroll", function () {
     const scrolled = $(window).scrollTop();
     $("#headerImage").css("transform", "translateY(" + scrolled * 0.5 + "px)");
-  });
-
-  // 3D Tilt Effect for Portfolio Cards
-  $(".filterItem").on("mousemove", function (e) {
-    const card = $(this);
-    const rect = this.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-
-    card.css({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
-    });
-  });
-
-  $(".filterItem").on("mouseleave", function () {
-    $(this).css({
-      transform: "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)",
-    });
   });
 
   // Smooth scroll to sections
