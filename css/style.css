@@ -39,10 +39,11 @@ html {
 }
 
 body {
-    font-size: 13px;
+    font-size: 15px;
     color: #333333;
     font-family: 'Lato', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0;
+    line-height: 1.6;
     background-color: #ffffff;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -610,13 +611,9 @@ img#headerImage {
     z-index: 10;
     width: 90%;
     max-width: 900px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px) saturate(180%);
-    padding: 60px 80px;
-    border-radius: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.3);
-    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0 40px;
+    border-radius: 0;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.55);
 }
 
 .heroTitle {
@@ -624,7 +621,7 @@ img#headerImage {
     font-size: 5rem;
     font-weight: 700;
     margin-bottom: 30px;
-    letter-spacing: 3px;
+    letter-spacing: 0;
     text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
     line-height: 1.2;
 }
@@ -665,16 +662,14 @@ img#headerImage {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(74, 111, 165, 0.5), rgba(162, 187, 221, 0.4));
-    padding: 20px 40px;
-    border-radius: 15px;
+    padding: 8px 0;
+    border-radius: 0;
     margin-top: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .typed-text {
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 0;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
@@ -685,6 +680,56 @@ img#headerImage {
     width: 4px;
     animation: blink 1s infinite;
     box-shadow: 0 0 10px rgba(162, 187, 221, 1);
+}
+
+.heroActions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.heroButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 132px;
+    min-height: 44px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.heroButton:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.heroButtonPrimary {
+    background: #F9A825;
+    color: #1f2933;
+    border: 1px solid #F9A825;
+}
+
+.heroButtonPrimary:hover {
+    color: #1f2933;
+    background: #ffd15c;
+}
+
+.heroButtonSecondary {
+    background: rgba(255,255,255,0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.75);
+}
+
+.heroButtonSecondary:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    background: rgba(255,255,255,0.2);
 }
 
 .hero-scroll-hint {
@@ -734,7 +779,7 @@ img#headerImage {
     }
 
     .heroOverlay {
-        padding: 40px 30px;
+        padding: 0 20px;
     }
 
     .heroTitle {
@@ -743,7 +788,7 @@ img#headerImage {
 
     .heroSubtitle {
         font-size: 1.3rem;
-        padding: 15px 20px;
+        padding: 8px 0;
     }
 
     .hero-scroll-hint {
@@ -1510,15 +1555,15 @@ body.dark-mode .expertiseList li::before {
 .filterItem {
     background: linear-gradient(145deg, #ffffff, #f8f9fa);
     width: 520px;
-    min-height: 650px;
-    max-height: 850px;
-    margin: 25px;
+    min-height: 0;
+    max-height: none;
+    margin: 20px;
     display: none;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1),
+    border-radius: 8px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08),
                 0 0 0 1px rgba(0,0,0,0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow-y: auto;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow-y: visible;
     overflow-x: hidden;
     position: relative;
 }
@@ -1533,7 +1578,7 @@ body.dark-mode .expertiseList li::before {
     background: linear-gradient(135deg, rgba(74,111,165,0.05), rgba(162,187,221,0.05));
     opacity: 0;
     transition: opacity 0.4s ease;
-    border-radius: 20px;
+    border-radius: 8px;
     z-index: 0;
 }
 
@@ -1542,8 +1587,8 @@ body.dark-mode .expertiseList li::before {
 }
 
 .filterItem:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 60px rgba(74,111,165,0.25),
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(74,111,165,0.18),
                 0 0 0 1px rgba(74,111,165,0.1);
 }
 
@@ -1551,7 +1596,7 @@ body.dark-mode .expertiseList li::before {
     .filterItem {
         width: 90%;
         height: auto;
-        min-height: 600px;
+        min-height: 0;
         margin: 20px auto;
     }
 }
@@ -1566,7 +1611,9 @@ body.dark-mode .expertiseList li::before {
 .filterItemImg {
     vertical-align: top;
     width: 100%;
-    border-radius: 8px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
     margin-bottom: 20px;
 }
 
@@ -1613,7 +1660,7 @@ body.dark-mode .expertiseList li::before {
 
 /* Enhanced Portfolio Project Cards */
 .filterItemContent {
-    padding: 20px 30px;
+    padding: 20px 30px 26px;
 }
 
 .filterItemProblem,
@@ -1715,14 +1762,7 @@ body.dark-mode .techBadge:hover {
 }
 
 .testimonialsSection::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(74,111,165,0.08) 0%, transparent 70%);
-    border-radius: 50%;
+    content: none;
 }
 
 body.dark-mode .testimonialsSection {
@@ -1731,11 +1771,11 @@ body.dark-mode .testimonialsSection {
 
 .testimonialCard {
     background: white;
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 35px 30px;
     margin: 20px 0;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     position: relative;
     min-height: 350px;
     display: flex;
@@ -1751,14 +1791,14 @@ body.dark-mode .testimonialsSection {
     right: 0;
     height: 5px;
     background: linear-gradient(90deg, #3d5a85, #A2BBDD);
-    border-radius: 20px 20px 0 0;
+    border-radius: 8px 8px 0 0;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .testimonialCard:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(74,111,165,0.25);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(74,111,165,0.18);
 }
 
 .testimonialCard:hover::before {
@@ -1882,11 +1922,11 @@ body.dark-mode .writingSection {
 
 .writingCard {
     background: white;
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 30px;
     margin: 20px 0;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -1912,8 +1952,8 @@ body.dark-mode .writingSection {
 }
 
 .writingCard:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(74,111,165,0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 34px rgba(74,111,165,0.16);
 }
 
 body.dark-mode .writingCard {
@@ -1925,7 +1965,7 @@ body.dark-mode .writingCard {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, #3d5a85, #A2BBDD);
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2059,7 +2099,7 @@ body.dark-mode .certificationsSection {
 
 .certCard {
     background: white;
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 30px;
     margin: 20px 0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -2100,7 +2140,7 @@ body.dark-mode .certCard {
     width: 70px;
     height: 70px;
     background: linear-gradient(135deg, #3d5a85, #A2BBDD);
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2574,14 +2614,14 @@ a:focus-visible {
 
 /* IMAGE HOVER ZOOM */
 .filterItemImg {
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 20px 20px 0 0;
+    transition: transform 0.25s ease;
+    border-radius: 8px 8px 0 0;
     position: relative;
     z-index: 1;
 }
 
 .filterItem:hover .filterItemImg {
-    transform: scale(1.08);
+    transform: scale(1.02);
 }
 
 .filterItemDesc {
