@@ -2,7 +2,7 @@ $(document).ready(function () {
   const prefersReducedMotion = window.matchMedia
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
-  const scrollAnimationDuration = prefersReducedMotion ? 0 : 320;
+  const scrollAnimationDuration = prefersReducedMotion ? 0 : 220;
   const scrollOffset = 16;
 
   function scrollToTarget(target, duration = scrollAnimationDuration) {
@@ -43,6 +43,8 @@ $(document).ready(function () {
   const loadingFact = $("#loadingFact");
   let loadingFactIndex = Math.floor(Math.random() * loadingFacts.length);
   let loadingFactTimer;
+
+  $(".filterItemImg").attr("loading", "lazy").attr("decoding", "async");
   let loadingScreenHidden = false;
   const loadingStartedAt = Date.now();
   const minimumLoadingTime = prefersReducedMotion ? 0 : 650;
@@ -179,17 +181,19 @@ $(document).ready(function () {
     });
 
     // Index reading and research diet
-    $(".readingCluster").each(function () {
-      const $card = $(this);
-      const title = $card.find("h3").text();
-      const content = $card.text().replace(/\s+/g, " ").trim().substring(0, 260);
+    $(".bookThumb").each(function () {
+      const $book = $(this);
+      const title = $book.data("title");
+      const author = $book.data("author");
+      const theme = $book.data("theme");
+      const takeaway = $book.data("takeaway");
 
       if (title) {
         searchableContent.push({
           title: title,
-          subtitle: "Reading & Research Diet",
-          content: content,
-          element: $card,
+          subtitle: "Book: " + author,
+          content: [theme, author, takeaway].join(" "),
+          element: $book.closest(".bookCarousel"),
           section: "reading",
         });
       }
@@ -495,6 +499,199 @@ $(document).ready(function () {
     });
   }
 
+  // Consolidated project flashcard deck
+  const projectDeck = $("[data-project-deck]");
+  if (projectDeck.length) {
+    const categoryLabels = {
+      ai: "AI",
+      quant: "Quant",
+      data: "Data",
+      apps: "Apps",
+      research: "Research",
+    };
+    const projectDeckCard = projectDeck.find(".projectDeckCard");
+    const projectDeckImage = $("#projectDeckImage");
+    const projectDeckCategories = $("#projectDeckCategories");
+    const projectDeckTitle = $("#projectDeckTitle");
+    const projectDeckProblem = $("#projectDeckProblem");
+    const projectDeckBuilt = $("#projectDeckBuilt");
+    const projectDeckEvidence = $("#projectDeckEvidence");
+    const projectDeckTech = $("#projectDeckTech");
+    const projectDeckLink = $("#projectDeckLink");
+    const projectDeckCounter = $("#projectDeckCounter");
+    const projectDeckRail = $("#projectDeckRail");
+    const projectGridWrap = $("#projectGridWrap");
+    const projectGridToggle = $("#projectGridToggle");
+    let activeProjectIndex = 0;
+    let visibleProjects = [];
+
+    function cleanProjectText($element, label) {
+      return $element.text().replace(/\s+/g, " ").replace(new RegExp("^" + label + ":\\s*", "i"), "").trim();
+    }
+
+    const projectData = $(".filterItem")
+      .map(function (index) {
+        const $project = $(this);
+        const $image = $project.find(".filterItemImg").first();
+        const $primaryLink = $project.find(".filterItemReport .filterItemLink").first().length
+          ? $project.find(".filterItemReport .filterItemLink").first()
+          : $project.find(".filterItemLink").first();
+        const categories = Object.keys(categoryLabels).filter(function (category) {
+          return $project.hasClass(category);
+        });
+
+        return {
+          index: index,
+          title: cleanProjectText($project.find(".filterItemName").first(), ""),
+          image: $image.attr("src") || "",
+          imageAlt: $image.attr("alt") || "",
+          categories: categories,
+          problem: cleanProjectText($project.find(".filterItemProblem").first(), "Problem"),
+          built: cleanProjectText($project.find(".filterItemArchitecture").first(), "Built"),
+          evidence: cleanProjectText($project.find(".filterItemResults").first(), "Evidence"),
+          tech: $project.find(".techBadge").map(function () {
+            return $(this).text().trim();
+          }).get(),
+          linkHref: $primaryLink.attr("href") || "",
+          linkText: cleanProjectText($primaryLink, "") || "Open project detail",
+        };
+      })
+      .get();
+
+    function matchesProjectFilter(project, filter) {
+      return !filter || filter === "all" || project.categories.indexOf(filter) > -1;
+    }
+
+    function isExternalProjectLink(href) {
+      return /^https?:\/\//i.test(href);
+    }
+
+    function renderProjectRail() {
+      projectDeckRail.empty();
+
+      visibleProjects.forEach(function (project, index) {
+        const thumb = $("<button>", {
+          type: "button",
+          class: "projectDeckThumb",
+          text: project.title,
+          "aria-label": "Show " + project.title,
+        });
+
+        if (index === activeProjectIndex) {
+          thumb.addClass("active").attr("aria-current", "true");
+        }
+
+        thumb.on("click", function () {
+          const direction = index < activeProjectIndex ? "backward" : "forward";
+          activeProjectIndex = index;
+          renderProjectCard(direction);
+        });
+
+        projectDeckRail.append(thumb);
+      });
+    }
+
+    function renderProjectCard(direction) {
+      if (!visibleProjects.length) {
+        projectDeck.addClass("is-empty");
+        return;
+      }
+
+      const project = visibleProjects[activeProjectIndex];
+      const flipClass = direction === "backward" ? "flip-backward" : "flip-forward";
+
+      projectDeck.removeClass("is-empty");
+      projectDeckCard.removeClass("flip-forward flip-backward");
+      void projectDeckCard[0].offsetWidth;
+      projectDeckCard.addClass(flipClass);
+
+      projectDeckImage.attr({
+        src: project.image,
+        alt: project.imageAlt || project.title,
+      });
+      projectDeckCategories.empty();
+      project.categories.forEach(function (category) {
+        projectDeckCategories.append(
+          $("<span>", {
+            class: "projectDeckCategory",
+            text: categoryLabels[category] || category,
+          })
+        );
+      });
+      projectDeckTitle.text(project.title);
+      projectDeckProblem.text(project.problem || "See the full card for project context.");
+      projectDeckBuilt.text(project.built || "See the full card for implementation details.");
+      projectDeckEvidence.text(project.evidence || "See the full card for public evidence boundaries.");
+      projectDeckTech.empty();
+      project.tech.slice(0, 7).forEach(function (tech) {
+        projectDeckTech.append($("<span>", { text: tech }));
+      });
+
+      if (project.linkHref) {
+        projectDeckLink.removeClass("is-hidden").attr("href", project.linkHref).text(project.linkText);
+        if (isExternalProjectLink(project.linkHref)) {
+          projectDeckLink.attr({
+            target: "_blank",
+            rel: "noopener",
+          });
+        } else {
+          projectDeckLink.removeAttr("target").removeAttr("rel");
+        }
+      } else {
+        projectDeckLink.addClass("is-hidden").attr("href", "#").removeAttr("target").removeAttr("rel");
+      }
+
+      projectDeckCounter.text(activeProjectIndex + 1 + " / " + visibleProjects.length);
+      renderProjectRail();
+    }
+
+    function moveProject(delta) {
+      if (!visibleProjects.length) return;
+
+      activeProjectIndex = (activeProjectIndex + delta + visibleProjects.length) % visibleProjects.length;
+      renderProjectCard(delta < 0 ? "backward" : "forward");
+    }
+
+    window.updateProjectDeckFilter = function (filter) {
+      visibleProjects = projectData.filter(function (project) {
+        return matchesProjectFilter(project, filter);
+      });
+      activeProjectIndex = 0;
+      renderProjectCard("forward");
+    };
+
+    projectDeck.find(".projectDeckPrev").on("click", function () {
+      moveProject(-1);
+    });
+
+    projectDeck.find(".projectDeckNext").on("click", function () {
+      moveProject(1);
+    });
+
+    projectDeck.on("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        moveProject(-1);
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        moveProject(1);
+      }
+    });
+
+    projectDeck.attr("tabindex", "0");
+    projectGridWrap.addClass("projectGridCollapsed");
+    projectGridToggle.on("click", function () {
+      const expanded = $(this).attr("aria-expanded") === "true";
+      $(this).attr("aria-expanded", String(!expanded));
+      projectGridWrap.toggleClass("projectGridCollapsed", expanded);
+      $(this).text(expanded ? "View all project cards" : "Hide full project grid");
+    });
+
+    window.updateProjectDeckFilter("all");
+  }
+
   // Typing Animation
   const phrases = [
     "Quantitative Developer & AI Data Systems Engineer",
@@ -595,20 +792,14 @@ $(document).ready(function () {
 
   // Sticky navigation
   const nav = $("#navigation");
-  const navTop = nav.offset().top;
 
   $(window).on("scroll", stickyNavigation);
 
   function stickyNavigation() {
-    const body = $("body");
-    if ($(window).scrollTop() >= navTop) {
-      body.css("padding-top", nav.outerHeight() + "px");
-      body.addClass("fixedNav");
-    } else {
-      body.css("padding-top", 0);
-      body.removeClass("fixedNav");
-    }
+    $("body").toggleClass("fixedNav", $(window).scrollTop() > 4);
   }
+
+  stickyNavigation();
 
   // Add smooth reveal on scroll
   const observer = new IntersectionObserver(
@@ -628,7 +819,7 @@ $(document).ready(function () {
   );
 
   // Observe all resume subsections for fade-in effect
-  document.querySelectorAll(".resumeSubsection, .filterItem, .readingCluster").forEach((el) => {
+  document.querySelectorAll(".resumeSubsection, .filterItem, .bookCarousel").forEach((el) => {
     observer.observe(el);
   });
 
@@ -682,12 +873,25 @@ $(document).ready(function () {
 filterSelection("all");
 
 function filterSelection(c) {
+  var requestedFilter = c;
   var x = document.getElementsByClassName("filterItem");
+  var projectIndexRows = document.getElementsByClassName("projectIndexRow");
   if (c == "all") c = "";
 
   for (var i = 0; i < x.length; i++) {
     removeClass(x[i], "show");
     if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
+  }
+
+  for (var j = 0; j < projectIndexRows.length; j++) {
+    removeClass(projectIndexRows[j], "projectIndexHidden");
+    if (c && !projectIndexRows[j].classList.contains(c)) {
+      addClass(projectIndexRows[j], "projectIndexHidden");
+    }
+  }
+
+  if (typeof window.updateProjectDeckFilter === "function") {
+    window.updateProjectDeckFilter(requestedFilter);
   }
 }
 

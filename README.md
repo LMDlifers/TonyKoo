@@ -86,9 +86,11 @@ TonyKoo/
 - Added curated figure galleries using light-background architecture recreations plus extracted report graphs and
   evaluation tables where they provide stronger evidence, while excluding full pages, raw submission metadata, private
   UI/account details, and third-party research-paper scans.
+- Added a consolidated Featured Projects flashcard deck so visitors can browse filtered projects without scrolling
+  through every long-form card, while keeping the full grid available on demand.
 - Updated the resume asset and removed stale duplicate/raw report PDFs from the public `files/` directory.
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
-- Added a professional Reading & Research Diet section covering books and recurring research sources that inform market,
+- Added a professional Reading & Research Diet section covering books and reading themes that inform market,
   geopolitics, behavioral science, AI, and systems thinking.
 - Added an interactive bookshelf carousel with cover imagery, arrow navigation, keyboard support, and flip-style
   transitions for the selected book.

@@ -572,7 +572,190 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center itemsContainer">
+            <div class="projectDeck" data-project-deck aria-label="Project flashcard browser">
+                <div class="projectDeckHeader">
+                    <div>
+                        <p class="projectDeckEyebrow">Project Deck</p>
+                        <h3>Fast scan of technical evidence</h3>
+                    </div>
+                    <div class="projectDeckControls" aria-label="Project deck controls">
+                        <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="projectDeckCounter" class="projectDeckCounter">1 / 1</span>
+                        <button class="projectDeckNav projectDeckNext" type="button" aria-label="Next project">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <article class="projectDeckCard" aria-live="polite">
+                    <div class="projectDeckMedia">
+                        <img id="projectDeckImage" src="images/portfolio/healthcare_agentic.png"
+                            alt="Agentic healthcare analytics architecture">
+                    </div>
+                    <div class="projectDeckContent">
+                        <div id="projectDeckCategories" class="projectDeckCategories"></div>
+                        <h3 id="projectDeckTitle">Agentic Healthcare Analytics Chatbot</h3>
+                        <div class="projectDeckRows">
+                            <div>
+                                <span>Problem</span>
+                                <p id="projectDeckProblem">Clinical and research users need auditable healthcare data
+                                    workflows.</p>
+                            </div>
+                            <div>
+                                <span>Built</span>
+                                <p id="projectDeckBuilt">Multi-agent analytics workflow with routing, SQL, statistics,
+                                    charts, and human review.</p>
+                            </div>
+                            <div>
+                                <span>Evidence</span>
+                                <p id="projectDeckEvidence">Sanitized capstone-backed summary with private data
+                                    excluded.</p>
+                            </div>
+                        </div>
+                        <div id="projectDeckTech" class="projectDeckTech"></div>
+                        <div class="projectDeckActions">
+                            <a id="projectDeckLink" class="projectDeckLink" href="#">
+                                Open project detail
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <div id="projectDeckRail" class="projectDeckRail" aria-label="Select a project"></div>
+
+                <button id="projectGridToggle" class="projectGridToggle" type="button" aria-expanded="false"
+                    aria-controls="projectGridWrap">
+                    View all project cards
+                </button>
+            </div>
+
+            <section class="projectEvidenceIndex" aria-label="Project evidence index">
+                <div class="projectEvidenceIntro">
+                    <p class="projectDeckEyebrow">Evidence Index</p>
+                    <h3>Scanner-friendly project map</h3>
+                    <p>
+                        A compact view of domain, implementation signal, stack, and public evidence boundaries.
+                    </p>
+                </div>
+                <div class="projectIndexList">
+                    <article class="projectIndexRow ai data research">
+                        <div>
+                            <span class="projectIndexName">Agentic Healthcare Analytics Chatbot</span>
+                            <span class="projectIndexDomain">Healthcare AI</span>
+                        </div>
+                        <p>Multi-agent analytics workflow for natural-language SQL, schema grounding, statistical review,
+                            chart generation, and human-in-the-loop auditability.</p>
+                        <p>LangGraph, SQL, DuckDB, OMOP CDM, ClinicalBERT, FAISS, Responsible AI.</p>
+                        <a href="reports/agentic-healthcare-analytics.html">Case study</a>
+                    </article>
+                    <article class="projectIndexRow ai data research">
+                        <div>
+                            <span class="projectIndexName">Judicial Analytics: Legal NLP</span>
+                            <span class="projectIndexDomain">Legal AI</span>
+                        </div>
+                        <p>Leakage-aware legal NLP pipeline that converts lengthy judgments into structured case-level
+                            features and evaluation-ready records.</p>
+                        <p>Legal-BERT, XGBoost, HAN, JSON QA, target-leakage audits, feature engineering.</p>
+                        <a href="reports/judicial-analytics-legal-nlp.html">Case study</a>
+                    </article>
+                    <article class="projectIndexRow ai research">
+                        <div>
+                            <span class="projectIndexName">Self-RL &amp; RAG Extraction Pipelines</span>
+                            <span class="projectIndexDomain">LLM Systems</span>
+                        </div>
+                        <p>RAG extraction architecture with Transformers, LangChain, FAISS caching, OCR review, and
+                            iterative self-reflection loops for structured output quality.</p>
+                        <p>Python, reinforcement learning, RAG, LLMs, FAISS, asyncio.</p>
+                        <span class="projectIndexBoundary">Public summary only</span>
+                    </article>
+                    <article class="projectIndexRow quant data">
+                        <div>
+                            <span class="projectIndexName">IBKR Algorithmic Trading Bot</span>
+                            <span class="projectIndexDomain">Quant Engineering</span>
+                        </div>
+                        <p>Automated trading prototype with Interactive Brokers connectivity, order lifecycle handling,
+                            backtesting, risk controls, and walk-forward optimization.</p>
+                        <p>Python, IBKR API, backtesting, pandas, NumPy, threading.</p>
+                        <a href="https://github.com/Nicholas-Cheng-De-Fei/Trading-Algo" target="_blank"
+                            rel="noopener">Repository</a>
+                    </article>
+                    <article class="projectIndexRow apps research">
+                        <div>
+                            <span class="projectIndexName">RentLock Escrow dApp</span>
+                            <span class="projectIndexDomain">Web3 Product</span>
+                        </div>
+                        <p>Smart-contract rental deposit workflow covering escrow state transitions, ERC-20 deposits,
+                            dispute escalation, verifier logic, and frontend-contract integration.</p>
+                        <p>Smart contracts, ERC-20, MetaMask, IPFS concepts, mechanism design.</p>
+                        <a href="reports/rentlock-escrow-dapp.html">Case study</a>
+                    </article>
+                    <article class="projectIndexRow apps data">
+                        <div>
+                            <span class="projectIndexName">Smoodee Sustainable Food Tech</span>
+                            <span class="projectIndexDomain">Startup Operations</span>
+                        </div>
+                        <p>Food-tech venture work spanning sustainable supply-chain planning, business analytics,
+                            product positioning, and web presence for customer acquisition.</p>
+                        <p>Entrepreneurship, supply chain, web development, analytics, sustainability.</p>
+                        <a href="https://smoodee.sg/" target="_blank" rel="noopener">Website</a>
+                    </article>
+                    <article class="projectIndexRow data research">
+                        <div>
+                            <span class="projectIndexName">Loan Default Analytics Pipeline</span>
+                            <span class="projectIndexDomain">Credit Risk</span>
+                        </div>
+                        <p>End-to-end credit-risk workflow covering ETL, feature engineering, model comparison,
+                            calibration, explainability, and business-facing risk communication.</p>
+                        <p>Python, PySpark, Apache Spark, Tableau, MySQL, ETL pipelines.</p>
+                        <a href="reports/loan-default-analytics.html">Case study</a>
+                    </article>
+                    <article class="projectIndexRow apps data">
+                        <div>
+                            <span class="projectIndexName">FairTracker Event Analytics Platform</span>
+                            <span class="projectIndexDomain">Geospatial App</span>
+                        </div>
+                        <p>Full-stack event discovery application with mapping, geolocation, event persistence,
+                            filtering, authentication, and crowd analytics boundaries.</p>
+                        <p>JavaScript, Google Maps API, Bootstrap, MySQL, REST APIs, geospatial data.</p>
+                        <span class="projectIndexBoundary">Public summary only</span>
+                    </article>
+                    <article class="projectIndexRow apps">
+                        <div>
+                            <span class="projectIndexName">WelfareHome Social Impact Platform</span>
+                            <span class="projectIndexDomain">Care Services</span>
+                        </div>
+                        <p>Responsive full-stack platform for appointment booking, resource management,
+                            role-based access control, and caregiver-family communication flows.</p>
+                        <p>Full-stack development, MySQL, Bootstrap, REST APIs, UX design.</p>
+                        <span class="projectIndexBoundary">Public summary only</span>
+                    </article>
+                    <article class="projectIndexRow quant data">
+                        <div>
+                            <span class="projectIndexName">Fixed Income Yield Curve Modeling</span>
+                            <span class="projectIndexDomain">Financial Engineering</span>
+                        </div>
+                        <p>Quantitative toolkit for bond pricing, yield curve construction, duration, convexity,
+                            scenario analysis, and spreadsheet-assisted fixed-income workflows.</p>
+                        <p>Python, NumPy, SciPy, VBA, fixed income, quantitative finance.</p>
+                        <span class="projectIndexBoundary">Public summary only</span>
+                    </article>
+                    <article class="projectIndexRow quant apps">
+                        <div>
+                            <span class="projectIndexName">Black-Scholes Options Analytics Dashboard</span>
+                            <span class="projectIndexDomain">Derivatives Analytics</span>
+                        </div>
+                        <p>Interactive options analytics dashboard covering Black-Scholes pricing, Greeks,
+                            volatility sensitivity, payoff visualization, and scenario testing.</p>
+                        <p>Python, pandas, NumPy, Streamlit, Plotly, stochastic calculus, options theory.</p>
+                        <span class="projectIndexBoundary">Public summary only</span>
+                    </article>
+                </div>
+            </section>
+
+            <div id="projectGridWrap" class="projectGridWrap">
+                <div class="row justify-content-center itemsContainer">
                 <!-- Agentic Healthcare Analytics -->
                 <div class="item">
                     <div class="filterItem ai data research">
@@ -1309,83 +1492,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <article class="readingCluster">
-                        <div class="readingClusterHeader">
-                            <span class="readingIcon"><i class="fas fa-globe-asia"></i></span>
-                            <div>
-                                <h3>Geopolitics &amp; Institutions</h3>
-                                <p>Power, statecraft, political memory, and institutional incentives.</p>
-                            </div>
-                        </div>
-                        <ul class="readingList">
-                            <li><span>On China</span><small>Henry Kissinger</small></li>
-                            <li><span>The Art of War</span><small>Sun Tzu</small></li>
-                            <li><span>1984</span><small>George Orwell</small></li>
-                            <li><span>1000 Years of Joys and Sorrows</span><small>Ai Weiwei</small></li>
-                            <li><span>In Order to Live</span><small>Yeonmi Park</small></li>
-                        </ul>
-                    </article>
-                </div>
-
-                <div class="col-md-6">
-                    <article class="readingCluster">
-                        <div class="readingClusterHeader">
-                            <span class="readingIcon"><i class="fas fa-chart-line"></i></span>
-                            <div>
-                                <h3>Markets &amp; Cycles</h3>
-                                <p>Credit cycles, market psychology, bubbles, policy regimes, and risk-taking.</p>
-                            </div>
-                        </div>
-                        <ul class="readingList">
-                            <li><span>Irrational Exuberance</span><small>Robert J. Shiller</small></li>
-                            <li><span>The Intelligent Investor</span><small>Benjamin Graham</small></li>
-                            <li><span>A Random Walk Down Wall Street</span><small>Burton G. Malkiel</small></li>
-                            <li><span>One Up On Wall Street</span><small>Peter Lynch</small></li>
-                            <li><span>Principles</span><small>Ray Dalio</small></li>
-                            <li><span>The Changing World Order</span><small>Ray Dalio</small></li>
-                        </ul>
-                    </article>
-                </div>
-
-                <div class="col-md-6">
-                    <article class="readingCluster">
-                        <div class="readingClusterHeader">
-                            <span class="readingIcon"><i class="fas fa-brain"></i></span>
-                            <div>
-                                <h3>Decision-Making &amp; Human Behavior</h3>
-                                <p>Judgment, asymmetry, cognitive bias, outliers, and non-obvious advantage.</p>
-                            </div>
-                        </div>
-                        <ul class="readingList">
-                            <li><span>Thinking, Fast and Slow</span><small>Daniel Kahneman</small></li>
-                            <li><span>Outliers</span><small>Malcolm Gladwell</small></li>
-                            <li><span>David and Goliath</span><small>Malcolm Gladwell</small></li>
-                        </ul>
-                    </article>
-                </div>
-
-                <div class="col-md-6">
-                    <article class="readingCluster researchSources">
-                        <div class="readingClusterHeader">
-                            <span class="readingIcon"><i class="fas fa-rss"></i></span>
-                            <div>
-                                <h3>Research Sources I Follow</h3>
-                                <p>Recurring inputs for macro context, AI tooling, markets, and community signal.</p>
-                            </div>
-                        </div>
-                        <div class="sourceGrid">
-                            <span>GIC ThinkSpace</span>
-                            <span>Bridgewater Associates</span>
-                            <span>Hugging Face</span>
-                            <span>The Economist</span>
-                            <span>Reuters</span>
-                            <span>Reddit, selectively</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1548,6 +1654,7 @@
                         </a>
                     </article>
                 </div>
+            </div>
             </div>
         </div>
     </section>
