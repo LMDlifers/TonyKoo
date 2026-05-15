@@ -88,6 +88,8 @@ TonyKoo/
   UI/account details, and third-party research-paper scans.
 - Updated the resume asset and removed stale duplicate/raw report PDFs from the public `files/` directory.
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
+- Added a professional Reading & Research Diet section covering books and recurring research sources that inform market,
+  geopolitics, behavioral science, AI, and systems thinking.
 - Removed placeholder LinkedIn/mobile links until verified public URLs are available.
 - Tightened project claims so metrics are only used when backed by resume/source material.
 
