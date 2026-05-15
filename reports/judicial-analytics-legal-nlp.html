@@ -205,6 +205,49 @@
         </section>
 
         <section class="reportSection">
+            <h2>Original Figure Gallery</h2>
+            <p>
+                The figures below are selected directly from the original judicial analytics report because they make the
+                modelling approach easier to inspect. Raw judgment screenshots, case pages, and report metadata are not
+                published.
+            </p>
+            <div class="sourceFigureGrid">
+                <figure class="sourceFigure sourceFigureFull">
+                    <img src="../images/reports/judicial_extraction_architecture_original.png"
+                        alt="Original legal NLP extraction architecture diagram">
+                    <figcaption>
+                        <strong>Extraction, audit, and label-validation pipeline.</strong> Shows the staged path from
+                        raw PDF court judgments to ML-ready structured JSON.
+                    </figcaption>
+                </figure>
+                <figure class="sourceFigure">
+                    <img src="../images/reports/judicial_baseline_models_original.png"
+                        alt="Original LegalBERT and XGBoost model baseline diagram">
+                    <figcaption>
+                        <strong>Baseline model comparison.</strong> Documents the LegalBERT embedding flow and XGBoost
+                        ensemble baseline used before the custom HAN framing.
+                    </figcaption>
+                </figure>
+                <figure class="sourceFigure">
+                    <img src="../images/reports/judicial_case_level_aggregation_original.png"
+                        alt="Original case-level aggregation table">
+                    <figcaption>
+                        <strong>Case-level aggregation logic.</strong> Shows how row-level risk predictions were rolled
+                        up differently for XGBoost, BERT classifier, and HAN outputs.
+                    </figcaption>
+                </figure>
+                <figure class="sourceFigure sourceFigureFull">
+                    <img src="../images/reports/judicial_han_architecture_original.png"
+                        alt="Original hierarchical attention network architecture diagram">
+                    <figcaption>
+                        <strong>HAN architecture figure.</strong> Preserves the report's main modelling idea: late
+                        fusion over fact, issue, rule, court, and judge representations.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Pipeline Design</h2>
             <h3>1. Text Ingestion and Normalization</h3>
             <p>
