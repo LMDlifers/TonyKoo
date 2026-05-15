@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Judicial analytics extraction architecture</title>
+  <desc id="desc">Light-background architecture diagram for converting court judgment PDFs into audited machine-learning rows while controlling label leakage.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38506a"/></marker>
+    <style>
+      .bg{fill:#fbfbf7}.panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}.stage{fill:#f5f9fd;stroke:#d7e2ee}.node{fill:#fff;stroke:#9fb3c8;stroke-width:1.5}.blue{fill:#eaf4ff;stroke:#79aee8}.green{fill:#ecf8ef;stroke:#74be88}.amber{fill:#fff6df;stroke:#d8b963}.red{fill:#fff0f0;stroke:#d78080}.purple{fill:#f2edff;stroke:#9b83dd}.line{stroke:#38506a;stroke-width:2.1;fill:none;marker-end:url(#arrow)}.dash{stroke:#90a2b5;stroke-width:1.7;fill:none;stroke-dasharray:7 6;marker-end:url(#arrow)}.title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}.label{fill:#1f3145;font-family:Arial,sans-serif;font-size:15px;font-weight:700}.small{fill:#42566c;font-family:Arial,sans-serif;font-size:12.5px;font-weight:600}.tiny{fill:#54687e;font-family:Arial,sans-serif;font-size:11.5px;font-weight:600}.tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="760"/>
+  <rect class="panel" x="34" y="32" width="1212" height="696" rx="18"/>
+  <text class="title" x="64" y="78">Judicial Analytics Extraction and Audit Pipeline</text>
+  <text class="small" x="64" y="104">Court judgments are converted into model-ready rows through staged extraction, leakage controls, and validation checks.</text>
+
+  <rect class="stage" x="72" y="140" width="226" height="490" rx="12"/>
+  <text class="tag" x="96" y="170">Raw legal corpus</text>
+  <rect class="node blue" x="106" y="205" width="158" height="62" rx="8"/>
+  <text class="label" x="142" y="231">Judgment</text>
+  <text class="small" x="154" y="249">PDFs</text>
+  <rect class="node" x="106" y="320" width="158" height="62" rx="8"/>
+  <text class="label" x="136" y="346">Text Parser</text>
+  <text class="small" x="126" y="364">pages, headings</text>
+  <rect class="node amber" x="106" y="435" width="158" height="62" rx="8"/>
+  <text class="label" x="132" y="461">Metadata</text>
+  <text class="small" x="126" y="479">court, dates, roles</text>
+  <path class="line" d="M185 267 V320"/><path class="line" d="M185 382 V435"/>
+
+  <rect class="stage" x="336" y="140" width="256" height="490" rx="12"/>
+  <text class="tag" x="360" y="170">Structured extraction</text>
+  <rect class="node purple" x="382" y="205" width="164" height="62" rx="8"/>
+  <text class="label" x="424" y="231">Fact Blocks</text>
+  <text class="small" x="411" y="249">pre-decision text</text>
+  <rect class="node purple" x="382" y="320" width="164" height="62" rx="8"/>
+  <text class="label" x="422" y="346">Issue Blocks</text>
+  <text class="small" x="408" y="364">claims and disputes</text>
+  <rect class="node purple" x="382" y="435" width="164" height="62" rx="8"/>
+  <text class="label" x="426" y="461">Rule Blocks</text>
+  <text class="small" x="409" y="479">legal principles</text>
+  <path class="line" d="M264 351 H382"/>
+
+  <rect class="stage" x="630" y="140" width="256" height="490" rx="12"/>
+  <text class="tag" x="654" y="170">Leakage and quality controls</text>
+  <rect class="node red" x="676" y="205" width="164" height="62" rx="8"/>
+  <text class="label" x="704" y="231">Temporal Cut</text>
+  <text class="small" x="694" y="249">remove outcome clues</text>
+  <rect class="node amber" x="676" y="320" width="164" height="62" rx="8"/>
+  <text class="label" x="710" y="346">Validators</text>
+  <text class="small" x="696" y="364">schema and bounds</text>
+  <rect class="node green" x="676" y="435" width="164" height="62" rx="8"/>
+  <text class="label" x="708" y="461">Audit Sample</text>
+  <text class="small" x="701" y="479">manual spot check</text>
+  <path class="line" d="M546 236 H676"/><path class="line" d="M546 351 H676"/><path class="line" d="M546 466 H676"/>
+  <path class="line" d="M758 267 V320"/><path class="line" d="M758 382 V435"/>
+
+  <rect class="stage" x="924" y="140" width="256" height="490" rx="12"/>
+  <text class="tag" x="948" y="170">Model-ready artifacts</text>
+  <rect class="node green" x="970" y="205" width="164" height="62" rx="8"/>
+  <text class="label" x="1001" y="231">Party Rows</text>
+  <text class="small" x="999" y="249">one claim context</text>
+  <rect class="node green" x="970" y="320" width="164" height="62" rx="8"/>
+  <text class="label" x="1008" y="346">JSONL Set</text>
+  <text class="small" x="998" y="364">features and labels</text>
+  <rect class="node blue" x="970" y="435" width="164" height="62" rx="8"/>
+  <text class="label" x="1000" y="461">Experiment</text>
+  <text class="small" x="1005" y="479">train/test splits</text>
+  <path class="line" d="M840 466 H970"/><path class="line" d="M1052 267 V320"/><path class="line" d="M1052 382 V435"/>
+
+  <rect class="panel" x="122" y="658" width="1036" height="42" rx="8"/>
+  <text class="small" x="146" y="684">Key portfolio signal: the project is not just model fitting; it shows data engineering, legal-text structure, validation, and leakage-aware ML design.</text>
+</svg>

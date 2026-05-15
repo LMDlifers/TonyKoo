@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic healthcare analytics pipeline</title>
+  <desc id="desc">Light-background architecture diagram showing how a clinical analytics question moves through intent routing, grounding, planning, SQL generation, feature engineering, statistical analysis, human review, and final answer composition.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#38506a"/>
+    </marker>
+    <style>
+      .bg{fill:#fbfbf7}.panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}.lane{fill:#f4f8fc;stroke:#d7e2ee;stroke-width:1.2}.node{fill:#fff;stroke:#9fb3c8;stroke-width:1.6}.blue{fill:#eaf4ff;stroke:#79aee8}.green{fill:#ecf8ef;stroke:#74be88}.amber{fill:#fff6df;stroke:#d8b963}.red{fill:#fff0f0;stroke:#d78080}.purple{fill:#f2edff;stroke:#9b83dd}.line{stroke:#38506a;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.soft{stroke:#9aaabc;stroke-width:1.6;fill:none;stroke-dasharray:7 6;marker-end:url(#arrow)}.title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}.label{fill:#1f3145;font-family:Arial,sans-serif;font-size:16px;font-weight:700}.small{fill:#42566c;font-family:Arial,sans-serif;font-size:13px;font-weight:600}.tiny{fill:#54687e;font-family:Arial,sans-serif;font-size:12px;font-weight:600}.tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="760"/>
+  <rect class="panel" x="34" y="32" width="1212" height="696" rx="18"/>
+  <text class="title" x="64" y="78">Agentic Healthcare Analytics Pipeline</text>
+  <text class="small" x="64" y="105">Portfolio recreation of the capstone pipeline: decomposed agents, grounded vocabulary, auditable SQL, and human review gates.</text>
+
+  <rect class="lane" x="64" y="136" width="1152" height="118" rx="12"/>
+  <text class="tag" x="86" y="166">1. Intake and grounding</text>
+  <rect class="node blue" x="88" y="184" width="150" height="48" rx="7"/>
+  <text class="label" x="122" y="214">User Query</text>
+  <rect class="node" x="282" y="184" width="166" height="48" rx="7"/>
+  <text class="label" x="320" y="207">Intent Router</text>
+  <text class="tiny" x="313" y="224">cohort, trend, survival</text>
+  <rect class="node green" x="492" y="184" width="190" height="48" rx="7"/>
+  <text class="label" x="524" y="207">Schema Lookup</text>
+  <text class="tiny" x="522" y="224">tables, fields, joins</text>
+  <rect class="node green" x="726" y="184" width="190" height="48" rx="7"/>
+  <text class="label" x="748" y="207">Vocabulary Match</text>
+  <text class="tiny" x="752" y="224">concept IDs, synonyms</text>
+  <rect class="node amber" x="960" y="184" width="190" height="48" rx="7"/>
+  <text class="label" x="992" y="207">Clarify if Needed</text>
+  <text class="tiny" x="1005" y="224">ambiguity checkpoint</text>
+  <path class="line" d="M238 208 H282"/>
+  <path class="line" d="M448 208 H492"/>
+  <path class="line" d="M682 208 H726"/>
+  <path class="line" d="M916 208 H960"/>
+
+  <rect class="lane" x="64" y="286" width="1152" height="144" rx="12"/>
+  <text class="tag" x="86" y="316">2. Plan, query, and compute</text>
+  <rect class="node purple" x="92" y="344" width="160" height="56" rx="7"/>
+  <text class="label" x="132" y="368">Planner</text>
+  <text class="tiny" x="121" y="386">task decomposition</text>
+  <rect class="node" x="306" y="344" width="160" height="56" rx="7"/>
+  <text class="label" x="350" y="368">SQL Agent</text>
+  <text class="tiny" x="331" y="386">generated queries</text>
+  <rect class="node" x="520" y="344" width="160" height="56" rx="7"/>
+  <text class="label" x="550" y="368">Data Registry</text>
+  <text class="tiny" x="543" y="386">references, not dumps</text>
+  <rect class="node" x="734" y="344" width="170" height="56" rx="7"/>
+  <text class="label" x="768" y="368">Feature Agent</text>
+  <text class="tiny" x="762" y="386">derived variables</text>
+  <rect class="node" x="958" y="344" width="170" height="56" rx="7"/>
+  <text class="label" x="995" y="368">Stats Layer</text>
+  <text class="tiny" x="990" y="386">tests, charts, effect size</text>
+  <path class="line" d="M252 372 H306"/>
+  <path class="line" d="M466 372 H520"/>
+  <path class="line" d="M680 372 H734"/>
+  <path class="line" d="M904 372 H958"/>
+
+  <rect class="lane" x="64" y="462" width="1152" height="156" rx="12"/>
+  <text class="tag" x="86" y="492">3. Review, explain, and return</text>
+  <rect class="node red" x="126" y="520" width="190" height="60" rx="7"/>
+  <text class="label" x="164" y="544">Human Review</text>
+  <text class="tiny" x="151" y="562">sensitive steps, SQL, claims</text>
+  <rect class="node green" x="392" y="520" width="190" height="60" rx="7"/>
+  <text class="label" x="423" y="544">Inference Agent</text>
+  <text class="tiny" x="421" y="562">interpretation and limits</text>
+  <rect class="node blue" x="668" y="520" width="190" height="60" rx="7"/>
+  <text class="label" x="697" y="544">Answer Builder</text>
+  <text class="tiny" x="697" y="562">tables, charts, caveats</text>
+  <rect class="node amber" x="944" y="520" width="190" height="60" rx="7"/>
+  <text class="label" x="982" y="544">Follow-ups</text>
+  <text class="tiny" x="977" y="562">suggested next analyses</text>
+  <path class="line" d="M1128 400 C1168 400 1168 550 1134 550"/>
+  <path class="line" d="M316 550 H392"/>
+  <path class="line" d="M582 550 H668"/>
+  <path class="line" d="M858 550 H944"/>
+
+  <path class="soft" d="M1055 184 C1055 122 365 122 365 184"/>
+  <text class="tiny" x="730" y="132">ambiguous intent loops back before query generation</text>
+  <path class="soft" d="M386 344 C386 292 221 292 221 520"/>
+  <text class="tiny" x="122" y="444">review gate before executing sensitive or high-impact steps</text>
+  <path class="soft" d="M1043 344 C1043 304 1055 278 1055 232"/>
+
+  <rect class="panel" x="88" y="650" width="1040" height="48" rx="8"/>
+  <text class="small" x="112" y="680">Design principle: keep each agent narrow enough to test, inspect, and override without exposing private clinical data in the public portfolio.</text>
+</svg>

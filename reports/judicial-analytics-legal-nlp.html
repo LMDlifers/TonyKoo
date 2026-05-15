@@ -205,30 +205,30 @@
         </section>
 
         <section class="reportSection">
-            <h2>Original Figure Gallery</h2>
+            <h2>Curated Figure Gallery</h2>
             <p>
-                The figures below are selected directly from the original judicial analytics report because they make the
-                modelling approach easier to inspect. Raw judgment screenshots, case pages, and report metadata are not
-                published.
+                The figures below preserve the original modelling evidence while using light-background recreations for
+                the architecture diagrams that were too dense on dark slide canvases. Raw judgment screenshots, case
+                pages, and report metadata are not published.
             </p>
             <div class="sourceFigureGrid">
                 <figure class="sourceFigure sourceFigureFull">
-                    <img src="../images/reports/judicial_extraction_architecture_original.png"
-                        alt="Original legal NLP extraction architecture diagram">
+                    <img src="../images/reports/judicial_extraction_architecture_light.svg"
+                        alt="Light-background legal NLP extraction architecture diagram">
                     <figcaption>
-                        <strong>Extraction, audit, and label-validation pipeline.</strong> Shows the staged path from
-                        raw PDF court judgments to ML-ready structured JSON.
+                        <strong>Extraction, audit, and label-validation pipeline.</strong> Light-background recreation
+                        showing the staged path from raw PDF court judgments to ML-ready structured JSON.
                     </figcaption>
                 </figure>
-                <figure class="sourceFigure">
-                    <img src="../images/reports/judicial_baseline_models_original.png"
-                        alt="Original LegalBERT and XGBoost model baseline diagram">
+                <figure class="sourceFigure sourceFigureFull">
+                    <img src="../images/reports/judicial_baseline_models_light.svg"
+                        alt="Light-background LegalBERT and XGBoost model baseline diagram">
                     <figcaption>
                         <strong>Baseline model comparison.</strong> Documents the LegalBERT embedding flow and XGBoost
                         ensemble baseline used before the custom HAN framing.
                     </figcaption>
                 </figure>
-                <figure class="sourceFigure">
+                <figure class="sourceFigure sourceFigureFull">
                     <img src="../images/reports/judicial_case_level_aggregation_original.png"
                         alt="Original case-level aggregation table">
                     <figcaption>
@@ -237,11 +237,20 @@
                     </figcaption>
                 </figure>
                 <figure class="sourceFigure sourceFigureFull">
-                    <img src="../images/reports/judicial_han_architecture_original.png"
-                        alt="Original hierarchical attention network architecture diagram">
+                    <img src="../images/reports/judicial_han_architecture_light.svg"
+                        alt="Light-background hierarchical attention network architecture diagram">
                     <figcaption>
-                        <strong>HAN architecture figure.</strong> Preserves the report's main modelling idea: late
-                        fusion over fact, issue, rule, court, and judge representations.
+                        <strong>HAN architecture figure.</strong> Light-background recreation of the report's main
+                        modelling idea: late fusion over fact, issue, rule, court, and judge representations.
+                    </figcaption>
+                </figure>
+                <figure class="sourceFigure sourceFigureFull">
+                    <img src="../images/reports/judicial_model_results_original.png"
+                        alt="Extracted model results table from judicial analytics report">
+                    <figcaption>
+                        <strong>Model-results table.</strong> Includes the original row-level and case-level evaluation
+                        table for XGBoost, BERT classifier, and HAN. It is framed as a coursework evaluation artifact,
+                        not as a production benchmark or audited legal-tech performance claim.
                     </figcaption>
                 </figure>
             </div>

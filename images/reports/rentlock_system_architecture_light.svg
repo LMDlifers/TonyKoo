@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">RentLock escrow dApp architecture</title>
+  <desc id="desc">Light-background architecture diagram showing tenants, landlords, React frontend, wallet connection, escrow smart contract, token deposit, IPFS evidence, and AI-assisted dispute review.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38506a"/></marker>
+    <style>
+      .bg{fill:#fbfbf7}.panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}.zone{fill:#f5f9fd;stroke:#d7e2ee}.node{fill:#fff;stroke:#9fb3c8;stroke-width:1.5}.blue{fill:#eaf4ff;stroke:#79aee8}.green{fill:#ecf8ef;stroke:#74be88}.amber{fill:#fff6df;stroke:#d8b963}.red{fill:#fff0f0;stroke:#d78080}.purple{fill:#f2edff;stroke:#9b83dd}.line{stroke:#38506a;stroke-width:2.1;fill:none;marker-end:url(#arrow)}.dash{stroke:#90a2b5;stroke-width:1.7;fill:none;stroke-dasharray:7 6;marker-end:url(#arrow)}.title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}.label{fill:#1f3145;font-family:Arial,sans-serif;font-size:16px;font-weight:700}.small{fill:#42566c;font-family:Arial,sans-serif;font-size:13px;font-weight:600}.tiny{fill:#54687e;font-family:Arial,sans-serif;font-size:12px;font-weight:600}.tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="760"/>
+  <rect class="panel" x="34" y="32" width="1212" height="696" rx="18"/>
+  <text class="title" x="64" y="78">RentLock Escrow dApp System Architecture</text>
+  <text class="small" x="64" y="104">Light recreation of the product architecture: tokenized deposit flow, evidence storage, and AI-assisted dispute support.</text>
+
+  <rect class="zone" x="76" y="150" width="250" height="456" rx="12"/>
+  <text class="tag" x="102" y="180">Users</text>
+  <rect class="node blue" x="116" y="224" width="170" height="58" rx="8"/>
+  <text class="label" x="169" y="248">Tenant</text>
+  <text class="tiny" x="148" y="266">deposit, upload evidence</text>
+  <rect class="node amber" x="116" y="344" width="170" height="58" rx="8"/>
+  <text class="label" x="160" y="368">Landlord</text>
+  <text class="tiny" x="144" y="386">create property, inspect</text>
+  <rect class="node green" x="116" y="464" width="170" height="58" rx="8"/>
+  <text class="label" x="164" y="488">Verifier</text>
+  <text class="tiny" x="138" y="506">review disputed claims</text>
+
+  <rect class="zone" x="382" y="150" width="250" height="456" rx="12"/>
+  <text class="tag" x="408" y="180">Frontend layer</text>
+  <rect class="node blue" x="424" y="238" width="166" height="62" rx="8"/>
+  <text class="label" x="470" y="264">React App</text>
+  <text class="tiny" x="456" y="282">listings and evidence UI</text>
+  <rect class="node purple" x="424" y="388" width="166" height="62" rx="8"/>
+  <text class="label" x="462" y="414">MetaMask</text>
+  <text class="tiny" x="454" y="432">wallet authorization</text>
+  <path class="line" d="M286 253 H424"/><path class="line" d="M286 373 H424"/><path class="line" d="M286 493 C350 493 350 419 424 419"/>
+  <path class="line" d="M507 300 V388"/>
+
+  <rect class="zone" x="688" y="150" width="250" height="456" rx="12"/>
+  <text class="tag" x="714" y="180">On-chain logic</text>
+  <rect class="node green" x="728" y="216" width="170" height="72" rx="8"/>
+  <text class="label" x="756" y="242">EscrowManager</text>
+  <text class="tiny" x="752" y="260">Created, locked, disputed,</text>
+  <text class="tiny" x="762" y="276">released, refunded</text>
+  <rect class="node amber" x="728" y="348" width="170" height="58" rx="8"/>
+  <text class="label" x="768" y="372">Test Token</text>
+  <text class="tiny" x="758" y="390">simulated stable deposit</text>
+  <rect class="node red" x="728" y="466" width="170" height="58" rx="8"/>
+  <text class="label" x="766" y="490">Event Log</text>
+  <text class="tiny" x="758" y="508">state transitions</text>
+  <path class="line" d="M590 419 H688"/><path class="line" d="M813 288 V348"/><path class="line" d="M813 406 V466"/>
+
+  <rect class="zone" x="994" y="150" width="190" height="456" rx="12"/>
+  <text class="tag" x="1020" y="180">Evidence services</text>
+  <rect class="node blue" x="1026" y="230" width="126" height="58" rx="8"/>
+  <text class="label" x="1072" y="254">IPFS</text>
+  <text class="tiny" x="1046" y="272">image references</text>
+  <rect class="node purple" x="1026" y="360" width="126" height="58" rx="8"/>
+  <text class="label" x="1064" y="384">AI Eval</text>
+  <text class="tiny" x="1040" y="402">move-in/out compare</text>
+  <rect class="node green" x="1026" y="490" width="126" height="58" rx="8"/>
+  <text class="label" x="1060" y="514">Decision</text>
+  <text class="tiny" x="1044" y="532">release or dispute</text>
+  <path class="line" d="M898 252 H1026"/><path class="dash" d="M898 495 H1026"/><path class="line" d="M1089 288 V360"/><path class="line" d="M1089 418 V490"/>
+
+  <rect class="panel" x="108" y="646" width="1036" height="44" rx="8"/>
+  <text class="small" x="134" y="674">Public-portfolio framing: no live wallet details, no private evidence, and no unsupported production or financial claims.</text>
+</svg>
