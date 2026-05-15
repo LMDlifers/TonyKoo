@@ -254,8 +254,12 @@
     <section id="resume" class="resumeSection section" aria-label="Resume section">
         <h2 class="sectionTitle">Experience</h2>
         <!-- EDUCATION -->
-        <h3 class="sectionTagline">Education</h3>
-        <div class="container">
+        <button class="sectionTagline resumeCollapseToggle" type="button" aria-expanded="true"
+            aria-controls="educationContent">
+            <span>Education</span>
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+        <div id="educationContent" class="container resumeCollapsibleContent">
             <!-- nus -->
             <div class="row resumeSubsection">
                 <div class="col-md-1">
@@ -576,7 +580,7 @@
                 <div class="projectDeckHeader">
                     <div>
                         <p class="projectDeckEyebrow">Project Deck</p>
-                        <h3>Fast scan of technical evidence</h3>
+                        <h3>My Projects</h3>
                     </div>
                     <div class="projectDeckControls" aria-label="Project deck controls">
                         <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
@@ -634,7 +638,7 @@
             <section class="projectEvidenceIndex" aria-label="Project evidence index">
                 <div class="projectEvidenceIntro">
                     <p class="projectDeckEyebrow">Evidence Index</p>
-                    <h3>Scanner-friendly project map</h3>
+                    <h3>My Projects</h3>
                     <p>
                         A compact view of domain, implementation signal, stack, and public evidence boundaries.
                     </p>
@@ -754,7 +758,7 @@
                 </div>
             </section>
 
-            <div id="projectGridWrap" class="projectGridWrap">
+            <div id="projectGridWrap" class="projectGridWrap projectGridCollapsed">
                 <div class="row justify-content-center itemsContainer">
                 <!-- Agentic Healthcare Analytics -->
                 <div class="item">
