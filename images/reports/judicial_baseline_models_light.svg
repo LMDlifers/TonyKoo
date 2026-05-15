@@ -1,52 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 620" role="img" aria-labelledby="title desc">
   <title id="title">Judicial baseline model comparison</title>
   <desc id="desc">Light-background diagram comparing LegalBERT classifier and XGBoost baseline paths before case-level aggregation.</desc>
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38506a"/></marker>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#38506a"/>
+    </marker>
     <style>
-      .bg{fill:#fbfbf7}.panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}.node{fill:#fff;stroke:#9fb3c8;stroke-width:1.5}.blue{fill:#eaf4ff;stroke:#79aee8}.green{fill:#ecf8ef;stroke:#74be88}.amber{fill:#fff6df;stroke:#d8b963}.purple{fill:#f2edff;stroke:#9b83dd}.line{stroke:#38506a;stroke-width:2.1;fill:none;marker-end:url(#arrow)}.title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}.label{fill:#1f3145;font-family:Arial,sans-serif;font-size:16px;font-weight:700}.small{fill:#42566c;font-family:Arial,sans-serif;font-size:13px;font-weight:600}.tiny{fill:#54687e;font-family:Arial,sans-serif;font-size:12px;font-weight:600}.tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
+      .bg{fill:#fbfbf7}
+      .panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}
+      .node{fill:#fff;stroke:#9fb3c8;stroke-width:1.5}
+      .blue{fill:#eaf4ff;stroke:#79aee8;stroke-width:1.5}
+      .green{fill:#ecf8ef;stroke:#74be88;stroke-width:1.5}
+      .amber{fill:#fff6df;stroke:#d8b963;stroke-width:1.5}
+      .purple{fill:#f2edff;stroke:#9b83dd;stroke-width:1.5}
+      .line{stroke:#38506a;stroke-width:2.1;fill:none;marker-end:url(#arrow)}
+      .title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}
+      .label{fill:#1f3145;font-family:Arial,sans-serif;font-size:16px;font-weight:700}
+      .small{fill:#42566c;font-family:Arial,sans-serif;font-size:13px;font-weight:600}
+      .tiny{fill:#54687e;font-family:Arial,sans-serif;font-size:12px;font-weight:600}
+      .tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
     </style>
   </defs>
-  <rect class="bg" width="1280" height="640"/>
-  <rect class="panel" x="34" y="32" width="1212" height="566" rx="18"/>
+  <rect class="bg" width="1280" height="620"/>
+  <rect class="panel" x="34" y="32" width="1212" height="544" rx="18"/>
   <text class="title" x="64" y="78">Baseline Model Paths Before HAN</text>
-  <text class="small" x="64" y="104">Two baselines test whether transformer representations or tree ensembles provide a stronger liability signal before the custom HAN design.</text>
+  <text class="small" x="64" y="104">Two baselines test transformer representations and tree ensembles before the custom hierarchical-attention design.</text>
 
-  <rect class="node blue" x="82" y="246" width="170" height="72" rx="8"/>
+  <rect class="blue" x="82" y="246" width="170" height="72" rx="8"/>
   <text class="label" x="122" y="276">Judgment</text>
   <text class="small" x="114" y="296">chunks and rows</text>
-  <path class="line" d="M252 282 H332"/>
+  <path class="line" d="M252 282 H318"/>
 
-  <rect class="node purple" x="332" y="246" width="190" height="72" rx="8"/>
-  <text class="label" x="378" y="276">LegalBERT</text>
-  <text class="small" x="368" y="296">contextual embeddings</text>
-  <path class="line" d="M522 282 H602"/>
+  <rect class="purple" x="318" y="246" width="190" height="72" rx="8"/>
+  <text class="label" x="364" y="276">LegalBERT</text>
+  <text class="small" x="354" y="296">contextual embeddings</text>
+  <path class="line" d="M508 282 H588"/>
 
-  <rect class="panel" x="602" y="142" width="266" height="162" rx="12"/>
-  <text class="tag" x="626" y="172">Path A: neural classifier</text>
-  <rect class="node amber" x="644" y="198" width="182" height="58" rx="8"/>
-  <text class="label" x="684" y="222">Dense Head</text>
-  <text class="tiny" x="680" y="240">nonlinear liability score</text>
-  <path class="line" d="M735 256 V326"/>
+  <rect class="panel" x="588" y="132" width="272" height="154" rx="12"/>
+  <text class="tag" x="614" y="162">Path A: neural classifier</text>
+  <rect class="amber" x="636" y="190" width="176" height="58" rx="8"/>
+  <text class="label" x="674" y="214">Dense Head</text>
+  <text class="tiny" x="666" y="232">liability probability</text>
 
-  <rect class="panel" x="602" y="354" width="266" height="162" rx="12"/>
-  <text class="tag" x="626" y="384">Path B: tabular ensemble</text>
-  <rect class="node green" x="644" y="410" width="182" height="58" rx="8"/>
-  <text class="label" x="690" y="434">XGBoost</text>
-  <text class="tiny" x="674" y="452">pooled embeddings + metadata</text>
-  <path class="line" d="M735 410 V338"/>
+  <rect class="panel" x="588" y="334" width="272" height="154" rx="12"/>
+  <text class="tag" x="614" y="364">Path B: tabular ensemble</text>
+  <rect class="green" x="636" y="392" width="176" height="58" rx="8"/>
+  <text class="label" x="680" y="416">XGBoost</text>
+  <text class="tiny" x="654" y="434">pooled vectors + metadata</text>
 
-  <rect class="node" x="942" y="246" width="170" height="72" rx="8"/>
-  <text class="label" x="978" y="276">Aggregation</text>
-  <text class="small" x="972" y="296">row to case level</text>
-  <path class="line" d="M868 224 C916 224 916 282 942 282"/>
-  <path class="line" d="M868 436 C916 436 916 282 942 282"/>
-  <path class="line" d="M1112 282 H1170"/>
+  <rect class="node" x="936" y="246" width="176" height="72" rx="8"/>
+  <text class="label" x="975" y="276">Aggregation</text>
+  <text class="small" x="970" y="296">row to case level</text>
+  <path class="line" d="M860 209 C902 209 902 282 936 282"/>
+  <path class="line" d="M860 421 C902 421 902 282 936 282"/>
 
-  <rect class="node blue" x="1170" y="246" width="70" height="72" rx="8"/>
-  <text class="label" x="1188" y="276">Risk</text>
-  <text class="tiny" x="1184" y="296">liable / not</text>
+  <path class="line" d="M1112 282 H1160"/>
+  <rect class="blue" x="1160" y="246" width="70" height="72" rx="8"/>
+  <text class="label" x="1178" y="274">Risk</text>
+  <text class="tiny" x="1175" y="294">liability</text>
+  <text class="tiny" x="1177" y="310">score</text>
 
-  <rect class="panel" x="132" y="536" width="1016" height="36" rx="8"/>
-  <text class="small" x="158" y="559">Why this matters: the baseline comparison separates representation quality from classifier choice before adding hierarchical legal structure.</text>
+  <rect class="panel" x="132" y="520" width="1016" height="36" rx="8"/>
+  <text class="small" x="158" y="543">Why this matters: the comparison separates representation quality from classifier choice before adding hierarchical legal structure.</text>
 </svg>
