@@ -31,8 +31,6 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <link rel="icon" href="images/portfolio/tonykoo.png" type="image/png">
 
 
@@ -76,6 +74,9 @@
                         aria-label="Navigate to Testimonials section">Testimonials</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#reading" aria-label="Navigate to Reading section">Reading</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#writing" aria-label="Navigate to Writing section">Writing</a>
                 </li>
                 <li class="nav-item">
@@ -109,9 +110,13 @@
             <p class="heroSubtitle">
                 <span class="typed-text"></span><span class="cursor">&nbsp;</span>
             </p>
+            <p class="heroPositioning">
+                AI data systems, quant tooling, and privacy-safe analytics for high-stakes decisions.
+            </p>
             <div class="heroActions" aria-label="Primary actions">
                 <a class="heroButton heroButtonPrimary" href="#portfolio">View Projects</a>
-                <a class="heroButton heroButtonSecondary" href="./files/Resume_TonyKooYeLong.pdf" target="_blank"
+                <a class="heroButton heroButtonSecondary" href="#writing">Read Case Studies</a>
+                <a class="heroButton heroButtonTertiary" href="./files/Resume_TonyKooYeLong.pdf" target="_blank"
                     rel="noopener">Resume</a>
             </div>
             <div class="hero-scroll-hint">
@@ -144,6 +149,10 @@
             <a href="#testimonials" class="sidebar-link" data-section="testimonials">
                 <i class="fas fa-comments"></i>
                 <span>Testimonials</span>
+            </a>
+            <a href="#reading" class="sidebar-link" data-section="reading">
+                <i class="fas fa-book-reader"></i>
+                <span>Reading</span>
             </a>
             <a href="#writing" class="sidebar-link" data-section="writing">
                 <i class="fas fa-pencil-alt"></i>
@@ -546,6 +555,10 @@
     <!-- FEATURED PROJECTS -->
     <section id="portfolio" class="portfolioSection section" aria-label="Portfolio section">
         <h2 class="sectionTitle">Featured Projects</h2>
+        <p class="sectionIntro">
+            Public-safe summaries structured for fast review: problem, build, evidence boundary, stack, and deeper
+            case-study notes.
+        </p>
         <div class="container">
             <!-- Control buttons -->
             <div class="row">
@@ -1093,6 +1106,104 @@
         </div>
     </section>
 
+    <!-- READING & RESEARCH DIET -->
+    <section id="reading" class="readingSection section" aria-label="Reading and research diet section">
+        <h2 class="sectionTitle">Reading &amp; Research Diet</h2>
+        <div class="container">
+            <div class="readingIntro">
+                <p>
+                    I read across markets, geopolitics, behavioral science, AI systems, and history to sharpen how I
+                    think about incentives, risk, institutional change, and decision-making under uncertainty.
+                </p>
+                <div class="readingSignals" aria-label="Reading themes">
+                    <span class="readingSignal">Systems Thinking</span>
+                    <span class="readingSignal">Macro Risk</span>
+                    <span class="readingSignal">Behavioral Finance</span>
+                    <span class="readingSignal">AI Research</span>
+                    <span class="readingSignal">Institutional Change</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <article class="readingCluster">
+                        <div class="readingClusterHeader">
+                            <span class="readingIcon"><i class="fas fa-globe-asia"></i></span>
+                            <div>
+                                <h3>Geopolitics &amp; Institutions</h3>
+                                <p>Power, statecraft, political memory, and institutional incentives.</p>
+                            </div>
+                        </div>
+                        <ul class="readingList">
+                            <li><span>On China</span><small>Henry Kissinger</small></li>
+                            <li><span>The Art of War</span><small>Sun Tzu</small></li>
+                            <li><span>1984</span><small>George Orwell</small></li>
+                            <li><span>1000 Years of Joys and Sorrows</span><small>Ai Weiwei</small></li>
+                            <li><span>In Order to Live</span><small>Yeonmi Park</small></li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="col-md-6">
+                    <article class="readingCluster">
+                        <div class="readingClusterHeader">
+                            <span class="readingIcon"><i class="fas fa-chart-line"></i></span>
+                            <div>
+                                <h3>Markets &amp; Cycles</h3>
+                                <p>Credit cycles, market psychology, bubbles, policy regimes, and risk-taking.</p>
+                            </div>
+                        </div>
+                        <ul class="readingList">
+                            <li><span>Irrational Exuberance</span><small>Robert J. Shiller</small></li>
+                            <li><span>The Intelligent Investor</span><small>Benjamin Graham</small></li>
+                            <li><span>A Random Walk Down Wall Street</span><small>Burton G. Malkiel</small></li>
+                            <li><span>One Up On Wall Street</span><small>Peter Lynch</small></li>
+                            <li><span>Principles</span><small>Ray Dalio</small></li>
+                            <li><span>The Changing World Order</span><small>Ray Dalio</small></li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="col-md-6">
+                    <article class="readingCluster">
+                        <div class="readingClusterHeader">
+                            <span class="readingIcon"><i class="fas fa-brain"></i></span>
+                            <div>
+                                <h3>Decision-Making &amp; Human Behavior</h3>
+                                <p>Judgment, asymmetry, cognitive bias, outliers, and non-obvious advantage.</p>
+                            </div>
+                        </div>
+                        <ul class="readingList">
+                            <li><span>Thinking, Fast and Slow</span><small>Daniel Kahneman</small></li>
+                            <li><span>Outliers</span><small>Malcolm Gladwell</small></li>
+                            <li><span>David and Goliath</span><small>Malcolm Gladwell</small></li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="col-md-6">
+                    <article class="readingCluster researchSources">
+                        <div class="readingClusterHeader">
+                            <span class="readingIcon"><i class="fas fa-rss"></i></span>
+                            <div>
+                                <h3>Research Sources I Follow</h3>
+                                <p>Recurring inputs for macro context, AI tooling, markets, and community signal.</p>
+                            </div>
+                        </div>
+                        <div class="sourceGrid">
+                            <span>GIC ThinkSpace</span>
+                            <span>Bridgewater Associates</span>
+                            <span>Hugging Face</span>
+                            <span>The Economist</span>
+                            <span>Reuters</span>
+                            <span>Reddit, selectively</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- TECHNICAL WRITING -->
     <section id="writing" class="writingSection section" aria-label="Technical writing section">
         <h2 class="sectionTitle">Technical Writing &amp; Research</h2>
@@ -1351,8 +1462,40 @@
         <div class="loader">
             <div class="spinner"></div>
             <p class="loading-text">Loading Portfolio...</p>
+            <p id="loadingFact" class="loading-fact">Preparing a few systems-thinking notes...</p>
         </div>
     </div>
+
+    <script>
+        (function () {
+            var loadingScreen = document.getElementById("loadingScreen");
+            if (!loadingScreen) return;
+
+            function hideFallbackLoader() {
+                loadingScreen.classList.add("hidden");
+            }
+
+            function restoreHashTarget() {
+                if (!window.location.hash) return;
+
+                var target = document.getElementById(window.location.hash.slice(1));
+                if (target) {
+                    target.scrollIntoView({ block: "start" });
+                }
+            }
+
+            window.addEventListener("load", function () {
+                window.setTimeout(function () {
+                    hideFallbackLoader();
+                    restoreHashTarget();
+                }, 700);
+            });
+            window.setTimeout(function () {
+                hideFallbackLoader();
+                restoreHashTarget();
+            }, 2200);
+        })();
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

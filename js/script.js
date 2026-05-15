@@ -1,8 +1,86 @@
 $(document).ready(function () {
+  const prefersReducedMotion = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+  const scrollAnimationDuration = prefersReducedMotion ? 0 : 320;
+  const scrollOffset = 16;
+
+  function scrollToTarget(target, duration = scrollAnimationDuration) {
+    const $target = $(target);
+
+    if (!$target.length) return;
+
+    const navHeight = $("#navigation").outerHeight() || 0;
+    const targetPosition = Math.max(
+      $target.offset().top - navHeight - scrollOffset,
+      0
+    );
+
+    $("html, body").stop(true);
+
+    if (!duration) {
+      window.scrollTo(0, targetPosition);
+      return;
+    }
+
+    $("html, body").stop(true).animate(
+      {
+        scrollTop: targetPosition,
+      },
+      duration
+    );
+  }
+
   // Loading Screen
-  setTimeout(function () {
-    $("#loadingScreen").addClass("hidden");
-  }, 1500);
+  const loadingFacts = [
+    "Fun fact: FAISS makes similarity search over embeddings fast enough for practical retrieval workflows.",
+    "Fun fact: Bass diffusion models split adoption into innovation effects and imitation effects.",
+    "Fun fact: behavioral finance studies how psychology leaks into market prices.",
+    "Fun fact: a yield curve is a compact snapshot of market expectations across maturities.",
+    "Fun fact: human review gates make AI workflows easier to audit when decisions are sensitive.",
+    "Fun fact: scenario analysis is less about predicting one future and more about stress-testing assumptions.",
+  ];
+  const loadingFact = $("#loadingFact");
+  let loadingFactIndex = Math.floor(Math.random() * loadingFacts.length);
+  let loadingFactTimer;
+  let loadingScreenHidden = false;
+  const loadingStartedAt = Date.now();
+  const minimumLoadingTime = prefersReducedMotion ? 0 : 650;
+
+  function showLoadingFact(index) {
+    if (!loadingFact.length) return;
+
+    loadingFact.addClass("fact-changing");
+    setTimeout(function () {
+      loadingFact.text(loadingFacts[index]);
+      loadingFact.removeClass("fact-changing");
+    }, 180);
+  }
+
+  showLoadingFact(loadingFactIndex);
+  if (!prefersReducedMotion) {
+    loadingFactTimer = setInterval(function () {
+      loadingFactIndex = (loadingFactIndex + 1) % loadingFacts.length;
+      showLoadingFact(loadingFactIndex);
+    }, 1200);
+  }
+
+  function hideLoadingScreen() {
+    if (loadingScreenHidden) return;
+
+    const elapsed = Date.now() - loadingStartedAt;
+    const remainingTime = Math.max(minimumLoadingTime - elapsed, 0);
+
+    setTimeout(function () {
+      if (loadingScreenHidden) return;
+      loadingScreenHidden = true;
+      $("#loadingScreen").addClass("hidden");
+      clearInterval(loadingFactTimer);
+    }, remainingTime);
+  }
+
+  $(window).on("load", hideLoadingScreen);
+  setTimeout(hideLoadingScreen, prefersReducedMotion ? 100 : 1400);
 
   // Dark Mode Toggle
   const darkModeToggle = $("#darkModeToggle");
@@ -96,6 +174,23 @@ $(document).ready(function () {
           content: content,
           element: $card,
           section: "testimonials",
+        });
+      }
+    });
+
+    // Index reading and research diet
+    $(".readingCluster").each(function () {
+      const $card = $(this);
+      const title = $card.find("h3").text();
+      const content = $card.text().replace(/\s+/g, " ").trim().substring(0, 260);
+
+      if (title) {
+        searchableContent.push({
+          title: title,
+          subtitle: "Reading & Research Diet",
+          content: content,
+          element: $card,
+          section: "reading",
         });
       }
     });
@@ -217,15 +312,7 @@ $(document).ready(function () {
     // Handle result click
     $(".search-result-item").on("click", function () {
       const section = $(this).data("section");
-      const targetPosition = $("#" + section).offset().top;
-      const navHeight = $("#navigation").outerHeight();
-
-      $("html, body").animate(
-        {
-          scrollTop: targetPosition - navHeight - 20,
-        },
-        800
-      );
+      scrollToTarget("#" + section, prefersReducedMotion ? 0 : 300);
 
       searchResults.removeClass("active");
       searchInput.val("");
@@ -251,6 +338,21 @@ $(document).ready(function () {
   // Sidebar Toggle
   const sidebar = $("#quickJumpSidebar");
   const sidebarToggle = $("#sidebarToggle");
+  let currentActiveSection = "";
+
+  function updateActiveSection(sectionId) {
+    if (!sectionId || sectionId === currentActiveSection) return;
+
+    currentActiveSection = sectionId;
+    $(".sidebar-link").removeClass("active-section").removeAttr("aria-current");
+    $(`.sidebar-link[data-section="${sectionId}"]`)
+      .addClass("active-section")
+      .attr("aria-current", "location");
+    $("#navigation .nav-link").removeClass("active-section").removeAttr("aria-current");
+    $(`#navigation .nav-link[href="#${sectionId}"]`)
+      .addClass("active-section")
+      .attr("aria-current", "location");
+  }
 
   sidebarToggle.on("click", function (e) {
     e.stopPropagation();
@@ -267,6 +369,7 @@ $(document).ready(function () {
   // Update active section in sidebar on scroll
   $(window).on("scroll", function () {
     const scrollPos = $(window).scrollTop() + 100;
+    let activeSectionId = "";
 
     $("section[id]").each(function () {
       const section = $(this);
@@ -275,29 +378,27 @@ $(document).ready(function () {
       const sectionId = section.attr("id");
 
       if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
-        $(".sidebar-link").removeClass("active-section");
-        $(`.sidebar-link[data-section="${sectionId}"]`).addClass(
-          "active-section"
-        );
+        activeSectionId = sectionId;
       }
     });
+
+    updateActiveSection(activeSectionId);
   });
+
+  $(window).trigger("scroll");
 
   // Sidebar link clicks
   $(".sidebar-link").on("click", function (e) {
     e.preventDefault();
     const target = $(this).attr("href");
-    const targetPosition = $(target).offset().top;
-    const navHeight = $("#navigation").outerHeight();
-
-    $("html, body").animate(
-      {
-        scrollTop: targetPosition - navHeight - 20,
-      },
-      800
-    );
+    scrollToTarget(target);
 
     sidebar.removeClass("active");
+  });
+
+  $(".heroButton[href^='#']").on("click", function (e) {
+    e.preventDefault();
+    scrollToTarget($(this).attr("href"), prefersReducedMotion ? 0 : 300);
   });
 
   // Typing Animation
@@ -343,15 +444,15 @@ $(document).ready(function () {
     setTimeout(typeText, typeSpeed);
   }
 
-  // Start typing animation after loading screen
-  setTimeout(typeText, 2000);
+  // Start typing animation after the loading screen begins to clear.
+  setTimeout(typeText, prefersReducedMotion ? 0 : 900);
 
   // Scroll Progress Bar
   $(window).on("scroll", function () {
     const scrollTop = $(window).scrollTop();
     const docHeight = $(document).height();
     const winHeight = $(window).height();
-    const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+    const scrollPercent = (scrollTop / Math.max(docHeight - winHeight, 1)) * 100;
     $("#scrollProgress").css("width", scrollPercent + "%");
   });
 
@@ -367,6 +468,11 @@ $(document).ready(function () {
   });
 
   backToTopBtn.on("click", function () {
+    if (prefersReducedMotion) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
     $("html, body").animate(
       {
         scrollTop: 0,
@@ -377,24 +483,17 @@ $(document).ready(function () {
 
   // Parallax Effect on Header
   $(window).on("scroll", function () {
+    if (prefersReducedMotion) return;
     const scrolled = $(window).scrollTop();
     $("#headerImage").css("transform", "translateY(" + scrolled * 0.5 + "px)");
   });
 
   // Smooth scroll to sections
-  $("#navigation li a").click(function (e) {
+  $("#navigation .nav-link[href^='#']").click(function (e) {
     e.preventDefault();
 
     var targetElement = $(this).attr("href");
-    var targetPosition = $(targetElement).offset().top;
-    var navHeight = $("#navigation").outerHeight();
-
-    $("html, body").animate(
-      {
-        scrollTop: targetPosition - navHeight - 20,
-      },
-      800
-    );
+    scrollToTarget(targetElement);
 
     // Close mobile menu after click
     $(".navbar-collapse").collapse("hide");
@@ -435,7 +534,7 @@ $(document).ready(function () {
   );
 
   // Observe all resume subsections for fade-in effect
-  document.querySelectorAll(".resumeSubsection, .filterItem").forEach((el) => {
+  document.querySelectorAll(".resumeSubsection, .filterItem, .readingCluster").forEach((el) => {
     observer.observe(el);
   });
 
@@ -444,6 +543,11 @@ $(document).ready(function () {
     $(".number-counter").each(function () {
       const $this = $(this);
       const countTo = $this.attr("data-count");
+
+      if (prefersReducedMotion) {
+        $this.text(countTo);
+        return;
+      }
 
       $({ countNum: 0 }).animate(
         {
