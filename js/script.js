@@ -405,15 +405,6 @@ $(document).ready(function () {
     scrollToTarget($(this).attr("href"), prefersReducedMotion ? 0 : 300);
   });
 
-  $(".resumeCollapseToggle").on("click", function () {
-    const toggle = $(this);
-    const target = $("#" + toggle.attr("aria-controls"));
-    const expanded = toggle.attr("aria-expanded") === "true";
-
-    toggle.attr("aria-expanded", String(!expanded));
-    target.toggleClass("is-collapsed", expanded);
-  });
-
   // Reading bookshelf carousel
   const bookCarousel = $("[data-book-carousel]");
   if (bookCarousel.length) {
@@ -536,7 +527,8 @@ $(document).ready(function () {
     const projectDeckCounter = $("#projectDeckCounter");
     const projectDeckRail = $("#projectDeckRail");
     const projectGridWrap = $("#projectGridWrap");
-    const projectGridToggle = $("#projectGridToggle");
+    const projectEvidenceIndex = $(".projectEvidenceIndex");
+    const projectViewButtons = projectDeck.find("[data-project-view]");
     let activeProjectIndex = 0;
     let visibleProjects = [];
 
@@ -696,19 +688,26 @@ $(document).ready(function () {
     });
 
     projectDeck.attr("tabindex", "0");
-    projectGridWrap.addClass("projectGridCollapsed");
-    projectGridToggle.on("click", function () {
-      const expanded = this.getAttribute("aria-expanded") === "true";
-      this.setAttribute("aria-expanded", String(!expanded));
 
-      if (expanded) {
-        projectGridWrap.addClass("projectGridCollapsed");
-        $(this).text("View all project cards");
-      } else {
-        projectGridWrap.removeClass("projectGridCollapsed");
-        $(this).text("Hide full project grid");
-      }
+    function setProjectView(view) {
+      const isGridView = view === "grid";
+
+      projectDeck.toggleClass("is-grid-mode", isGridView);
+      projectGridWrap.toggleClass("projectGridCollapsed", !isGridView);
+      projectEvidenceIndex.toggleClass("is-hidden", isGridView);
+      projectViewButtons
+        .removeClass("active")
+        .attr("aria-pressed", "false")
+        .filter("[data-project-view='" + view + "']")
+        .addClass("active")
+        .attr("aria-pressed", "true");
+    }
+
+    projectViewButtons.on("click", function () {
+      setProjectView($(this).data("project-view"));
     });
+
+    setProjectView("deck");
 
     window.updateProjectDeckFilter("all");
   }

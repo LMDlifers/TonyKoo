@@ -254,12 +254,8 @@
     <section id="resume" class="resumeSection section" aria-label="Resume section">
         <h2 class="sectionTitle">Experience</h2>
         <!-- EDUCATION -->
-        <button class="sectionTagline resumeCollapseToggle" type="button" aria-expanded="true"
-            aria-controls="educationContent">
-            <span>Education</span>
-            <i class="fas fa-chevron-up" aria-hidden="true"></i>
-        </button>
-        <div id="educationContent" class="container resumeCollapsibleContent">
+        <h3 class="sectionTagline">Education</h3>
+        <div class="container">
             <!-- nus -->
             <div class="row resumeSubsection">
                 <div class="col-md-1">
@@ -579,17 +575,25 @@
             <div class="projectDeck" data-project-deck aria-label="Project flashcard browser">
                 <div class="projectDeckHeader">
                     <div>
-                        <p class="projectDeckEyebrow">Project Deck</p>
+                        <p class="projectDeckEyebrow">Project Browser</p>
                         <h3>My Projects</h3>
                     </div>
                     <div class="projectDeckControls" aria-label="Project deck controls">
-                        <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <span id="projectDeckCounter" class="projectDeckCounter">1 / 1</span>
-                        <button class="projectDeckNav projectDeckNext" type="button" aria-label="Next project">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        <div class="projectViewSwitch" role="group" aria-label="Project view">
+                            <button class="projectViewButton active" type="button" data-project-view="deck"
+                                aria-pressed="true">Deck</button>
+                            <button class="projectViewButton" type="button" data-project-view="grid"
+                                aria-pressed="false">Grid</button>
+                        </div>
+                        <div class="projectDeckNavGroup" aria-label="Project deck browsing">
+                            <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="projectDeckCounter" class="projectDeckCounter">1 / 1</span>
+                            <button class="projectDeckNav projectDeckNext" type="button" aria-label="Next project">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -628,11 +632,6 @@
                 </article>
 
                 <div id="projectDeckRail" class="projectDeckRail" aria-label="Select a project"></div>
-
-                <button id="projectGridToggle" class="projectGridToggle" type="button" aria-expanded="false"
-                    aria-controls="projectGridWrap">
-                    View all project cards
-                </button>
             </div>
 
             <section class="projectEvidenceIndex" aria-label="Project evidence index">

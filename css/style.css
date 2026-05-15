@@ -1105,35 +1105,6 @@ img#headerImage {
     text-transform: uppercase;
 }
 
-.resumeCollapseToggle {
-    align-items: center;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.resumeCollapseToggle i {
-    color: #3d5a85;
-    font-size: 13px;
-    transition: transform var(--motion-fast) ease;
-}
-
-.resumeCollapseToggle[aria-expanded="false"] i {
-    transform: rotate(180deg);
-}
-
-.resumeCollapsibleContent {
-    display: block;
-    overflow: hidden;
-}
-
-.resumeCollapsibleContent.is-collapsed {
-    display: none;
-}
-
 .sectionIntro {
     max-width: 760px;
     margin: -20px auto 32px;
@@ -1358,15 +1329,16 @@ img#headerImage {
 
 .resumeSubsection {
     /* spacing in between each listing */
-    padding: 50px 30px;
+    padding: 34px 30px;
     position: relative;
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s ease;
-    background: rgba(255,255,255,0.5);
-    border-radius: 15px;
-    margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    background: rgba(255,255,255,0.86);
+    border: 1px solid #e3ebf3;
+    border-radius: 8px;
+    margin: 16px 0;
+    box-shadow: 0 8px 22px rgba(31, 41, 51, 0.04);
 }
 
 .resumeSubsection.animate-in {
@@ -1375,8 +1347,8 @@ img#headerImage {
 }
 
 .resumeSubsection:hover {
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 8px 30px rgba(74,111,165,0.1);
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(74,111,165,0.08);
 }
 
 .resumeSubsection::before {
@@ -1389,7 +1361,7 @@ img#headerImage {
     background: linear-gradient(180deg, #3d5a85, #A2BBDD);
     opacity: 0;
     transition: opacity 0.6s ease;
-    border-radius: 15px 0 0 15px;
+    border-radius: 8px 0 0 8px;
 }
 
 .resumeSubsection.animate-in::before {
@@ -1397,8 +1369,8 @@ img#headerImage {
 }
 
 .resumeSubsection:hover::before {
-    width: 8px;
-    box-shadow: 0 0 15px rgba(74,111,165,0.5);
+    width: 5px;
+    box-shadow: none;
 }
 
 
@@ -1424,10 +1396,9 @@ img.resumeIcon {
 }
 
 img.resumeIcon:hover {
-    transform: scale(1.15) rotate(8deg);
+    transform: translateY(-2px);
     border-color: #3d5a85;
-    box-shadow: 0 8px 25px rgba(74,111,165,0.35),
-                0 0 0 4px rgba(74,111,165,0.1);
+    box-shadow: 0 8px 22px rgba(74,111,165,0.18);
 }
 
 /* names */
@@ -1516,8 +1487,8 @@ img.resumeIcon:hover {
 
 .resumeSkill:hover {
     color: #ffffff;
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(74,111,165,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(74,111,165,0.22);
     border-color: #3d5a85;
 }
 
@@ -1550,14 +1521,15 @@ th, td {
 .expertiseCategory {
     background: linear-gradient(145deg, #ffffff, #f8f9fa);
     padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e3ebf3;
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(31, 41, 51, 0.04);
     transition: all 0.3s ease;
 }
 
 .expertiseCategory:hover {
-    box-shadow: 0 8px 30px rgba(74,111,165,0.15);
-    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(74,111,165,0.08);
+    transform: translateY(-2px);
 }
 
 body.dark-mode .expertiseCategory {
@@ -1752,6 +1724,49 @@ body.dark-mode .projectDeckHeader h3 {
 .projectDeckControls {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.projectViewSwitch {
+    align-items: center;
+    background: #eef4fa;
+    border: 1px solid #c9d8e8;
+    border-radius: 999px;
+    display: inline-flex;
+    padding: 3px;
+}
+
+.projectViewButton {
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: #536475;
+    cursor: pointer;
+    font-family: 'Karla', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    min-height: 34px;
+    padding: 7px 14px;
+    text-transform: uppercase;
+    transition: background var(--motion-fast) ease, box-shadow var(--motion-fast) ease, color var(--motion-fast) ease;
+}
+
+.projectViewButton.active {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(49, 89, 134, 0.12);
+    color: #1f3145;
+}
+
+.projectViewButton:hover {
+    color: #315b8d;
+}
+
+.projectDeckNavGroup {
+    align-items: center;
+    display: inline-flex;
     gap: 10px;
 }
 
@@ -1780,6 +1795,21 @@ body.dark-mode .projectDeckNav {
     background: #242424;
     border-color: #4a4a4a;
     color: #A2BBDD;
+}
+
+body.dark-mode .projectViewSwitch {
+    background: rgba(162, 187, 221, 0.10);
+    border-color: rgba(162, 187, 221, 0.28);
+}
+
+body.dark-mode .projectViewButton {
+    color: #d0d0d0;
+}
+
+body.dark-mode .projectViewButton.active {
+    background: rgba(162, 187, 221, 0.18);
+    box-shadow: none;
+    color: #ffffff;
 }
 
 .projectDeckCounter {
@@ -1977,6 +2007,12 @@ body.dark-mode .projectDeckRows p {
     display: none;
 }
 
+.projectDeck.is-grid-mode .projectDeckCard,
+.projectDeck.is-grid-mode .projectDeckRail,
+.projectDeck.is-grid-mode .projectDeckNavGroup {
+    display: none;
+}
+
 .projectDeckRail {
     display: flex;
     gap: 10px;
@@ -2026,32 +2062,6 @@ body.dark-mode .projectDeckThumb.active {
     border-color: #A2BBDD;
 }
 
-.projectGridToggle {
-    background: transparent;
-    border: 1px solid #c9d8e8;
-    border-radius: 999px;
-    color: #315b8d;
-    cursor: pointer;
-    display: block;
-    font-family: 'Karla', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    margin: 12px auto 0;
-    padding: 10px 16px;
-    text-transform: uppercase;
-    transition: background var(--motion-fast) ease, border-color var(--motion-fast) ease, color var(--motion-fast) ease;
-}
-
-.projectGridToggle:hover {
-    background: #ffffff;
-    border-color: #315b8d;
-}
-
-body.dark-mode .projectGridToggle {
-    border-color: #4a4a4a;
-    color: #A2BBDD;
-}
-
 .projectEvidenceIndex {
     background: #ffffff;
     border: 1px solid #d7e2ee;
@@ -2060,6 +2070,10 @@ body.dark-mode .projectGridToggle {
     margin: 0 auto 24px;
     max-width: 1120px;
     padding: 24px;
+}
+
+.projectEvidenceIndex.is-hidden {
+    display: none;
 }
 
 body.dark-mode .projectEvidenceIndex {
@@ -3639,6 +3653,15 @@ a:focus {
 
     .projectDeckControls {
         width: 100%;
+    }
+
+    .projectViewSwitch,
+    .projectDeckNavGroup {
+        width: 100%;
+    }
+
+    .projectViewButton {
+        flex: 1 1 0;
     }
 
     .projectDeckNav {
