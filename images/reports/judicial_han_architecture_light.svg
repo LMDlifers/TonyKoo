@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" role="img" aria-labelledby="title desc">
+  <title id="title">Light-background HAN architecture diagram</title>
+  <desc id="desc">Hierarchical attention network architecture showing document, sentence, word, court, and judge feature streams joined through late fusion.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#40566f"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2d6ccf"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#208457"/>
+    </marker>
+    <style>
+      .canvas { fill: #fbfbf7; }
+      .panel { fill: #ffffff; stroke: #d8e1ea; stroke-width: 1.5; }
+      .laneBlue { fill: #edf5ff; stroke: #b9d4f7; stroke-width: 1.5; }
+      .laneGreen { fill: #effaf2; stroke: #b8e1c2; stroke-width: 1.5; }
+      .laneWarm { fill: #fff8df; stroke: #e8d997; stroke-width: 1.5; }
+      .nodeWhite { fill: #ffffff; stroke: #aebdcb; stroke-width: 1.5; }
+      .nodeCream { fill: #fff9cd; stroke: #d8c96f; stroke-width: 1.5; }
+      .nodeBlue { fill: #a9cff5; stroke: #4d91d3; stroke-width: 1.5; }
+      .nodeGreen { fill: #b8f3bd; stroke: #48a65a; stroke-width: 1.5; }
+      .nodePurple { fill: #eee6ff; stroke: #9b79dc; stroke-width: 1.5; }
+      .nodePink { fill: #ffe6e6; stroke: #d67171; stroke-width: 1.5; }
+      .nodeViolet { fill: #7048ff; stroke: #4c2ed5; stroke-width: 1.5; }
+      .nodeOutput { fill: #73bf32; stroke: #4d8f1d; stroke-width: 1.5; }
+      .dash { fill: none; stroke: #6d7c8c; stroke-width: 2; stroke-dasharray: 8 6; }
+      .dashRed { fill: none; stroke: #e23232; stroke-width: 4; stroke-dasharray: 8 6; }
+      .arrow { stroke: #40566f; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .arrowBlue { stroke: #2d6ccf; stroke-width: 3; fill: none; marker-end: url(#arrowBlue); }
+      .arrowGreen { stroke: #208457; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .line { stroke: #40566f; stroke-width: 2; fill: none; }
+      .mutedLine { stroke: #9aaabc; stroke-width: 1.5; fill: none; }
+      .label { fill: #1f3145; font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; }
+      .small { fill: #27384a; font-family: Arial, sans-serif; font-size: 14px; font-weight: 600; }
+      .tiny { fill: #42566c; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; }
+      .note { fill: #42566c; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; }
+      .noteRed { fill: #cf3030; font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; }
+      .noteBlue { fill: #2d6ccf; font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; }
+      .noteGreen { fill: #208457; font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; }
+      .whiteText { fill: #ffffff; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect class="canvas" x="0" y="0" width="1280" height="900"/>
+  <rect class="panel" x="32" y="28" width="1216" height="860" rx="18"/>
+  <text class="label" x="54" y="68">Hierarchical Attention Network - Judicial Liability Classification</text>
+  <text class="note" x="54" y="94">Light-background recreation for portfolio readability; based on the original report architecture figure.</text>
+
+  <rect class="nodeOutput" x="574" y="62" width="142" height="58" rx="4"/>
+  <text class="whiteText" x="606" y="87">Defendant</text>
+  <text class="whiteText" x="608" y="106">liable (1/0)</text>
+
+  <rect class="nodePurple" x="566" y="145" width="158" height="58" rx="4"/>
+  <text class="small" x="582" y="166">MLP + Dropout</text>
+  <text class="tiny" x="586" y="184">label smoothing,</text>
+  <text class="tiny" x="592" y="198">SwiGLU, linear</text>
+
+  <rect class="nodeWhite" x="587" y="235" width="116" height="52" rx="4"/>
+  <text class="small" x="611" y="266">Late Fusion</text>
+
+  <path class="arrow" d="M 645 235 L 645 205"/>
+  <path class="arrow" d="M 645 145 L 645 120"/>
+
+  <rect class="nodeCream" x="250" y="326" width="230" height="62" rx="4"/>
+  <text class="tiny" x="292" y="350">Combined Facts Document</text>
+  <text class="tiny" x="331" y="368">Vector</text>
+  <text class="tiny" x="338" y="383">(1x128)</text>
+
+  <rect class="nodeCream" x="520" y="326" width="136" height="62" rx="4"/>
+  <text class="tiny" x="552" y="350">Combined</text>
+  <text class="tiny" x="548" y="368">Issue Vector</text>
+  <text class="tiny" x="563" y="383">(1x128)</text>
+
+  <rect class="nodeCream" x="690" y="326" width="136" height="62" rx="4"/>
+  <text class="tiny" x="722" y="350">Combined</text>
+  <text class="tiny" x="719" y="368">Rule Vector</text>
+  <text class="tiny" x="734" y="383">(1x128)</text>
+
+  <rect class="nodeCream" x="860" y="326" width="116" height="62" rx="4"/>
+  <text class="tiny" x="889" y="350">Tribunal</text>
+  <text class="tiny" x="902" y="368">Court</text>
+  <text class="tiny" x="896" y="383">(1x16)</text>
+
+  <rect class="nodeCream" x="1014" y="326" width="118" height="62" rx="4"/>
+  <text class="tiny" x="1055" y="350">Judge</text>
+  <text class="tiny" x="1052" y="368">Vector</text>
+  <text class="tiny" x="1051" y="383">(1x16)</text>
+
+  <path class="line" d="M 365 326 C 365 300 645 300 645 287"/>
+  <path class="line" d="M 588 326 C 588 304 645 304 645 287"/>
+  <path class="line" d="M 758 326 C 758 304 645 304 645 287"/>
+  <path class="line" d="M 918 326 C 918 298 650 298 645 287"/>
+  <path class="line" d="M 1073 326 C 1073 292 652 292 645 287"/>
+
+  <rect class="dash" x="300" y="416" width="142" height="150" rx="4"/>
+  <rect class="nodeBlue" x="315" y="438" width="112" height="52" rx="3"/>
+  <text class="tiny" x="345" y="468">Hidden</text>
+  <text class="tiny" x="344" y="484">state 1</text>
+  <rect class="nodeBlue" x="315" y="508" width="112" height="52" rx="3"/>
+  <text class="tiny" x="345" y="538">Hidden</text>
+  <text class="tiny" x="344" y="554">state 1</text>
+
+  <rect class="dash" x="640" y="416" width="142" height="150" rx="4"/>
+  <rect class="nodeBlue" x="655" y="438" width="112" height="52" rx="3"/>
+  <text class="tiny" x="685" y="468">Hidden</text>
+  <text class="tiny" x="684" y="484">state 2</text>
+  <rect class="nodeBlue" x="655" y="508" width="112" height="52" rx="3"/>
+  <text class="tiny" x="685" y="538">Hidden</text>
+  <text class="tiny" x="684" y="554">state 2</text>
+
+  <rect class="dash" x="940" y="416" width="142" height="150" rx="4"/>
+  <rect class="nodeBlue" x="955" y="438" width="112" height="52" rx="3"/>
+  <text class="tiny" x="985" y="468">Hidden</text>
+  <text class="tiny" x="984" y="484">state n</text>
+  <rect class="nodeBlue" x="955" y="508" width="112" height="52" rx="3"/>
+  <text class="tiny" x="985" y="538">Hidden</text>
+  <text class="tiny" x="984" y="554">state n</text>
+
+  <rect class="dashRed" x="236" y="590" width="278" height="76" rx="4"/>
+  <rect class="nodePurple" x="260" y="604" width="98" height="48" rx="3"/>
+  <text class="tiny" x="286" y="628">Fact Type</text>
+  <text class="tiny" x="284" y="644">Embedding 1</text>
+  <rect class="nodeBlue" x="374" y="604" width="116" height="48" rx="3"/>
+  <text class="tiny" x="404" y="634">Sentence 1</text>
+
+  <rect class="nodeBlue" x="656" y="604" width="116" height="48" rx="3"/>
+  <text class="tiny" x="686" y="634">Sentence 2</text>
+  <rect class="nodeBlue" x="956" y="604" width="116" height="48" rx="3"/>
+  <text class="tiny" x="986" y="634">Sentence n</text>
+
+  <path class="arrowBlue" d="M 1114 424 L 1114 648"/>
+  <text class="noteBlue" x="1142" y="510">Sentence Encoder</text>
+  <text class="noteBlue" x="1142" y="530">128-dim per token</text>
+  <path class="mutedLine" d="M 1084 603 C 1128 603 1128 653 1084 653"/>
+  <text class="noteRed" x="1138" y="631">Management of</text>
+  <text class="noteRed" x="1138" y="648">sentence-level context</text>
+
+  <text class="noteRed" x="64" y="612">Connect only to its</text>
+  <text class="noteRed" x="64" y="630">respective fact type</text>
+  <text class="noteRed" x="64" y="648">and append sentence</text>
+  <text class="noteRed" x="64" y="666">embedding for support</text>
+
+  <rect class="dash" x="360" y="692" width="740" height="78" rx="4"/>
+  <rect class="nodeViolet" x="248" y="704" width="112" height="58" rx="3"/>
+  <text class="whiteText" x="276" y="728">Fact Type</text>
+  <text class="whiteText" x="278" y="748">Fact Date</text>
+  <rect class="nodeGreen" x="380" y="710" width="116" height="44" rx="3"/>
+  <text class="tiny" x="405" y="738">Word_1<tspan baseline-shift="sub" font-size="9">sen2</tspan></text>
+  <rect class="nodeGreen" x="654" y="710" width="116" height="44" rx="3"/>
+  <text class="tiny" x="680" y="738">Word_2<tspan baseline-shift="sub" font-size="9">sen2</tspan></text>
+  <rect class="nodeGreen" x="956" y="710" width="116" height="44" rx="3"/>
+  <text class="tiny" x="980" y="738">Word_n<tspan baseline-shift="sub" font-size="9">sen2</tspan></text>
+
+  <rect class="dash" x="360" y="572" width="142" height="98" rx="4"/>
+  <rect class="nodeGreen" x="374" y="586" width="116" height="44" rx="3"/>
+  <text class="tiny" x="404" y="614">Hidden</text>
+  <text class="tiny" x="405" y="630">state 1</text>
+  <rect class="dash" x="640" y="572" width="142" height="98" rx="4"/>
+  <rect class="nodeGreen" x="654" y="586" width="116" height="44" rx="3"/>
+  <text class="tiny" x="684" y="614">Hidden</text>
+  <text class="tiny" x="685" y="630">state 2</text>
+  <rect class="dash" x="940" y="572" width="142" height="98" rx="4"/>
+  <rect class="nodeGreen" x="954" y="586" width="116" height="44" rx="3"/>
+  <text class="tiny" x="984" y="614">Hidden</text>
+  <text class="tiny" x="985" y="630">state n</text>
+
+  <path class="arrowGreen" d="M 1114 690 L 1114 794"/>
+  <text class="noteGreen" x="1142" y="724">Word Encoder</text>
+  <text class="noteGreen" x="1142" y="744">128-dim per token</text>
+  <text class="noteGreen" x="1142" y="762">BiLSTM attention</text>
+  <text class="note" x="1142" y="795">Aggregates words before</text>
+  <text class="note" x="1142" y="813">sentence-level modelling</text>
+
+  <text class="tiny" x="510" y="462">Backward pass</text>
+  <path class="arrow" d="M 500 458 L 452 458"/>
+  <text class="tiny" x="510" y="505">Forward pass</text>
+  <path class="arrow" d="M 452 502 L 500 502"/>
+  <text class="tiny" x="510" y="626">Backward pass</text>
+  <path class="arrow" d="M 500 622 L 452 622"/>
+  <text class="tiny" x="510" y="656">Forward pass</text>
+  <path class="arrow" d="M 452 652 L 500 652"/>
+
+  <rect class="nodeWhite" x="248" y="802" width="116" height="28" rx="2"/>
+  <text class="tiny" x="274" y="821">Tokenisation</text>
+  <rect class="nodeWhite" x="384" y="802" width="716" height="28" rx="2"/>
+  <text class="tiny" x="708" y="821">Tokenisation</text>
+
+  <rect class="nodeCream" x="250" y="846" width="116" height="42" rx="3"/>
+  <text class="tiny" x="274" y="864">Combined Facts</text>
+  <text class="tiny" x="296" y="881">(LLD)</text>
+  <rect class="nodePink" x="520" y="846" width="116" height="42" rx="3"/>
+  <text class="tiny" x="546" y="864">Combined Issue</text>
+  <text class="tiny" x="575" y="881">(LoS)</text>
+  <rect class="nodePink" x="690" y="846" width="116" height="42" rx="3"/>
+  <text class="tiny" x="718" y="864">Combined Rule</text>
+  <text class="tiny" x="745" y="881">(LoS)</text>
+  <rect class="nodeBlue" x="864" y="846" width="116" height="42" rx="3"/>
+  <text class="tiny" x="894" y="864">Tribunal Court</text>
+  <text class="tiny" x="895" y="881">Categorical</text>
+  <rect class="nodeBlue" x="1016" y="846" width="116" height="42" rx="3"/>
+  <text class="tiny" x="1057" y="864">Judge</text>
+  <text class="tiny" x="1046" y="881">Categorical</text>
+
+  <text class="note" x="54" y="786">Inference uses only pre-decision source sections and excludes result-leaking labels.</text>
+</svg>

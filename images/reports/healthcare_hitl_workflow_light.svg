@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Human-in-the-loop workflow comparison</title>
+  <desc id="desc">Light-background comparison between optional human review and compulsory human review in the healthcare analytics pipeline.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38506a"/></marker>
+    <style>
+      .bg{fill:#fbfbf7}.panel{fill:#fff;stroke:#d7e2ee;stroke-width:1.5}.laneA{fill:#f3f8ff;stroke:#c8daf2}.laneB{fill:#fff7eb;stroke:#edd1a4}.node{fill:#fff;stroke:#9fb3c8;stroke-width:1.5}.gate{fill:#ffeceb;stroke:#d77d7d;stroke-width:1.5}.review{fill:#eaf7ee;stroke:#74be88;stroke-width:1.5}.line{stroke:#38506a;stroke-width:2;fill:none;marker-end:url(#arrow)}.title{fill:#1f3145;font-family:Arial,sans-serif;font-size:28px;font-weight:700}.label{fill:#1f3145;font-family:Arial,sans-serif;font-size:15px;font-weight:700}.small{fill:#42566c;font-family:Arial,sans-serif;font-size:12px;font-weight:600}.tag{fill:#315b8d;font-family:Arial,sans-serif;font-size:13px;font-weight:700}.warn{fill:#b54343;font-family:Arial,sans-serif;font-size:12px;font-weight:700}.ok{fill:#208457;font-family:Arial,sans-serif;font-size:12px;font-weight:700}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="520"/>
+  <rect class="panel" x="34" y="30" width="1212" height="454" rx="18"/>
+  <text class="title" x="64" y="78">Human-in-the-Loop Review Strategy</text>
+  <text class="small" x="64" y="104">The same pipeline can run with optional review for low-risk queries or compulsory review before sensitive analytical actions.</text>
+
+  <rect class="laneA" x="72" y="138" width="1136" height="126" rx="12"/>
+  <text class="tag" x="96" y="168">Optional HITL for routine exploratory questions</text>
+  <rect class="node" x="96" y="190" width="112" height="42" rx="6"/><text class="label" x="129" y="216">Router</text>
+  <rect class="node" x="244" y="190" width="130" height="42" rx="6"/><text class="label" x="268" y="216">Clarifier</text>
+  <rect class="node" x="410" y="190" width="140" height="42" rx="6"/><text class="label" x="433" y="216">Schema</text>
+  <rect class="node" x="586" y="190" width="140" height="42" rx="6"/><text class="label" x="616" y="216">Reason</text>
+  <rect class="node" x="762" y="190" width="112" height="42" rx="6"/><text class="label" x="803" y="216">SQL</text>
+  <rect class="node" x="910" y="190" width="112" height="42" rx="6"/><text class="label" x="937" y="216">Stats</text>
+  <rect class="node" x="1058" y="190" width="112" height="42" rx="6"/><text class="label" x="1088" y="216">Answer</text>
+  <path class="line" d="M208 211 H244"/><path class="line" d="M374 211 H410"/><path class="line" d="M550 211 H586"/><path class="line" d="M726 211 H762"/><path class="line" d="M874 211 H910"/><path class="line" d="M1022 211 H1058"/>
+  <text class="ok" x="440" y="246">review only if ambiguity or unsupported field is detected</text>
+
+  <rect class="laneB" x="72" y="306" width="1136" height="126" rx="12"/>
+  <text class="tag" x="96" y="336">Compulsory HITL for sensitive or high-impact analysis</text>
+  <rect class="node" x="96" y="358" width="112" height="42" rx="6"/><text class="label" x="129" y="384">Router</text>
+  <rect class="node" x="244" y="358" width="130" height="42" rx="6"/><text class="label" x="268" y="384">Clarifier</text>
+  <rect class="review" x="410" y="358" width="140" height="42" rx="6"/><text class="label" x="436" y="384">Approve</text>
+  <rect class="node" x="586" y="358" width="140" height="42" rx="6"/><text class="label" x="616" y="384">Reason</text>
+  <rect class="gate" x="762" y="358" width="112" height="42" rx="6"/><text class="label" x="795" y="384">SQL</text>
+  <rect class="node" x="910" y="358" width="112" height="42" rx="6"/><text class="label" x="934" y="384">Feature</text>
+  <rect class="gate" x="1058" y="358" width="112" height="42" rx="6"/><text class="label" x="1084" y="384">Review</text>
+  <path class="line" d="M208 379 H244"/><path class="line" d="M374 379 H410"/><path class="line" d="M550 379 H586"/><path class="line" d="M726 379 H762"/><path class="line" d="M874 379 H910"/><path class="line" d="M1022 379 H1058"/>
+  <text class="warn" x="402" y="414">hard stops before query execution, derived features, and interpretation</text>
+</svg>

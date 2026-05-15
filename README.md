@@ -83,8 +83,9 @@ TonyKoo/
   recreated diagrams, technical notes, and selected source trails where the original reports included references.
 - Upgraded report pages with professional signal snapshots, visible keyword clusters, decision matrices, qualitative
   priority charts, and explicit reasoning notes for recruiter and AI-assisted review.
-- Added curated original-figure galleries using extracted report visuals where they are clearer than recreated diagrams,
-  while excluding full pages, raw submission metadata, private UI/account details, and third-party research-paper scans.
+- Added curated figure galleries using light-background architecture recreations plus extracted report graphs and
+  evaluation tables where they provide stronger evidence, while excluding full pages, raw submission metadata, private
+  UI/account details, and third-party research-paper scans.
 - Updated the resume asset and removed stale duplicate/raw report PDFs from the public `files/` directory.
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
 - Removed placeholder LinkedIn/mobile links until verified public URLs are available.
