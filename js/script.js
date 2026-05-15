@@ -401,6 +401,100 @@ $(document).ready(function () {
     scrollToTarget($(this).attr("href"), prefersReducedMotion ? 0 : 300);
   });
 
+  // Reading bookshelf carousel
+  const bookCarousel = $("[data-book-carousel]");
+  if (bookCarousel.length) {
+    const bookThumbs = bookCarousel.find(".bookThumb");
+    const bookCoverFrame = bookCarousel.find(".bookCoverFrame");
+    const bookCoverImage = $("#bookCoverImage");
+    const bookTheme = $("#bookTheme");
+    const bookTitle = $("#bookTitle");
+    const bookAuthor = $("#bookAuthor");
+    const bookTakeaway = $("#bookTakeaway");
+    const fallbackTitle = bookCarousel.find(".fallbackTitle");
+    const fallbackAuthor = bookCarousel.find(".fallbackAuthor");
+    let activeBookIndex = 0;
+
+    bookCarousel.attr("tabindex", "0");
+
+    function updateBook(index, direction) {
+      if (!bookThumbs.length) return;
+
+      const nextIndex = (index + bookThumbs.length) % bookThumbs.length;
+      const thumb = bookThumbs.eq(nextIndex);
+      const title = thumb.data("title");
+      const author = thumb.data("author");
+      const theme = thumb.data("theme");
+      const takeaway = thumb.data("takeaway");
+      const cover = thumb.data("cover");
+      const flipClass = direction === "backward" ? "flip-backward" : "flip-forward";
+
+      bookCoverFrame.removeClass("flip-forward flip-backward");
+      void bookCoverFrame[0].offsetWidth;
+      bookCoverFrame.addClass(flipClass);
+
+      setTimeout(function () {
+        bookCoverImage.removeClass("is-hidden").attr({
+          src: cover,
+          alt: "Book cover: " + title + " by " + author,
+        });
+        bookTheme.text(theme);
+        bookTitle.text(title);
+        bookAuthor.text(author);
+        bookTakeaway.text(takeaway);
+        fallbackTitle.text(title);
+        fallbackAuthor.text(author);
+
+        bookThumbs.removeClass("active").removeAttr("aria-current");
+        thumb.addClass("active").attr("aria-current", "true");
+
+        if (thumb[0] && thumb[0].scrollIntoView) {
+          thumb[0].scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "nearest",
+            inline: "center",
+          });
+        }
+      }, prefersReducedMotion ? 0 : 150);
+
+      activeBookIndex = nextIndex;
+    }
+
+    bookCoverImage.on("error", function () {
+      $(this).addClass("is-hidden");
+    });
+
+    bookThumbs.find("img").on("error", function () {
+      $(this).hide();
+    });
+
+    bookCarousel.find(".bookNavPrev").on("click", function () {
+      updateBook(activeBookIndex - 1, "backward");
+    });
+
+    bookCarousel.find(".bookNavNext").on("click", function () {
+      updateBook(activeBookIndex + 1, "forward");
+    });
+
+    bookThumbs.on("click", function () {
+      const selectedIndex = bookThumbs.index(this);
+      const direction = selectedIndex < activeBookIndex ? "backward" : "forward";
+      updateBook(selectedIndex, direction);
+    });
+
+    bookCarousel.on("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        updateBook(activeBookIndex - 1, "backward");
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        updateBook(activeBookIndex + 1, "forward");
+      }
+    });
+  }
+
   // Typing Animation
   const phrases = [
     "Quantitative Developer & AI Data Systems Engineer",
@@ -628,8 +722,10 @@ var buttons = btnContainer.getElementsByClassName("btn");
 
 for (var i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
-    current[0].className = "btn";
-    this.className = "btn active";
+    var current = btnContainer.getElementsByClassName("active");
+    if (current.length) {
+      current[0].classList.remove("active");
+    }
+    this.classList.add("active");
   });
 }
