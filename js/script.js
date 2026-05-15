@@ -405,6 +405,15 @@ $(document).ready(function () {
     scrollToTarget($(this).attr("href"), prefersReducedMotion ? 0 : 300);
   });
 
+  $(".resumeCollapseToggle").on("click", function () {
+    const toggle = $(this);
+    const target = $("#" + toggle.attr("aria-controls"));
+    const expanded = toggle.attr("aria-expanded") === "true";
+
+    toggle.attr("aria-expanded", String(!expanded));
+    target.toggleClass("is-collapsed", expanded);
+  });
+
   // Reading bookshelf carousel
   const bookCarousel = $("[data-book-carousel]");
   if (bookCarousel.length) {
@@ -420,6 +429,14 @@ $(document).ready(function () {
     let activeBookIndex = 0;
 
     bookCarousel.attr("tabindex", "0");
+
+    bookThumbs.each(function () {
+      const cover = $(this).data("cover");
+      if (cover) {
+        const image = new Image();
+        image.src = cover;
+      }
+    });
 
     function updateBook(index, direction) {
       if (!bookThumbs.length) return;
@@ -437,29 +454,27 @@ $(document).ready(function () {
       void bookCoverFrame[0].offsetWidth;
       bookCoverFrame.addClass(flipClass);
 
-      setTimeout(function () {
-        bookCoverImage.removeClass("is-hidden").attr({
-          src: cover,
-          alt: "Book cover: " + title + " by " + author,
+      bookCoverImage.removeClass("is-hidden").attr({
+        src: cover,
+        alt: "Book cover: " + title + " by " + author,
+      });
+      bookTheme.text(theme);
+      bookTitle.text(title);
+      bookAuthor.text(author);
+      bookTakeaway.text(takeaway);
+      fallbackTitle.text(title);
+      fallbackAuthor.text(author);
+
+      bookThumbs.removeClass("active").removeAttr("aria-current");
+      thumb.addClass("active").attr("aria-current", "true");
+
+      if (thumb[0] && thumb[0].scrollIntoView) {
+        thumb[0].scrollIntoView({
+          behavior: "auto",
+          block: "nearest",
+          inline: "center",
         });
-        bookTheme.text(theme);
-        bookTitle.text(title);
-        bookAuthor.text(author);
-        bookTakeaway.text(takeaway);
-        fallbackTitle.text(title);
-        fallbackAuthor.text(author);
-
-        bookThumbs.removeClass("active").removeAttr("aria-current");
-        thumb.addClass("active").attr("aria-current", "true");
-
-        if (thumb[0] && thumb[0].scrollIntoView) {
-          thumb[0].scrollIntoView({
-            behavior: prefersReducedMotion ? "auto" : "smooth",
-            block: "nearest",
-            inline: "center",
-          });
-        }
-      }, prefersReducedMotion ? 0 : 150);
+      }
 
       activeBookIndex = nextIndex;
     }
@@ -683,10 +698,16 @@ $(document).ready(function () {
     projectDeck.attr("tabindex", "0");
     projectGridWrap.addClass("projectGridCollapsed");
     projectGridToggle.on("click", function () {
-      const expanded = $(this).attr("aria-expanded") === "true";
-      $(this).attr("aria-expanded", String(!expanded));
-      projectGridWrap.toggleClass("projectGridCollapsed", expanded);
-      $(this).text(expanded ? "View all project cards" : "Hide full project grid");
+      const expanded = this.getAttribute("aria-expanded") === "true";
+      this.setAttribute("aria-expanded", String(!expanded));
+
+      if (expanded) {
+        projectGridWrap.addClass("projectGridCollapsed");
+        $(this).text("View all project cards");
+      } else {
+        projectGridWrap.removeClass("projectGridCollapsed");
+        $(this).text("Hide full project grid");
+      }
     });
 
     window.updateProjectDeckFilter("all");
