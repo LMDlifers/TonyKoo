@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PII-safe portfolio case study for a legal NLP and judicial analytics pipeline.">
+    <title>Judicial Analytics: Legal NLP | Sanitized Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero">
+            <p class="reportEyebrow">Sanitized Portfolio Report</p>
+            <h1>Judicial Analytics: Legal NLP and Leakage-Aware Evaluation</h1>
+            <p class="reportSubtitle">
+                A paraphrased case study on extracting structured legal features from lengthy judgments while controlling
+                target leakage and hindsight bias.
+            </p>
+            <div class="reportMeta" aria-label="Report metadata">
+                <span>Domain: Legal Analytics</span>
+                <span>Focus: NLP Evaluation</span>
+                <span>Year: 2026</span>
+                <span>Status: Paraphrased Summary</span>
+            </div>
+        </header>
+
+        <section class="reportSection">
+            <h2>PII-Safe Publication Note</h2>
+            <p>
+                This page is a rewritten public case study. It removes personal names, academic identifiers, emails,
+                raw legal excerpts, evaluator details, and submission metadata. The report describes the methods and
+                lessons learned without reproducing private coursework pages or unredacted source material.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Executive Summary</h2>
+            <p>
+                The project studied how legal judgments can be converted into structured analytical features for
+                litigation-risk modelling. A core challenge is that judgments already contain the final outcome, so a
+                naive model can accidentally learn from hindsight cues instead of pre-decision facts. The portfolio
+                version therefore emphasizes leakage control, temporal isolation, legal feature engineering, and careful
+                evaluation rather than raw model scores.
+            </p>
+            <p>
+                The pipeline combines rule-based preprocessing, legal-domain NLP, IRAC-inspired extraction, row-level
+                normalization, and benchmark models such as tree-based classifiers and legal text embeddings. The most
+                important design principle is to separate facts available before a decision from language that reveals
+                the decision itself.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem Context</h2>
+            <p>
+                Legal documents are long, unevenly structured, and rhetorically complex. The same case can contain claims,
+                counterclaims, facts, procedural history, legal reasoning, damages, and final orders. A useful analytics
+                workflow must convert this material into consistent features without collapsing all text into one
+                ambiguous document vector.
+            </p>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Document Length</h3>
+                    <p>
+                        Relevant facts may be distributed across many sections, while outcome language can appear near
+                        the end or inside judicial reasoning.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Target Leakage</h3>
+                    <p>
+                        If the model sees phrases that reveal judgment, liability, or relief granted, performance can be
+                        misleading.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Party Structure</h3>
+                    <p>
+                        Claims and counterclaims may point in opposite directions, so case-level labels need careful
+                        normalization.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Analytical Objectives</h2>
+            <ul class="reportList">
+                <li>
+                    Extract structured metadata, party relationships, factual context, and outcome labels from lengthy
+                    legal texts.
+                </li>
+                <li>
+                    Apply an IRAC-inspired structure so issues, rules, application, and conclusions are not treated as
+                    interchangeable text.
+                </li>
+                <li>
+                    Reduce target leakage by removing or isolating language that would only be known after judgment.
+                </li>
+                <li>
+                    Compare traditional machine-learning baselines with legal-domain embedding approaches.
+                </li>
+                <li>
+                    Present findings honestly, with limitations around corpus size, annotation ambiguity, and real-world
+                    generalization.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Pipeline Design</h2>
+            <h3>1. Text Ingestion and Normalization</h3>
+            <p>
+                The first step standardizes document text so headings, paragraph breaks, dates, monetary references, and
+                party labels can be processed consistently. This step reduces noise before feature extraction.
+            </p>
+
+            <h3>2. Case and Party Rows</h3>
+            <p>
+                Instead of treating a judgment as one flat object, the design can represent claims, parties, and
+                counterclaims as structured rows. This helps prevent mixed signals when a case contains multiple
+                directions of liability or relief.
+            </p>
+
+            <h3>3. IRAC-Inspired Extraction</h3>
+            <p>
+                The pipeline separates issue statements, legal rules, factual application, and conclusions. For modelling,
+                pre-decision factual material is more appropriate than final judicial conclusions because the latter can
+                reveal the label.
+            </p>
+
+            <h3>4. Temporal Isolation</h3>
+            <p>
+                Features should approximate what would have been knowable before the case outcome. This requires careful
+                treatment of dates, procedural history, and explicit decision language.
+            </p>
+
+            <h3>5. Embeddings and Baselines</h3>
+            <p>
+                Legal-domain embeddings can capture semantic patterns in case facts. Traditional models such as boosted
+                trees remain useful as baselines because they make feature importance and failure modes easier to inspect.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Leakage Controls</h2>
+            <p>
+                Leakage control is the strongest part of the project from a portfolio perspective. The model should not
+                be rewarded for reading the answer inside the judgment. The public writeup therefore foregrounds the
+                safeguards rather than presenting performance numbers without context.
+            </p>
+            <ul class="reportList">
+                <li>
+                    Remove or isolate sections that directly describe the final decision, relief awarded, or liability
+                    finding.
+                </li>
+                <li>
+                    Normalize target labels symmetrically so claims and counterclaims are not accidentally coded in
+                    inconsistent directions.
+                </li>
+                <li>
+                    Separate factual summaries from judicial conclusions where the document structure supports it.
+                </li>
+                <li>
+                    Check whether high-performing features are actually proxies for the final outcome.
+                </li>
+                <li>
+                    Evaluate at both row level and case level to avoid overstating performance on duplicated or related
+                    examples.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation Approach</h2>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Extraction Quality</h3>
+                    <p>
+                        Check whether the pipeline correctly identifies parties, dates, claim direction, factual
+                        context, and outcome labels.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Model Comparison</h3>
+                    <p>
+                        Compare legal embeddings, bag-of-words style features, and structured variables against simple
+                        baselines.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Robustness</h3>
+                    <p>
+                        Inspect errors where the model relies on summary bias, procedural language, or outcome-adjacent
+                        wording.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <ul class="reportList">
+                <li>
+                    Legal outcomes are shaped by facts, evidence, procedure, and legal interpretation. A text model can
+                    support analysis but should not be framed as legal advice.
+                </li>
+                <li>
+                    Judgment text is written after the outcome is known, so leakage control is inherently difficult.
+                </li>
+                <li>
+                    Small or domain-specific corpora can make model performance unstable across case types.
+                </li>
+                <li>
+                    Public reporting intentionally avoids raw excerpts and sensitive metadata, so the writeup focuses on
+                    method design rather than reproducing data samples.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recommended Next Improvements</h2>
+            <ul class="reportList">
+                <li>
+                    Build a transparent annotation guide for facts, issues, outcomes, and leakage-prone sections.
+                </li>
+                <li>
+                    Add document-section classifiers to separate factual narrative from legal conclusion more
+                    consistently.
+                </li>
+                <li>
+                    Run temporal validation where later cases are predicted from earlier training data.
+                </li>
+                <li>
+                    Add model cards that describe intended use, prohibited use, evaluation scope, and residual risks.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recruiter Signal</h2>
+            <p>
+                This project demonstrates careful applied machine learning: feature extraction from messy documents,
+                domain-specific NLP, leakage-aware evaluation, and honest communication of model limits. It is relevant
+                for data science, NLP, risk analytics, and applied AI roles where correctness matters more than a flashy
+                demo.
+            </p>
+            <div class="tagRow" aria-label="Skills demonstrated">
+                <span class="tag">Legal NLP</span>
+                <span class="tag">Legal-BERT</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">Feature Engineering</span>
+                <span class="tag">Leakage Control</span>
+                <span class="tag">Evaluation Design</span>
+            </div>
+        </section>
+
+        <p class="reportFooter">
+            Sanitized report prepared for portfolio publication. Raw academic materials and private data are not
+            published.
+        </p>
+    </main>
+</body>
+
+</html>

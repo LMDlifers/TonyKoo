@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PII-safe portfolio case study for an agentic healthcare analytics chatbot and natural-language SQL workflow.">
+    <title>Agentic Healthcare Analytics Chatbot | Sanitized Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero">
+            <p class="reportEyebrow">Sanitized Portfolio Report</p>
+            <h1>Agentic Healthcare Analytics Chatbot</h1>
+            <p class="reportSubtitle">
+                A public-safe case study of a multi-agent analytics workflow that translates natural-language
+                healthcare questions into auditable structured-data analysis.
+            </p>
+            <div class="reportMeta" aria-label="Report metadata">
+                <span>Domain: Healthcare Analytics</span>
+                <span>Focus: Agentic AI</span>
+                <span>Year: 2026</span>
+                <span>Status: Paraphrased Summary</span>
+            </div>
+        </header>
+
+        <section class="reportSection">
+            <h2>PII-Safe Publication Note</h2>
+            <p>
+                This report is a rewritten portfolio version of an academic project. It does not reproduce the raw
+                submission, source data, screenshots, account details, personal names, emails, phone numbers, or
+                institution-specific submission metadata. The emphasis is on system design, trade-offs, and transferable
+                engineering judgment.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Executive Summary</h2>
+            <p>
+                The project explored how a healthcare analytics assistant could help clinical and research users ask
+                questions over structured health data without hiding the analytical path behind a black-box response.
+                The core design used a multi-agent workflow: one agent interprets the question, another maps the
+                request to a data schema, another proposes SQL or statistical operations, and review steps check whether
+                the output should be revised before a final answer is shown.
+            </p>
+            <p>
+                The main portfolio value is not simply that the system uses large language models. The stronger signal
+                is the architecture around them: schema grounding, query traceability, human review checkpoints, privacy
+                boundaries, and result explanations that make the analytical process inspectable.
+            </p>
+            <div class="callout">
+                <strong>Portfolio framing:</strong> This is best presented as an agentic analytics architecture project,
+                not as a claim of clinical deployment or patient-facing decision support.
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem Context</h2>
+            <p>
+                Healthcare datasets are often structured, relational, and highly sensitive. Analysts may understand the
+                clinical question but not the exact schema. Technical users may understand the database but need domain
+                clarification before writing safe queries. A useful assistant therefore has to do more than generate SQL:
+                it must clarify intent, ground terms to known fields, expose assumptions, and preserve auditability.
+            </p>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Data Complexity</h3>
+                    <p>
+                        Healthcare tables can involve encounters, diagnoses, medications, procedures, measurements, and
+                        cohort definitions that must be joined carefully.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Trust Requirements</h3>
+                    <p>
+                        Users need to see how a result was produced, which assumptions were made, and where uncertainty
+                        remains.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Risk Boundaries</h3>
+                    <p>
+                        Public-facing summaries should avoid raw patient examples, private schemas, operational
+                        credentials, or sensitive institutional details.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Analytical Objectives</h2>
+            <ul class="reportList">
+                <li>
+                    Convert natural-language research questions into structured analytical tasks while preserving the
+                    user's intent.
+                </li>
+                <li>
+                    Use schema and vocabulary grounding before query generation, so the assistant does not invent fields
+                    or use unsupported concepts.
+                </li>
+                <li>
+                    Generate SQL and statistical steps that can be inspected, rerun, or corrected by a human reviewer.
+                </li>
+                <li>
+                    Separate reasoning, querying, charting, and answer composition into smaller units that are easier to
+                    test.
+                </li>
+                <li>
+                    Keep the public portfolio version focused on architecture and safeguards rather than private data or
+                    unverified deployment claims.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>System Design</h2>
+            <h3>1. Question Intake</h3>
+            <p>
+                The first step classifies the user question by analytical type. Examples include cohort counting,
+                variable comparison, trend analysis, descriptive statistics, and chart requests. The workflow should
+                also detect when a question is underspecified and ask for clarification rather than forcing a query.
+            </p>
+
+            <h3>2. Schema Grounding</h3>
+            <p>
+                The assistant maps natural-language concepts to known tables, fields, and controlled vocabulary where
+                available. This grounding step is critical because a plausible answer is not useful if it rests on a
+                fabricated column or an invalid join path.
+            </p>
+
+            <h3>3. Query Planning</h3>
+            <p>
+                A planning agent decomposes the request into operations such as cohort selection, filtering, joins,
+                aggregation, and statistical tests. The plan becomes an intermediate artifact that can be reviewed before
+                execution.
+            </p>
+
+            <h3>4. SQL Generation and Validation</h3>
+            <p>
+                The SQL component produces a query from the grounded plan. Validation checks should confirm that tables
+                exist, joins are explainable, filters match the user's intent, and the query avoids unsupported fields.
+            </p>
+
+            <h3>5. Analysis and Visualization</h3>
+            <p>
+                Once the structured result is available, a tool layer can calculate descriptive statistics or generate
+                charts. The final response should include the answer, the method used, and any limitations that affect
+                interpretation.
+            </p>
+
+            <h3>6. Human Review</h3>
+            <p>
+                Human-in-the-loop checks are included for high-risk or ambiguous outputs. This is especially important
+                for healthcare analytics, where confident language can create false authority if the underlying query is
+                wrong.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Implementation Decisions</h2>
+            <ul class="reportList">
+                <li>
+                    <strong>Agent separation:</strong> Separate agents reduce the chance that one prompt has to perform
+                    every task at once. This makes failures easier to isolate.
+                </li>
+                <li>
+                    <strong>Traceable intermediate outputs:</strong> Intent, schema mapping, query plan, generated SQL,
+                    and final answer should each be stored or displayed for audit.
+                </li>
+                <li>
+                    <strong>Guarded generation:</strong> The system should treat schema references as constraints, not
+                    suggestions. Unsupported fields should trigger revision.
+                </li>
+                <li>
+                    <strong>Review-first framing:</strong> The assistant is positioned as an analytics copilot for
+                    structured exploration, not as a diagnostic or clinical decision system.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation Approach</h2>
+            <p>
+                The strongest evaluation strategy for this type of project is multi-layered. Instead of grading only the
+                final natural-language answer, the system should be checked at each stage where an error could enter the
+                workflow.
+            </p>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Intent Accuracy</h3>
+                    <p>
+                        Did the workflow correctly identify the analytical task, required variables, filters, and
+                        requested output format?
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>SQL Validity</h3>
+                    <p>
+                        Did the query use valid fields, defensible joins, appropriate aggregation, and interpretable
+                        filters?
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Answer Faithfulness</h3>
+                    <p>
+                        Did the final explanation reflect the computed result without adding unsupported clinical
+                        claims?
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <ul class="reportList">
+                <li>
+                    An LLM can produce fluent explanations even when a query plan is flawed, so validation cannot depend
+                    on wording quality alone.
+                </li>
+                <li>
+                    Schema grounding works only as well as the available data dictionary, metadata, and domain concept
+                    mapping.
+                </li>
+                <li>
+                    The public version intentionally omits raw data and deployment details, so it should be read as an
+                    architecture case study rather than a production performance report.
+                </li>
+                <li>
+                    Healthcare analytics requires domain review before results are used for research, operational, or
+                    policy decisions.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recommended Next Improvements</h2>
+            <ul class="reportList">
+                <li>
+                    Add a test set of sanitized natural-language questions with expected query plans and SQL patterns.
+                </li>
+                <li>
+                    Add automatic query linting for high-risk operations such as broad joins, missing date filters, and
+                    ambiguous cohort definitions.
+                </li>
+                <li>
+                    Track every generated answer with provenance: question, intent, schema mapping, SQL, result table,
+                    reviewer status, and final response.
+                </li>
+                <li>
+                    Expand the UI so reviewers can approve, reject, or annotate intermediate steps without editing raw
+                    prompts.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recruiter Signal</h2>
+            <p>
+                This project demonstrates the ability to design LLM systems around real operational constraints:
+                privacy, auditability, structured data access, ambiguous user intent, and human oversight. It is most
+                relevant for roles involving agentic AI, analytics engineering, healthcare data products, and
+                responsible AI implementation.
+            </p>
+            <div class="tagRow" aria-label="Skills demonstrated">
+                <span class="tag">LangGraph</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Agentic AI</span>
+                <span class="tag">Analytics Architecture</span>
+                <span class="tag">Human Review</span>
+                <span class="tag">Auditability</span>
+            </div>
+        </section>
+
+        <p class="reportFooter">
+            Sanitized report prepared for portfolio publication. Raw academic materials and private data are not
+            published.
+        </p>
+    </main>
+</body>
+
+</html>

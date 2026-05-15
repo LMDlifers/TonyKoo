@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PII-safe portfolio case note for a loan default analytics pipeline and explainable credit risk workflow.">
+    <title>Loan Default Analytics Pipeline | Sanitized Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero">
+            <p class="reportEyebrow">Sanitized Portfolio Case Note</p>
+            <h1>Loan Default Analytics Pipeline</h1>
+            <p class="reportSubtitle">
+                A public-safe case note for an interpretable credit-risk analytics workflow covering data preparation,
+                model comparison, and business-facing risk communication.
+            </p>
+            <div class="reportMeta" aria-label="Report metadata">
+                <span>Domain: Credit Risk</span>
+                <span>Focus: Analytics Pipeline</span>
+                <span>Year: 2026</span>
+                <span>Status: Portfolio Summary</span>
+            </div>
+        </header>
+
+        <section class="reportSection">
+            <h2>PII-Safe Publication Note</h2>
+            <p>
+                This page is a portfolio-native case note, not a copy of a raw group report. It avoids personal names,
+                academic identifiers, emails, phone numbers, private datasets, and unverified performance claims. The
+                public version focuses on the analytics workflow and risk communication choices.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Executive Summary</h2>
+            <p>
+                The project focused on predicting loan default risk from structured borrower and loan attributes while
+                keeping the modelling process understandable to business users. A technically strong credit model is not
+                enough if stakeholders cannot understand the key drivers, limitations, and appropriate operating
+                threshold.
+            </p>
+            <p>
+                The strongest portfolio framing is an end-to-end analytics pipeline: data quality review, feature
+                engineering, model training, model comparison, explainability, and handoff recommendations. The project
+                should be presented as risk analytics and decision support, not as an automated lending decision engine.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem Context</h2>
+            <p>
+                Loan default prediction is a common analytics problem with a high cost of careless modelling. False
+                negatives can expose a lender to losses, while false positives can unfairly reject customers. The
+                workflow therefore needs to balance predictive performance, interpretability, fairness, calibration, and
+                operational usability.
+            </p>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Data Quality</h3>
+                    <p>
+                        Missing values, outliers, duplicate records, and inconsistent borrower attributes can distort
+                        risk estimates.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Class Imbalance</h3>
+                    <p>
+                        Defaults are often less common than non-defaults, so accuracy alone can make a weak model look
+                        acceptable.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Business Trust</h3>
+                    <p>
+                        Stakeholders need clear explanations of risk drivers, threshold trade-offs, and model limits.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Analytical Objectives</h2>
+            <ul class="reportList">
+                <li>
+                    Prepare borrower and loan data for reliable modelling through cleaning, validation, and feature
+                    standardization.
+                </li>
+                <li>
+                    Engineer features that reflect debt burden, repayment capacity, credit history, loan terms, and
+                    behavioral risk signals where appropriate.
+                </li>
+                <li>
+                    Compare multiple modelling approaches rather than relying on a single algorithm.
+                </li>
+                <li>
+                    Evaluate models with metrics that reflect imbalanced risk prediction, such as recall, precision,
+                    F1-score, ROC-AUC, PR-AUC, and calibration.
+                </li>
+                <li>
+                    Translate technical outputs into business-facing insights that explain why a borrower segment may be
+                    higher risk.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Pipeline Design</h2>
+            <h3>1. Data Ingestion</h3>
+            <p>
+                The pipeline begins by loading structured borrower and loan data, checking schema consistency, and
+                identifying missing or suspicious values. In a big-data setting, this can be implemented with distributed
+                processing tools when record volume exceeds local analysis needs.
+            </p>
+
+            <h3>2. Cleaning and Validation</h3>
+            <p>
+                Cleaning steps include handling missing values, standardizing categorical values, treating outliers,
+                removing duplicates, and checking whether date or loan-status fields create leakage.
+            </p>
+
+            <h3>3. Feature Engineering</h3>
+            <p>
+                Useful credit-risk features may include debt-to-income style ratios, loan amount relative to income,
+                employment or income stability indicators, repayment history, loan purpose, utilization proxies, and
+                term-related variables. Any feature that would not be known at decision time should be excluded.
+            </p>
+
+            <h3>4. Model Training and Comparison</h3>
+            <p>
+                Candidate models should be compared against simple baselines. Logistic regression provides interpretive
+                clarity, while tree-based methods can capture nonlinear patterns. The comparison should include
+                threshold-sensitive metrics, not just default accuracy.
+            </p>
+
+            <h3>5. Explainability and Communication</h3>
+            <p>
+                The final output should explain which variables contribute most strongly to risk and how those drivers
+                align with business intuition. A dashboard or report can show segment-level default patterns, key
+                drivers, and threshold trade-offs.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation Approach</h2>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Discrimination</h3>
+                    <p>
+                        Measures whether the model separates higher-risk and lower-risk cases using ROC-AUC, PR-AUC, and
+                        rank-based checks.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Threshold Trade-Off</h3>
+                    <p>
+                        Compares false positives and false negatives at different operating thresholds so stakeholders
+                        can choose a policy.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Calibration</h3>
+                    <p>
+                        Checks whether predicted probabilities correspond to observed default rates across risk bands.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Risk Controls</h2>
+            <ul class="reportList">
+                <li>
+                    <strong>Leakage control:</strong> Exclude post-loan or post-outcome variables that would not be
+                    available at decision time.
+                </li>
+                <li>
+                    <strong>Fairness review:</strong> Inspect whether model behavior differs materially across protected
+                    or sensitive groups when such analysis is legally and ethically appropriate.
+                </li>
+                <li>
+                    <strong>Explainability:</strong> Pair model output with feature importance, partial dependence, or
+                    local explanations where suitable.
+                </li>
+                <li>
+                    <strong>Monitoring:</strong> Track feature drift, approval-rate changes, default-rate changes, and
+                    calibration decay after deployment.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <ul class="reportList">
+                <li>
+                    Public portfolio materials do not include private borrower data, raw reports, or unverified exact
+                    performance figures.
+                </li>
+                <li>
+                    A credit model should support human decision-making and policy design rather than operate as an
+                    unexplained automatic decision engine.
+                </li>
+                <li>
+                    Historical lending data can reflect existing policy bias, economic conditions, and collection
+                    practices.
+                </li>
+                <li>
+                    Model performance can degrade when borrower behavior, macroeconomic conditions, or lending policy
+                    changes.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recommended Next Improvements</h2>
+            <ul class="reportList">
+                <li>
+                    Add a reproducible modelling notebook with synthetic or public sample data that mirrors the pipeline
+                    structure without exposing private records.
+                </li>
+                <li>
+                    Add calibration plots, lift charts, confusion matrices, and threshold tables for a more professional
+                    model-evaluation section.
+                </li>
+                <li>
+                    Build a compact dashboard showing risk bands, feature drivers, segment trends, and model monitoring
+                    metrics.
+                </li>
+                <li>
+                    Add a model card describing data assumptions, intended use, prohibited use, fairness considerations,
+                    and retraining triggers.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recruiter Signal</h2>
+            <p>
+                This project demonstrates practical analytics discipline: data cleaning, feature engineering,
+                imbalanced-class evaluation, model comparison, explainability, and business communication. It is relevant
+                for credit risk, data science, analytics engineering, and decision-support roles.
+            </p>
+            <div class="tagRow" aria-label="Skills demonstrated">
+                <span class="tag">Python</span>
+                <span class="tag">PySpark</span>
+                <span class="tag">Risk Analytics</span>
+                <span class="tag">Feature Engineering</span>
+                <span class="tag">Model Evaluation</span>
+                <span class="tag">Explainability</span>
+            </div>
+        </section>
+
+        <p class="reportFooter">
+            Sanitized report prepared for portfolio publication. Raw academic materials and private data are not
+            published.
+        </p>
+    </main>
+</body>
+
+</html>

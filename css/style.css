@@ -1663,6 +1663,17 @@ body.dark-mode .expertiseList li::before {
     transform-origin: left;
 }
 
+.filterItemReport {
+    margin: 18px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid #e1e9f2;
+    font-size: 14px;
+}
+
+body.dark-mode .filterItemReport {
+    border-top-color: #404040;
+}
+
 /* Enhanced Portfolio Project Cards */
 .filterItemContent {
     padding: 28px 34px 30px;
