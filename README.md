@@ -90,6 +90,8 @@ TonyKoo/
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
 - Added a professional Reading & Research Diet section covering books and recurring research sources that inform market,
   geopolitics, behavioral science, AI, and systems thinking.
+- Added an interactive bookshelf carousel with cover imagery, arrow navigation, keyboard support, and flip-style
+  transitions for the selected book.
 - Removed placeholder LinkedIn/mobile links until verified public URLs are available.
 - Tightened project claims so metrics are only used when backed by resume/source material.
 
