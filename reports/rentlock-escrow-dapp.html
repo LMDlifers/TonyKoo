@@ -61,6 +61,44 @@
         </section>
 
         <section class="reportSection">
+            <h2>Portfolio Signal Snapshot</h2>
+            <p>
+                This project is framed as a full-stack Web3 product design case study: smart-contract state design,
+                frontend-contract integration, evidence handling, and incentive-aware dispute resolution.
+            </p>
+            <div class="signalGrid">
+                <div class="signalCard">
+                    <span class="signalLabel">Role Signal</span>
+                    <span class="signalValue">Smart-contract workflow designer for rental deposit escrow</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Core Stack</span>
+                    <span class="signalValue">Solidity-style contracts, ERC-20 tokens, MetaMask, IPFS concepts</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Engineering Depth</span>
+                    <span class="signalValue">State transitions, verifier escalation, evidence boundaries</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Business Value</span>
+                    <span class="signalValue">Turns deposit custody into transparent rules and auditable settlement</span>
+                </div>
+            </div>
+            <div class="keywordCloud" aria-label="Recruiter and ATS keywords">
+                <span class="tag">Smart Contracts</span>
+                <span class="tag">Solidity</span>
+                <span class="tag">ERC-20</span>
+                <span class="tag">Escrow Logic</span>
+                <span class="tag">dApp Architecture</span>
+                <span class="tag">MetaMask</span>
+                <span class="tag">IPFS</span>
+                <span class="tag">Dispute Resolution</span>
+                <span class="tag">Mechanism Design</span>
+                <span class="tag">Product Risk</span>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Problem Context</h2>
             <p>
                 Rental deposits create an imbalance when one party controls the funds while the other party has limited
@@ -110,6 +148,44 @@
                     Keep evidence and sensitive user data out of public portfolio materials.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Sanitized Escrow Sequence</h2>
+            <p>
+                The source report described a simple lease sequence involving the tenant, landlord, frontend, and escrow
+                contract. The recreated portfolio diagram keeps the workflow but omits private wallet screenshots,
+                account identifiers, and raw demo artifacts.
+            </p>
+            <div class="diagramPanel">
+                <p class="diagramTitle">No-Dispute Lease Lifecycle</p>
+                <div class="sequenceFlow" aria-label="RentLock escrow sequence">
+                    <div class="sequenceStep">
+                        <strong>1. Lease Setup</strong>
+                        <span>Landlord creates lease terms and deposit details through the frontend.</span>
+                    </div>
+                    <div class="sequenceStep">
+                        <strong>2. Deposit Funding</strong>
+                        <span>Tenant approves the token transfer and funds the escrow contract.</span>
+                    </div>
+                    <div class="sequenceStep">
+                        <strong>3. Active Lease</strong>
+                        <span>Escrow holds the deposit while off-chain evidence can be anchored for later review.</span>
+                    </div>
+                    <div class="sequenceStep">
+                        <strong>4. Release Proposal</strong>
+                        <span>Landlord proposes a refund or deduction when the lease ends.</span>
+                    </div>
+                    <div class="sequenceStep">
+                        <strong>5. Tenant Acceptance</strong>
+                        <span>Tenant accepts the proposed release when both parties agree.</span>
+                    </div>
+                    <div class="sequenceStep">
+                        <strong>6. Settlement</strong>
+                        <span>The contract transfers tokens according to the accepted release and closes the escrow.</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -168,6 +244,129 @@
                     evidence standards, dispute timelines, and verifier accountability.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Technical Notes From Source Report</h2>
+            <div class="noteGrid">
+                <article class="noteCard">
+                    <strong>IPFS Evidence Handling</strong>
+                    <span>
+                        The report noted gateway inconsistency and upload reliability issues, so the public version
+                        frames off-chain evidence as a future-hardening area rather than a solved production feature.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Raw CID Storage</strong>
+                    <span>
+                        The intended safer pattern is to store content identifiers rather than gateway-specific URLs in
+                        contract state.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Image Compression</strong>
+                    <span>
+                        Browser-side compression was used to reduce large move-in and move-out photos before upload so
+                        evidence handling remains usable on slower connections.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Selective Disclosure</strong>
+                    <span>
+                        A future reputation design should prove good standing without exposing full rental dispute
+                        histories, settlement amounts, or private lease details on-chain.
+                    </span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Decision Framework</h2>
+            <p>
+                The design challenge was to decide what belongs on-chain, what should stay off-chain, and where human or
+                verifier judgment is required. The strongest version of the product uses blockchain for settlement
+                integrity, not as a dumping ground for private evidence.
+            </p>
+            <div class="tableWrap">
+                <table class="decisionTable">
+                    <thead>
+                        <tr>
+                            <th>Decision Area</th>
+                            <th>Option Considered</th>
+                            <th>Selected Approach</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Deposit custody</td>
+                            <td>Landlord-held off-chain deposit</td>
+                            <td>Escrow contract with explicit release paths</td>
+                            <td>Improves transparency and gives both parties the same settlement rules.</td>
+                        </tr>
+                        <tr>
+                            <td>Evidence storage</td>
+                            <td>Store photos or documents on-chain</td>
+                            <td>Off-chain evidence with references or hashes</td>
+                            <td>Avoids exposing sensitive tenancy data while preserving an audit trail.</td>
+                        </tr>
+                        <tr>
+                            <td>Dispute resolution</td>
+                            <td>Force bilateral agreement only</td>
+                            <td>Escalation path with verifier review</td>
+                            <td>Prevents deadlock when parties disagree about deductions or damage evidence.</td>
+                        </tr>
+                        <tr>
+                            <td>Reputation</td>
+                            <td>Public dispute history</td>
+                            <td>Selective disclosure as future direction</td>
+                            <td>Supports trust without publishing private settlement histories.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chartPanel">
+                <h3>Qualitative Product Priority Chart</h3>
+                <div class="chartRow">
+                    <span class="chartLabel">Custody Transparency</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 94%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Privacy Protection</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 90%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Dispute Fairness</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 86%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">On-Chain Minimalism</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 78%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Verifier Incentives</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 72%;"></span></span>
+                    <span class="chartMeta">Open Risk</span>
+                </div>
+            </div>
+            <div class="thoughtGrid">
+                <article class="thoughtCard">
+                    <strong>What I optimized for</strong>
+                    <span>Transparent settlement states and a user workflow that makes contract actions understandable.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I avoided</strong>
+                    <span>Overclaiming legal readiness or exposing private lease evidence in a public portfolio artifact.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I would harden next</strong>
+                    <span>Contract tests, encrypted evidence storage, verifier reputation, and formal state-machine documentation.</span>
+                </article>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -231,6 +430,25 @@
                     Prototype a reviewer dashboard that shows evidence packets, deadlines, and final decision status.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Source Trail</h2>
+            <p>
+                The RentLock source report did not include a formal academic bibliography. For the portfolio, the safest
+                presentation is therefore to include technical notes derived from the report and avoid inventing a
+                research-paper citation list that was not actually in the submitted material.
+            </p>
+            <div class="referenceList">
+                <div class="referenceItem">
+                    Concepts referenced in the source report: escrow state design, ERC-20-style test tokens, verifier
+                    escalation, IPFS-style evidence anchoring, browser image compression, and selective disclosure.
+                </div>
+                <div class="referenceItem">
+                    Public portfolio boundary: no wallet screenshots, private account identifiers, raw evidence photos,
+                    or unredacted report pages are published.
+                </div>
+            </div>
         </section>
 
         <section class="reportSection">

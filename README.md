@@ -79,7 +79,10 @@ TonyKoo/
 
 - Added sanitized project cards for agentic healthcare analytics, judicial analytics, RentLock escrow dApp, and
   telepresence adoption research.
-- Added paraphrased, portfolio-native report pages under `reports/` for the sanitized project writeups.
+- Added paraphrased, portfolio-native report pages under `reports/` for the sanitized project writeups, including
+  recreated diagrams, technical notes, and selected source trails where the original reports included references.
+- Upgraded report pages with professional signal snapshots, visible keyword clusters, decision matrices, qualitative
+  priority charts, and explicit reasoning notes for recruiter and AI-assisted review.
 - Updated the resume asset and removed stale duplicate/raw report PDFs from the public `files/` directory.
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
 - Removed placeholder LinkedIn/mobile links until verified public URLs are available.

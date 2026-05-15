@@ -63,6 +63,45 @@
         </section>
 
         <section class="reportSection">
+            <h2>Portfolio Signal Snapshot</h2>
+            <p>
+                This case study is positioned for legal-tech, NLP, risk analytics, and applied machine-learning review.
+                It highlights data quality, target-leakage control, and evaluation design rather than presenting a model
+                as legal advice.
+            </p>
+            <div class="signalGrid">
+                <div class="signalCard">
+                    <span class="signalLabel">Role Signal</span>
+                    <span class="signalValue">Legal NLP pipeline designer for litigation-risk analytics</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Core Stack</span>
+                    <span class="signalValue">Legal-BERT, XGBoost, HAN, JSON QA, feature engineering</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Engineering Depth</span>
+                    <span class="signalValue">Temporal isolation, counterclaim handling, leakage audits</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Business Value</span>
+                    <span class="signalValue">Transforms long judgments into structured, reviewable risk signals</span>
+                </div>
+            </div>
+            <div class="keywordCloud" aria-label="Recruiter and ATS keywords">
+                <span class="tag">Legal NLP</span>
+                <span class="tag">Legal-BERT</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">Hierarchical Attention Network</span>
+                <span class="tag">Target Leakage</span>
+                <span class="tag">Feature Engineering</span>
+                <span class="tag">Model Evaluation</span>
+                <span class="tag">LLM-as-Judge</span>
+                <span class="tag">Data-Centric AI</span>
+                <span class="tag">Risk Analytics</span>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Problem Context</h2>
             <p>
                 Legal documents are long, unevenly structured, and rhetorically complex. The same case can contain claims,
@@ -120,6 +159,52 @@
         </section>
 
         <section class="reportSection">
+            <h2>Sanitized Extraction Flow</h2>
+            <p>
+                The original report contained a data extraction architecture diagram. This public version recreates the
+                workflow at the method level while excluding raw judgment screenshots, case examples, and submission
+                metadata.
+            </p>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Unstructured Judgment to ML-Ready Case Rows</p>
+                <div class="flowDiagram" aria-label="Legal NLP extraction flow">
+                    <div class="flowNode">
+                        <strong>Raw Judgment</strong>
+                        <span>Long-form legal text from public judgment documents.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Stage 1</strong>
+                        <span>Extract pre-dispute facts, issues, rules, and case metadata.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Temporal Filter</strong>
+                        <span>Remove or isolate hindsight language that reveals the final decision.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Stage 2</strong>
+                        <span>Separate cases, party roles, counterclaims, and normalized outcomes.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Stage 3</strong>
+                        <span>Audit JSON structure, label consistency, omitted entities, and leakage.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Human Review</strong>
+                        <span>Correct ambiguous or non-compliant outputs before training.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Feature Store</strong>
+                        <span>Prepare row-level and case-level records for modelling.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Evaluation</strong>
+                        <span>Compare row-level discrimination with case-level business usefulness.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Pipeline Design</h2>
             <h3>1. Text Ingestion and Normalization</h3>
             <p>
@@ -155,6 +240,45 @@
         </section>
 
         <section class="reportSection">
+            <h2>Model Architecture Notes</h2>
+            <p>
+                The source report compared a traditional baseline, a legal-domain transformer baseline, and a custom
+                hierarchical architecture. The portfolio version keeps the model comparison without publishing raw
+                screenshots or unsupported performance claims.
+            </p>
+            <div class="modelGrid">
+                <article class="modelCard">
+                    <strong>XGBoost Baseline</strong>
+                    <span>
+                        Uses early fusion: structured text arrays are concatenated before vectorization. Efficient, but
+                        it can blur facts, issues, and legal rules into one flat representation.
+                    </span>
+                </article>
+                <article class="modelCard">
+                    <strong>LEGAL-BERT Baseline</strong>
+                    <span>
+                        Uses legal-domain language representations, but still struggles with long judgments and flat
+                        input limits when narrative structure matters.
+                    </span>
+                </article>
+                <article class="modelCard">
+                    <strong>Hierarchical Attention Network</strong>
+                    <span>
+                        Encodes legal text hierarchically, preserving a stronger separation between fact-level events
+                        and case-level representation.
+                    </span>
+                </article>
+                <article class="modelCard">
+                    <strong>Case-Level Aggregation</strong>
+                    <span>
+                        Converts party-level predictions into lawsuit-level signals using aggregation rules aligned with
+                        practical legal-risk decisions.
+                    </span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Leakage Controls</h2>
             <p>
                 Leakage control is the strongest part of the project from a portfolio perspective. The model should not
@@ -181,6 +305,129 @@
                     examples.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Technical Notes From Source Report</h2>
+            <div class="noteGrid">
+                <article class="noteCard">
+                    <strong>Temporal Isolation</strong>
+                    <span>
+                        Facts are separated from trial-stage and outcome-stage language so the model does not learn from
+                        information unavailable before the dispute outcome.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Counterclaim Handling</strong>
+                    <span>
+                        Main claims and counterclaims are represented separately so party roles and labels remain
+                        internally consistent.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>LLM-as-Judge QA</strong>
+                    <span>
+                        Automated review checks extraction accuracy, JSON validity, semantic consistency, and leakage
+                        risk before human intervention.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Metric Realignment</strong>
+                    <span>
+                        Row-level ROC-AUC is useful for discrimination, while case-level recall and F1 better reflect
+                        the practical decision to pursue or avoid a case.
+                    </span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Decision Framework</h2>
+            <p>
+                The central modelling question was not simply which algorithm to use. It was how to preserve legal
+                structure so the model learns from pre-dispute facts rather than accidental hints embedded in the final
+                judgment.
+            </p>
+            <div class="tableWrap">
+                <table class="decisionTable">
+                    <thead>
+                        <tr>
+                            <th>Decision Area</th>
+                            <th>Naive Option</th>
+                            <th>Selected Approach</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prediction unit</td>
+                            <td>One row per document</td>
+                            <td>Party-level rows with case-level aggregation</td>
+                            <td>Captures multi-party disputes and makes evaluation closer to real decision-making.</td>
+                        </tr>
+                        <tr>
+                            <td>Feature source</td>
+                            <td>Use the whole judgment text</td>
+                            <td>Separate pre-dispute facts from outcome language</td>
+                            <td>Controls hindsight bias and avoids inflated performance from leaked target signals.</td>
+                        </tr>
+                        <tr>
+                            <td>Model baseline</td>
+                            <td>Jump directly to transformer models</td>
+                            <td>Compare XGBoost, Legal-BERT, and HAN-style representations</td>
+                            <td>Creates a fair baseline ladder and exposes whether complexity adds practical value.</td>
+                        </tr>
+                        <tr>
+                            <td>Quality assurance</td>
+                            <td>Trust generated JSON as-is</td>
+                            <td>Automated audits plus human review</td>
+                            <td>Reduces entity omissions, malformed labels, and leakage-prone extraction errors.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chartPanel">
+                <h3>Qualitative Modelling Priority Chart</h3>
+                <div class="chartRow">
+                    <span class="chartLabel">Leakage Control</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 98%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Label Consistency</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 92%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Document Structure</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 88%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Model Complexity</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 62%;"></span></span>
+                    <span class="chartMeta">Selective</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Interpretability</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 82%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+            </div>
+            <div class="thoughtGrid">
+                <article class="thoughtCard">
+                    <strong>What I optimized for</strong>
+                    <span>Reliable training data and realistic evaluation before chasing higher-capacity models.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I avoided</strong>
+                    <span>Publishing raw legal excerpts or advertising model results that could be leakage-driven.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I would harden next</strong>
+                    <span>Section classifiers, annotation guidelines, temporal validation, and model cards for intended use.</span>
+                </article>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -247,6 +494,49 @@
                     Add model cards that describe intended use, prohibited use, evaluation scope, and residual risks.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Selected Sources From Original Report</h2>
+            <p>
+                The original bibliography covered legal judgment prediction, legal-domain encoders, weak supervision,
+                hierarchical attention, and realistic evaluation risks. The portfolio version lists selected references
+                most directly tied to the public case study.
+            </p>
+            <div class="referenceList">
+                <div class="referenceItem">
+                    Chalkidis, Androutsopoulos, and Aletras (2019), <a href="https://doi.org/10.18653/v1/P19-1424">Neural
+                        Legal Judgment Prediction in English</a>.
+                </div>
+                <div class="referenceItem">
+                    Chalkidis et al. (2020), <a href="https://doi.org/10.18653/v1/2020.findings-emnlp.261">LEGAL-BERT:
+                        The Muppets Straight Out of Law School</a>.
+                </div>
+                <div class="referenceItem">
+                    Chalkidis et al. (2022), <a href="https://doi.org/10.18653/v1/2022.acl-long.297">LexGLUE: A
+                        Benchmark Dataset for Legal Language Understanding in English</a>.
+                </div>
+                <div class="referenceItem">
+                    Katz (2012), <a href="https://www.semanticscholar.org/paper/b05d7523d2afbea7d72fce864a547e1c2769e2a2">Quantitative
+                        Legal Prediction</a>.
+                </div>
+                <div class="referenceItem">
+                    Katz, Bommarito, and Blackman (2017), <a href="https://doi.org/10.1371/journal.pone.0174698">A
+                        General Approach for Predicting the Behavior of the Supreme Court of the United States</a>.
+                </div>
+                <div class="referenceItem">
+                    Medvedeva, Vols, and Wieling (2020), <a href="https://doi.org/10.1007/s10506-019-09255-y">Using
+                        Machine Learning to Predict Decisions of the European Court of Human Rights</a>.
+                </div>
+                <div class="referenceItem">
+                    Ratner et al. (2017), <a href="https://doi.org/10.14778/3157794.3157797">Snorkel: Rapid Training
+                        Data Creation with Weak Supervision</a>.
+                </div>
+                <div class="referenceItem">
+                    Yang et al. (2016), <a href="https://aclanthology.org/N16-1174/">Hierarchical Attention Networks for
+                        Document Classification</a>.
+                </div>
+            </div>
         </section>
 
         <section class="reportSection">

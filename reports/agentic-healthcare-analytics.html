@@ -67,6 +67,44 @@
         </section>
 
         <section class="reportSection">
+            <h2>Portfolio Signal Snapshot</h2>
+            <p>
+                This section is written for fast recruiter review and machine parsing. It foregrounds the technical
+                surface area, architectural judgment, and risk controls without overstating deployment maturity.
+            </p>
+            <div class="signalGrid">
+                <div class="signalCard">
+                    <span class="signalLabel">Role Signal</span>
+                    <span class="signalValue">Agentic AI systems designer for structured healthcare analytics</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Core Stack</span>
+                    <span class="signalValue">LangGraph, SQL, DuckDB, OMOP CDM, FAISS, ClinicalBERT</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Engineering Depth</span>
+                    <span class="signalValue">Schema grounding, validation, routing, and audit trails</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Business Value</span>
+                    <span class="signalValue">Reduces analytics friction while preserving clinical oversight</span>
+                </div>
+            </div>
+            <div class="keywordCloud" aria-label="Recruiter and ATS keywords">
+                <span class="tag">Agentic AI</span>
+                <span class="tag">LLM Orchestration</span>
+                <span class="tag">Healthcare Data</span>
+                <span class="tag">Natural-Language SQL</span>
+                <span class="tag">LangGraph</span>
+                <span class="tag">DuckDB</span>
+                <span class="tag">OMOP CDM</span>
+                <span class="tag">Clinical NLP</span>
+                <span class="tag">Human-in-the-Loop</span>
+                <span class="tag">Responsible AI</span>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Problem Context</h2>
             <p>
                 Healthcare datasets are often structured, relational, and highly sensitive. Analysts may understand the
@@ -100,6 +138,52 @@
         </section>
 
         <section class="reportSection">
+            <h2>Sanitized Architecture Diagram</h2>
+            <p>
+                The original report included a high-level architecture view. The public portfolio version below recreates
+                the same design idea without showing private schemas, source screenshots, client references, or raw
+                clinical examples.
+            </p>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Natural-Language Query to Reviewed Analytical Output</p>
+                <div class="flowDiagram" aria-label="Agentic healthcare analytics flow">
+                    <div class="flowNode">
+                        <strong>User Question</strong>
+                        <span>Clinical or research query in natural language.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Router Agent</strong>
+                        <span>Classifies intent and separates clinical terms from structural terms.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Intent Clarifier</strong>
+                        <span>Checks ambiguity and asks for clarification when confidence is low.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Reasoning Agent</strong>
+                        <span>Decomposes the request into validated analytical steps.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>SQL Agent</strong>
+                        <span>Generates schema-grounded DuckDB SQL using pruned metadata.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Data Registry</strong>
+                        <span>Stores query results as lightweight references instead of passing dataframes.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Stats Layer</strong>
+                        <span>Runs whitelisted descriptive, comparison, trend, or survival functions.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Reviewed Output</strong>
+                        <span>Returns tables, charts, interpretation, limitations, and suggested follow-ups.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Analytical Objectives</h2>
             <ul class="reportList">
                 <li>
@@ -122,6 +206,40 @@
                     unverified deployment claims.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Technical Notes From Source Report</h2>
+            <div class="noteGrid">
+                <article class="noteCard">
+                    <strong>Data Registry Pattern</strong>
+                    <span>
+                        Query outputs are stored behind short references so the LangGraph state does not carry large
+                        dataframes between nodes.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Dynamic Schema Pruning</strong>
+                    <span>
+                        The SQL agent receives only relevant table and column context, reducing hallucinated fields and
+                        irrelevant joins.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Split-Brain Model Loading</strong>
+                    <span>
+                        Reasoning, coding, clinical consultation, and suggestion tasks are assigned to different local
+                        models so limited VRAM is used sequentially.
+                    </span>
+                </article>
+                <article class="noteCard">
+                    <strong>Deterministic Guardrails</strong>
+                    <span>
+                        Statistical functions are selected from whitelists, pre-aggregated outputs bypass unnecessary
+                        LLM calls, and failed JSON outputs trigger retry handling.
+                    </span>
+                </article>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -188,6 +306,94 @@
                     structured exploration, not as a diagnostic or clinical decision system.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Decision Framework</h2>
+            <p>
+                My design thinking centered on a simple rule: use LLMs where ambiguity exists, and deterministic code
+                where correctness can be enforced. The table and chart below make those trade-offs explicit.
+            </p>
+            <div class="tableWrap">
+                <table class="decisionTable">
+                    <thead>
+                        <tr>
+                            <th>Decision Area</th>
+                            <th>Option Considered</th>
+                            <th>Selected Approach</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>State management</td>
+                            <td>Pass full dataframes between graph nodes</td>
+                            <td>Data registry with lightweight references</td>
+                            <td>Preserves LangGraph reliability and avoids memory pressure from serialized tabular data.</td>
+                        </tr>
+                        <tr>
+                            <td>SQL generation</td>
+                            <td>Give the model the full schema every time</td>
+                            <td>Schema pruning with curated metadata</td>
+                            <td>Reduces hallucinated columns, irrelevant joins, and prompt clutter.</td>
+                        </tr>
+                        <tr>
+                            <td>Clinical interpretation</td>
+                            <td>Return fluent answers directly from an LLM</td>
+                            <td>Compute first, explain second</td>
+                            <td>Tables and statistics remain deterministic; language is used only to summarize computed results.</td>
+                        </tr>
+                        <tr>
+                            <td>Ambiguous user intent</td>
+                            <td>Force the system to guess</td>
+                            <td>Clarification checkpoint</td>
+                            <td>Protects users from confident but wrong analytical paths.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chartPanel">
+                <h3>Qualitative Design Priority Chart</h3>
+                <div class="chartRow">
+                    <span class="chartLabel">Traceability</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 96%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Privacy Boundaries</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 94%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">SQL Correctness</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 92%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Latency</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 68%;"></span></span>
+                    <span class="chartMeta">Managed</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Model Ambition</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 58%;"></span></span>
+                    <span class="chartMeta">Constrained</span>
+                </div>
+            </div>
+            <div class="thoughtGrid">
+                <article class="thoughtCard">
+                    <strong>What I optimized for</strong>
+                    <span>Auditable SQL and reviewable intermediate states over black-box conversational polish.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I avoided</strong>
+                    <span>Publishing raw clinical examples, claiming production readiness, or making unverified accuracy claims.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I would harden next</strong>
+                    <span>Regression tests for query plans, schema drift alerts, and reviewer analytics for failed query chains.</span>
+                </article>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -263,6 +469,39 @@
                     prompts.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Selected Sources From Original Report</h2>
+            <p>
+                The source report cited papers and technical references that informed the agentic reasoning, clinical
+                NLP, feature engineering, and data-standard choices. The portfolio version keeps a curated source trail
+                rather than reproducing the full bibliography.
+            </p>
+            <div class="referenceList">
+                <div class="referenceItem">
+                    Yao et al. (2023), <a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and
+                        Acting in Language Models</a>.
+                </div>
+                <div class="referenceItem">
+                    Wang et al. (2023), <a href="https://arxiv.org/abs/2305.04091">Plan-and-Solve Prompting</a>.
+                </div>
+                <div class="referenceItem">
+                    Alsentzer et al. (2019), <a href="https://arxiv.org/abs/1904.03323">Publicly Available Clinical
+                        BERT Embeddings</a>.
+                </div>
+                <div class="referenceItem">
+                    Hollmann et al. (2023), <a href="https://arxiv.org/abs/2305.03403">CAAFE: Context-Aware Automated
+                        Feature Engineering for Tabular Datasets</a>.
+                </div>
+                <div class="referenceItem">
+                    OHDSI (2024), <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model v5.4</a>.
+                </div>
+                <div class="referenceItem">
+                    LangChain AI (2024), <a href="https://langchain-ai.github.io/langgraph/">LangGraph: Stateful
+                        Multi-Actor Applications with LLMs</a>.
+                </div>
+            </div>
         </section>
 
         <section class="reportSection">
