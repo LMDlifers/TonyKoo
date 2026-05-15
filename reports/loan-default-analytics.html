@@ -61,6 +61,44 @@
         </section>
 
         <section class="reportSection">
+            <h2>Portfolio Signal Snapshot</h2>
+            <p>
+                This case note is written for credit-risk, data science, analytics engineering, and business analytics
+                roles. It emphasizes pipeline discipline, explainable modelling, and decision-support framing.
+            </p>
+            <div class="signalGrid">
+                <div class="signalCard">
+                    <span class="signalLabel">Role Signal</span>
+                    <span class="signalValue">Credit-risk analytics pipeline designer</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Core Stack</span>
+                    <span class="signalValue">Python, PySpark, Spark, Tableau, MySQL, ETL workflows</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Engineering Depth</span>
+                    <span class="signalValue">Feature engineering, class imbalance, calibration, explainability</span>
+                </div>
+                <div class="signalCard">
+                    <span class="signalLabel">Business Value</span>
+                    <span class="signalValue">Turns model output into interpretable borrower-risk drivers</span>
+                </div>
+            </div>
+            <div class="keywordCloud" aria-label="Recruiter and ATS keywords">
+                <span class="tag">Credit Risk</span>
+                <span class="tag">Loan Default Prediction</span>
+                <span class="tag">PySpark</span>
+                <span class="tag">Apache Spark</span>
+                <span class="tag">Feature Engineering</span>
+                <span class="tag">Model Evaluation</span>
+                <span class="tag">Class Imbalance</span>
+                <span class="tag">Calibration</span>
+                <span class="tag">Explainable AI</span>
+                <span class="tag">Business Intelligence</span>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Problem Context</h2>
             <p>
                 Loan default prediction is a common analytics problem with a high cost of careless modelling. False
@@ -115,6 +153,52 @@
                     higher risk.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Sanitized Pipeline Diagram</h2>
+            <p>
+                No source PDF was provided for this case note, so this diagram is recreated from the public portfolio
+                summary rather than copied from an original report. It is included to make the workflow easier to scan
+                while preserving the no-raw-data boundary.
+            </p>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Credit-Risk Analytics Workflow</p>
+                <div class="flowDiagram" aria-label="Loan default analytics pipeline">
+                    <div class="flowNode">
+                        <strong>Raw Loan Data</strong>
+                        <span>Structured borrower, loan, repayment, and account attributes.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Data Quality</strong>
+                        <span>Missing values, duplicates, outliers, schema drift, and leakage checks.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Feature Engineering</strong>
+                        <span>Debt burden, repayment capacity, term features, and risk indicators.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Model Comparison</strong>
+                        <span>Interpretable baselines and nonlinear models compared with imbalanced metrics.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Calibration</strong>
+                        <span>Risk bands checked against observed default behavior.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Explainability</strong>
+                        <span>Drivers, segment patterns, and threshold trade-offs prepared for stakeholders.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Monitoring</strong>
+                        <span>Feature drift, approval-rate movement, and model decay tracked over time.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Decision Support</strong>
+                        <span>Business-facing report without private borrower data or automated-decision claims.</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -203,6 +287,95 @@
         </section>
 
         <section class="reportSection">
+            <h2>Decision Framework</h2>
+            <p>
+                My modelling stance is that a credit-risk pipeline should be evaluated as an operational decision-support
+                system, not just a leaderboard problem. That means calibration, threshold trade-offs, leakage controls,
+                and explainability matter alongside predictive separation.
+            </p>
+            <div class="tableWrap">
+                <table class="decisionTable">
+                    <thead>
+                        <tr>
+                            <th>Decision Area</th>
+                            <th>Naive Option</th>
+                            <th>Selected Approach</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Evaluation metric</td>
+                            <td>Optimize accuracy</td>
+                            <td>Use recall, precision, F1, PR-AUC, ROC-AUC, and calibration</td>
+                            <td>Default prediction is usually imbalanced, so accuracy can hide failure on risky cases.</td>
+                        </tr>
+                        <tr>
+                            <td>Feature set</td>
+                            <td>Use every available column</td>
+                            <td>Remove post-outcome and decision-time unavailable variables</td>
+                            <td>Prevents target leakage and keeps the model aligned with real underwriting context.</td>
+                        </tr>
+                        <tr>
+                            <td>Model choice</td>
+                            <td>Pick the most complex model first</td>
+                            <td>Compare interpretable baselines against nonlinear models</td>
+                            <td>Business stakeholders need risk drivers and threshold logic, not just a score.</td>
+                        </tr>
+                        <tr>
+                            <td>Deployment framing</td>
+                            <td>Automate approvals or rejections</td>
+                            <td>Decision support with monitoring and human policy review</td>
+                            <td>Credit decisions carry fairness, compliance, and reputational risk.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chartPanel">
+                <h3>Qualitative Risk-Analytics Priority Chart</h3>
+                <div class="chartRow">
+                    <span class="chartLabel">Leakage Control</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 95%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Interpretability</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 90%;"></span></span>
+                    <span class="chartMeta">Critical</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Calibration</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 86%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Raw Accuracy</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 52%;"></span></span>
+                    <span class="chartMeta">Insufficient</span>
+                </div>
+                <div class="chartRow">
+                    <span class="chartLabel">Monitoring Readiness</span>
+                    <span class="chartTrack"><span class="chartFill" style="--level: 80%;"></span></span>
+                    <span class="chartMeta">High</span>
+                </div>
+            </div>
+            <div class="thoughtGrid">
+                <article class="thoughtCard">
+                    <strong>What I optimized for</strong>
+                    <span>A pipeline that explains risk drivers and threshold trade-offs clearly to non-technical stakeholders.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I avoided</strong>
+                    <span>Publishing private borrower data, raw reports, or unverified exact performance metrics.</span>
+                </article>
+                <article class="thoughtCard">
+                    <strong>What I would harden next</strong>
+                    <span>Synthetic-data demo notebook, model cards, drift dashboards, and fairness review templates.</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
             <h2>Limitations</h2>
             <ul class="reportList">
                 <li>
@@ -222,6 +395,15 @@
                     changes.
                 </li>
             </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Source Availability Note</h2>
+            <p>
+                The original report set provided for this portfolio update did not include a separate loan-default PDF.
+                For that reason, this page does not add a research-paper bibliography or original-report figure claims.
+                It remains a transparent portfolio case note based on the public project summary.
+            </p>
         </section>
 
         <section class="reportSection">
