@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PII-safe portfolio case study for RentLock, a smart-contract rental escrow dApp.">
+    <title>RentLock Escrow dApp | Sanitized Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero">
+            <p class="reportEyebrow">Sanitized Portfolio Report</p>
+            <h1>RentLock: Smart Contract Rental Escrow dApp</h1>
+            <p class="reportSubtitle">
+                A public-safe case study of a decentralized rental deposit workflow with escrow states, verifier
+                escalation, and frontend-contract integration.
+            </p>
+            <div class="reportMeta" aria-label="Report metadata">
+                <span>Domain: Web3 Applications</span>
+                <span>Focus: Escrow Design</span>
+                <span>Year: 2026</span>
+                <span>Status: Paraphrased Summary</span>
+            </div>
+        </header>
+
+        <section class="reportSection">
+            <h2>PII-Safe Publication Note</h2>
+            <p>
+                This page paraphrases the original project report for portfolio use. It omits personal names, academic
+                identifiers, wallet screenshots, private account details, raw submission pages, and any metadata that is
+                not necessary to understand the product and engineering design.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Executive Summary</h2>
+            <p>
+                RentLock explored how a smart-contract escrow workflow could reduce rental deposit disputes. Instead of
+                one party holding the deposit off-chain, funds are locked in a transparent contract with predefined
+                settlement paths. The prototype focused on lease lifecycle design, tokenized deposits, mutual agreement,
+                dispute escalation, and a verifier mechanism for unresolved cases.
+            </p>
+            <p>
+                The project is strongest as a systems-design artifact. It shows how product incentives, contract state,
+                frontend UX, and abuse prevention need to be designed together. A smart contract alone is not enough; the
+                surrounding workflow determines whether users can safely understand and act on the contract's rules.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem Context</h2>
+            <p>
+                Rental deposits create an imbalance when one party controls the funds while the other party has limited
+                visibility into settlement rules. Common pain points include unclear deductions, slow refund timelines,
+                poor evidence handling, and a lack of neutral escalation.
+            </p>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>Custody Risk</h3>
+                    <p>
+                        Funds held by one side can create distrust even when both parties behave reasonably.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Process Ambiguity</h3>
+                    <p>
+                        Deposits are difficult to resolve when refund conditions, evidence, and timelines are not
+                        explicit.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Escalation Gap</h3>
+                    <p>
+                        A dispute mechanism needs incentives, evidence rules, and protection against frivolous claims.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Product Objectives</h2>
+            <ul class="reportList">
+                <li>
+                    Hold rental deposits in a transparent escrow contract instead of relying on unilateral custody.
+                </li>
+                <li>
+                    Represent the lease lifecycle with explicit states such as creation, funding, active lease,
+                    settlement, dispute, and closure.
+                </li>
+                <li>
+                    Support mutual release when both parties agree on the refund or deduction outcome.
+                </li>
+                <li>
+                    Provide escalation when the parties cannot agree within the expected settlement window.
+                </li>
+                <li>
+                    Keep evidence and sensitive user data out of public portfolio materials.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>System Design</h2>
+            <h3>1. Tokenized Deposit</h3>
+            <p>
+                The prototype uses a test token to simulate stable-value deposit handling. This allows contract logic to
+                be tested without relying on real funds or exposing private wallet activity in the public writeup.
+            </p>
+
+            <h3>2. Escrow Manager Contract</h3>
+            <p>
+                The escrow contract manages lease creation, deposit funding, state transitions, refund requests,
+                deductions, settlement, and dispute escalation. The contract state gives both parties a shared view of
+                what actions are currently valid.
+            </p>
+
+            <h3>3. Role-Based Workflow</h3>
+            <p>
+                The product separates tenant, landlord, and verifier actions. Each role has a different interface and
+                different permissions, which reduces accidental misuse and makes the workflow easier to explain.
+            </p>
+
+            <h3>4. Evidence Boundary</h3>
+            <p>
+                Evidence such as images or supporting documents should not be stored directly on-chain. A safer pattern
+                is to store evidence off-chain and anchor hashes or references, with encryption and retention policies as
+                future work.
+            </p>
+
+            <h3>5. Verifier Escalation</h3>
+            <p>
+                If the parties cannot settle, a verifier flow can review the dispute and trigger the appropriate outcome.
+                This mechanism requires careful incentive design so reviewers are compensated without encouraging
+                low-quality participation.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Implementation Lessons</h2>
+            <ul class="reportList">
+                <li>
+                    <strong>Single ABI source:</strong> Frontend-contract mismatches can break the application even when
+                    the smart contract itself compiles. Treat contract interfaces as shared artifacts.
+                </li>
+                <li>
+                    <strong>Events matter:</strong> Contract events help the frontend update state without relying only
+                    on manual refreshes.
+                </li>
+                <li>
+                    <strong>State design is UX design:</strong> Users need to understand which actions are valid in the
+                    current lease state and what happens next.
+                </li>
+                <li>
+                    <strong>Escrow needs policy:</strong> The contract can enforce rules, but the product still needs
+                    evidence standards, dispute timelines, and verifier accountability.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Risk and Abuse Considerations</h2>
+            <div class="reportGrid">
+                <article class="insightCard">
+                    <h3>False Claims</h3>
+                    <p>
+                        Dispute flows should discourage frivolous claims through deposits, review fees, or reputation
+                        mechanisms.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Evidence Privacy</h3>
+                    <p>
+                        Inspection photos and tenancy documents can expose private information, so storage design matters.
+                    </p>
+                </article>
+                <article class="insightCard">
+                    <h3>Contract Trust</h3>
+                    <p>
+                        Users need clear explanations of what the contract can and cannot guarantee before they commit.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <ul class="reportList">
+                <li>
+                    The prototype should be treated as an academic dApp concept, not a legally ready rental platform.
+                </li>
+                <li>
+                    Real deployment would require legal review, identity checks, jurisdiction-specific tenancy rules,
+                    secure evidence storage, and audited smart contracts.
+                </li>
+                <li>
+                    The public report intentionally excludes wallet screenshots and private account details.
+                </li>
+                <li>
+                    Verifier incentives need deeper modelling before they can be considered reliable at scale.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recommended Next Improvements</h2>
+            <ul class="reportList">
+                <li>
+                    Add a formal state-machine diagram to document every allowed transition and failure state.
+                </li>
+                <li>
+                    Introduce encrypted off-chain evidence storage with hash anchoring and deletion policies.
+                </li>
+                <li>
+                    Add automated contract tests for edge cases such as duplicate actions, missed deadlines, partial
+                    refunds, and dispute cancellation.
+                </li>
+                <li>
+                    Prototype a reviewer dashboard that shows evidence packets, deadlines, and final decision status.
+                </li>
+            </ul>
+        </section>
+
+        <section class="reportSection">
+            <h2>Recruiter Signal</h2>
+            <p>
+                RentLock demonstrates smart-contract product thinking rather than narrow token experimentation. The
+                project covers workflow modelling, escrow states, incentive design, frontend integration, and practical
+                privacy boundaries for public communication.
+            </p>
+            <div class="tagRow" aria-label="Skills demonstrated">
+                <span class="tag">Smart Contracts</span>
+                <span class="tag">ERC-20</span>
+                <span class="tag">Escrow Logic</span>
+                <span class="tag">Frontend Integration</span>
+                <span class="tag">Mechanism Design</span>
+                <span class="tag">Product Risk</span>
+            </div>
+        </section>
+
+        <p class="reportFooter">
+            Sanitized report prepared for portfolio publication. Raw academic materials and private data are not
+            published.
+        </p>
+    </main>
+</body>
+
+</html>

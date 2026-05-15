@@ -69,16 +69,17 @@ TonyKoo/
 
 ## Privacy Notes
 
-- Raw group reports and recommendation letters are not published directly because they can contain names, student IDs,
-  signatures, emails, or other personal identifiers.
-- Public project cards summarize architecture, methods, and outcomes without exposing teammates, supervisors, clients,
-  internal screenshots, or raw data examples.
+- Raw group reports and recommendation letters are not published directly because they can contain academic identifiers,
+  signatures, contact details, or other private metadata.
+- Public project cards and report pages summarize architecture, methods, and outcomes without exposing collaborator
+  details, reviewer details, private stakeholder details, internal screenshots, or raw data examples.
 - The site keeps only the current resume in `files/` and avoids stale duplicate resume assets.
 
 ## Refresh Scope
 
 - Added sanitized project cards for agentic healthcare analytics, judicial analytics, RentLock escrow dApp, and
   telepresence adoption research.
+- Added paraphrased, portfolio-native report pages under `reports/` for the sanitized project writeups.
 - Updated the resume asset and removed stale duplicate/raw report PDFs from the public `files/` directory.
 - Replaced placeholder testimonials with generalized, PII-safe attributions.
 - Removed placeholder LinkedIn/mobile links until verified public URLs are available.
