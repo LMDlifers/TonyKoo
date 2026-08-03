@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="PII-safe portfolio case study for an agentic healthcare analytics chatbot and natural-language SQL workflow.">
-    <title>Agentic Healthcare Analytics Chatbot | Sanitized Report</title>
+        content="PII-safe portfolio case study on designing an agentic healthcare analytics workflow for natural-language SQL, auditability, and human review.">
+    <title>How I Designed an Agentic Healthcare Analytics Workflow | Case Study</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
@@ -21,19 +21,31 @@
             <a href="../index.html#writing">Back to Writing</a>
         </nav>
 
-        <header class="reportHero">
-            <p class="reportEyebrow">Sanitized Portfolio Report</p>
-            <h1>Agentic Healthcare Analytics Chatbot</h1>
-            <p class="reportSubtitle">
-                A public-safe case study of a multi-agent analytics workflow that translates natural-language
-                healthcare questions into auditable structured-data analysis.
-            </p>
-            <div class="reportMeta" aria-label="Report metadata">
-                <span>Domain: Healthcare Analytics</span>
-                <span>Focus: Agentic AI</span>
-                <span>Year: 2026</span>
-                <span>Status: Paraphrased Summary</span>
+        <header class="reportHero reportHeroWithVisual">
+            <div class="reportHeroCopy">
+                <p class="reportEyebrow">Sanitized Portfolio Report</p>
+                <h1>How I Designed an Agentic Healthcare Analytics Workflow</h1>
+                <p class="reportSubtitle">
+                    A public-safe case study of a multi-agent analytics workflow that translates natural-language
+                    healthcare questions into auditable structured-data analysis.
+                </p>
+                <div class="reportMeta" aria-label="Report metadata">
+                    <span>Domain: Healthcare Analytics</span>
+                    <span>Focus: Agentic AI</span>
+                    <span>Year: 2026</span>
+                    <span>Status: Paraphrased Summary</span>
+                </div>
+                <div class="reportHeroActions">
+                    <a class="reportHeroAction" href="#demo-video">Watch 16s walkthrough</a>
+                </div>
             </div>
+            <figure class="reportHeroVisual">
+                <img src="../images/portfolio/healthcare_agentic.png"
+                    alt="Portfolio visual showing an agentic healthcare analytics flow from intent routing to clinician review">
+                <figcaption>
+                    Hero visual: public-safe overview of the intent router, SQL agent, statistics layer, and review step.
+                </figcaption>
+            </figure>
         </header>
 
         <section class="reportTldr" aria-label="Fast scan summary">
@@ -78,6 +90,15 @@
                 institution-specific submission metadata. The emphasis is on system design, trade-offs, and transferable
                 engineering judgment.
             </p>
+            <div class="fieldNote">
+                <span class="fieldNoteLabel">Field Note</span>
+                <p>
+                    I treated this less like a chatbot problem and more like an accountability problem. The hard part was
+                    deciding where the system should stop, expose uncertainty, and ask for review instead of sounding
+                    confident too early. My trade-off was to make the workflow a little slower in exchange for clearer
+                    audit trails and safer correction points.
+                </p>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -224,7 +245,7 @@
                 planning graphs from the original capstone materials. The public version excludes raw data tables, report
                 cover pages, institution-specific UI screenshots, and research-paper screenshots.
             </p>
-            <div class="sourceFigureGrid">
+            <div class="sourceFigureGrid visualEvidenceStrip">
                 <figure class="sourceFigure sourceFigureFull">
                     <img src="../images/reports/healthcare_agentic_pipeline_light.svg"
                         alt="Light-background agentic healthcare analytics pipeline diagram">
@@ -273,6 +294,101 @@
                         while redacting a source-specific stakeholder label from the original slide.
                     </figcaption>
                 </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Short Demo Clip</h2>
+            <p>
+                This silent walkthrough compresses the architecture into a 16-second reviewer-friendly path. It is a
+                storyboard demo, not a recording of private data or a deployed clinical system.
+            </p>
+            <figure id="demo-video" class="demoVideo">
+                <video controls muted preload="metadata" poster="../images/portfolio/healthcare_agentic.png"
+                    aria-describedby="healthcare-demo-transcript">
+                    <source src="../videos/healthcare-agent-workflow.webm" type="video/webm">
+                    <track src="../videos/healthcare-agent-workflow.vtt" kind="captions" srclang="en" label="English"
+                        default>
+                </video>
+                <figcaption class="demoVideoCaption">
+                    <span class="demoVideoLabel">Muted Walkthrough</span>
+                    <h3>Question to reviewed answer</h3>
+                    <p>
+                        Shows the major gates: intake, routing, grounding, SQL, statistics, human review, and traceable
+                        answer composition.
+                    </p>
+                    <details id="healthcare-demo-transcript" class="videoTranscript">
+                        <summary>Transcript</summary>
+                        <p>
+                            A healthcare analytics question enters with sensitivity context. The system routes intent,
+                            grounds schema and vocabulary, runs SQL and statistics through deterministic checks, then
+                            sends the output to human review before the final answer is shown.
+                        </p>
+                    </details>
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="reportSection">
+            <h2>Research Connections</h2>
+            <p>
+                These source cards connect the portfolio architecture to published agent-design ideas without copying
+                figures whose reuse rights are unclear.
+            </p>
+            <div class="researchFigureGrid">
+                <figure class="researchFigure">
+                    <img src="../images/research/react_figure1_prompting_methods.png"
+                        alt="Cropped ReAct paper Figure 1 comparing standard, chain-of-thought, act-only, and ReAct trajectories">
+                    <figcaption class="researchFigureBody">
+                        <span class="researchLabel">Research Figure</span>
+                        <h3>Reasoning plus acting</h3>
+                        <p class="researchCredit">
+                            Source: <cite>ReAct: Synergizing Reasoning and Acting in Language Models</cite>, Shunyu
+                            Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao, 2023.
+                            License: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+                            <a href="https://arxiv.org/abs/2210.03629">Link</a>. Modified: cropped/resized only.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: informs the router, tool-use, and observation loop in the healthcare analytics
+                            workflow.
+                        </p>
+                    </figcaption>
+                </figure>
+                <figure class="researchFigure">
+                    <img src="../images/research/reflexion_figure2_agent_loop.png"
+                        alt="Cropped Reflexion paper Figure 2 showing actor, evaluator, self-reflection, memory, and environment loop">
+                    <figcaption class="researchFigureBody">
+                        <span class="researchLabel">Research Figure</span>
+                        <h3>Feedback and memory loop</h3>
+                        <p class="researchCredit">
+                            Source: <cite>Reflexion: Language Agents with Verbal Reinforcement Learning</cite>, Noah
+                            Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, and Shunyu
+                            Yao, 2023. License: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+                            <a href="https://arxiv.org/abs/2303.11366">Link</a>. Modified: cropped/resized only.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: frames why review feedback should become durable system memory instead of
+                            disappearing after one failed run.
+                        </p>
+                    </figcaption>
+                </figure>
+                <article class="researchFigure">
+                    <div class="researchFigureBody">
+                        <span class="researchLabel">Cite-Only Source</span>
+                        <h3>Transformer foundation</h3>
+                        <p class="researchCredit">
+                            Source: <cite>Attention Is All You Need</cite>, Ashish Vaswani, Noam Shazeer, Niki Parmar,
+                            Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin, 2017.
+                            License note: arXiv non-exclusive distribution license; no external figure copied.
+                            <a href="https://arxiv.org/abs/1706.03762">Link</a>.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: cited as background for Transformer-based language models, not presented as a
+                            visual asset in this portfolio.
+                        </p>
+                        <span class="licenseNote">No figure reused</span>
+                    </div>
+                </article>
             </div>
         </section>
 

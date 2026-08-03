@@ -47,7 +47,7 @@ $(document).ready(function () {
   $(".filterItemImg").attr("loading", "lazy").attr("decoding", "async");
   let loadingScreenHidden = false;
   const loadingStartedAt = Date.now();
-  const minimumLoadingTime = prefersReducedMotion ? 0 : 650;
+  const minimumLoadingTime = prefersReducedMotion ? 0 : 350;
 
   function showLoadingFact(index) {
     if (!loadingFact.length) return;
@@ -82,26 +82,36 @@ $(document).ready(function () {
   }
 
   $(window).on("load", hideLoadingScreen);
-  setTimeout(hideLoadingScreen, prefersReducedMotion ? 100 : 1400);
+  setTimeout(hideLoadingScreen, prefersReducedMotion ? 100 : 900);
 
   // Dark Mode Toggle
   const darkModeToggle = $("#darkModeToggle");
   const body = $("body");
 
-  // Check for saved dark mode preference
   if (localStorage.getItem("darkMode") === "enabled") {
     body.addClass("dark-mode");
   }
 
+  function syncThemeToggle() {
+    const isDark = body.hasClass("dark-mode");
+    darkModeToggle.attr("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    darkModeToggle.find("i")
+      .toggleClass("fa-moon", !isDark)
+      .toggleClass("fa-sun", isDark);
+  }
+
+  syncThemeToggle();
+
   darkModeToggle.on("click", function () {
     body.toggleClass("dark-mode");
 
-    // Save preference
     if (body.hasClass("dark-mode")) {
       localStorage.setItem("darkMode", "enabled");
     } else {
       localStorage.setItem("darkMode", "disabled");
     }
+
+    syncThemeToggle();
   });
 
   // Search Functionality
@@ -405,6 +415,269 @@ $(document).ready(function () {
     scrollToTarget($(this).attr("href"), prefersReducedMotion ? 0 : 300);
   });
 
+  // Command palette
+  const commandPalette = $("#commandPalette");
+  const commandPaletteInput = $("#commandPaletteInput");
+  const commandPaletteResults = $("#commandPaletteResults");
+  const commandPaletteTrigger = $("#commandPaletteTrigger");
+  const commandCloseControls = $("[data-command-close]");
+  let activeCommandIndex = 0;
+
+  const commands = [
+    {
+      title: "Open Proof Snapshot",
+      meta: "Role target, strongest metrics, resume, and contact",
+      icon: "fa-bolt",
+      href: "#proof",
+      key: "proof recruiter scan metrics evidence",
+    },
+    {
+      title: "Open Project Lab",
+      meta: "Browse AI, quant, data, and app projects",
+      icon: "fa-layer-group",
+      href: "#portfolio",
+      key: "projects",
+    },
+    {
+      title: "Visual Evidence Gallery",
+      meta: "Diagrams, demos, research cards, and field notes",
+      icon: "fa-photo-video",
+      href: "#evidence",
+      key: "evidence visuals diagrams demos videos research",
+    },
+    {
+      title: "How I Designed an Agentic Healthcare Analytics Workflow",
+      meta: "Agentic SQL, auditability, and human review",
+      icon: "fa-notes-medical",
+      href: "reports/agentic-healthcare-analytics.html",
+      key: "healthcare ai agentic sql report",
+    },
+    {
+      title: "Leakage-Aware Evaluation in Legal NLP",
+      meta: "Legal NLP, leakage control, and evaluation",
+      icon: "fa-balance-scale",
+      href: "reports/judicial-analytics-legal-nlp.html",
+      key: "legal nlp judicial bert evaluation",
+    },
+    {
+      title: "Using FAISS Caching to Reduce LLM Cost and Latency",
+      meta: "Semantic cache design, thresholds, and fallback behavior",
+      icon: "fa-database",
+      href: "reports/faiss-caching-llm-cost-latency.html",
+      key: "faiss rag llm cache cost latency retrieval",
+    },
+    {
+      title: "Designing Human-in-the-Loop AI Systems for Sensitive Data",
+      meta: "Review queues, audit trails, guardrails, and escalation",
+      icon: "fa-user-check",
+      href: "reports/human-in-the-loop-ai-sensitive-data.html",
+      key: "human in the loop hitl sensitive data privacy guardrails",
+    },
+    {
+      title: "From Yield Curves to Trading Tooling",
+      meta: "Quant engineering notes on pricing, risk, and deployment",
+      icon: "fa-chart-line",
+      href: "reports/yield-curve-quant-engineering-notes.html",
+      key: "yield curve trading tooling quant engineering fixed income",
+    },
+    {
+      title: "Telepresence Market Adoption Strategy",
+      meta: "Market sizing, Bass diffusion, and scenario analysis",
+      icon: "fa-chart-line",
+      href: "reports/telepresence-adoption-strategy.html",
+      key: "telepresence market adoption bass diffusion strategy",
+    },
+    {
+      title: "RentLock Escrow dApp",
+      meta: "Smart contracts, escrow states, and dispute logic",
+      icon: "fa-lock",
+      href: "reports/rentlock-escrow-dapp.html",
+      key: "web3 escrow smart contract rentlock",
+    },
+    {
+      title: "Loan Default Analytics",
+      meta: "Credit risk, PySpark, model comparison",
+      icon: "fa-chart-pie",
+      href: "reports/loan-default-analytics.html",
+      key: "credit risk loan default analytics",
+    },
+    {
+      title: "Technical Writing",
+      meta: "Thumbnail-backed reports, case studies, and research notes",
+      icon: "fa-file-alt",
+      href: "#writing",
+      key: "writing reports case studies research notes articles",
+    },
+    {
+      title: "Resume Timeline",
+      meta: "Featured roles, earlier experience, education, and skills",
+      icon: "fa-briefcase",
+      href: "#resume",
+      key: "experience resume timeline tradition skezi nus temasek military middle office",
+    },
+    {
+      title: "Testimonials",
+      meta: "Quick credibility notes and references",
+      icon: "fa-comment-dots",
+      href: "#testimonials",
+      key: "testimonials references credibility",
+    },
+    {
+      title: "Reading and Research Diet",
+      meta: "Technical books, papers, and thinking sources",
+      icon: "fa-book-open",
+      href: "#reading",
+      key: "reading research diet papers books",
+    },
+    {
+      title: "Download Resume",
+      meta: "Open Tony Koo Ye Long PDF resume",
+      icon: "fa-download",
+      href: "./files/Resume_TonyKooYeLong.pdf",
+      key: "resume cv pdf",
+      external: true,
+    },
+    {
+      title: "Contact",
+      meta: "Email and GitHub links",
+      icon: "fa-envelope",
+      href: "#contact",
+      key: "contact email github",
+    },
+  ];
+
+  function filteredCommands() {
+    const query = commandPaletteInput.val().trim().toLowerCase();
+
+    if (!query) return commands;
+
+    return commands.filter(function (command) {
+      return [command.title, command.meta, command.key].join(" ").toLowerCase().includes(query);
+    });
+  }
+
+  function renderCommands() {
+    const items = filteredCommands();
+    activeCommandIndex = Math.min(activeCommandIndex, Math.max(items.length - 1, 0));
+    commandPaletteResults.empty();
+
+    if (!items.length) {
+      commandPaletteResults.html('<div class="no-results">No command found</div>');
+      return;
+    }
+
+    items.forEach(function (command, index) {
+      const button = $("<button>", {
+        type: "button",
+        class: "commandItem" + (index === activeCommandIndex ? " is-active" : ""),
+        "data-command-index": index,
+        role: "option",
+        "aria-selected": index === activeCommandIndex ? "true" : "false",
+      });
+
+      button.append(
+        $("<span>", { class: "commandItemIcon" }).append(
+          $("<i>", { class: "fas " + command.icon, "aria-hidden": "true" })
+        ),
+        $("<span>").append(
+          $("<span>", { class: "commandItemTitle", text: command.title }),
+          $("<span>", { class: "commandItemMeta", text: command.meta })
+        ),
+        $("<span>", { class: "commandItemKey", text: command.href.charAt(0) === "#" ? "Jump" : "Open" })
+      );
+
+      button.on("mouseenter", function () {
+        activeCommandIndex = index;
+        renderCommands();
+      });
+
+      button.on("click", function () {
+        runCommand(command);
+      });
+
+      commandPaletteResults.append(button);
+    });
+  }
+
+  function openCommandPalette() {
+    commandPalette.addClass("is-open").attr("aria-hidden", "false");
+    $("body").addClass("command-open");
+    activeCommandIndex = 0;
+    commandPaletteInput.val("");
+    renderCommands();
+    setTimeout(function () {
+      commandPaletteInput.trigger("focus");
+    }, 30);
+  }
+
+  function closeCommandPalette() {
+    commandPalette.removeClass("is-open").attr("aria-hidden", "true");
+    $("body").removeClass("command-open");
+  }
+
+  function runCommand(command) {
+    closeCommandPalette();
+
+    if (command.href.charAt(0) === "#") {
+      scrollToTarget(command.href, prefersReducedMotion ? 0 : 300);
+      return;
+    }
+
+    if (command.external) {
+      window.open(command.href, "_blank", "noopener");
+      return;
+    }
+
+    window.location.href = command.href;
+  }
+
+  commandPaletteTrigger.on("click", openCommandPalette);
+  commandCloseControls.on("click", closeCommandPalette);
+  commandPaletteInput.on("input", function () {
+    activeCommandIndex = 0;
+    renderCommands();
+  });
+
+  $(document).on("keydown", function (e) {
+    const isPaletteShortcut = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k";
+
+    if (isPaletteShortcut) {
+      e.preventDefault();
+      if (commandPalette.hasClass("is-open")) {
+        closeCommandPalette();
+      } else {
+        openCommandPalette();
+      }
+      return;
+    }
+
+    if (!commandPalette.hasClass("is-open")) return;
+
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeCommandPalette();
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      activeCommandIndex = (activeCommandIndex + 1) % Math.max(filteredCommands().length, 1);
+      renderCommands();
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const itemCount = Math.max(filteredCommands().length, 1);
+      activeCommandIndex = (activeCommandIndex - 1 + itemCount) % itemCount;
+      renderCommands();
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const command = filteredCommands()[activeCommandIndex];
+      if (command) runCommand(command);
+    }
+  });
+
   // Reading bookshelf carousel
   const bookCarousel = $("[data-book-carousel]");
   if (bookCarousel.length) {
@@ -522,6 +795,8 @@ $(document).ready(function () {
     const projectDeckProblem = $("#projectDeckProblem");
     const projectDeckBuilt = $("#projectDeckBuilt");
     const projectDeckEvidence = $("#projectDeckEvidence");
+    const projectDeckEvaluation = $("#projectDeckEvaluation");
+    const projectDeckLimitations = $("#projectDeckLimitations");
     const projectDeckTech = $("#projectDeckTech");
     const projectDeckLink = $("#projectDeckLink");
     const projectDeckCounter = $("#projectDeckCounter");
@@ -571,6 +846,78 @@ $(document).ready(function () {
 
     function isExternalProjectLink(href) {
       return /^https?:\/\//i.test(href);
+    }
+
+    const reviewerNotesByTitle = {
+      "Agentic Healthcare Analytics Chatbot": {
+        evaluation: "Check generated SQL validity, chart usefulness, reviewer override rate, hallucinated column rate, and safe refusal behavior.",
+        limitations: "Sanitized portfolio version only. It excludes private data and does not claim clinical deployment or patient-facing decision support.",
+      },
+      "Judicial Analytics: Legal NLP": {
+        evaluation: "Use temporal splits, leakage audits, baseline comparisons, per-class error review, and case-level calibration checks.",
+        limitations: "Public report describes method and evaluation design. It does not publish raw judgments, private metadata, or legal advice claims.",
+      },
+      "Self-RL & RAG Extraction Pipelines": {
+        evaluation: "Measure extraction accuracy, cache hit rate, latency, token spend, retry frequency, and human correction categories.",
+        limitations: "Resume-backed summary only. Proprietary documents, prompts, internal screenshots, and production credentials stay excluded.",
+      },
+      "IBKR Algorithmic Trading Bot": {
+        evaluation: "Backtest with transaction costs, walk-forward validation, paper-trading logs, drawdown limits, and order-state failure cases.",
+        limitations: "Prototype and repository evidence only. No live PnL, investment advice, or broker-side reliability guarantee is claimed.",
+      },
+      "RentLock: Smart Contract Escrow dApp": {
+        evaluation: "Review escrow state transitions, dispute paths, verifier assumptions, reentrancy risks, and frontend-wallet failure states.",
+        limitations: "Design note and prototype framing only. No audited contract, legal enforceability claim, or production custody claim is implied.",
+      },
+      "Smoodee - Sustainable Food Tech Startup": {
+        evaluation: "Assess customer acquisition, supply planning, margin assumptions, fulfillment reliability, and repeat-order signals.",
+        limitations: "Business and product summary only. Vendor details, financials, and private operating data are not published.",
+      },
+      "Loan Default Analytics Pipeline": {
+        evaluation: "Compare baseline models, check calibration, threshold trade-offs, explainability outputs, and segment-level error patterns.",
+        limitations: "Portfolio case note only. It omits private records and does not claim production credit-decision deployment.",
+      },
+      "FairTracker: Event Management & Analytics Platform": {
+        evaluation: "Test event search, geospatial filtering, authentication flows, data integrity, and dashboard usefulness under realistic usage.",
+        limitations: "Public summary only. It does not expose user data, API keys, or production traffic metrics.",
+      },
+      "WelfareHome: Social Impact Web Platform": {
+        evaluation: "Review booking flow completion, role permissions, caregiver handoff clarity, and data-update auditability.",
+        limitations: "Public-safe project framing only. Sensitive beneficiary data and operational records are excluded.",
+      },
+      "Fixed Income Analytics: Yield Curve Modeling": {
+        evaluation: "Validate pricing math against simple baselines, stress curve shifts, duration and convexity outputs, and scenario reproducibility.",
+        limitations: "Educational quant tooling only. It does not make trading recommendations or claim live-market execution.",
+      },
+      "Black-Scholes Options Analytics Dashboard": {
+        evaluation: "Check pricing against analytical baselines, Greek sensitivities, payoff scenarios, and parameter edge cases.",
+        limitations: "Learning and dashboard project only. It does not claim market calibration, volatility forecasting, or trading performance.",
+      },
+    };
+
+    function fallbackReviewerNotes(project) {
+      if (project.categories.indexOf("quant") > -1) {
+        return {
+          evaluation: "Validate formulas, compare against simple baselines, stress key assumptions, and document failure cases.",
+          limitations: "Public project summary only. No trading performance, investment advice, or production execution claim is implied.",
+        };
+      }
+
+      if (project.categories.indexOf("ai") > -1) {
+        return {
+          evaluation: "Track output quality, latency, cost, reviewer overrides, and failure categories against non-LLM baselines.",
+          limitations: "Public summary omits private data. Production use would need monitoring, access control, and drift checks.",
+        };
+      }
+
+      return {
+        evaluation: "Check workflow completion, data quality, user-facing reliability, and the assumptions behind each metric.",
+        limitations: "Public-safe summary only. Private datasets, credentials, client identifiers, and unsupported deployment claims are excluded.",
+      };
+    }
+
+    function getReviewerNotes(project) {
+      return reviewerNotesByTitle[project.title] || fallbackReviewerNotes(project);
     }
 
     function renderProjectRail() {
@@ -629,6 +976,9 @@ $(document).ready(function () {
       projectDeckProblem.text(project.problem || "See the full card for project context.");
       projectDeckBuilt.text(project.built || "See the full card for implementation details.");
       projectDeckEvidence.text(project.evidence || "See the full card for public evidence boundaries.");
+      const reviewerNotes = getReviewerNotes(project);
+      projectDeckEvaluation.text(reviewerNotes.evaluation);
+      projectDeckLimitations.text(reviewerNotes.limitations);
       projectDeckTech.empty();
       project.tech.slice(0, 7).forEach(function (tech) {
         projectDeckTech.append($("<span>", { text: tech }));
@@ -714,11 +1064,11 @@ $(document).ready(function () {
 
   // Typing Animation
   const phrases = [
-    "Quantitative Developer & AI Data Systems Engineer",
-    "Building Agentic Analytics Systems",
-    "Engineering Privacy-Safe Data Workflows",
-    "Developing Fixed Income and Trading Tooling",
-    "Turning Complex Datasets into Decision Systems",
+    "Quant developer + AI data systems engineer",
+    "Agentic analytics with audit trails",
+    "Privacy-safe data workflows",
+    "Fixed income and trading tooling",
+    "Complex data into decisions",
   ];
   let phraseIndex = 0;
   let charIndex = 0;
@@ -839,7 +1189,8 @@ $(document).ready(function () {
   );
 
   // Observe all resume subsections for fade-in effect
-  document.querySelectorAll(".resumeSubsection, .filterItem, .bookCarousel").forEach((el) => {
+  document.querySelectorAll(".proofCard, .resumeSubsection, .filterItem, .projectDeck, .projectEvidenceIndex, .testimonialCard, .bookCarousel, .writingCard, .certCard").forEach((el) => {
+    el.classList.add("motion-reveal");
     observer.observe(el);
   });
 

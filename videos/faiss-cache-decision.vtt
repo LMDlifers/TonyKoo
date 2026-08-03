@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+The request is normalized before embedding so repeated intent can be compared.
+
+00:03.000 --> 00:06.000
+FAISS retrieves similar approved requests from the semantic cache.
+
+00:06.000 --> 00:11.000
+Similarity, freshness, scope, and prompt version decide whether reuse is allowed.
+
+00:11.000 --> 00:16.000
+Fallbacks and logging keep cost savings tied to quality evidence.

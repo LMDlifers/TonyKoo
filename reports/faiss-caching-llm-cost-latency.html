@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Technical note on using FAISS semantic caching to reduce LLM cost and latency while managing stale-answer risk.">
+    <title>Using FAISS Caching to Reduce LLM Cost and Latency | Technical Note</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero reportHeroWithVisual">
+            <div class="reportHeroCopy">
+                <p class="reportEyebrow">Technical Note</p>
+                <h1>Using FAISS Caching to Reduce LLM Cost and Latency</h1>
+                <p class="reportSubtitle">
+                    A public-safe design note on semantic caching for retrieval and extraction workflows where repeated
+                    user intent can be reused without hiding quality, freshness, or fallback decisions.
+                </p>
+                <div class="reportMeta" aria-label="Report metadata">
+                    <span>Domain: LLM Systems</span>
+                    <span>Focus: Retrieval and Caching</span>
+                    <span>Year: 2026</span>
+                    <span>Status: Portfolio Note</span>
+                </div>
+                <div class="reportHeroActions">
+                    <a class="reportHeroAction" href="#demo-video">Watch 16s walkthrough</a>
+                </div>
+            </div>
+            <figure class="reportHeroVisual">
+                <img src="../images/portfolio/self_rl_pipeline.png"
+                    alt="Portfolio visual showing PDF extraction, reflection agent validation, FAISS semantic cache, and JSON output">
+                <figcaption>
+                    Hero visual: semantic cache and reflection loop for validated structured extraction.
+                </figcaption>
+            </figure>
+        </header>
+
+        <section class="reportTldr" aria-label="Fast scan summary">
+            <div class="reportTldrHeader">
+                <div>
+                    <p class="reportEyebrow">Fast Scan</p>
+                    <h2>What this note proves</h2>
+                </div>
+                <p>
+                    This note shows cost and latency awareness, not just familiarity with vector databases.
+                </p>
+            </div>
+            <div class="reportTldrGrid">
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Signal</span>
+                    <p>Designs an LLM cache around semantic equivalence, cache confidence, fallbacks, and telemetry.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Method</span>
+                    <p>Embed normalized requests, search a FAISS index, gate by similarity, then reuse or call the model.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Evaluation</span>
+                    <p>Track cache hit rate, p95 latency, token savings, stale-answer rate, and human correction rate.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Boundary</span>
+                    <p>No proprietary prompts, documents, user data, credentials, or production cost claims are published.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Abstract</h2>
+            <p>
+                LLM applications often repeat the same intent with small wording changes. A semantic cache can avoid
+                unnecessary model calls by reusing prior outputs when the new request is close enough to an approved
+                request. FAISS is useful here because it supports fast nearest-neighbor lookup over embeddings. The
+                useful engineering work is not the index alone. The stronger work is the decision layer around it:
+                normalization, thresholding, freshness checks, fallback behavior, and logs that let a reviewer inspect
+                when cached answers were reused.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem</h2>
+            <p>
+                In extraction, analytics, and support workflows, repeated user questions can drive up latency and model
+                spend. Exact string caching misses paraphrases. Blind semantic caching can be worse, because it may
+                reuse an answer for a request that looks similar but has a different data boundary or time sensitivity.
+                The goal is to reduce repeated calls while preserving a clear path back to the model whenever confidence,
+                freshness, or policy checks are weak.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Data Boundary</h2>
+            <p>
+                A public portfolio note should describe the pattern without publishing private embeddings, raw
+                documents, internal prompts, cache records, account identifiers, or vendor credentials. The examples
+                here use generic request and response concepts. In a real system, stored cache entries should be
+                scoped by tenant, data permission, model version, prompt version, and retrieval corpus version.
+            </p>
+            <div class="fieldNote">
+                <span class="fieldNoteLabel">Field Note</span>
+                <p>
+                    The tempting version of this project is to celebrate cache hits. The useful version is to explain
+                    when a cache hit should be rejected. I would rather show a slightly more conservative system with
+                    clear fallback reasons than a faster one that silently reuses stale or wrong answers.
+                </p>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Method</h2>
+            <div class="modelGrid">
+                <article class="modelCard">
+                    <strong>Normalize request</strong>
+                    <span>Strip volatile tokens, canonicalize casing, capture task type, and attach data-scope metadata.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Embed and search</strong>
+                    <span>Create an embedding for the normalized request and query FAISS for nearby approved entries.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Gate reuse</strong>
+                    <span>Require a similarity threshold, matching scope metadata, acceptable age, and compatible prompt version.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Fallback safely</strong>
+                    <span>Call the model when the cache is uncertain, then log the result and approval state before reuse.</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Architecture</h2>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Semantic Cache Flow</p>
+                <div class="flowDiagram">
+                    <div class="flowNode">
+                        <strong>User request</strong>
+                        <span>Capture task, permission scope, and freshness needs.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Embedding</strong>
+                        <span>Embed normalized request for approximate nearest-neighbor lookup.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>FAISS lookup</strong>
+                        <span>Retrieve similar approved requests and cached outputs.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Decision gate</strong>
+                        <span>Reuse, refresh, or fall back based on confidence and policy checks.</span>
+                    </div>
+                </div>
+            </div>
+            <p>
+                The cache should be treated as an inference shortcut, not as a source of truth. Every reuse decision
+                should leave enough metadata for observability: request hash, nearest-neighbor score, cache age, model
+                version, prompt version, token cost avoided, fallback reason, and review outcome when available.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Visual Evidence Strip</h2>
+            <p>
+                These visuals show how semantic caching fits into broader extraction and reflection systems. The cards
+                emphasize decision boundaries rather than unsupported production cost claims.
+            </p>
+            <div class="visualEvidenceStrip">
+                <figure class="visualEvidenceItem visualEvidenceWide">
+                    <img src="../images/portfolio/self_rl_pipeline.png"
+                        alt="Self-RL and RAG extraction pipeline with OCR, reflection agent, validation, FAISS cache, and JSON output">
+                    <figcaption class="visualCaption">
+                        <strong>System artifact.</strong> A public-safe portfolio visual showing where semantic cache
+                        reuse sits relative to OCR, reflection, validation, and structured JSON output.
+                    </figcaption>
+                </figure>
+                <figure class="visualEvidenceItem">
+                    <img src="../images/portfolio/reflexion_architecture.png"
+                        alt="Parallel Reflexion pipeline slide showing PDF-to-image processing, retry feedback, critic check, and valid JSON">
+                    <figcaption class="visualCaption">
+                        <strong>Slide-derived artifact.</strong> Reflection and retry loop for extraction quality,
+                        preserved as an owned portfolio visual with private details removed.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Short Demo Clip</h2>
+            <p>
+                This silent clip turns the cache decision into a scannable sequence: normalize, embed, retrieve, gate,
+                reuse or refresh, then log the decision.
+            </p>
+            <figure id="demo-video" class="demoVideo">
+                <video controls muted preload="metadata" poster="../images/portfolio/self_rl_pipeline.png"
+                    aria-describedby="faiss-demo-transcript">
+                    <source src="../videos/faiss-cache-decision.webm" type="video/webm">
+                    <track src="../videos/faiss-cache-decision.vtt" kind="captions" srclang="en" label="English"
+                        default>
+                </video>
+                <figcaption class="demoVideoCaption">
+                    <span class="demoVideoLabel">Muted Walkthrough</span>
+                    <h3>Semantic cache reuse decision</h3>
+                    <p>
+                        The clip keeps the engineering point visible: a cache layer is only credible when similarity,
+                        scope, freshness, and fallback behavior are observable.
+                    </p>
+                    <details id="faiss-demo-transcript" class="videoTranscript">
+                        <summary>Transcript</summary>
+                        <p>
+                            The request is normalized and embedded, FAISS retrieves similar approved requests, decision
+                            gates check similarity, freshness, scope, and prompt version, and the system either reuses,
+                            refreshes, or falls back while logging token and latency savings.
+                        </p>
+                    </details>
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="reportSection">
+            <h2>Research Connections</h2>
+            <p>
+                These paper cards make the agent memory and tool-use lineage visible while keeping Attention cite-only
+                because the reuse license for its figures is not public enough for direct copying.
+            </p>
+            <div class="researchFigureGrid">
+                <figure class="researchFigure">
+                    <img src="../images/research/reflexion_figure2_agent_loop.png"
+                        alt="Cropped Reflexion paper Figure 2 showing self-reflection, evaluator, actor, memory, and environment">
+                    <figcaption class="researchFigureBody">
+                        <span class="researchLabel">Research Figure</span>
+                        <h3>Reflection as memory</h3>
+                        <p class="researchCredit">
+                            Source: <cite>Reflexion: Language Agents with Verbal Reinforcement Learning</cite>, Noah
+                            Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, and Shunyu
+                            Yao, 2023. License: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+                            <a href="https://arxiv.org/abs/2303.11366">Link</a>. Modified: cropped/resized only.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: supports the idea that feedback, cache metadata, and correction history should
+                            be part of the system state.
+                        </p>
+                    </figcaption>
+                </figure>
+                <figure class="researchFigure">
+                    <img src="../images/research/react_figure1_prompting_methods.png"
+                        alt="Cropped ReAct paper Figure 1 showing reasoning and acting trajectories across tasks">
+                    <figcaption class="researchFigureBody">
+                        <span class="researchLabel">Research Figure</span>
+                        <h3>Actions need observations</h3>
+                        <p class="researchCredit">
+                            Source: <cite>ReAct: Synergizing Reasoning and Acting in Language Models</cite>, Shunyu
+                            Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao, 2023.
+                            License: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+                            <a href="https://arxiv.org/abs/2210.03629">Link</a>. Modified: cropped/resized only.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: informs how cache decisions should be paired with retrieval observations and
+                            explicit fallback actions.
+                        </p>
+                    </figcaption>
+                </figure>
+                <article class="researchFigure">
+                    <div class="researchFigureBody">
+                        <span class="researchLabel">Cite-Only Source</span>
+                        <h3>Transformer background</h3>
+                        <p class="researchCredit">
+                            Source: <cite>Attention Is All You Need</cite>, Ashish Vaswani, Noam Shazeer, Niki Parmar,
+                            Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin, 2017.
+                            License note: arXiv non-exclusive distribution license; no external figure copied.
+                            <a href="https://arxiv.org/abs/1706.03762">Link</a>.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: cited as the architecture lineage behind modern Transformer-based embedding and
+                            generation systems.
+                        </p>
+                        <span class="licenseNote">No figure reused</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation</h2>
+            <p>
+                I would evaluate this with both system metrics and quality metrics. System metrics include cache hit
+                rate, p50 and p95 latency, token cost avoided, index lookup time, fallback rate, and cache invalidation
+                frequency. Quality metrics include stale-answer rate, semantic mismatch rate, human correction rate,
+                and whether cached responses preserve the right data boundary.
+            </p>
+            <div class="callout">
+                <strong>Production measurement:</strong> The right claim is not "FAISS reduces cost" in isolation. The
+                right claim is a measured reduction in model calls under a defined traffic pattern, with mismatch and
+                fallback rates reported beside it.
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <p>
+                Semantic caching is risky when requests contain time-sensitive data, personalized permissions, rapidly
+                changing corpora, or subtle legal and medical wording differences. A high similarity score is not proof
+                that the old answer is safe to reuse. The system should fail open to a fresh model call when scope,
+                freshness, or policy checks are uncertain.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>What I Would Improve Next</h2>
+            <ul class="reportList">
+                <li>Add cache segmentation by tenant, corpus version, prompt version, and model version.</li>
+                <li>Run threshold sweeps to compare cost savings against semantic mismatch risk.</li>
+                <li>Add reviewer feedback loops so corrected cache entries improve future routing decisions.</li>
+                <li>Expose dashboard metrics for hit rate, fallback reason, stale entries, and token savings.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="PII-safe portfolio case study for a legal NLP and judicial analytics pipeline.">
-    <title>Judicial Analytics: Legal NLP | Sanitized Report</title>
+        content="PII-safe research-style paper on leakage-aware evaluation in legal NLP, temporal splits, baselines, and public-safe model limitations.">
+    <title>Leakage-Aware Evaluation in Legal NLP | Research-Style Paper</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
@@ -21,19 +21,31 @@
             <a href="../index.html#writing">Back to Writing</a>
         </nav>
 
-        <header class="reportHero">
-            <p class="reportEyebrow">Sanitized Portfolio Report</p>
-            <h1>Judicial Analytics: Legal NLP and Leakage-Aware Evaluation</h1>
-            <p class="reportSubtitle">
-                A paraphrased case study on extracting structured legal features from lengthy judgments while controlling
-                target leakage and hindsight bias.
-            </p>
-            <div class="reportMeta" aria-label="Report metadata">
-                <span>Domain: Legal Analytics</span>
-                <span>Focus: NLP Evaluation</span>
-                <span>Year: 2026</span>
-                <span>Status: Paraphrased Summary</span>
+        <header class="reportHero reportHeroWithVisual">
+            <div class="reportHeroCopy">
+                <p class="reportEyebrow">Sanitized Portfolio Report</p>
+                <h1>Leakage-Aware Evaluation in Legal NLP</h1>
+                <p class="reportSubtitle">
+                    A paraphrased case study on extracting structured legal features from lengthy judgments while controlling
+                    target leakage and hindsight bias.
+                </p>
+                <div class="reportMeta" aria-label="Report metadata">
+                    <span>Domain: Legal Analytics</span>
+                    <span>Focus: NLP Evaluation</span>
+                    <span>Year: 2026</span>
+                    <span>Status: Paraphrased Summary</span>
+                </div>
+                <div class="reportHeroActions">
+                    <a class="reportHeroAction" href="#demo-video">Watch 16s walkthrough</a>
+                </div>
             </div>
+            <figure class="reportHeroVisual">
+                <img src="../images/portfolio/judicial_analytics.png"
+                    alt="Portfolio visual showing legal judgments flowing through feature extraction and Legal-BERT to case metrics">
+                <figcaption>
+                    Hero visual: public-safe view of judgment ingestion, feature extraction, legal embeddings, and case metrics.
+                </figcaption>
+            </figure>
         </header>
 
         <section class="reportTldr" aria-label="Fast scan summary">
@@ -78,6 +90,15 @@
                 raw legal excerpts, evaluator details, and submission metadata. The report describes the methods and
                 lessons learned without reproducing private coursework pages or unredacted source material.
             </p>
+            <div class="fieldNote">
+                <span class="fieldNoteLabel">Field Note</span>
+                <p>
+                    The most important lesson here was that a model can look impressive for the wrong reason. I became
+                    more skeptical of headline scores once I saw how easily judgment text can leak the answer. The better
+                    portfolio signal is the evaluation discipline: define what the model is allowed to know, then test
+                    against that boundary.
+                </p>
+            </div>
         </section>
 
         <section class="reportSection">
@@ -246,7 +267,7 @@
                 the architecture diagrams that were too dense on dark slide canvases. Raw judgment screenshots, case
                 pages, and report metadata are not published.
             </p>
-            <div class="sourceFigureGrid">
+            <div class="sourceFigureGrid visualEvidenceStrip">
                 <figure class="sourceFigure sourceFigureFull">
                     <img src="../images/reports/judicial_extraction_architecture_light.svg"
                         alt="Light-background legal NLP extraction architecture diagram">
@@ -289,6 +310,38 @@
                     </figcaption>
                 </figure>
             </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Short Demo Clip</h2>
+            <p>
+                This silent walkthrough focuses on the evaluation path: ingestion, IRAC extraction, temporal filtering,
+                feature rows, leakage audit, baselines, and case-level metrics.
+            </p>
+            <figure id="demo-video" class="demoVideo">
+                <video controls muted preload="metadata" poster="../images/portfolio/judicial_analytics.png"
+                    aria-describedby="legal-demo-transcript">
+                    <source src="../videos/legal-nlp-leakage-audit.webm" type="video/webm">
+                    <track src="../videos/legal-nlp-leakage-audit.vtt" kind="captions" srclang="en" label="English"
+                        default>
+                </video>
+                <figcaption class="demoVideoCaption">
+                    <span class="demoVideoLabel">Muted Walkthrough</span>
+                    <h3>Judgment text to leakage-aware evaluation</h3>
+                    <p>
+                        The clip makes the senior-review point visible: metrics matter only after the information
+                        boundary and target-leakage risks are controlled.
+                    </p>
+                    <details id="legal-demo-transcript" class="videoTranscript">
+                        <summary>Transcript</summary>
+                        <p>
+                            Judgment text is normalized, IRAC extraction and temporal filtering separate pre-decision
+                            facts from outcome language, feature rows are audited for leakage, and baseline models are
+                            compared before case-level metrics are framed as evaluation evidence.
+                        </p>
+                    </details>
+                </figcaption>
+            </figure>
         </section>
 
         <section class="reportSection">
