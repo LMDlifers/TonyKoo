@@ -1373,6 +1373,24 @@ img#headerImage {
     margin: 0;
 }
 
+.resumeTimelineWrap {
+    margin-bottom: 34px;
+}
+
+.resumeExperienceGroup + .resumeExperienceGroup {
+    margin-top: 20px;
+}
+
+.resumeTimelineLabel {
+    color: var(--lab-accent, #3d5a85);
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
 .resumeSubsection {
     /* spacing in between each listing */
     padding: 34px 30px;
@@ -1422,6 +1440,23 @@ img#headerImage {
 .resumeSubsectionCompact {
     padding-bottom: 26px;
     padding-top: 26px;
+}
+
+.resumeSubsectionFeatured {
+    border-color: rgba(14, 116, 144, 0.22);
+}
+
+.resumeSubsectionSecondary {
+    background: rgba(255, 255, 255, 0.66);
+    box-shadow: none;
+}
+
+.resumeSubsectionSecondary .resumeName {
+    font-size: 19px;
+}
+
+.resumeSubsectionSecondary .resumeList {
+    margin-bottom: 0;
 }
 
 .resumeIconFallback {
@@ -3761,6 +3796,12 @@ a:focus {
 
     .resumeSubsection {
         padding: 30px 0;
+    }
+
+    .resumeTimelineWrap .resumeSubsection .col-md-2 {
+        border-top: 1px solid var(--lab-line, #d7e2ee);
+        margin-top: 18px;
+        padding-top: 14px;
     }
 
     .resumeName {
