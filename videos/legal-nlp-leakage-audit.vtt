@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Judgment text is converted into structured issue, rule, and fact signals.
+
+00:03.000 --> 00:06.000
+Temporal filters remove hindsight language before model evaluation.
+
+00:06.000 --> 00:11.000
+Baselines and embedding models are compared under leakage-aware splits.
+
+00:11.000 --> 00:16.000
+Case-level metrics keep the evaluation tied to realistic legal analytics use.

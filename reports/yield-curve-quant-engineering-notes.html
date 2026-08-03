@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Research-style quant engineering note connecting yield curve modeling, risk metrics, and trading tooling design.">
+    <title>From Yield Curves to Trading Tooling | Quant Engineering Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero reportHeroWithVisual">
+            <div class="reportHeroCopy">
+                <p class="reportEyebrow">Research-Style Paper</p>
+                <h1>From Yield Curves to Trading Tooling: Quant Engineering Notes</h1>
+                <p class="reportSubtitle">
+                    A public-safe note on connecting fixed-income concepts to reproducible tooling for pricing, risk,
+                    scenario analysis, and trading-system assumptions.
+                </p>
+                <div class="reportMeta" aria-label="Report metadata">
+                    <span>Domain: Quant Engineering</span>
+                    <span>Focus: Fixed Income and Tooling</span>
+                    <span>Year: 2026</span>
+                    <span>Status: Portfolio Note</span>
+                </div>
+                <div class="reportHeroActions">
+                    <a class="reportHeroAction" href="#demo-video">Watch 16s walkthrough</a>
+                </div>
+            </div>
+            <figure class="reportHeroVisual">
+                <img src="../images/portfolio/yield_curve.png"
+                    alt="Portfolio visual showing a yield curve model with maturities and a rising term structure">
+                <figcaption>
+                    Hero visual: fixed-income modeling as an inspectable engineering artifact.
+                </figcaption>
+            </figure>
+        </header>
+
+        <section class="reportTldr" aria-label="Fast scan summary">
+            <div class="reportTldrHeader">
+                <div>
+                    <p class="reportEyebrow">Fast Scan</p>
+                    <h2>What this paper proves</h2>
+                </div>
+                <p>
+                    This note shows how financial math becomes software that can be tested, audited, and extended.
+                </p>
+            </div>
+            <div class="reportTldrGrid">
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Signal</span>
+                    <p>Translates yield curve modeling into pricing modules, risk reports, and scenario tooling.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Method</span>
+                    <p>Separate market data, curve construction, instrument pricing, risk metrics, and reporting layers.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Evaluation</span>
+                    <p>Validate formulas, stress assumptions, compare baselines, and test edge cases before trading use.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Boundary</span>
+                    <p>No investment recommendation, live PnL claim, broker credential, or proprietary trading data is published.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Abstract</h2>
+            <p>
+                Yield curve work is often presented as a math exercise, but the engineering challenge is to make the
+                assumptions inspectable. A useful tool should separate data ingestion, curve construction, instrument
+                pricing, risk metrics, and scenario reporting. That separation makes it easier to test each layer,
+                explain model outputs, and decide what would need to change before connecting the tool to live trading
+                infrastructure.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem</h2>
+            <p>
+                Fixed-income analytics depends on assumptions about market data quality, interpolation, compounding,
+                day-count conventions, liquidity, and transaction costs. When these assumptions are buried in a
+                spreadsheet or a script, reviewers cannot easily tell whether a result comes from market movement, model
+                choice, or a data-quality issue. The portfolio problem is to show a clean engineering path from finance
+                theory to reviewable tooling.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Data Boundary</h2>
+            <p>
+                Public notes should use synthetic examples, public references, or abstracted market-data concepts. They
+                should not expose broker credentials, private orders, account identifiers, live positions, internal logs,
+                or strategy parameters. Where production metrics are unavailable, the writeup should say what would be
+                measured rather than imply live trading performance.
+            </p>
+            <div class="fieldNote">
+                <span class="fieldNoteLabel">Field Note</span>
+                <p>
+                    The thing I want a reviewer to notice is not that I can draw a curve. It is that I care where each
+                    assumption lives and how a wrong convention would surface in testing. My trade-off is to keep the
+                    public version conservative: analytics and tooling evidence first, live-trading claims only when
+                    there is audited proof.
+                </p>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Method</h2>
+            <div class="modelGrid">
+                <article class="modelCard">
+                    <strong>Curve layer</strong>
+                    <span>Parse maturities, rates, compounding, and interpolation assumptions into explicit objects.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Pricing layer</strong>
+                    <span>Compute present value, yield, duration, convexity, and sensitivity using testable functions.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Scenario layer</strong>
+                    <span>Apply parallel shifts, twists, stress moves, and liquidity assumptions as named scenarios.</span>
+                </article>
+                <article class="modelCard">
+                    <strong>Tooling layer</strong>
+                    <span>Expose results through notebooks, dashboards, reports, or trading-system adapters.</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Architecture</h2>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Quant Tooling Flow</p>
+                <div class="flowDiagram">
+                    <div class="flowNode">
+                        <strong>Market inputs</strong>
+                        <span>Rates, maturities, conventions, and quality checks.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Curve engine</strong>
+                        <span>Interpolation, discount factors, and scenario construction.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Pricing engine</strong>
+                        <span>PV, yield, duration, convexity, Greeks, and stress outputs.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Decision surface</strong>
+                        <span>Reports, dashboards, alerts, and trading-tool integration assumptions.</span>
+                    </div>
+                </div>
+            </div>
+            <p>
+                A senior reviewer should be able to inspect the path from input to output. That means the tool needs
+                versioned assumptions, deterministic tests for formulas, scenario labels, and logs that explain why a
+                result changed. If the tool connects to trading infrastructure, order lifecycle, latency, risk limits,
+                and failure recovery become separate engineering concerns.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Visual Evidence Strip</h2>
+            <p>
+                These visuals turn the quant narrative into inspectable artifacts: a curve model, an execution boundary,
+                and the risk layers that should sit between research and trading.
+            </p>
+            <div class="visualEvidenceStrip">
+                <figure class="visualEvidenceItem">
+                    <img src="../images/portfolio/yield_curve.png"
+                        alt="Yield curve model visual with a rising term structure across maturities">
+                    <figcaption class="visualCaption">
+                        <strong>Curve artifact.</strong> Public-safe term-structure visual used to frame interpolation,
+                        convention, and scenario assumptions.
+                    </figcaption>
+                </figure>
+                <figure class="visualEvidenceItem visualEvidenceWide">
+                    <img src="../images/portfolio/ibkr_trading_bot.png"
+                        alt="Algorithmic trading bot visual showing signal monitoring and execution architecture with risk controls">
+                    <figcaption class="visualCaption">
+                        <strong>Tooling artifact.</strong> Shows how market data, strategy logic, routing, and risk
+                        controls connect before any broker-side deployment claim.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Short Demo Clip</h2>
+            <p>
+                This silent walkthrough shows the engineering boundary between market inputs, curve assumptions, pricing,
+                risk checks, and paper-routing traces.
+            </p>
+            <figure id="demo-video" class="demoVideo">
+                <video controls muted preload="metadata" poster="../images/portfolio/yield_curve.png"
+                    aria-describedby="quant-demo-transcript">
+                    <source src="../videos/quant-tooling-walkthrough.webm" type="video/webm">
+                    <track src="../videos/quant-tooling-walkthrough.vtt" kind="captions" srclang="en" label="English"
+                        default>
+                </video>
+                <figcaption class="demoVideoCaption">
+                    <span class="demoVideoLabel">Muted Walkthrough</span>
+                    <h3>Assumptions to risk output</h3>
+                    <p>
+                        Shows how inputs move through curve construction, scenario shock, pricing, risk limits, and
+                        reportable output without implying live trading performance.
+                    </p>
+                    <details id="quant-demo-transcript" class="videoTranscript">
+                        <summary>Transcript</summary>
+                        <p>
+                            Market inputs enter the curve engine with convention checks. Scenario assumptions flow into
+                            pricing and risk calculations, risk limits and paper-routing boundaries sit before execution,
+                            and the final artifact is the trace from assumptions to risk output.
+                        </p>
+                    </details>
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation</h2>
+            <p>
+                I would evaluate the analytics layer against hand-calculated examples, textbook baselines, and edge
+                cases such as near-zero maturity, negative rates, missing tenors, and unusual day-count conventions.
+                For tooling, I would test reproducibility, input validation, scenario consistency, report readability,
+                and how safely the system handles missing or stale market data.
+            </p>
+            <div class="callout">
+                <strong>Trading boundary:</strong> A research tool can demonstrate quant and engineering judgment
+                without claiming it is a live trading strategy. Live deployment would require risk controls,
+                transaction-cost modeling, broker integration tests, and monitored paper trading.
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <p>
+                Yield curve tools are sensitive to data quality and convention choices. A clean dashboard can still
+                produce misleading results if the curve construction assumptions are wrong, if liquidity is ignored, or
+                if transaction costs are absent from strategy testing. The public note therefore frames the work as
+                analytics and tooling design, not as an investment recommendation.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>What I Would Improve Next</h2>
+            <ul class="reportList">
+                <li>Add unit tests for pricing, duration, convexity, interpolation, and scenario transformations.</li>
+                <li>Build a small assumptions panel that makes conventions visible beside every result.</li>
+                <li>Add paper-trading telemetry for order state, slippage assumptions, and drawdown limits.</li>
+                <li>Compare curve construction choices across interpolation methods and stress regimes.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>

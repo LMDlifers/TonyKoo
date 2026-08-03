@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Technical note on designing human-in-the-loop AI systems for sensitive data workflows with auditability and guardrails.">
+    <title>Designing Human-in-the-Loop AI Systems for Sensitive Data | Technical Note</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/report.css">
+</head>
+
+<body>
+    <main class="reportShell">
+        <nav class="reportNav" aria-label="Report navigation">
+            <a href="../index.html#portfolio">Back to Projects</a>
+            <a href="../index.html#writing">Back to Writing</a>
+        </nav>
+
+        <header class="reportHero reportHeroWithVisual">
+            <div class="reportHeroCopy">
+                <p class="reportEyebrow">Technical Note</p>
+                <h1>Designing Human-in-the-Loop AI Systems for Sensitive Data</h1>
+                <p class="reportSubtitle">
+                    A public-safe design template for AI workflows where the model can assist, but final responsibility
+                    depends on traceable review, privacy controls, and escalation.
+                </p>
+                <div class="reportMeta" aria-label="Report metadata">
+                    <span>Domain: Responsible AI</span>
+                    <span>Focus: Review Systems</span>
+                    <span>Year: 2026</span>
+                    <span>Status: Portfolio Note</span>
+                </div>
+                <div class="reportHeroActions">
+                    <a class="reportHeroAction" href="#demo-video">Watch 16s walkthrough</a>
+                </div>
+            </div>
+            <figure class="reportHeroVisual">
+                <img src="../images/reports/healthcare_hitl_workflow_light.svg"
+                    alt="Human-in-the-loop workflow diagram contrasting optional and compulsory review checkpoints">
+                <figcaption>
+                    Hero visual: review checkpoints for sensitive analytical workflows.
+                </figcaption>
+            </figure>
+        </header>
+
+        <section class="reportTldr" aria-label="Fast scan summary">
+            <div class="reportTldrHeader">
+                <div>
+                    <p class="reportEyebrow">Fast Scan</p>
+                    <h2>What this note proves</h2>
+                </div>
+                <p>
+                    This note frames human review as system design, not as a vague safety phrase.
+                </p>
+            </div>
+            <div class="reportTldrGrid">
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Signal</span>
+                    <p>Defines review queues, thresholds, audit logs, access controls, and failure handling.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Method</span>
+                    <p>Route tasks by risk, confidence, data sensitivity, and whether the output changes a decision.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Evaluation</span>
+                    <p>Measure reviewer override rate, escalation rate, time to review, false approval, and false rejection.</p>
+                </article>
+                <article class="reportTldrItem">
+                    <span class="reportTldrLabel">Boundary</span>
+                    <p>No sensitive records, reviewer identities, client identifiers, screenshots, or internal policies are published.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Abstract</h2>
+            <p>
+                Sensitive AI workflows need more than a model and a disclaimer. The system must decide when automation
+                is acceptable, when a human must review, what evidence the reviewer sees, how decisions are logged, and
+                how failures are escalated. Human-in-the-loop design is strongest when it is explicit: thresholds,
+                queues, audit trails, privacy boundaries, and monitoring all belong in the architecture.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Problem</h2>
+            <p>
+                In healthcare, legal, finance, and social-service workflows, a model output may affect high-stakes
+                analysis or operational decisions. A fully automated path can be fast but brittle. A fully manual path
+                can be slow and inconsistent. The design challenge is to use AI for draft work, retrieval, extraction,
+                and summarization while preserving human accountability at the points where mistakes matter most.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Data Boundary</h2>
+            <p>
+                Public writeups should describe the control pattern without exposing sensitive inputs. A safe portfolio
+                version should avoid raw records, internal screenshots, credentials, client names, reviewer identities,
+                prompt logs, and examples that could identify a person or organization. In production, access controls
+                should enforce who can see inputs, model outputs, reviewer comments, and final decisions.
+            </p>
+            <div class="fieldNote">
+                <span class="fieldNoteLabel">Field Note</span>
+                <p>
+                    I do not think "human in the loop" should be used as a comfort phrase. It only means something when
+                    the interface gives reviewers enough evidence, time, and authority to disagree with the model. My
+                    design instinct is to make the review path observable first, then optimize throughput after the risk
+                    controls are visible.
+                </p>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Method</h2>
+            <div class="matrixGrid">
+                <article class="matrixCell" data-tone="strong">
+                    <p class="matrixAxis">Low risk, high confidence</p>
+                    <strong>Assist and log</strong>
+                    <span>Allow the system to draft or retrieve, then log context, score, and output version.</span>
+                </article>
+                <article class="matrixCell">
+                    <p class="matrixAxis">High risk, high confidence</p>
+                    <strong>Require review</strong>
+                    <span>Route to a reviewer with source evidence, confidence, and reason codes.</span>
+                </article>
+                <article class="matrixCell">
+                    <p class="matrixAxis">Low risk, low confidence</p>
+                    <strong>Ask for clarification</strong>
+                    <span>Prevent forced answers when the request, data scope, or evidence is ambiguous.</span>
+                </article>
+                <article class="matrixCell">
+                    <p class="matrixAxis">High risk, low confidence</p>
+                    <strong>Escalate or refuse</strong>
+                    <span>Move to expert review, block unsafe output, or return a safe limitation message.</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Architecture</h2>
+            <div class="diagramPanel">
+                <p class="diagramTitle">Review-Oriented AI Flow</p>
+                <div class="flowDiagram">
+                    <div class="flowNode">
+                        <strong>Request intake</strong>
+                        <span>Capture user intent, permission scope, and sensitivity class.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Model draft</strong>
+                        <span>Generate extraction, summary, SQL, or recommendation with evidence links.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Risk gate</strong>
+                        <span>Route by confidence, policy checks, data sensitivity, and decision impact.</span>
+                    </div>
+                    <div class="flowNode">
+                        <strong>Human review</strong>
+                        <span>Approve, edit, reject, or escalate with a durable audit trail.</span>
+                    </div>
+                </div>
+            </div>
+            <p>
+                The reviewer interface should show the model output beside source evidence and reason codes. It should
+                avoid forcing binary approval when the right action is clarification, escalation, or rejection. Every
+                review action should leave a timestamped trail that can be sampled for quality and drift.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Visual Evidence Strip</h2>
+            <p>
+                These images show the review-system design as an interface and governance problem, not just a model
+                prompt. They are drawn from Tony-owned public-safe report assets.
+            </p>
+            <div class="visualEvidenceStrip">
+                <figure class="visualEvidenceItem visualEvidenceWide">
+                    <img src="../images/reports/healthcare_hitl_workflow_light.svg"
+                        alt="Human-in-the-loop workflow with optional review and compulsory review branches">
+                    <figcaption class="visualCaption">
+                        <strong>Review checkpoint map.</strong> Shows where sensitive tasks should route to required
+                        review instead of relying on optional human inspection.
+                    </figcaption>
+                </figure>
+                <figure class="visualEvidenceItem">
+                    <img src="../images/reports/healthcare_impact_effort_matrix_original.png"
+                        alt="Impact effort matrix from a healthcare capstone report">
+                    <figcaption class="visualCaption">
+                        <strong>Prioritization artifact.</strong> Documents how review and guardrail work can be
+                        triaged against implementation effort.
+                    </figcaption>
+                </figure>
+                <figure class="visualEvidenceItem">
+                    <img src="../images/reports/healthcare_vocabulary_pipeline_light.svg"
+                        alt="Clinical vocabulary resolution pipeline with embedding, FAISS search, ATHENA lookup, and review">
+                    <figcaption class="visualCaption">
+                        <strong>Evidence grounding.</strong> Shows why reviewer decisions need source terms, vocabulary
+                        mappings, and uncertainty notes beside the model output.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Short Demo Clip</h2>
+            <p>
+                This silent walkthrough turns the human-review workflow into a 16-second sequence: intake, sensitivity
+                checks, model draft, risk gate, reviewer action, and trace logging.
+            </p>
+            <figure id="demo-video" class="demoVideo">
+                <video controls muted preload="metadata" poster="../images/reports/healthcare_hitl_workflow_light.svg"
+                    aria-describedby="hitl-demo-transcript">
+                    <source src="../videos/hitl-review-workflow.webm" type="video/webm">
+                    <track src="../videos/hitl-review-workflow.vtt" kind="captions" srclang="en" label="English"
+                        default>
+                </video>
+                <figcaption class="demoVideoCaption">
+                    <span class="demoVideoLabel">Muted Walkthrough</span>
+                    <h3>Risk gate to reviewer decision</h3>
+                    <p>
+                        Shows the operational handoff that makes human-in-the-loop review measurable: policy signals,
+                        source evidence, reviewer choices, escalation, and audit logs.
+                    </p>
+                    <details id="hitl-demo-transcript" class="videoTranscript">
+                        <summary>Transcript</summary>
+                        <p>
+                            A sensitive request enters with purpose and permission context. The system checks sensitivity,
+                            drafts an evidence-linked answer, routes uncertain or high-impact cases to review, and logs
+                            the reviewer decision for audit and improvement.
+                        </p>
+                    </details>
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="reportSection">
+            <h2>Research Connection</h2>
+            <p>
+                This paper figure is included because its reuse license is explicit and the feedback loop maps directly
+                to sensitive-data review design.
+            </p>
+            <div class="researchFigureGrid">
+                <figure class="researchFigure">
+                    <img src="../images/research/reflexion_figure1_verbal_feedback.png"
+                        alt="Cropped Reflexion paper Figure 1 showing task, trajectory, evaluation, reflection, and next trajectory">
+                    <figcaption class="researchFigureBody">
+                        <span class="researchLabel">Research Figure</span>
+                        <h3>Feedback becomes the next attempt</h3>
+                        <p class="researchCredit">
+                            Source: <cite>Reflexion: Language Agents with Verbal Reinforcement Learning</cite>, Noah
+                            Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, and Shunyu
+                            Yao, 2023. License: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+                            <a href="https://arxiv.org/abs/2303.11366">Link</a>. Modified: cropped/resized only.
+                        </p>
+                        <p class="researchConnection">
+                            Connection: a reviewer correction should become durable feedback for routing, prompts,
+                            policy checks, or cache invalidation rather than an isolated one-off fix.
+                        </p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="reportSection">
+            <h2>Evaluation</h2>
+            <p>
+                I would evaluate this system by measuring reviewer override rate, escalation rate, review time, repeated
+                failure categories, false approvals, false rejections, and the share of model outputs that required
+                source-evidence corrections. For sensitive workflows, evaluation should also include access-control
+                tests, audit-log completeness, and whether users can understand why an output was blocked or escalated.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>Limitations</h2>
+            <p>
+                Human review does not automatically make a system safe. Reviewers can be overloaded, rubber-stamp model
+                outputs, or miss subtle errors. The system should therefore monitor queue pressure, reviewer agreement,
+                error categories, and cases where the model repeatedly creates extra work. Sensitive domains also need
+                policy, governance, and legal review beyond the technical workflow.
+            </p>
+        </section>
+
+        <section class="reportSection">
+            <h2>What I Would Improve Next</h2>
+            <ul class="reportList">
+                <li>Design reviewer dashboards that separate urgent risk from routine corrections.</li>
+                <li>Add model-output diffing so reviewers can see what changed between retries.</li>
+                <li>Measure whether review feedback improves prompts, retrieval, or routing policies over time.</li>
+                <li>Run tabletop failure reviews for privacy leaks, unsafe automation, and overloaded review queues.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>

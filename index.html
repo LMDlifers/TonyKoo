@@ -61,23 +61,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#about" aria-label="Navigate to About section">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#resume" aria-label="Navigate to Experience section">Experience</a>
+                    <a class="nav-link" href="#proof" aria-label="Navigate to Proof section">Proof</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#portfolio" aria-label="Navigate to Projects section">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#testimonials"
-                        aria-label="Navigate to Testimonials section">Testimonials</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#reading" aria-label="Navigate to Reading section">Reading</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#writing" aria-label="Navigate to Writing section">Writing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#resume" aria-label="Navigate to Resume section">Resume</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact" aria-label="Navigate to Contact section">Contact</a>
@@ -93,7 +86,7 @@
             </div>
 
             <!-- Dark Mode Toggle -->
-            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Switch to dark mode">
                 <i class="fas fa-moon"></i>
             </button>
         </div>
@@ -102,25 +95,58 @@
     <header id="heroSection">
         <img id="headerImage" src="images/header2.png" alt="Portfolio header banner">
         <div class="hero-gradient-overlay"></div>
+        <div class="labGrid" aria-hidden="true">
+            <span class="labNode labNodeA"></span>
+            <span class="labNode labNodeB"></span>
+            <span class="labNode labNodeC"></span>
+        </div>
+        <aside class="heroEvidencePanel" aria-label="Featured portfolio evidence">
+            <div class="heroEvidenceHeader">
+                <span>Evidence Board</span>
+                <strong>Agentic analytics, legal NLP, quant tooling</strong>
+            </div>
+            <div class="heroEvidenceMedia">
+                <img src="images/reports/healthcare_agentic_pipeline_light.svg"
+                    alt="Agentic healthcare analytics pipeline preview">
+            </div>
+            <div class="heroEvidenceRows" aria-label="Selected project proof">
+                <span>6.09s -> 0.86s APAC analytics runtime</span>
+                <span>Leakage-aware legal NLP evaluation design</span>
+                <span>FAISS cache with freshness and fallback gates</span>
+            </div>
+        </aside>
         <div class="heroOverlay">
+            <p class="heroEyebrow">AI systems / quant tooling / data products</p>
             <h1 class="heroTitle">
-                <span class="title-word">Tony</span>
-                <span class="title-word">Koo</span>
+                <span class="title-word">Tony Koo</span>
+                <span class="title-line">builds decision systems.</span>
             </h1>
             <p class="heroSubtitle">
                 <span class="typed-text"></span><span class="cursor">&nbsp;</span>
             </p>
             <p class="heroPositioning">
-                AI data systems, quant tooling, and privacy-safe analytics for high-stakes decisions.
+                Data scientist and quantitative systems builder focused on agentic analytics, privacy-safe workflows,
+                and financial engineering tools that turn ambiguous data into reviewable decisions.
             </p>
             <div class="heroActions" aria-label="Primary actions">
-                <a class="heroButton heroButtonPrimary" href="#portfolio">View Projects</a>
-                <a class="heroButton heroButtonSecondary" href="#writing">Read Case Studies</a>
+                <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> Project Lab</a>
+                <a class="heroButton heroButtonSecondary" href="#writing"><i class="fas fa-file-alt"></i> Case Studies</a>
                 <a class="heroButton heroButtonTertiary" href="./files/Resume_TonyKooYeLong.pdf" target="_blank"
-                    rel="noopener">Resume</a>
+                    rel="noopener"><i class="fas fa-download"></i> Resume</a>
             </div>
-            <div class="hero-scroll-hint">
-                <i class="fas fa-chevron-down"></i>
+            <div class="heroMetrics" aria-label="Selected proof metrics">
+                <div class="heroMetric">
+                    <span>6.09s to 0.86s</span>
+                    <p>APAC correlation analytics optimization</p>
+                </div>
+                <div class="heroMetric">
+                    <span>~90%</span>
+                    <p>CV extraction accuracy on sanitized samples</p>
+                </div>
+                <div class="heroMetric">
+                    <span>FAISS + RAG</span>
+                    <p>Semantic caching for lower-cost LLM pipelines</p>
+                </div>
             </div>
         </div>
     </header>
@@ -128,23 +154,153 @@
     <!-- Scroll Progress Bar -->
     <div id="scrollProgress"></div>
 
+    <div id="commandPalette" class="commandPalette" aria-hidden="true">
+        <div class="commandPaletteBackdrop" data-command-close></div>
+        <div class="commandPalettePanel" role="dialog" aria-modal="true" aria-labelledby="commandPaletteTitle">
+            <div class="commandPaletteHeader">
+                <i class="fas fa-terminal" aria-hidden="true"></i>
+                <input id="commandPaletteInput" type="text" autocomplete="off"
+                    aria-labelledby="commandPaletteTitle" placeholder="Jump to projects, reports, resume..." />
+                <button type="button" class="commandPaletteClose" data-command-close aria-label="Close command palette">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p id="commandPaletteTitle" class="commandPaletteTitle">Command Palette</p>
+            <div id="commandPaletteResults" class="commandPaletteResults" role="listbox"></div>
+        </div>
+    </div>
+
+    <section id="proof" class="proofSection section" aria-label="Proof section">
+        <div class="container">
+            <div class="proofHeader">
+                <p class="sectionKicker">Proof before polish</p>
+                <h2>Systems I can explain, defend, and improve.</h2>
+                <p>
+                    The portfolio now leads with the work that matters most: AI workflows with audit trails,
+                    quant tools with measurable speedups, and public-safe reports that show how the systems fit together.
+                </p>
+            </div>
+            <div class="reviewerScan" aria-label="Reviewer quick scan">
+                <article>
+                    <span>What I build</span>
+                    <h3>AI, data, and quant decision systems</h3>
+                    <p>Targeting data scientist, AI engineer, and quant engineering roles where models need production judgment.</p>
+                </article>
+                <article>
+                    <span>Evidence</span>
+                    <h3>Metrics, methods, and boundaries</h3>
+                    <p>Speedups, extraction accuracy, leakage-aware evaluation, and public-safe reports with limitations stated.</p>
+                </article>
+                <article>
+                    <span>Fast path</span>
+                    <h3>Projects, writing, resume, contact</h3>
+                    <p>
+                        <a href="#portfolio">Review projects</a>
+                        <a href="#writing">Read notes</a>
+                        <a href="./files/Resume_TonyKooYeLong.pdf" target="_blank" rel="noopener">Resume</a>
+                        <a href="#contact">Contact</a>
+                    </p>
+                </article>
+            </div>
+            <div class="proofGrid">
+                <article class="proofCard proofCardPrimary">
+                    <span class="proofLabel">Agentic analytics</span>
+                    <h3>Healthcare chatbot architecture</h3>
+                    <p>Multi-agent workflow for natural-language SQL, statistical review, charting, and human checkpoints.</p>
+                    <a href="reports/agentic-healthcare-analytics.html">Read case study</a>
+                </article>
+                <article class="proofCard">
+                    <span class="proofMetric">0.86s</span>
+                    <h3>Quant analytics latency</h3>
+                    <p>Reduced APAC correlation analytics runtime from 6.09 seconds through workflow and computation optimization.</p>
+                </article>
+                <article class="proofCard">
+                    <span class="proofMetric">~90%</span>
+                    <h3>Computer vision extraction</h3>
+                    <p>Built automated questionnaire extraction for medical PDF/image workflows with reviewable output boundaries.</p>
+                    <span class="proofQualifier">Project-scoped sanitized evaluation sample.</span>
+                </article>
+                <article class="proofCard">
+                    <span class="proofMetric">RAG</span>
+                    <h3>Lower-cost LLM pipelines</h3>
+                    <p>Designed Transformer, LangChain, and FAISS-backed caching paths for structured extraction and retrieval.</p>
+                </article>
+            </div>
+            <button id="commandPaletteTrigger" class="commandTrigger" type="button">
+                <i class="fas fa-search"></i>
+                <span>Open command palette</span>
+            </button>
+        </div>
+    </section>
+
+    <section id="evidence" class="visualStorySection section" aria-label="Visual evidence gallery">
+        <div class="container">
+            <div class="visualStoryHeader">
+                <p class="sectionKicker">Visual evidence</p>
+                <h2>Project pages that show the work, not just describe it.</h2>
+                <p>
+                    Major case studies now pair written method notes with owned diagrams, slide-derived artifacts,
+                    short muted demos, and licensed research references where reuse is clear.
+                </p>
+            </div>
+            <div class="visualStoryGrid">
+                <a class="visualStoryCard" href="reports/agentic-healthcare-analytics.html">
+                    <img src="images/portfolio/healthcare_agentic.png"
+                        alt="Agentic healthcare analytics visual with intent router, SQL agent, stats agent, and clinician review">
+                    <span>Agent workflow</span>
+                    <h3>Healthcare analytics with review gates</h3>
+                    <p>Hero visual, architecture diagram, HITL flow, ReAct/Reflexion research cards, and demo clip.</p>
+                </a>
+                <a class="visualStoryCard" href="reports/judicial-analytics-legal-nlp.html">
+                    <img src="images/portfolio/judicial_analytics.png"
+                        alt="Legal NLP visual with judgments, feature extraction, Legal-BERT, and case metrics">
+                    <span>Evaluation design</span>
+                    <h3>Legal NLP without leakage theater</h3>
+                    <p>Extraction architecture, HAN diagram, model-results artifact, leakage walkthrough, and field note.</p>
+                </a>
+                <a class="visualStoryCard" href="reports/faiss-caching-llm-cost-latency.html">
+                    <img src="images/portfolio/self_rl_pipeline.png"
+                        alt="Self-RL and RAG extraction pipeline visual with FAISS cache and JSON output">
+                    <span>Systems cost</span>
+                    <h3>FAISS cache decisions with fallback logic</h3>
+                    <p>Semantic-cache evidence, Reflexion/ReAct paper cards, and a short cache decision demo.</p>
+                </a>
+                <a class="visualStoryCard" href="reports/yield-curve-quant-engineering-notes.html">
+                    <img src="images/portfolio/yield_curve.png"
+                        alt="Yield curve modeling visual with an upward-sloping term structure">
+                    <span>Quant tooling</span>
+                    <h3>Yield curves to risk-aware tooling</h3>
+                    <p>Curve artifact, IBKR architecture visual, assumptions-to-risk demo, and conservative deployment boundary.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Quick Jump Sidebar -->
     <div id="quickJumpSidebar" class="quick-jump-sidebar">
         <div class="sidebar-toggle" id="sidebarToggle">
             <i class="fas fa-bars"></i>
         </div>
         <nav class="sidebar-nav">
-            <a href="#about" class="sidebar-link" data-section="about">
-                <i class="fas fa-user"></i>
-                <span>About</span>
-            </a>
-            <a href="#resume" class="sidebar-link" data-section="resume">
-                <i class="fas fa-file-alt"></i>
-                <span>Experience</span>
+            <a href="#proof" class="sidebar-link" data-section="proof">
+                <i class="fas fa-signal"></i>
+                <span>Proof</span>
             </a>
             <a href="#portfolio" class="sidebar-link" data-section="portfolio">
                 <i class="fas fa-briefcase"></i>
                 <span>Projects</span>
+            </a>
+            <a href="#writing" class="sidebar-link" data-section="writing">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Writing</span>
+            </a>
+            <a href="#resume" class="sidebar-link" data-section="resume">
+                <i class="fas fa-file-alt"></i>
+                <span>Resume</span>
+            </a>
+            <a href="#evidence" class="sidebar-link" data-section="evidence">
+                <i class="fas fa-photo-video"></i>
+                <span>Evidence</span>
             </a>
             <a href="#testimonials" class="sidebar-link" data-section="testimonials">
                 <i class="fas fa-comments"></i>
@@ -153,10 +309,6 @@
             <a href="#reading" class="sidebar-link" data-section="reading">
                 <i class="fas fa-book-reader"></i>
                 <span>Reading</span>
-            </a>
-            <a href="#writing" class="sidebar-link" data-section="writing">
-                <i class="fas fa-pencil-alt"></i>
-                <span>Writing</span>
             </a>
             <a href="#contact" class="sidebar-link" data-section="contact">
                 <i class="fas fa-envelope"></i>
@@ -253,6 +405,25 @@
     <!-- RESUME -->
     <section id="resume" class="resumeSection section" aria-label="Resume section">
         <h2 class="sectionTitle">Experience</h2>
+        <div class="container resumePriorityWrap" aria-label="Recruiter resume summary">
+            <div class="resumePriorityGrid">
+                <article class="resumePriorityCard">
+                    <span>Current AI/Data Role</span>
+                    <h3>SKEZI - Data Scientist Intern</h3>
+                    <p>French NLP, API extraction, PII-safe text processing, topic detection, and portfolio-safe RAG/CV evidence.</p>
+                </article>
+                <article class="resumePriorityCard">
+                    <span>Quant Engineering</span>
+                    <h3>Tradition Energy - Quantitative Developer Intern</h3>
+                    <p>Yield curves, derivatives tooling, Bloomberg/LSEG integrations, and APAC analytics runtime improvement from 6.09s to 0.86s.</p>
+                </article>
+                <article class="resumePriorityCard">
+                    <span>Foundation</span>
+                    <h3>NUS Business Analytics + Finance Diploma</h3>
+                    <p>Business analytics, programming, econometrics, financial risk, client operations, and medical operations experience.</p>
+                </article>
+            </div>
+        </div>
         <!-- EDUCATION -->
         <h3 class="sectionTagline">Education</h3>
         <div class="container">
@@ -270,7 +441,7 @@
                         <li>University Engineering Scholarship</li>
                         <li>Sustainability Exchange Champion</li>
                         <li>Tembusu College</li>
-                        <li>Cumulative GPA:<b> Honours with Distinction</b></li>
+                        <li>Grade:<b> Honours with Merit</b></li>
                         <li>Expected Graduation:<b> Jun 2026</b></li>
                     </ul>
                     <br>
@@ -298,6 +469,8 @@
                         <span class="resumeSkill">CSS</span>
                         <span class="resumeSkill">JavaScript</span>
                         <span class="resumeSkill">Tableau</span>
+                        <span class="resumeSkill">AWS</span>
+                        <span class="resumeSkill">Figma</span>
                         <span class="resumeSkill">VBA</span>
                         <span class="resumeSkill">Git</span>
                     </div>
@@ -393,7 +566,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <p class="resumeDateLoc">Apr 18 - Apr 21</p>
+                    <p class="resumeDateLoc">Apr 18 - May 21</p>
                     <p class="resumeDateLoc">Singapore</p>
                 </div>
             </div>
@@ -456,10 +629,15 @@
                                 <li>R (ggplot2, dplyr, quantmod)</li>
                                 <li>Java (OOP, Data Structures, Algorithms)</li>
                                 <li>JavaScript (React, Node.js, DOM manipulation)</li>
+                                <li>AWS, Figma, Microsoft Excel, Word, and PowerPoint</li>
                                 <li>Version Control (Git, GitHub)</li>
-                                <li>Agile Development &amp; Code Review</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="resumeMetaStrip" aria-label="Languages, activities, and interests">
+                        <span>Languages: English native, Mandarin intermediate, French basic</span>
+                        <span>Competitions: Deloitte, WireCard FinTech, YouCard, Sustainability Exchange</span>
+                        <span>Interests: running, squash, basketball, cooking</span>
                     </div>
                 </div>
             </div>
@@ -485,6 +663,7 @@
                         <li>Developed high-performance correlation analytics for APAC markets using Bloomberg and LSEG
                             API integrations, reducing calculation time from <b>6.09s to 0.86s</b>.
                         </li>
+                        <li>Supported new financial-product work by combining market data analysis, modelling, and client-facing spreadsheet tooling.</li>
                     </ul>
                     <div>
                         <span class="resumeSkill">Python</span>
@@ -494,7 +673,8 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <p class="resumeDateLoc">May 24 - Jul 25</p>
+                    <p class="resumeDateLoc">May 24 - Aug 24</p>
+                    <p class="resumeDateLoc">May 25 - Jul 25</p>
                     <p class="resumeDateLoc">Singapore</p>
                 </div>
             </div>
@@ -510,42 +690,74 @@
                 </div>
                 <div class="col-md-9">
                     <p class="resumeName">SKEZI</p>
-                    <p class="resumeRole">Data Scientist</p>
-                    <p class="resumeDesc">RAG systems, computer vision extraction, and data-efficient RL workflows</p>
+                    <p class="resumeRole">Data Scientist Intern</p>
+                    <p class="resumeDesc">French NLP, API extraction, PII-safe processing, and topic detection</p>
                     <ul class="resumeList">
-                        <li>Architected advanced <b>RAG pipelines</b> with Transformers, utilising <b>LangChain</b> and
-                            <b>FAISS</b>-backed semantic caching to enhance outputs while cutting down LLM API costs and
-                            optimising latency via mean-pooled embeddings.
-                        </li>
-                        <li>Constructed a <b>Computer Vision</b>-based pipeline for automated PDF data extraction for
-                            medical questionnaire image extraction and processing with <b><span
-                                    class="accent-success">~90% accuracy</span></b>.</li>
-                        <li>Designed and implemented a proprietary <b>Reinforcement Learning (RL)</b> framework, the
-                            <b>Self-RL loop</b>, optimised for data efficiency by requiring a fraction of training data
-                            used in standard RL frameworks with <b><span class="accent-success">100%
-                                    effectiveness</span></b>.
-                        </li>
-                        <li>Refined topic detection pipelines using <b>HDBSCAN</b> and <b>Mistral</b>-based Zero-Shot
-                            labelling, while ensuring GDPR compliance via automated PII redaction processes.</li>
+                        <li>Performed API-based data extraction to streamline information processing and improve workflow efficiency.</li>
+                        <li>Cleaned and lemmatized French-language text with <b>SpaCy</b>, removing PII for regulatory compliance.</li>
+                        <li>Applied <b>BERT</b>, TF-IDF, LLM workflows, and <b>HDBSCAN</b> clustering for topic detection.</li>
+                        <li>Prototyped RAG, FAISS caching, and CV extraction workflows; project-scoped CV extraction reached <b><span class="accent-success">~90% accuracy</span></b> on sanitized evaluation samples.</li>
                     </ul>
                     <div>
                         <span class="resumeSkill">Python</span>
+                        <span class="resumeSkill">SpaCy</span>
+                        <span class="resumeSkill">BERT</span>
                         <span class="resumeSkill">RAG</span>
                         <span class="resumeSkill">LangChain</span>
                         <span class="resumeSkill">FAISS</span>
                         <span class="resumeSkill">Transformers</span>
                         <span class="resumeSkill">Computer Vision</span>
-                        <span class="resumeSkill">Reinforcement Learning</span>
                         <span class="resumeSkill">HDBSCAN</span>
-                        <span class="resumeSkill">Zero-Shot Learning</span>
                         <span class="resumeSkill">LLMs</span>
                         <span class="resumeSkill">GDPR</span>
-                        <span class="resumeSkill">Mistral</span>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <p class="resumeDateLoc">Jul 25 - Dec 25</p>
+                    <p class="resumeDateLoc">Jul 25 - Current</p>
                     <p class="resumeDateLoc">Paris, France</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EARLIER EXPERIENCE -->
+        <h3 class="sectionTagline">Earlier Experience</h3>
+        <div class="container">
+            <div class="row resumeSubsection resumeSubsectionCompact">
+                <div class="col-md-1">
+                    <div class="resumeIconFallback" aria-hidden="true">
+                        <i class="fas fa-briefcase-medical"></i>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <p class="resumeName">Military Medical Institute</p>
+                    <p class="resumeRole">Medical Technician</p>
+                    <p class="resumeDesc">Singapore Armed Forces medical operations and patient-record discipline</p>
+                    <ul class="resumeList">
+                        <li>Provided immediate medical assistance during emergencies and supported patient stabilization in high-pressure situations.</li>
+                        <li>Maintained patient records and medical logs to support communication across medical teams.</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <p class="resumeDateLoc">Jul 21 - Aug 23</p>
+                    <p class="resumeDateLoc">Singapore</p>
+                </div>
+            </div>
+            <div class="row resumeSubsection resumeSubsectionCompact">
+                <div class="col-md-1">
+                    <img class="resumeIcon" src="images/experience/trads_logo.jpg" alt="Tradition Energy logo" />
+                </div>
+                <div class="col-md-9">
+                    <p class="resumeName">Tradition Energy Singapore</p>
+                    <p class="resumeRole">Middle Office Analyst Intern</p>
+                    <p class="resumeDesc">Client onboarding, trade operations, and cross-office coordination</p>
+                    <ul class="resumeList">
+                        <li>Supported onboarding for 20+ international clients by streamlining existing SOPs.</li>
+                        <li>Coordinated with trading desks, operations teams, and London HQ to support accurate high-volume trade execution.</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <p class="resumeDateLoc">Sep 20 - May 21</p>
+                    <p class="resumeDateLoc">Singapore</p>
                 </div>
             </div>
         </div>
@@ -612,7 +824,7 @@
                                     workflows.</p>
                             </div>
                             <div>
-                                <span>Built</span>
+                                <span>Method</span>
                                 <p id="projectDeckBuilt">Multi-agent analytics workflow with routing, SQL, statistics,
                                     charts, and human review.</p>
                             </div>
@@ -620,6 +832,16 @@
                                 <span>Evidence</span>
                                 <p id="projectDeckEvidence">Sanitized capstone-backed summary with private data
                                     excluded.</p>
+                            </div>
+                        </div>
+                        <div class="projectDeckReviewerNotes" aria-label="Reviewer notes">
+                            <div>
+                                <span>Evaluation</span>
+                                <p id="projectDeckEvaluation">Review SQL trace quality, answer usefulness, and human approval boundaries before production.</p>
+                            </div>
+                            <div>
+                                <span>Limits</span>
+                                <p id="projectDeckLimitations">Public version excludes private data and does not claim clinical deployment.</p>
                             </div>
                         </div>
                         <div id="projectDeckTech" class="projectDeckTech"></div>
@@ -671,7 +893,7 @@
                         <p>RAG extraction architecture with Transformers, LangChain, FAISS caching, OCR review, and
                             iterative self-reflection loops for structured output quality.</p>
                         <p>Python, reinforcement learning, RAG, LLMs, FAISS, asyncio.</p>
-                        <span class="projectIndexBoundary">Public summary only</span>
+                        <a href="reports/faiss-caching-llm-cost-latency.html">Technical note</a>
                     </article>
                     <article class="projectIndexRow quant data">
                         <div>
@@ -742,7 +964,7 @@
                         <p>Quantitative toolkit for bond pricing, yield curve construction, duration, convexity,
                             scenario analysis, and spreadsheet-assisted fixed-income workflows.</p>
                         <p>Python, NumPy, SciPy, VBA, fixed income, quantitative finance.</p>
-                        <span class="projectIndexBoundary">Public summary only</span>
+                        <a href="reports/yield-curve-quant-engineering-notes.html">Quant note</a>
                     </article>
                     <article class="projectIndexRow quant apps">
                         <div>
@@ -877,6 +1099,11 @@
                                 <span class="techBadge">FAISS</span>
                                 <span class="techBadge">asyncio</span>
                             </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/faiss-caching-llm-cost-latency.html">
+                                    <i class="fas fa-file-alt"></i> Read technical note
+                                </a>
+                            </p>
                             </div>
                         </div>
                     </div>
@@ -1175,6 +1402,11 @@
                                 <span class="techBadge">Quantitative Finance</span>
                                 <span class="techBadge">Fixed Income</span>
                             </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/yield-curve-quant-engineering-notes.html">
+                                    <i class="fas fa-file-alt"></i> Read quant note
+                                </a>
+                            </p>
                             </div>
                         </div>
                     </div>
@@ -1501,163 +1733,176 @@
     <!-- TECHNICAL WRITING -->
     <section id="writing" class="writingSection section" aria-label="Technical writing section">
         <h2 class="sectionTitle">Technical Writing &amp; Research</h2>
+        <p class="sectionIntro">
+            Public-safe technical notes, case studies, and research-style papers written for recruiters, senior data
+            scientists, and AI engineers.
+        </p>
         <div class="container">
-            <div class="row justify-content-center">
-                <!-- Article 1 -->
+            <div class="writingHubGrid" aria-label="Writing types">
+                <article class="writingTypeCard">
+                    <span>Technical notes</span>
+                    <p>Implementation lessons on retrieval, caching, latency, cost, and guardrails.</p>
+                </article>
+                <article class="writingTypeCard">
+                    <span>Project case studies</span>
+                    <p>Sanitized reports that show problem framing, architecture, trade-offs, and evidence boundaries.</p>
+                </article>
+                <article class="writingTypeCard">
+                    <span>Research-style papers</span>
+                    <p>Structured writeups with abstract, method, evaluation design, limitations, and next steps.</p>
+                </article>
+            </div>
+
+            <div class="row justify-content-center writingArticleGrid">
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
-                        <div class="writingIcon">
-                            <i class="fas fa-notes-medical"></i>
-                        </div>
+                        <a class="writingThumb" href="reports/agentic-healthcare-analytics.html" aria-label="Open healthcare analytics case study">
+                            <img src="images/portfolio/healthcare_agentic.png" alt="Agentic healthcare analytics workflow preview" loading="lazy">
+                        </a>
                         <h3 class="writingTitle">
                             <a href="reports/agentic-healthcare-analytics.html">
-                                Agentic Healthcare Analytics Architecture
+                                How I Designed an Agentic Healthcare Analytics Workflow
                             </a>
                         </h3>
                         <p class="writingMeta">
-                            <span class="writingPlatform">Sanitized Case Study</span> &bull;
+                            <span class="writingPlatform">Project Case Study</span> &bull;
                             <span class="writingDate">2026</span> &bull;
-                            <span class="writingReadTime">Architecture Summary</span>
+                            <span class="writingReadTime">AI Architecture</span>
                         </p>
                         <p class="writingExcerpt">
-                            Detailed public-safe report with architecture diagrams, design trade-offs, SQL grounding,
-                            privacy controls, agent orchestration, and recruiter-visible AI engineering signals.
+                            Agent routing, schema grounding, SQL traceability, human review gates, data boundaries,
+                            evaluation assumptions, and deployment risks.
                         </p>
                         <div class="writingTags">
                             <span class="writingTag">Agentic AI</span>
                             <span class="writingTag">SQL</span>
-                            <span class="writingTag">Auditability</span>
+                            <span class="writingTag">Guardrails</span>
                         </div>
                         <a href="reports/agentic-healthcare-analytics.html" class="writingLink">
-                            Read Report <i class="fas fa-arrow-right"></i>
+                            Read Case Study <i class="fas fa-arrow-right"></i>
                         </a>
                     </article>
                 </div>
 
-                <!-- Article 2 -->
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
-                        <div class="writingIcon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                        <a class="writingThumb" href="reports/judicial-analytics-legal-nlp.html" aria-label="Open legal NLP evaluation paper">
+                            <img src="images/portfolio/judicial_analytics.png" alt="Legal NLP evaluation pipeline preview" loading="lazy">
+                        </a>
                         <h3 class="writingTitle">
                             <a href="reports/judicial-analytics-legal-nlp.html">
-                                Judicial Analytics: Legal NLP Evaluation
+                                Leakage-Aware Evaluation in Legal NLP
                             </a>
                         </h3>
                         <p class="writingMeta">
-                            <span class="writingPlatform">Sanitized Case Study</span> &bull;
+                            <span class="writingPlatform">Research-Style Paper</span> &bull;
                             <span class="writingDate">2026</span> &bull;
-                            <span class="writingReadTime">Method Summary</span>
+                            <span class="writingReadTime">Evaluation Design</span>
                         </p>
                         <p class="writingExcerpt">
-                            Detailed report on leakage-aware legal NLP, temporal isolation, structured extraction,
-                            Legal-BERT baselines, model trade-offs, and realistic case-level evaluation.
+                            Temporal splits, label leakage risks, Legal-BERT baselines, structured extraction checks,
+                            case-level assumptions, and limits.
                         </p>
                         <div class="writingTags">
                             <span class="writingTag">Legal NLP</span>
-                            <span class="writingTag">Legal-BERT</span>
                             <span class="writingTag">Evaluation</span>
+                            <span class="writingTag">Leakage Control</span>
                         </div>
                         <a href="reports/judicial-analytics-legal-nlp.html" class="writingLink">
-                            Read Report <i class="fas fa-arrow-right"></i>
+                            Read Paper <i class="fas fa-arrow-right"></i>
                         </a>
                     </article>
                 </div>
 
-                <!-- Article 3 -->
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
-                        <div class="writingIcon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                        <a class="writingThumb" href="reports/faiss-caching-llm-cost-latency.html" aria-label="Open FAISS caching technical note">
+                            <img src="images/portfolio/self_rl_pipeline.png" alt="FAISS caching and RAG extraction preview" loading="lazy">
+                        </a>
                         <h3 class="writingTitle">
-                            <a href="reports/telepresence-adoption-strategy.html">
-                                Telepresence Market Adoption Strategy
+                            <a href="reports/faiss-caching-llm-cost-latency.html">
+                                Using FAISS Caching to Reduce LLM Cost and Latency
                             </a>
                         </h3>
                         <p class="writingMeta">
-                            <span class="writingPlatform">Research Case Note</span> &bull;
+                            <span class="writingPlatform">Technical Note</span> &bull;
                             <span class="writingDate">2026</span> &bull;
-                            <span class="writingReadTime">Business Analytics</span>
+                            <span class="writingReadTime">Retrieval Systems</span>
                         </p>
                         <p class="writingExcerpt">
-                            Strategic analytics report with TAM framing, Bass diffusion logic, scenario matrix,
-                            adoption assumptions, and enterprise go-to-market recommendations.
+                            Semantic cache design, cache hit thresholds, stale-answer risks, observability, fallback
+                            behavior, and production measurements.
                         </p>
                         <div class="writingTags">
-                            <span class="writingTag">Market Sizing</span>
-                            <span class="writingTag">Bass Model</span>
-                            <span class="writingTag">Scenario Analysis</span>
+                            <span class="writingTag">FAISS</span>
+                            <span class="writingTag">RAG</span>
+                            <span class="writingTag">LLM Cost</span>
                         </div>
-                        <a href="reports/telepresence-adoption-strategy.html" class="writingLink">
-                            Read Report <i class="fas fa-arrow-right"></i>
+                        <a href="reports/faiss-caching-llm-cost-latency.html" class="writingLink">
+                            Read Note <i class="fas fa-arrow-right"></i>
                         </a>
                     </article>
                 </div>
 
-                <!-- Article 4 -->
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
-                        <div class="writingIcon">
-                            <i class="fas fa-lock"></i>
-                        </div>
+                        <a class="writingThumb" href="reports/human-in-the-loop-ai-sensitive-data.html" aria-label="Open human-in-the-loop AI note">
+                            <img src="images/reports/healthcare_hitl_workflow_light.svg" alt="Human-in-the-loop AI review workflow preview" loading="lazy">
+                        </a>
                         <h3 class="writingTitle">
-                            <a href="reports/rentlock-escrow-dapp.html">
-                                RentLock Escrow dApp Design
+                            <a href="reports/human-in-the-loop-ai-sensitive-data.html">
+                                Designing Human-in-the-Loop AI Systems for Sensitive Data
                             </a>
                         </h3>
                         <p class="writingMeta">
-                            <span class="writingPlatform">Sanitized Design Note</span> &bull;
+                            <span class="writingPlatform">Technical Note</span> &bull;
                             <span class="writingDate">2026</span> &bull;
-                            <span class="writingReadTime">Web3 Architecture</span>
+                            <span class="writingReadTime">Responsible AI</span>
                         </p>
                         <p class="writingExcerpt">
-                            Product-engineering report covering escrow state design, smart-contract trade-offs,
-                            verifier escalation, evidence boundaries, and Web3 product-risk considerations.
+                            Review queues, confidence thresholds, audit trails, privacy controls, escalation paths,
+                            and failure handling for sensitive workflows.
                         </p>
                         <div class="writingTags">
-                            <span class="writingTag">Smart Contracts</span>
-                            <span class="writingTag">Escrow</span>
-                            <span class="writingTag">Mechanism Design</span>
+                            <span class="writingTag">HITL</span>
+                            <span class="writingTag">Privacy</span>
+                            <span class="writingTag">Auditability</span>
                         </div>
-                        <a href="reports/rentlock-escrow-dapp.html" class="writingLink">
-                            Read Report <i class="fas fa-arrow-right"></i>
+                        <a href="reports/human-in-the-loop-ai-sensitive-data.html" class="writingLink">
+                            Read Note <i class="fas fa-arrow-right"></i>
                         </a>
                     </article>
                 </div>
 
-                <!-- Article 5 -->
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
-                        <div class="writingIcon">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
+                        <a class="writingThumb" href="reports/yield-curve-quant-engineering-notes.html" aria-label="Open yield curve quant engineering paper">
+                            <img src="images/portfolio/yield_curve.png" alt="Yield curve modelling preview" loading="lazy">
+                        </a>
                         <h3 class="writingTitle">
-                            <a href="reports/loan-default-analytics.html">
-                                Loan Default Analytics Pipeline
+                            <a href="reports/yield-curve-quant-engineering-notes.html">
+                                From Yield Curves to Trading Tooling: Quant Engineering Notes
                             </a>
                         </h3>
                         <p class="writingMeta">
-                            <span class="writingPlatform">Portfolio Case Note</span> &bull;
+                            <span class="writingPlatform">Research-Style Paper</span> &bull;
                             <span class="writingDate">2026</span> &bull;
-                            <span class="writingReadTime">Risk Analytics</span>
+                            <span class="writingReadTime">Quant Engineering</span>
                         </p>
                         <p class="writingExcerpt">
-                            Professional case note on credit-risk pipelines, feature engineering, model comparison,
-                            calibration, explainability, and business-facing decision support.
+                            Yield curve assumptions, pricing modules, risk metrics, scenario analysis, backtesting
+                            boundaries, and trading-tool deployment notes.
                         </p>
                         <div class="writingTags">
-                            <span class="writingTag">Credit Risk</span>
-                            <span class="writingTag">PySpark</span>
-                            <span class="writingTag">Explainability</span>
+                            <span class="writingTag">Fixed Income</span>
+                            <span class="writingTag">Risk</span>
+                            <span class="writingTag">Trading Tools</span>
                         </div>
-                        <a href="reports/loan-default-analytics.html" class="writingLink">
-                            Read Report <i class="fas fa-arrow-right"></i>
+                        <a href="reports/yield-curve-quant-engineering-notes.html" class="writingLink">
+                            Read Paper <i class="fas fa-arrow-right"></i>
                         </a>
                     </article>
                 </div>
-            </div>
             </div>
         </div>
     </section>
@@ -1730,19 +1975,30 @@
     <!-- CONTACT -->
     <section id="contact" class="contactSection section" aria-label="Contact section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2 class="sectionTitle">get in touch</h2>
-
-                    <a href="https://github.com/LMDlifers" class="contactLink" target="_blank" rel="noopener noreferrer"
-                        aria-label="Visit my Github profile">Github</a> |
-                    <a href="mailto:tonykooyelong@u.nus.edu" class="contactLink" aria-label="Send me an email">Email</a>
-                    |
-                    <a href="./files/Resume_TonyKooYeLong.pdf" class="contactLink" target="_blank"
-                        rel="noopener">Resume</a>
-
-                    <p class="copyright">&copy; 2026 Tony Koo. All rights reserved.</p>
+            <div class="contactPanel">
+                <div class="contactCopy">
+                    <h2 class="sectionTitle">Get in touch</h2>
+                    <p>
+                        Open to AI engineering, data science, and quant tooling conversations where the work needs to be
+                        explainable, measurable, and responsibly shipped.
+                    </p>
                 </div>
+                <div class="contactActions" aria-label="Contact actions">
+                    <a href="mailto:tonykooyelong@u.nus.edu" class="contactLink" aria-label="Send me an email">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <span>Email</span>
+                    </a>
+                    <a href="https://github.com/LMDlifers" class="contactLink" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit my Github profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="./files/Resume_TonyKooYeLong.pdf" class="contactLink" target="_blank" rel="noopener">
+                        <i class="fas fa-file-download" aria-hidden="true"></i>
+                        <span>Resume</span>
+                    </a>
+                </div>
+                <p class="copyright">&copy; 2026 Tony Koo. All rights reserved.</p>
             </div>
         </div>
     </section>
@@ -1779,16 +2035,16 @@
                 }
             }
 
-            window.addEventListener("load", function () {
+            document.addEventListener("DOMContentLoaded", function () {
                 window.setTimeout(function () {
                     hideFallbackLoader();
                     restoreHashTarget();
-                }, 700);
+                }, 450);
             });
             window.setTimeout(function () {
                 hideFallbackLoader();
                 restoreHashTarget();
-            }, 2200);
+            }, 1000);
         })();
     </script>
 
