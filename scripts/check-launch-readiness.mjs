@@ -113,4 +113,29 @@ for (const [link] of repositoryLinks) {
   assert.match(link, /rel="noopener"/);
 }
 
+assert.doesNotMatch(html, /images\/portfolio\/ibkr_trading_bot\.png/);
+assert.match(html, /images\/portfolio\/ibkr_mean_reversion\.svg/);
+
+const ibkrVisual = fs.readFileSync(
+  new URL("../images/portfolio/ibkr_mean_reversion.svg", import.meta.url),
+  "utf8",
+);
+for (const supportedLabel of [
+  "Historical IBKR data",
+  "Ornstein–Uhlenbeck model",
+  "Signal analysis",
+  "Team research prototype",
+]) {
+  assert.match(ibkrVisual, new RegExp(supportedLabel));
+}
+for (const unsupportedLabel of [
+  "Live Signal Monitor",
+  "Order Router",
+  "Risk Layer",
+  "Risk Controls",
+  "Backtesting",
+]) {
+  assert.doesNotMatch(ibkrVisual, new RegExp(unsupportedLabel));
+}
+
 console.log("Launch-readiness checks passed.");
