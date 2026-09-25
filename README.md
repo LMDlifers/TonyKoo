@@ -212,6 +212,31 @@ npx http-server -p 8000
 # Then visit http://localhost:8000
 ```
 
+### Launch-readiness checks
+
+Run the site and checks in separate terminals:
+
+```bash
+python3 -m http.server 8000
+node scripts/check-launch-readiness.mjs
+node scripts/smoke-responsive.mjs
+```
+
+The responsive smoke test covers 1440, 1024, 768, 390, and 320 pixels. It fails on document overflow,
+clipped hero content, missing local images, or invalid demo-video metadata.
+
+### Social preview
+
+The editable source is `images/portfolio/linkedin-preview.svg`. Regenerate the LinkedIn PNG with:
+
+```bash
+rsvg-convert -w 1200 -h 627 \
+  -o images/portfolio/linkedin-preview.png \
+  images/portfolio/linkedin-preview.svg
+```
+
+After deployment, use LinkedIn Post Inspector to refresh the cached preview.
+
 ### Deployment
 Site is deployed via GitHub Pages:
 - **Repository**: LMDlifers/TonyKoo
@@ -229,4 +254,3 @@ Site is deployed via GitHub Pages:
 **Last Updated**: 2026-05-14
 **Version**: 1.1 (PII-safe portfolio refresh)
 **Status**: Active Development
-
