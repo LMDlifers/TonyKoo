@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fbfd"/>
+      <stop offset="0.55" stop-color="#edf6fb"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0V72" fill="none" stroke="#0e7490" stroke-opacity=".08"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="627" fill="url(#background)"/>
+  <rect width="1200" height="627" fill="url(#grid)"/>
+  <circle cx="1080" cy="80" r="230" fill="#0e7490" opacity=".08"/>
+  <circle cx="1040" cy="570" r="250" fill="#047857" opacity=".06"/>
+
+  <text x="72" y="92" fill="#0e7490" font-family="Arial, Helvetica, sans-serif"
+        font-size="20" font-weight="700" letter-spacing="3">
+    AI SYSTEMS / QUANT TOOLING / DATA PRODUCTS
+  </text>
+  <text x="72" y="220" fill="#1f2937" font-family="Arial, Helvetica, sans-serif"
+        font-size="86" font-weight="700">Tony Koo</text>
+  <text x="72" y="294" fill="#52606d" font-family="Arial, Helvetica, sans-serif"
+        font-size="38" font-weight="600">AI, Data &amp; Quant Systems</text>
+  <text x="72" y="382" fill="#52606d" font-family="Arial, Helvetica, sans-serif"
+        font-size="24">Decision systems • Technical case studies</text>
+  <text x="72" y="420" fill="#52606d" font-family="Arial, Helvetica, sans-serif"
+        font-size="24">Measurable results • Reviewable boundaries</text>
+  <rect x="72" y="488" width="206" height="6" rx="3" fill="#0e7490"/>
+
+  <g transform="translate(760 112)">
+    <rect width="360" height="402" rx="20" fill="#ffffff" fill-opacity=".84"
+          stroke="#0e7490" stroke-opacity=".22"/>
+    <path d="M92 94L264 190L110 300M92 94L110 300M264 190L286 88"
+          fill="none" stroke="#0e7490" stroke-width="3" stroke-opacity=".42"/>
+    <g fill="#0e7490" filter="url(#glow)">
+      <circle cx="92" cy="94" r="10"/>
+      <circle cx="264" cy="190" r="10"/>
+      <circle cx="110" cy="300" r="10"/>
+      <circle cx="286" cy="88" r="10"/>
+    </g>
+    <text x="32" y="354" fill="#1f2937" font-family="Arial, Helvetica, sans-serif"
+          font-size="18" font-weight="700">Agentic analytics</text>
+    <text x="32" y="382" fill="#52606d" font-family="Arial, Helvetica, sans-serif"
+          font-size="16">Legal NLP · Quant engineering · RAG</text>
+  </g>
+</svg>
