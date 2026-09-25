@@ -143,10 +143,9 @@
                 and financial engineering tools that turn ambiguous data into reviewable decisions.
             </p>
             <div class="heroActions" aria-label="Primary actions">
-                <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> Project Lab</a>
-                <a class="heroButton heroButtonSecondary" href="#writing"><i class="fas fa-file-alt"></i> Case Studies</a>
-                <a class="heroButton heroButtonTertiary" href="./files/Resume_TonyKooYeLong.pdf" target="_blank"
-                    rel="noopener"><i class="fas fa-download"></i> Resume</a>
+                <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
+                <a class="heroButton heroButtonSecondary" href="./files/Resume_TonyKooYeLong.pdf"
+                    download="Resume_TonyKooYeLong.pdf"><i class="fas fa-download"></i> Download Résumé</a>
             </div>
             <div class="heroMetrics" aria-label="Selected proof metrics">
                 <div class="heroMetric">
@@ -155,7 +154,7 @@
                 </div>
                 <div class="heroMetric">
                     <span>~90%</span>
-                    <p>CV extraction accuracy on sanitized samples</p>
+                    <p>Approximate field-level questionnaire extraction accuracy on a sanitized project evaluation sample</p>
                 </div>
                 <div class="heroMetric">
                     <span>FAISS + RAG</span>
@@ -230,9 +229,9 @@
                 </article>
                 <article class="proofCard">
                     <span class="proofMetric">~90%</span>
-                    <h3>Computer vision extraction</h3>
-                    <p>Built automated questionnaire extraction for medical PDF/image workflows with reviewable output boundaries.</p>
-                    <span class="proofQualifier">Project-scoped sanitized evaluation sample.</span>
+                    <h3>Questionnaire field extraction</h3>
+                    <p>Built a computer-vision workflow for medical PDF and image questionnaires with reviewable output boundaries.</p>
+                    <span class="proofQualifier">Approximate field-level accuracy on a project-scoped sanitized evaluation sample; not a production benchmark.</span>
                 </article>
                 <article class="proofCard">
                     <span class="proofMetric">RAG</span>
@@ -369,7 +368,7 @@
                             </span>
                             <br />
                             <span class="jsonDetails">
-                                <span class="json-key">"expectedGraduation"</span>: <span class="json-string">"Jun
+                                <span class="json-key">"graduation"</span>: <span class="json-string">"Jun
                                     2026"</span>,
                             </span>
                             <br />
@@ -457,7 +456,7 @@
                             <li>Performed API-based data extraction to streamline information processing and improve workflow efficiency.</li>
                             <li>Cleaned and lemmatized French-language text with <b>SpaCy</b>, removing PII for regulatory compliance.</li>
                             <li>Applied <b>BERT</b>, TF-IDF, LLM workflows, and <b>HDBSCAN</b> clustering for topic detection.</li>
-                            <li>Prototyped RAG, FAISS caching, and CV extraction workflows; project-scoped CV extraction reached <b><span class="accent-success">~90% accuracy</span></b> on sanitized evaluation samples.</li>
+                            <li>Prototyped RAG, FAISS caching, and computer-vision questionnaire extraction workflows; the project-scoped workflow reached approximately <b><span class="accent-success">90% field-level extraction accuracy</span></b> on a sanitized evaluation sample.</li>
                         </ul>
                         <div>
                             <span class="resumeSkill">Python</span>
@@ -574,7 +573,7 @@
                         <li>Sustainability Exchange Champion</li>
                         <li>Tembusu College</li>
                         <li>Grade:<b> Honours with Merit</b></li>
-                        <li>Expected Graduation:<b> Jun 2026</b></li>
+                        <li>Graduated:<b> Jun 2026</b></li>
                     </ul>
                     <br>
                     <p class="resumeSubheader">Relevant Coursework</p>
@@ -910,14 +909,14 @@
                     </article>
                     <article class="projectIndexRow quant data">
                         <div>
-                            <span class="projectIndexName">IBKR Algorithmic Trading Bot</span>
+                            <span class="projectIndexName">IBKR Mean-Reversion Trading Prototype</span>
                             <span class="projectIndexDomain">Quant Engineering</span>
                         </div>
-                        <p>Automated trading prototype with Interactive Brokers connectivity, order lifecycle handling,
-                            backtesting, risk controls, and walk-forward optimization.</p>
-                        <p>Python, IBKR API, backtesting, pandas, NumPy, threading.</p>
-                        <a href="https://github.com/Nicholas-Cheng-De-Fei/Trading-Algo" target="_blank"
-                            rel="noopener">Repository</a>
+                        <p><strong>Team project.</strong> Tony's public commits cover the Ornstein–Uhlenbeck strategy,
+                            mean-reversion speed and signal calculations, equity adaptation, and project documentation.</p>
+                        <p>Python, ib_insync, pandas, NumPy, SciPy.</p>
+                        <a href="https://github.com/df-Nic/Trading-Algo" target="_blank"
+                            rel="noopener">Team repository</a>
                     </article>
                     <article class="projectIndexRow apps research">
                         <div>
@@ -1122,46 +1121,45 @@
                     </div>
                 </div>
 
-                <!-- IBKR Algorithmic Trading Bot -->
+                <!-- IBKR team project -->
                 <div class="item">
                     <div class="filterItem apps quant">
                         <img class="filterItemImg" src="images/portfolio/ibkr_trading_bot.png"
-                            alt="IBKR algorithmic trading bot architecture visual">
+                            alt="IBKR mean-reversion trading prototype architecture visual">
                         <div class="filterItemContent">
                             <div class="filterItemDesc">
-                                <h3 class="filterItemName">IBKR Algorithmic Trading Bot</h3>
+                                <h3 class="filterItemName">IBKR Mean-Reversion Trading Prototype</h3>
 
                                 <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Build a trading-system prototype that connects market data,
-                                    order logic, backtesting, and risk controls in one reproducible workflow.
+                                    <strong>Problem:</strong> Explore SPY mean reversion using historical IBKR data and a
+                                    transparent Ornstein–Uhlenbeck signal model.
                                 </span>
 
                                 <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Engineered automated trading system integrated with
-                                    Interactive Brokers API, featuring real-time market data processing, order
-                                    management system (OMS), and risk controls. Implemented multi-strategy backtesting
-                                    framework with walk-forward optimization.
+                                    <strong>Tony's contribution:</strong> Implemented and refined the Ornstein–Uhlenbeck
+                                    strategy, mean-reversion speed and signal calculations, equity adaptation,
+                                    historical-data flow, and project documentation in a two-contributor repository.
                                 </span>
 
                                 <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Public repository available. Performance-sensitive claims
-                                    are intentionally kept qualitative unless backed by reproducible benchmark logs.
+                                    <strong>Evidence boundary:</strong> The public code demonstrates a research prototype
+                                    with IBKR connectivity; it does not substantiate live profitability, production
+                                    deployment, or walk-forward results.
                                 </span>
 
                             <div class="filterItemTech">
                                 <span class="techBadge">Python</span>
-                                <span class="techBadge">IBKR API</span>
-                                <span class="techBadge">Algorithmic Trading</span>
-                                <span class="techBadge">Backtesting</span>
+                                <span class="techBadge">ib_insync</span>
                                 <span class="techBadge">pandas</span>
                                 <span class="techBadge">NumPy</span>
-                                <span class="techBadge">Threading</span>
+                                <span class="techBadge">SciPy</span>
                             </div>
                             </div>
                             <p class="filterItemDesc">
                                 <strong>Links:</strong>
-                                <a class="filterItemLink" href="https://github.com/Nicholas-Cheng-De-Fei/Trading-Algo">
-                                    <i class="fab fa-github"></i> GitHub
+                                <a class="filterItemLink" href="https://github.com/df-Nic/Trading-Algo"
+                                    target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> Team repository
                                 </a>
                             </p>
                         </div>

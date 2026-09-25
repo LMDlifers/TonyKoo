@@ -62,4 +62,55 @@ assert.deepEqual(
 );
 assert.ok(png.byteLength <= 5 * 1024 * 1024, "Preview image exceeds 5 MB");
 
+for (const staleCopy of [
+  /NUS Business Analytics student/,
+  /expectedGraduation/,
+  /Expected Graduation/,
+  /\bCV extraction\b/,
+  /walk-forward optimization/,
+  /order management system \(OMS\)/,
+]) {
+  assert.doesNotMatch(html, staleCopy);
+}
+
+assert.match(
+  html,
+  /"graduation"<\/span>:\s*<span class="json-string">"Jun\s+2026"/,
+);
+assert.match(html, /Graduated:<b> Jun 2026<\/b>/);
+assert.match(html, /field-level questionnaire extraction accuracy/i);
+assert.match(html, /sanitized project evaluation sample/i);
+
+const heroActions = html.match(
+  /<div class="heroActions"[^>]*>([\s\S]*?)<\/div>/,
+)?.[0];
+assert.ok(heroActions, "Missing hero actions");
+assert.equal(
+  [...heroActions.matchAll(/class="heroButton\b/g)].length,
+  2,
+  "Hero must contain exactly two actions",
+);
+assert.match(heroActions, /View Projects/);
+assert.match(heroActions, /Download Résumé/);
+assert.match(heroActions, /download="Resume_TonyKooYeLong\.pdf"/);
+
+assert.equal(
+  (html.match(/IBKR Mean-Reversion Trading Prototype/g) ?? []).length,
+  2,
+);
+assert.match(html, /<strong>Team project\.<\/strong>/);
+assert.match(html, /<strong>Tony's contribution:<\/strong>/);
+assert.match(html, /does not substantiate live profitability/i);
+
+const repositoryLinks = [
+  ...html.matchAll(
+    /<a\b[^>]*href="https:\/\/github\.com\/df-Nic\/Trading-Algo"[^>]*>/g,
+  ),
+];
+assert.equal(repositoryLinks.length, 2);
+for (const [link] of repositoryLinks) {
+  assert.match(link, /target="_blank"/);
+  assert.match(link, /rel="noopener"/);
+}
+
 console.log("Launch-readiness checks passed.");
