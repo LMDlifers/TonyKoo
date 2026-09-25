@@ -82,6 +82,33 @@ for (const pagePath of pages) {
         ),
       );
 
+      const heroSelectors = [
+        ".heroEyebrow",
+        ".heroTitle",
+        ".heroSubtitle",
+        ".heroPositioning",
+        ".heroActions",
+        ".heroMetrics",
+      ];
+      const viewportWidth = document.documentElement.clientWidth;
+      const clippedHeroElements = heroSelectors
+        .map((selector) => {
+          const element = document.querySelector(selector);
+          if (!element) return null;
+
+          const rect = element.getBoundingClientRect();
+          return {
+            selector,
+            left: rect.left,
+            right: rect.right,
+            viewportWidth,
+          };
+        })
+        .filter(
+          (item) =>
+            item && (item.left < -1 || item.right > item.viewportWidth + 1),
+        );
+
       return {
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth,
@@ -91,6 +118,7 @@ for (const pagePath of pages) {
         evidenceBlocks: document.querySelectorAll(
           ".visualStoryCard, .visualEvidenceItem, .researchFigure, .demoVideo",
         ).length,
+        clippedHeroElements,
         videos,
       };
     });
@@ -111,6 +139,7 @@ await browser.close();
 const failures = results.filter(
   (result) =>
     result.overflow ||
+    result.clippedHeroElements.length ||
     result.missingImages.length ||
     result.videos.some((video) => video.hasError || video.duration < 10 || video.tracks === 0),
 );
