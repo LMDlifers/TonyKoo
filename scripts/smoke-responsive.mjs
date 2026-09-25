@@ -20,7 +20,7 @@ const pages = [
   "/reports/human-in-the-loop-ai-sensitive-data.html",
   "/reports/yield-curve-quant-engineering-notes.html",
 ];
-const widths = [1440, 1024, 768, 390, 320];
+const widths = [1440, 1024, 768, 390, 375, 320];
 
 const browser = await chromium.launch(launchOptions);
 const results = [];

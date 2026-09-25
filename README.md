@@ -222,7 +222,7 @@ node scripts/check-launch-readiness.mjs
 node scripts/smoke-responsive.mjs
 ```
 
-The responsive smoke test covers 1440, 1024, 768, 390, and 320 pixels. It fails on document overflow,
+The responsive smoke test covers 1440, 1024, 768, 390, 375, and 320 pixels. It fails on document overflow,
 clipped hero content, missing local images, or invalid demo-video metadata.
 
 ### Social preview
