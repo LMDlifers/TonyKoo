@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title">
+  <title id="title">Baseline and candidate runs feed an independent evidence check</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e9f7f1"/><stop offset="1" stop-color="#e7f0fb"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="9" stdDeviation="14" flood-color="#3c786f" flood-opacity=".12"/></filter>
+  </defs>
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <circle cx="1130" cy="25" r="250" fill="#d7ebdf" opacity=".6"/>
+  <g filter="url(#shadow)" fill="#fff" stroke-width="5">
+    <rect x="110" y="125" width="330" height="255" rx="27" stroke="#85a9c4"/>
+    <rect x="465" y="125" width="330" height="255" rx="27" stroke="#80b6a5"/>
+    <rect x="875" y="155" width="220" height="195" rx="28" stroke="#4d967f"/>
+  </g>
+  <g fill="#8bb0cd"><rect x="143" y="158" width="110" height="17" rx="8"/><rect x="143" y="211" width="190" height="23" rx="11"/><rect x="143" y="257" width="153" height="23" rx="11"/><rect x="143" y="303" width="175" height="23" rx="11"/></g>
+  <g fill="#65a995"><rect x="499" y="158" width="114" height="17" rx="8"/><rect x="499" y="211" width="219" height="23" rx="11"/><rect x="499" y="257" width="170" height="23" rx="11"/><rect x="499" y="303" width="150" height="23" rx="11"/></g>
+  <path d="M440 250h25m330 0h80" stroke="#799e9a" stroke-width="10" stroke-linecap="round"/>
+  <path d="m854 232 27 18-27 18" fill="none" stroke="#799e9a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="985" cy="250" r="60" fill="#e4f3ec" stroke="#5caa8f" stroke-width="6"/>
+  <path d="m956 250 21 21 42-47" fill="none" stroke="#3f9074" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

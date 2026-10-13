@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title">
+  <title id="title">An independent policy gate stands between an agent proposal and a tool action</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#fff1e5"/><stop offset="1" stop-color="#e9f4f5"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="9" stdDeviation="14" flood-color="#5c6b6e" flood-opacity=".13"/></filter>
+  </defs>
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <circle cx="75" cy="42" r="215" fill="#fbe1cd" opacity=".65"/><circle cx="1100" cy="480" r="230" fill="#dceee8" opacity=".8"/>
+  <path d="M310 250h145m290 0h145" stroke="#90aaa9" stroke-width="12" stroke-linecap="round"/><path d="m435 233 24 17-24 17m432-34 24 17-24 17" fill="none" stroke="#90aaa9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#shadow)">
+    <rect x="115" y="135" width="205" height="230" rx="26" fill="#fff" stroke="#d6a17a" stroke-width="5"/>
+    <rect x="890" y="135" width="205" height="230" rx="26" fill="#fff" stroke="#80baa8" stroke-width="5"/>
+    <path d="M600 85c76 46 128 46 128 46v107c0 88-45 145-128 188-83-43-128-100-128-188V131s52 0 128-46z" fill="#fff" stroke="#467a93" stroke-width="8"/>
+  </g>
+  <g fill="#d88d60"><rect x="151" y="175" width="132" height="17" rx="8"/><rect x="151" y="212" width="104" height="17" rx="8"/><rect x="151" y="249" width="119" height="17" rx="8"/><circle cx="166" cy="314" r="15"/><rect x="193" y="305" width="77" height="17" rx="8"/></g>
+  <g fill="#68a894"><rect x="927" y="177" width="133" height="16" rx="8"/><rect x="927" y="214" width="96" height="16" rx="8"/><rect x="927" y="251" width="120" height="16" rx="8"/></g>
+  <path d="m547 255 39 39 73-81" fill="none" stroke="#467a93" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="991" cy="318" r="23" fill="#68a894"/><path d="m981 318 8 8 14-17" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
