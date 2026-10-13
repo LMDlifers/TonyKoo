@@ -26,6 +26,13 @@ const pages = [
   "/research/how-to-prove-an-agent-works.html",
 ];
 const widths = [1440, 1024, 768, 390, 375, 320];
+const expectedVisuals = {
+  "/research/": 1,
+  "/research/what-language-models-learn.html": 1,
+  "/research/when-agents-need-search.html": 2,
+  "/research/where-autonomy-stops.html": 1,
+  "/research/how-to-prove-an-agent-works.html": 1,
+};
 
 const browser = await chromium.launch(launchOptions);
 const results = [];
@@ -123,6 +130,7 @@ for (const pagePath of pages) {
         evidenceBlocks: document.querySelectorAll(
           ".visualStoryCard, .visualEvidenceItem, .researchFigure, .demoVideo",
         ).length,
+        visualCount: document.querySelectorAll(".researchMap, .conceptFigure").length,
         clippedHeroElements,
         videos,
       };
@@ -144,6 +152,7 @@ await browser.close();
 const failures = results.filter(
   (result) =>
     result.overflow ||
+    (expectedVisuals[result.page] !== undefined && result.visualCount !== expectedVisuals[result.page]) ||
     result.clippedHeroElements.length ||
     result.missingImages.length ||
     result.videos.some((video) => video.hasError || video.duration < 10 || video.tracks === 0),
