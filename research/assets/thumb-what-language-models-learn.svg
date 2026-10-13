@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title">
+  <title id="title">Tokens become contextual representations through attention</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#eaf4fb"/><stop offset="1" stop-color="#dbe9fa"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="9" stdDeviation="14" flood-color="#315986" flood-opacity=".13"/></filter>
+  </defs>
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <circle cx="1060" cy="-70" r="260" fill="#c9dff2" opacity=".5"/><circle cx="120" cy="490" r="260" fill="#edf8ff" opacity=".8"/>
+  <g stroke="#83a8cc" stroke-width="5" fill="none" opacity=".85">
+    <path d="M245 176C400 65 515 62 655 195"/><path d="M245 176C410 235 498 275 655 195"/>
+    <path d="M245 322C405 270 510 125 655 195"/><path d="M245 322C405 410 515 360 655 303"/>
+    <path d="M655 195C770 95 880 85 1010 180"/><path d="M655 303C770 400 880 390 1010 325"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="95" y="132" width="150" height="88" rx="24" fill="#fff" stroke="#7ba6d1" stroke-width="4"/>
+    <rect x="95" y="278" width="150" height="88" rx="24" fill="#fff" stroke="#7ba6d1" stroke-width="4"/>
+    <rect x="535" y="137" width="240" height="220" rx="32" fill="#fff" stroke="#5b8fbd" stroke-width="5"/>
+    <rect x="1010" y="132" width="105" height="88" rx="24" fill="#fff" stroke="#7ba6d1" stroke-width="4"/>
+    <rect x="1010" y="280" width="105" height="88" rx="24" fill="#fff" stroke="#7ba6d1" stroke-width="4"/>
+  </g>
+  <g fill="#69a7d0"><rect x="126" y="158" width="88" height="13" rx="6"/><rect x="126" y="182" width="64" height="13" rx="6"/><rect x="126" y="303" width="88" height="13" rx="6"/><rect x="126" y="327" width="54" height="13" rx="6"/></g>
+  <g fill="#315986"><circle cx="590" cy="194" r="19"/><circle cx="655" cy="194" r="19"/><circle cx="720" cy="194" r="19"/><circle cx="590" cy="260" r="19"/><circle cx="655" cy="260" r="19"/><circle cx="720" cy="260" r="19"/><circle cx="590" cy="326" r="19"/><circle cx="655" cy="326" r="19"/><circle cx="720" cy="326" r="19"/></g>
+  <g fill="#9ac5e0"><rect x="1036" y="158" width="52" height="13" rx="6"/><rect x="1036" y="182" width="38" height="13" rx="6"/><rect x="1036" y="306" width="52" height="13" rx="6"/><rect x="1036" y="330" width="44" height="13" rx="6"/></g>
+</svg>
