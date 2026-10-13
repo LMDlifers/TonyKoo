@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+<title id="title">Where model behavior comes from</title><desc id="desc">Training changes weights. Retrieval and prompting supply temporary context. The model uses attention to produce a response, which is checked against the task.</desc>
+<rect width="1200" height="430" rx="28" fill="#f7fafc"/>
+<text x="56" y="67" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#1f3145">Three different ways to improve an answer</text>
+<g font-family="Arial,sans-serif" fill="#1f3145">
+<rect x="55" y="108" width="330" height="210" rx="20" fill="#e9f1fb" stroke="#b7cee6" stroke-width="2"/>
+<text x="83" y="152" font-size="23" font-weight="700">1  Train or adapt</text><text x="83" y="191" font-size="18">Examples update model weights.</text><text x="83" y="222" font-size="18">Use for repeated behavior gaps.</text><text x="83" y="282" font-size="16" fill="#315986">Durable model version</text>
+<rect x="435" y="108" width="330" height="210" rx="20" fill="#edf8f5" stroke="#afd6c9" stroke-width="2"/>
+<text x="463" y="152" font-size="23" font-weight="700">2  Supply context</text><text x="463" y="191" font-size="18">Prompt + retrieved evidence.</text><text x="463" y="222" font-size="18">Use for this task or fresh facts.</text><text x="463" y="282" font-size="16" fill="#247961">Temporary run input</text>
+<rect x="815" y="108" width="330" height="210" rx="20" fill="#fff4e8" stroke="#e5caa7" stroke-width="2"/>
+<text x="843" y="152" font-size="23" font-weight="700">3  Check the result</text><text x="843" y="191" font-size="18">Verify claims, format and effects.</text><text x="843" y="222" font-size="18">Feed failures into evaluation.</text><text x="843" y="282" font-size="16" fill="#95611f">Independent evidence</text>
+</g><path d="M385 213h48m332 0h48" stroke="#6082a6" stroke-width="4" marker-end="url(#a)"/>
+<text x="58" y="376" font-family="Arial,sans-serif" font-size="17" fill="#526b82">Attention mixes information within a model run; it does not retrieve missing facts or update weights.</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4" fill="#6082a6"/></marker></defs>
+</svg>

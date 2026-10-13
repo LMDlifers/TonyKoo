@@ -19,6 +19,11 @@ const pages = [
   "/reports/faiss-caching-llm-cost-latency.html",
   "/reports/human-in-the-loop-ai-sensitive-data.html",
   "/reports/yield-curve-quant-engineering-notes.html",
+  "/research/",
+  "/research/what-language-models-learn.html",
+  "/research/when-agents-need-search.html",
+  "/research/where-autonomy-stops.html",
+  "/research/how-to-prove-an-agent-works.html",
 ];
 const widths = [1440, 1024, 768, 390, 375, 320];
 
