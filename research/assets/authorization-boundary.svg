@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Authorize the effect outside the model</title><desc id="desc">Untrusted input enters an agent. The agent proposes an action. An independent policy gate checks identity, scope, parameters and approval before a tool executes. The result is logged and verified.</desc>
+<rect width="1200" height="460" rx="28" fill="#f7fafc"/>
+<text x="55" y="64" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#1f3145">The model proposes; the boundary decides</text>
+<g font-family="Arial,sans-serif" fill="#1f3145">
+<rect x="55" y="129" width="206" height="152" rx="18" fill="#fceced" stroke="#e6b5bb" stroke-width="2"/><text x="82" y="174" font-size="21" font-weight="700">Untrusted input</text><text x="82" y="208" font-size="17">Pages, files, tool output</text><text x="82" y="238" font-size="17">May contain instructions</text>
+<rect x="300" y="129" width="206" height="152" rx="18" fill="#e9f1fb" stroke="#b7cee6" stroke-width="2"/><text x="327" y="174" font-size="21" font-weight="700">Agent proposal</text><text x="327" y="208" font-size="17">Action and parameters</text><text x="327" y="238" font-size="17">With rationale</text>
+<rect x="545" y="104" width="235" height="202" rx="18" fill="#fff4e8" stroke="#e5caa7" stroke-width="3"/><text x="572" y="151" font-size="21" font-weight="700">Policy gate</text><text x="572" y="187" font-size="17">Identity + scope</text><text x="572" y="215" font-size="17">Exact parameters</text><text x="572" y="243" font-size="17">Approval if needed</text><text x="572" y="276" font-size="16" fill="#95611f">Independent of prompt</text>
+<rect x="819" y="129" width="162" height="152" rx="18" fill="#edf8f5" stroke="#afd6c9" stroke-width="2"/><text x="846" y="174" font-size="21" font-weight="700">Tool effect</text><text x="846" y="208" font-size="17">Execute once</text><text x="846" y="238" font-size="17">Record receipt</text>
+<rect x="1020" y="129" width="125" height="152" rx="18" fill="#edf8f5" stroke="#afd6c9" stroke-width="2"/><text x="1041" y="174" font-size="21" font-weight="700">Verify</text><text x="1041" y="208" font-size="17">Result</text><text x="1041" y="238" font-size="17">and state</text>
+</g><path d="M261 204h37m208 0h37m237 0h37m164 0h37" stroke="#6082a6" stroke-width="4" marker-end="url(#a)"/>
+<text x="55" y="380" font-family="Arial,sans-serif" font-size="18" fill="#526b82">If the action changes, expires or lacks evidence, require a fresh authorization decision.</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4" fill="#6082a6"/></marker></defs>
+</svg>

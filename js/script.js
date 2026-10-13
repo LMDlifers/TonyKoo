@@ -193,7 +193,7 @@ $(document).ready(function () {
     // Index reading and research diet
     $(".bookThumb").each(function () {
       const $book = $(this);
-      const title = $book.data("title");
+      const title = $book.attr("data-title") || "";
       const author = $book.data("author");
       const theme = $book.data("theme");
       const takeaway = $book.data("takeaway");
@@ -225,6 +225,17 @@ $(document).ready(function () {
         });
       }
     });
+
+    // Research lives on separate static pages, so results open the exact guide.
+    [
+      ["AI Engineering Research", "research/", "Model foundations, agent search, safety and evaluation"],
+      ["What language models learn", "research/what-language-models-learn.html", "Tokens, embeddings, attention, training and context"],
+      ["When agents need search", "research/when-agents-need-search.html", "Agent architecture, Tree of Thoughts, MCTS, SYMPHONY and SIFT"],
+      ["Where autonomy stops", "research/where-autonomy-stops.html", "Prompt injection, authorization, human approval and recovery"],
+      ["How to prove an agent works", "research/how-to-prove-an-agent-works.html", "Baselines, evals, observability, cost and harness improvement"],
+    ].forEach(([title, url, content]) => searchableContent.push({
+      title, subtitle: "AI Engineering Research", content, url, section: "writing",
+    }));
 
     // Index certifications
     $(".certCard").each(function () {
@@ -307,7 +318,7 @@ $(document).ready(function () {
       );
 
       html += `
-                <div class="search-result-item" data-section="${
+                <a class="search-result-item" href="${result.url || "#" + result.section}" data-url="${result.url || ""}" data-section="${
                   result.section
                 }">
                     <div class="search-result-title">${highlightedTitle}</div>
@@ -317,14 +328,17 @@ $(document).ready(function () {
                         ? `<div class="search-result-context">${highlightedContent}...</div>`
                         : ""
                     }
-                </div>
+                </a>
             `;
     });
 
     searchResults.html(html).addClass("active");
 
     // Handle result click
-    $(".search-result-item").on("click", function () {
+    $(".search-result-item").on("click", function (event) {
+      const url = $(this).data("url");
+      if (url) return;
+      event.preventDefault();
       const section = $(this).data("section");
       scrollToTarget("#" + section, prefersReducedMotion ? 0 : 300);
 

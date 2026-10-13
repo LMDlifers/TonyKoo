@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" role="img" aria-labelledby="title desc">
+<title id="title">Evaluate an agent with independent evidence</title><desc id="desc">Freeze representative tasks and permissions, run a baseline and candidate agent, capture traces and outcomes, grade independently, then decide whether to ship or revise.</desc>
+<rect width="1200" height="450" rx="28" fill="#f7fafc"/>
+<text x="55" y="65" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#1f3145">Evidence before the next agent version</text>
+<g font-family="Arial,sans-serif" fill="#1f3145">
+<rect x="55" y="126" width="224" height="180" rx="18" fill="#e9f1fb" stroke="#b7cee6" stroke-width="2"/><text x="82" y="170" font-size="21" font-weight="700">Frozen tasks</text><text x="82" y="204" font-size="17">Inputs, permissions</text><text x="82" y="234" font-size="17">and acceptance checks</text><text x="82" y="273" font-size="16" fill="#315986">Held-out cases included</text>
+<rect x="330" y="126" width="224" height="180" rx="18" fill="#edf8f5" stroke="#afd6c9" stroke-width="2"/><text x="357" y="170" font-size="21" font-weight="700">Run both</text><text x="357" y="204" font-size="17">Simple baseline</text><text x="357" y="234" font-size="17">and candidate agent</text><text x="357" y="273" font-size="16" fill="#247961">Same conditions</text>
+<rect x="605" y="126" width="224" height="180" rx="18" fill="#fff4e8" stroke="#e5caa7" stroke-width="2"/><text x="632" y="170" font-size="21" font-weight="700">Capture evidence</text><text x="632" y="204" font-size="17">Trace, artifacts, cost</text><text x="632" y="234" font-size="17">and external effects</text><text x="632" y="273" font-size="16" fill="#95611f">Not just final text</text>
+<rect x="880" y="126" width="265" height="180" rx="18" fill="#f1ecfa" stroke="#c9b9e4" stroke-width="2"/><text x="907" y="170" font-size="21" font-weight="700">Grade independently</text><text x="907" y="204" font-size="17">Validated success, safety</text><text x="907" y="234" font-size="17">cost and human effort</text><text x="907" y="273" font-size="16" fill="#6c4a9b">Ship, revise or stop</text>
+</g><path d="M279 216h49m226 0h49m226 0h49" stroke="#6082a6" stroke-width="4" marker-end="url(#a)"/>
+<text x="55" y="379" font-family="Arial,sans-serif" font-size="18" fill="#526b82">A judge or search score can prioritize candidates; executed task outcomes decide whether the system improved.</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4" fill="#6082a6"/></marker></defs>
+</svg>
