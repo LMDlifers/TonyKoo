@@ -31,6 +31,12 @@ function checkLocalLinks(html, filename) {
 }
 
 for (const topic of topics) assert.ok(hub.includes(topic), `Missing topic: ${topic}`);
+assert.match(hub, /class="featuredStory"/);
+assert.match(hub, /class="storyFeed"/);
+assert.equal([...hub.matchAll(/data-topic="[a-z-]+"/g)].length, articles.length);
+assert.match(hub, /data-topic-filter="all"/);
+assert.ok(fs.existsSync(path.join(root, 'research/feed.xml')));
+assert.equal([...fs.readFileSync(path.join(root, 'research/feed.xml'), 'utf8').matchAll(/<item>/g)].length, articles.length);
 checkLocalLinks(hub, path.join(root, 'research/index.html'));
 for (const file of articles) {
   assert.ok(hub.includes(`href="${file}"`), `Hub does not link ${file}`);
@@ -38,6 +44,9 @@ for (const file of articles) {
   assert.ok(fs.existsSync(filename), `Missing article: ${file}`);
   const html = fs.readFileSync(filename, 'utf8');
   assert.match(html, /<main\b/);
+  assert.match(html, /class="articleByline"/);
+  assert.match(html, /<details class="articleToc"/);
+  assert.match(html, /rel="alternate" type="application\/rss\+xml"/);
   assert.match(html, /<figcaption\b/);
   assert.ok([...html.matchAll(/<li><a href="https:\/\//g)].length >= 2, `Fewer than two primary-source links in ${file}`);
   for (const [, attrs] of html.matchAll(/<img\b([^>]+)>/g)) {
