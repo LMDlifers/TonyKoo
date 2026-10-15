@@ -162,8 +162,9 @@ for (const pagePath of pages) {
 
 const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await research.goto("http://localhost:8000/research/");
-await research.locator("[data-research-search]").fill("cloud");
+await research.locator("[data-research-search]").fill("outbox");
 assert.equal(await research.locator("#machine-learning").isVisible(), false);
+assert.equal(await research.locator("#system-design").isVisible(), true);
 await research.locator('.branchNav a[href="#machine-learning"]').click();
 assert.equal(await research.locator("#machine-learning").isVisible(), true);
 assert.equal(await research.locator("[data-research-search]").inputValue(), "");
