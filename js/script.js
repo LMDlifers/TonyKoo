@@ -228,11 +228,17 @@ $(document).ready(function () {
 
     // Research lives on separate static pages, so results open the exact guide.
     [
-      ["AI Engineering Research", "research/", "Model foundations, agent search, safety and evaluation"],
+      ["Research", "research/", "Machine learning, AI and agents, data, system design, cloud, decisions and money"],
       ["What language models learn", "research/what-language-models-learn.html", "Tokens, embeddings, attention, training and context"],
       ["When agents need search", "research/when-agents-need-search.html", "Agent architecture, Tree of Thoughts, MCTS, SYMPHONY and SIFT"],
       ["Where autonomy stops", "research/where-autonomy-stops.html", "Prompt injection, authorization, human approval and recovery"],
       ["How to prove an agent works", "research/how-to-prove-an-agent-works.html", "Baselines, evals, observability, cost and harness improvement"],
+      ["When an ML model is ready for production", "research/when-an-ml-model-is-ready.html", "Baselines, leakage, holdout tests, monitoring and MLOps"],
+      ["How data becomes reliable evidence", "research/how-data-becomes-reliable-evidence.html", "Database constraints, provenance, Faiss, HNSW and retrieval"],
+      ["How to choose a system boundary", "research/how-to-choose-a-system-boundary.html", "Transactions, queues, outbox, idempotency and recovery"],
+      ["What the cloud should own", "research/what-the-cloud-should-own.html", "AWS shared responsibility, IAM, backups, monitoring and cost"],
+      ["How to decide under uncertainty", "research/how-to-decide-under-uncertainty.html", "Base rates, evidence, reversible experiments and decision journals"],
+      ["How money compounds and risk interrupts it", "research/how-money-compounds-and-risk-interrupts-it.html", "Time horizon, diversification, liquidity, fees and behavior"],
     ].forEach(([title, url, content]) => searchableContent.push({
       title, subtitle: "AI Engineering Research", content, url, section: "writing",
     }));

@@ -24,14 +24,26 @@ const pages = [
   "/research/when-agents-need-search.html",
   "/research/where-autonomy-stops.html",
   "/research/how-to-prove-an-agent-works.html",
+  "/research/when-an-ml-model-is-ready.html",
+  "/research/how-data-becomes-reliable-evidence.html",
+  "/research/how-to-choose-a-system-boundary.html",
+  "/research/what-the-cloud-should-own.html",
+  "/research/how-to-decide-under-uncertainty.html",
+  "/research/how-money-compounds-and-risk-interrupts-it.html",
 ];
 const widths = [1440, 1024, 768, 390, 375, 320];
 const expectedVisuals = {
   "/research/": 1,
-  "/research/what-language-models-learn.html": 1,
-  "/research/when-agents-need-search.html": 2,
-  "/research/where-autonomy-stops.html": 1,
-  "/research/how-to-prove-an-agent-works.html": 1,
+  "/research/what-language-models-learn.html": 2,
+  "/research/when-agents-need-search.html": 3,
+  "/research/where-autonomy-stops.html": 2,
+  "/research/how-to-prove-an-agent-works.html": 2,
+  "/research/when-an-ml-model-is-ready.html": 1,
+  "/research/how-data-becomes-reliable-evidence.html": 1,
+  "/research/how-to-choose-a-system-boundary.html": 1,
+  "/research/what-the-cloud-should-own.html": 1,
+  "/research/how-to-decide-under-uncertainty.html": 1,
+  "/research/how-money-compounds-and-risk-interrupts-it.html": 1,
 };
 
 const browser = await chromium.launch(launchOptions);
@@ -130,7 +142,7 @@ for (const pagePath of pages) {
         evidenceBlocks: document.querySelectorAll(
           ".visualStoryCard, .visualEvidenceItem, .researchFigure, .demoVideo",
         ).length,
-        visualCount: document.querySelectorAll(".researchMap, .conceptFigure").length,
+        visualCount: document.querySelectorAll(".researchMap, .conceptFigure, .diagram").length,
         clippedHeroElements,
         videos,
       };
