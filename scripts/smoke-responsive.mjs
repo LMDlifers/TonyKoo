@@ -163,14 +163,21 @@ for (const pagePath of pages) {
 const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await research.goto("http://localhost:8000/research/");
 await research.locator("[data-research-search]").fill("outbox");
-assert.equal(await research.locator("#machine-learning").isVisible(), false);
-assert.equal(await research.locator("#system-design").isVisible(), true);
-await research.locator('.branchNav a[href="#machine-learning"]').click();
-assert.equal(await research.locator("#machine-learning").isVisible(), true);
+assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), false);
+assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
+await research.locator('[data-topic-filter="machine-learning"]').click();
+assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), true);
 assert.equal(await research.locator("[data-research-search]").inputValue(), "");
+assert.equal(await research.locator('[data-topic-filter="machine-learning"]').getAttribute('aria-pressed'), 'true');
 await research.locator("[data-research-search]").fill("zzzxxy");
 assert.equal(await research.locator("[data-research-empty]").isVisible(), true);
 await research.close();
+const article = await browser.newPage({ viewport: { width: 390, height: 900 } });
+await article.goto("http://localhost:8000/research/how-to-decide-under-uncertainty.html");
+assert.equal(await article.locator('details.articleToc').getAttribute('open'), null);
+await article.locator('details.articleToc summary').click();
+assert.equal(await article.locator('details.articleToc').getAttribute('open'), '');
+await article.close();
 await browser.close();
 
 const failures = results.filter(
