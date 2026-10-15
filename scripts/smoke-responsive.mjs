@@ -1,5 +1,6 @@
 import { createRequire } from "node:module";
 import fs from "node:fs";
+import assert from "node:assert/strict";
 
 const require = createRequire(import.meta.url);
 const playwrightPath =
@@ -159,6 +160,16 @@ for (const pagePath of pages) {
   }
 }
 
+const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
+await research.goto("http://localhost:8000/research/");
+await research.locator("[data-research-search]").fill("cloud");
+assert.equal(await research.locator("#machine-learning").isVisible(), false);
+await research.locator('.branchNav a[href="#machine-learning"]').click();
+assert.equal(await research.locator("#machine-learning").isVisible(), true);
+assert.equal(await research.locator("[data-research-search]").inputValue(), "");
+await research.locator("[data-research-search]").fill("zzzxxy");
+assert.equal(await research.locator("[data-research-empty]").isVisible(), true);
+await research.close();
 await browser.close();
 
 const failures = results.filter(
