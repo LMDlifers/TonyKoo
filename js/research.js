@@ -27,5 +27,9 @@
     if (empty) empty.hidden = visible !== 0;
   };
   input.addEventListener('input', filter);
+  document.querySelectorAll('.branchNav a[href^="#"]').forEach(link => link.addEventListener('click', () => {
+    input.value = '';
+    filter();
+  }));
   filter();
 })();
