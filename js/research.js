@@ -11,14 +11,21 @@
   const input = document.querySelector('[data-research-search]');
   if (!input) return;
   const cards = [...document.querySelectorAll('[data-research-card]')];
+  const groups = [...document.querySelectorAll('[data-research-group]')];
   const count = document.querySelector('[data-result-count]');
-  input.addEventListener('input', () => {
+  const empty = document.querySelector('[data-research-empty]');
+  const filter = () => {
     const query = input.value.trim().toLowerCase();
     let visible = 0;
     cards.forEach(card => {
-      card.hidden = !card.textContent.toLowerCase().includes(query);
+      const topic = card.closest('[data-research-group]')?.querySelector('.topicGroupIntro h3')?.textContent || '';
+      card.hidden = !(card.textContent + ' ' + topic).toLowerCase().includes(query);
       if (!card.hidden) visible++;
     });
+    groups.forEach(group => { group.hidden = !group.querySelector('[data-research-card]:not([hidden])'); });
     if (count) count.textContent = `${visible} of ${cards.length} items shown`;
-  });
+    if (empty) empty.hidden = visible !== 0;
+  };
+  input.addEventListener('input', filter);
+  filter();
 })();
