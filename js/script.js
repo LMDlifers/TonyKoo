@@ -232,6 +232,8 @@ $(document).ready(function () {
       ["What language models learn", "research/what-language-models-learn.html", "Tokens, embeddings, attention, training and context"],
       ["When agents need search", "research/when-agents-need-search.html", "Agent architecture, Tree of Thoughts, MCTS, SYMPHONY and SIFT"],
       ["Where autonomy stops", "research/where-autonomy-stops.html", "Prompt injection, authorization, human approval and recovery"],
+      ["How coding agents find and change code", "research/how-coding-agents-find-and-change-code.html", "Code navigation, Tree-sitter, LSP, SCIP, ReAct and patch verification"],
+      ["From specification to verified release", "research/from-specification-to-verified-release.html", "Spec Kit, OpenSpec, DeepEval, tests and release evidence"],
       ["How to prove an agent works", "research/how-to-prove-an-agent-works.html", "Baselines, evals, observability, cost and harness improvement"],
       ["When an ML model is ready for production", "research/when-an-ml-model-is-ready.html", "Baselines, leakage, holdout tests, monitoring and MLOps"],
       ["How data becomes reliable evidence", "research/how-data-becomes-reliable-evidence.html", "Database constraints, provenance, Faiss, HNSW and retrieval"],
