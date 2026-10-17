@@ -25,6 +25,12 @@
   const buttons = [...document.querySelectorAll('[data-topic-filter]')];
   const count = document.querySelector('[data-result-count]');
   const empty = document.querySelector('[data-research-empty]');
+  const topicGroups = {
+    'ai-agents': ['ai-agents'],
+    'ml-data': ['machine-learning', 'data-retrieval'],
+    'systems-cloud': ['system-design', 'cloud-operations'],
+    'decisions-money': ['decisions-money'],
+  };
   let topic = 'all';
 
   const filter = () => {
@@ -32,7 +38,7 @@
     let visible = 0;
     for (const card of stories) {
       const copy = card.textContent;
-      card.hidden = (topic !== 'all' && card.dataset.topic !== topic) || !copy.toLowerCase().includes(query);
+      card.hidden = (topic !== 'all' && !topicGroups[topic]?.includes(card.dataset.topic)) || !copy.toLowerCase().includes(query);
       if (!card.hidden) visible++;
     }
     for (const card of reads) {

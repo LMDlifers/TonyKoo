@@ -162,15 +162,26 @@ for (const pagePath of pages) {
 
 const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await research.goto("http://localhost:8000/research/");
-await research.locator("[data-research-search]").fill("outbox");
+await research.locator("[data-research-search]").fill("boundary");
 assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), false);
 assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
-await research.locator('[data-topic-filter="machine-learning"]').click();
+for (const [filter, count] of [['all', 18], ['ai-agents', 6], ['ml-data', 2], ['systems-cloud', 2], ['decisions-money', 2]]) {
+  await research.locator(`[data-topic-filter="${filter}"]`).click();
+  assert.equal(await research.locator('[data-result-count]').textContent(), `${count} of 18 items shown`);
+}
+await research.locator('[data-topic-filter="ml-data"]').click();
 assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), true);
 assert.equal(await research.locator("[data-research-search]").inputValue(), "");
-assert.equal(await research.locator('[data-topic-filter="machine-learning"]').getAttribute('aria-pressed'), 'true');
+assert.equal(await research.locator('[data-topic-filter="ml-data"]').getAttribute('aria-pressed'), 'true');
 await research.locator("[data-research-search]").fill("zzzxxy");
 assert.equal(await research.locator("[data-research-empty]").isVisible(), true);
+assert.equal(await research.locator('[data-result-count]').textContent(), '0 of 18 items shown');
+assert.equal(await research.locator('[aria-labelledby="reads"]').isVisible(), false);
+await research.locator('[data-topic-filter="systems-cloud"]').click();
+assert.equal(await research.locator("[data-research-search]").inputValue(), "");
+await research.locator("[data-research-search]").fill("boundary");
+assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
+assert.equal(await research.locator('[data-topic="cloud-operations"]').isVisible(), false);
 await research.close();
 const article = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await article.goto("http://localhost:8000/research/how-to-decide-under-uncertainty.html");

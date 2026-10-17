@@ -18,7 +18,7 @@ const articles = [
   'how-to-decide-under-uncertainty.html',
   'how-money-compounds-and-risk-interrupts-it.html',
 ];
-const topics = ['Machine learning', 'AI and agents', 'Data and retrieval', 'System design', 'Cloud and operations', 'Decisions and money'];
+const topics = ['All', 'AI &amp; agents', 'ML &amp; data', 'Systems &amp; cloud', 'Decisions &amp; money'];
 
 function checkLocalLinks(html, filename) {
   for (const [, target] of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
@@ -33,10 +33,16 @@ function checkLocalLinks(html, filename) {
 }
 
 for (const topic of topics) assert.ok(hub.includes(topic), `Missing topic: ${topic}`);
-assert.match(hub, /class="featuredStory"/);
+assert.deepEqual([...hub.matchAll(/data-topic-filter="([^"]+)"/g)].map((match) => match[1]), ['all', 'ai-agents', 'ml-data', 'systems-cloud', 'decisions-money']);
+assert.doesNotMatch(hub, /class="featuredStory"/);
 assert.match(hub, /class="storyFeed"/);
 assert.equal([...hub.matchAll(/data-topic="[a-z-]+"/g)].length, articles.length);
-assert.match(hub, /data-topic-filter="all"/);
+assert.equal([...hub.matchAll(/class="topicCard topicCard--lead"/g)].length, 1);
+assert.equal([...hub.matchAll(/class="topicCard topicCard--secondary"/g)].length, 2);
+assert.equal([...hub.matchAll(/class="topicCard topicCard--row"/g)].length, 9);
+assert.match(hub, /href="assets\/source-tree-of-thoughts\.png"[^>]*><img[^>]*src="assets\/source-tree-of-thoughts-detail\.png"/);
+assert.match(hub, /detail cropped from Figure 1/i);
+for (const fragment of ['guides', 'reading-path', 'reads']) assert.ok(hub.includes(`id="${fragment}"`), `Missing section ${fragment}`);
 const leadDetail = fs.readFileSync(path.join(root, 'research/assets/source-tree-of-thoughts-detail.png'));
 assert.equal(leadDetail.subarray(1, 4).toString('ascii'), 'PNG');
 assert.deepEqual([leadDetail.readUInt32BE(16), leadDetail.readUInt32BE(20)], [545, 590]);
