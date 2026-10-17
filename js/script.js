@@ -424,7 +424,7 @@ $(document).ready(function () {
   $(window).trigger("scroll");
 
   // Sidebar link clicks
-  $(".sidebar-link").on("click", function (e) {
+  $(".sidebar-link[href^='#']").on("click", function (e) {
     e.preventDefault();
     const target = $(this).attr("href");
     scrollToTarget(target);
