@@ -5,6 +5,8 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const hub = fs.readFileSync(path.join(root, 'research/index.html'), 'utf8');
 const articles = [
+  'how-coding-agents-find-and-change-code.html',
+  'from-specification-to-verified-release.html',
   'what-language-models-learn.html',
   'when-agents-need-search.html',
   'where-autonomy-stops.html',
