@@ -43,6 +43,7 @@ The thirteen figures below are displayed with adjacent source and reuse credits.
 - Credit: Yao et al. · Tree of Thoughts Figure 1
 - Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 - Preparation: Figure 1 cropped from the paper PDF at 300 dpi; paper license linked on arXiv.
+- Homepage detail: `source-tree-of-thoughts-detail.png` is a further, unaltered pixel crop of the right-hand branch from `(845, 0)` to `(1390, 590)` in the retained full-size local figure. The homepage caption discloses the crop and links to the full figure, paper, and license.
 
 ## where-autonomy-stops.html
 - Asset: `source-human-review.png`
