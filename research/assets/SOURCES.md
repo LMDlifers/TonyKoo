@@ -1,6 +1,27 @@
 # Research figure sources
 
-The ten figures below are displayed with adjacent source and reuse credits. They are source material, not original research by the site author.
+The thirteen figures below are displayed with adjacent source and reuse credits. The Spec Kit diagram is an editorial redraw of a source workflow; the others reproduce source figures.
+
+## how-coding-agents-find-and-change-code.html
+- Asset: `source-react-pattern.svg`
+- Original: https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system
+- Credit: Google Cloud · ReAct pattern
+- Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Preparation: Original Google Cloud SVG, reproduced without altering its content.
+
+## from-specification-to-verified-release.html
+- Asset: `source-spec-kit-workflow.svg`
+- Original: https://github.com/github/spec-kit/blob/main/docs/reference/workflows.md
+- Credit: Adapted from GitHub Spec Kit's published workflow
+- Reuse basis: MIT — https://github.com/github/spec-kit/blob/main/LICENSE
+- Preparation: The source Mermaid sequence was redrawn as SVG for legibility; review gates and stage order are preserved.
+
+## what-the-cloud-should-own.html — trace waterfall
+- Asset: `source-trace-waterfall.svg`
+- Original: https://opentelemetry.io/docs/concepts/observability-primer/
+- Credit: OpenTelemetry · trace waterfall
+- Reuse basis: CC BY 4.0 documentation — https://github.com/open-telemetry/opentelemetry.io/blob/main/LICENSE
+- Preparation: Original OpenTelemetry SVG, reproduced without altering its content.
 
 ## when-an-ml-model-is-ready.html
 - Asset: `source-ml-workflow.png`
