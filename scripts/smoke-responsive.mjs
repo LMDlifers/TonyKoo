@@ -42,7 +42,7 @@ const expectedVisuals = {
   "/research/when-an-ml-model-is-ready.html": 1,
   "/research/how-data-becomes-reliable-evidence.html": 1,
   "/research/how-to-choose-a-system-boundary.html": 1,
-  "/research/what-the-cloud-should-own.html": 1,
+  "/research/what-the-cloud-should-own.html": 2,
   "/research/how-to-decide-under-uncertainty.html": 1,
   "/research/how-money-compounds-and-risk-interrupts-it.html": 1,
 };
@@ -69,7 +69,7 @@ for (const pagePath of pages) {
 
           img.addEventListener("load", resolve, { once: true });
           img.addEventListener("error", resolve, { once: true });
-          window.setTimeout(resolve, 1200);
+          window.setTimeout(resolve, 5000);
         });
       }
 
@@ -162,6 +162,14 @@ for (const pagePath of pages) {
 
 const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await research.goto("http://localhost:8000/research/");
+const leadLayout = await research.evaluate(() => {
+  const card = document.querySelector('.topicCard--lead').getBoundingClientRect();
+  const image = document.querySelector('.leadFigure img').getBoundingClientRect();
+  return { cardTop: card.top, cardRight: card.right, imageRight: image.right, imageWidth: image.width };
+});
+assert.ok(leadLayout.cardTop < 900, 'Lead story starts below the first mobile screen');
+assert.ok(leadLayout.imageRight <= leadLayout.cardRight + 1, 'Lead figure is clipped by its card');
+assert.ok(leadLayout.imageWidth >= 220, 'Lead figure is too narrow to read');
 await research.locator("[data-research-search]").fill("boundary");
 assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), false);
 assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
@@ -183,6 +191,10 @@ await research.locator("[data-research-search]").fill("boundary");
 assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
 assert.equal(await research.locator('[data-topic="cloud-operations"]').isVisible(), false);
 await research.close();
+const desktopResearch = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await desktopResearch.goto("http://localhost:8000/research/");
+assert.notEqual(await desktopResearch.locator('.readingPath').evaluate((element) => getComputedStyle(element).position), 'sticky');
+await desktopResearch.close();
 const article = await browser.newPage({ viewport: { width: 390, height: 900 } });
 await article.goto("http://localhost:8000/research/how-to-decide-under-uncertainty.html");
 assert.equal(await article.locator('details.articleToc').getAttribute('open'), null);
