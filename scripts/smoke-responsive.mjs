@@ -53,7 +53,7 @@ const results = [];
 for (const pagePath of pages) {
   for (const width of widths) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
-    await page.goto(`http://localhost:8000${pagePath}`, { waitUntil: "load" });
+    await page.goto(`http://localhost:8000${pagePath}`, { waitUntil: "domcontentloaded" });
     await page.evaluate(async () => {
       const localImages = [...document.querySelectorAll("img")].filter(
         (img) => new URL(img.currentSrc || img.src, window.location.href).origin === window.location.origin,
@@ -191,6 +191,21 @@ await research.locator("[data-research-search]").fill("boundary");
 assert.equal(await research.locator('[data-topic="system-design"]').isVisible(), true);
 assert.equal(await research.locator('[data-topic="cloud-operations"]').isVisible(), false);
 await research.close();
+const narrowFilters = await browser.newPage({ viewport: { width: 320, height: 900 } });
+await narrowFilters.goto('http://localhost:8000/research/');
+await narrowFilters.locator('[data-topic-filter="all"]').focus();
+for (const filter of ['ai-agents', 'ml-data', 'systems-cloud', 'decisions-money']) {
+  await narrowFilters.keyboard.press('Tab');
+  await narrowFilters.waitForTimeout(250);
+  const focus = await narrowFilters.evaluate(() => {
+    const nav = document.querySelector('.branchNav').getBoundingClientRect();
+    const active = document.activeElement.getBoundingClientRect();
+    return { filter: document.activeElement.dataset.topicFilter, visible: active.left >= nav.left - 1 && active.right <= nav.right + 1 };
+  });
+  assert.equal(focus.filter, filter);
+  assert.ok(focus.visible, `${filter} is clipped while focused at 320px`);
+}
+await narrowFilters.close();
 const desktopResearch = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await desktopResearch.goto("http://localhost:8000/research/");
 assert.notEqual(await desktopResearch.locator('.readingPath').evaluate((element) => getComputedStyle(element).position), 'sticky');
