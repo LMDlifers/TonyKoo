@@ -144,7 +144,7 @@ body.dark-mode{--ink:#ecf2f8;--body:#c9d7e5;--muted:#a6bdd2;--line:#40566b;--sur
   .researchNavInner{align-items:center}.researchBrand span{display:none}.researchNavLinks{flex-wrap:nowrap;gap:.55rem}.researchNavLinks a{font-size:.72rem;white-space:nowrap}
   .researchShell{padding-top:.2rem}.researchHero{padding:1.1rem 0 .95rem}.researchHero h1{font-size:2.48rem}.researchHero .deck{font-size:.95rem;line-height:1.45}
   .researchShell>.researchSection:first-of-type{margin-top:1rem}
-  .branchNav{gap:1rem;margin:.5rem 0 0}.branchNav button{font-size:.78rem;padding:.5rem .05rem}
+  .branchNav{flex-wrap:wrap;overflow-x:visible;gap:0 1rem;margin:.5rem 0 0}.branchNav button{font-size:.78rem;padding:.5rem .05rem}
   .researchSearch{display:block;margin:.7rem 0 .25rem}.researchSearch label{display:block;font-size:.74rem}.researchSearch input{width:100%;max-width:none;margin:.25rem 0}.resultCount{display:block;margin:0;font-size:.7rem}
   .storyFeed{grid-template-columns:1fr}
   .storyFeed .topicCard--lead{padding:1rem 0 1.5rem}.storyFeed .topicCard--lead h3{font-size:2.1rem}.storyFeed .topicCard--lead .topicCardBody>p:not(.storyMeta){font-size:.94rem}
