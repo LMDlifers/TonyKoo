@@ -28,3 +28,9 @@ test('portfolio and agent-evaluation questions lead to the relevant published pa
   assert.equal(searchSources('Tradition Energy role', sources, 1)[0]?.id, 'portfolio-overview');
   assert.equal(searchSources('agent evaluation', sources, 1)[0]?.id, 'research-how-to-prove-an-agent-works');
 });
+
+test('specific details outrank filler words and unsupported private facts do not match', async () => {
+  const { searchSources } = await import('../js/guide-core.mjs');
+  assert.equal(searchSources('What are its freshness and fallback gates?', sources, 1)[0]?.id, 'reports-faiss-caching-llm-cost-latency');
+  assert.deepEqual(searchSources('What is Tony’s private salary?', sources, 1), []);
+});
