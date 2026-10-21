@@ -91,8 +91,8 @@ assert.equal(
   "Hero must contain exactly two actions",
 );
 assert.match(heroActions, /View Projects/);
-assert.match(heroActions, /Download Résumé/);
-assert.match(heroActions, /download="Resume_TonyKooYeLong\.pdf"/);
+assert.match(heroActions, /Discuss a Project/);
+assert.match(heroActions, /href="#contact"/);
 
 assert.equal(
   (html.match(/IBKR Mean-Reversion Trading Prototype/g) ?? []).length,
