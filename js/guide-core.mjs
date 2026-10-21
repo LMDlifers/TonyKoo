@@ -1,6 +1,7 @@
 const STOP_WORDS = new Set([
-  'about', 'does', 'from', 'have', 'how', 'into', 'that', 'the', 'their',
-  'this', 'tony', 'what', 'when', 'where', 'which', 'with', 'would', 'your',
+  'about', 'and', 'are', 'can', 'did', 'does', 'for', 'from', 'has', 'have',
+  'how', 'into', 'its', 'that', 'the', 'their', 'this', 'tony', 'was', 'what',
+  'when', 'where', 'which', 'who', 'why', 'with', 'would', 'your',
 ]);
 
 function words(value) {
@@ -16,11 +17,12 @@ export function searchSources(query, sources, limit = 6) {
   return sources.map((source) => {
     const fields = [source.title, source.keywords, source.summary, source.text]
       .map((field) => String(field || '').toLowerCase());
-    const score = terms.reduce((total, term) =>
+    const matchedTerms = terms.filter((term) => fields.some((field) => field.includes(term)));
+    const score = matchedTerms.reduce((total, term) =>
       total + fields.reduce((sum, field, index) =>
         sum + (field.includes(term) ? [5, 4, 3, 1][index] : 0), 0), 0);
-    return { source, score };
-  }).filter(({ score }) => score > 0)
+    return { source, score, matchedTerms: matchedTerms.length };
+  }).filter(({ score, matchedTerms }) => score > 0 && matchedTerms >= Math.min(2, terms.length))
     .sort((a, b) => b.score - a.score || a.source.title.localeCompare(b.source.title))
     .slice(0, limit)
     .map(({ source }) => source);
