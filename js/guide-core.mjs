@@ -1,6 +1,6 @@
 const STOP_WORDS = new Set([
   'about', 'and', 'are', 'can', 'did', 'does', 'for', 'from', 'has', 'have',
-  'how', 'into', 'its', 'that', 'the', 'their', 'this', 'tony', 'was', 'what',
+  'how', 'instead', 'into', 'its', 'one', 'producing', 'say', 'that', 'the', 'their', 'this', 'tony', 'was', 'what',
   'when', 'where', 'which', 'who', 'why', 'with', 'would', 'your',
 ]);
 
@@ -32,7 +32,11 @@ export function excerptForQuery(text, query, limit = 1100) {
   const body = String(text || '').replace(/\s+/g, ' ').trim();
   if (body.length <= limit) return body;
   const lower = body.toLowerCase();
-  const position = words(query).map((word) => lower.indexOf(word)).find((index) => index >= 0) ?? 0;
+  const position = [...new Set(words(query))].map((word) => {
+    const first = lower.indexOf(word);
+    if (first < 0) return null;
+    return { first, count: lower.split(word).length - 1 };
+  }).filter(Boolean).sort((a, b) => a.count - b.count || a.first - b.first)[0]?.first ?? 0;
   const start = Math.max(0, Math.min(position - Math.floor(limit / 4), body.length - limit));
   return body.slice(start, start + limit).trim();
 }

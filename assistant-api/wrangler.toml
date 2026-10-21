@@ -4,10 +4,11 @@ compatibility_date = "2026-10-19"
 
 [ai]
 binding = "AI"
+remote = true
 
 [[ratelimits]]
 name = "RATE_LIMITER"
-namespace_id = "1001"
+namespace_id = "62827104"
 
 [ratelimits.simple]
 limit = 10

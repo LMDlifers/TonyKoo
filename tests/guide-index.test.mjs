@@ -34,3 +34,15 @@ test('specific details outrank filler words and unsupported private facts do not
   assert.equal(searchSources('What are its freshness and fallback gates?', sources, 1)[0]?.id, 'reports-faiss-caching-llm-cost-latency');
   assert.deepEqual(searchSources('What is Tony’s private salary?', sources, 1), []);
 });
+
+test('curated public facts and guide fallback are available to the answer service', () => {
+  assert.match(sources.find(({ id }) => id === 'reports-faiss-caching-llm-cost-latency').facts, /acceptable age/);
+  assert.match(sources.find(({ id }) => id === 'reports-agentic-healthcare-analytics').facts, /generated SQL and statistical steps/);
+  assert.match(sources.find(({ id }) => id === 'site-guide').text, /AI service fails or times out/);
+});
+
+test('research questions rank the relevant essay ahead of broad project mentions', async () => {
+  const { searchSources } = await import('../js/guide-core.mjs');
+  assert.equal(searchSources('When should an agent search instead of producing one answer?', sources, 1)[0]?.id, 'research-when-agents-need-search');
+  assert.equal(searchSources('What does the research say about model evaluation?', sources, 1)[0]?.id, 'research-when-an-ml-model-is-ready');
+});
