@@ -37,6 +37,12 @@ test('excerpt includes the matching passage without exceeding its limit', () => 
   assert.ok(excerpt.length <= 80);
 });
 
+test('excerpt follows the rare detail rather than a common introductory term', () => {
+  const body = 'Healthcare agents can help. '.repeat(40) + 'A human reviews the generated query and evidence before release.';
+  const excerpt = excerptForQuery(body, 'Healthcare agents: what can a human review?', 180);
+  assert.match(excerpt, /human reviews the generated query/);
+});
+
 test('answer validation accepts citations from retrieved sources', () => {
   const answer = validateAnswer({
     status: 'inference',

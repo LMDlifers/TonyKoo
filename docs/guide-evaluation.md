@@ -16,7 +16,7 @@ Use the same questions for the selected Workers AI model and any replacement. Re
 ## Technical explanation and comparison
 
 9. How does the FAISS cache work?
-10. What are its freshness and fallback gates?
+10. What are the FAISS cache’s freshness and fallback gates?
 11. How does Tony evaluate agents?
 12. What does the healthcare agent workflow let a human review?
 13. What does the legal NLP case say about leakage?
@@ -45,4 +45,4 @@ Use the same questions for the selected Workers AI model and any replacement. Re
 - Test the live deployed model. Unit tests use a fake model and do not establish answer quality.
 - Record actual usage and latency after account setup.
 
-As of 21 October 2026, local source, Worker, and browser checks pass. Live Workers AI calls and production-origin checks remain pending Cloudflare account deployment.
+As of 21 October 2026, all local source and Worker tests pass. The guide browser smoke passes on three page types at 1440, 390 and 320 pixels, and the full responsive page matrix has no overflow or missing local images. A 25-question production Worker run returned 24 HTTP 200 responses and one transient model timeout; the affected question returned a cited answer on retry. Five targeted release questions passed after the final navigation and research-ranking update. Unsupported personal claims, future guarantees and requests to invent claims returned unknown. The production Worker also rejected an unrelated origin and malformed JSON. A burst of 12 requests did not produce a 429: Cloudflare documents this binding as per-location and eventually consistent, so the configured rate limit is not a hard cost cap. The browser falls back to public-page search on timeout or service failure.

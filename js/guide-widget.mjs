@@ -1,7 +1,6 @@
 import { searchSources } from './guide-core.mjs';
 
-// shortcut: AI service URL stays blank in the local preview; set it after deploying the Worker.
-const endpoint = '';
+const endpoint = 'https://tony-portfolio-guide.assistant-api.workers.dev/ask';
 const avatar = new URL('../images/portfolio/tonykoo.png', import.meta.url).href;
 const home = new URL('../index.html', import.meta.url).href;
 
@@ -110,7 +109,7 @@ async function ask(question) {
   } else {
     textLine('Checking the published sources…', 'tkGuideLoading');
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 9000);
+    const timeout = setTimeout(() => controller.abort(), 12000);
     try {
       const response = await fetch(endpoint, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question }), signal: controller.signal });
       if (!response.ok) throw new Error('service unavailable');

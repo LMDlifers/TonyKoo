@@ -7,6 +7,18 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = sorted((ROOT / 'research').glob('*.html')) + sorted((ROOT / 'reports').glob('*.html'))
 KEYWORDS = {
     'research/how-to-prove-an-agent-works.html': 'agent evaluation evals metrics testing validated success baselines',
+    'research/when-agents-need-search.html': 'agent search reasoning tree of thoughts MCTS when to use deliberate search',
+    'research/when-an-ml-model-is-ready.html': 'research model evaluation validation baseline leakage deployment readiness',
+    'reports/faiss-caching-llm-cost-latency.html': 'FAISS semantic cache freshness fallback gate similarity confidence',
+    'reports/agentic-healthcare-analytics.html': 'healthcare agent workflow human review SQL statistical steps clinical deployment not claimed',
+    'reports/judicial-analytics-legal-nlp.html': 'legal NLP IRAC target leakage hindsight bias',
+}
+
+
+FACTS = {
+    'reports/faiss-caching-llm-cost-latency.html': 'The proposed cache reuses an answer only if similarity, data scope, acceptable age, and prompt version checks pass. Otherwise it calls the model and logs the fallback reason and approval state.',
+    'reports/agentic-healthcare-analytics.html': 'The workflow allows a human reviewer to inspect, rerun, or correct generated SQL and statistical steps before a final answer. The public case study does not claim clinical deployment.',
+    'research/how-to-prove-an-agent-works.html': 'This essay recommends comparing agents with a strong simple baseline on held-out tasks, measuring independently validated success, cost, human effort, tool traces, and failures. It is published guidance, not a claim that every measure was run on a deployed agent.',
 }
 
 
@@ -64,6 +76,7 @@ for path in PAGES:
         'kind': 'article' if path.parent.name == 'research' else 'project note',
         'summary': compact(page.description),
         'keywords': KEYWORDS.get(relative, ''),
+        'facts': FACTS.get(relative, ''),
         'text': compact(' '.join(page.parts))[:10000],
     })
 
@@ -75,8 +88,20 @@ sources.append({
     'path': 'index.html',
     'kind': 'portfolio',
     'summary': 'Tony Koo builds AI, data, and quantitative decision systems. The portfolio lists his work, experience, résumé, and contact details.',
-    'keywords': 'Tony built builds projects contact email background experience role Tradition Energy SKEZI healthcare quant FAISS',
-    'text': 'Tony Koo is a data scientist and quantitative systems builder focused on agentic analytics, privacy-safe workflows, and financial engineering. The public portfolio features agentic healthcare analytics, legal NLP, FAISS caching, and quant analytics projects. It lists Data Scientist Intern work at SKEZI and Quantitative Developer Intern work at Tradition Energy. Visitors can use the portfolio contact section to reach Tony, and the résumé link gives his full public background.',
+    'keywords': 'Tony built builds projects contact email background experience role Tradition Energy SKEZI resume résumé trading contribution team',
+    'text': 'Tony Koo is a data scientist and quantitative systems builder focused on agentic analytics, privacy-safe workflows, and financial engineering. The public portfolio features agentic healthcare analytics, legal NLP, FAISS caching, and quant analytics projects. It lists Data Scientist Intern work at SKEZI and Quantitative Developer Intern work at Tradition Energy. Visitors can use the portfolio contact section to reach Tony, and the résumé link gives his full public background. The public portfolio describes Tony’s contribution to the team IBKR mean-reversion prototype as Ornstein–Uhlenbeck strategy work, mean-reversion speed and signal calculations, equity adaptation, historical-data flow, and documentation; it does not substantiate live profitability.',
+})
+
+# The guide's fallback is visible and testable on the published homepage.
+sources.append({
+    'id': 'site-guide',
+    'title': 'How the portfolio guide works',
+    'url': 'https://lmdlifers.github.io/TonyKoo/',
+    'path': 'index.html',
+    'kind': 'site feature',
+    'summary': 'The guide searches public portfolio pages even when AI answers are unavailable.',
+    'keywords': 'guide assistant search AI service unavailable fallback public pages links',
+    'text': 'The on-page portfolio guide always searches its approved public-page index locally. Its optional AI answer service is separate. If the AI service fails or times out, the guide still shows the closest published pages as links. This behavior is visible in the guide on the public homepage.',
 })
 
 # Only repositories already linked and described on the public portfolio are indexed.
