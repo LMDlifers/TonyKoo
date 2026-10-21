@@ -1,0 +1,41 @@
+.tkGuide{position:fixed;right:20px;bottom:18px;z-index:10020;font-family:Karla,Arial,sans-serif;color:#18304b}
+.tkGuide *{box-sizing:border-box}
+.tkGuideLaunch{display:flex;align-items:center;gap:10px;padding:6px 16px 6px 5px;border:1px solid #bad2e5;border-radius:999px;background:#fff;color:#18304b;box-shadow:0 12px 38px #14345430;font:700 14px Karla,Arial,sans-serif;cursor:pointer}
+.tkGuideLaunch:hover,.tkGuideLaunch:focus-visible{border-color:#315986;box-shadow:0 12px 38px #14345445}
+.tkGuideAvatar{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#e7f2ff;overflow:hidden}
+.tkGuideAvatar img{image-rendering:pixelated;object-fit:contain;animation:tkGuideBob 3.5s ease-in-out infinite}
+.tkGuide.is-thinking .tkGuideAvatar img{animation-duration:.8s}
+.tkGuide.is-greeting .tkGuideAvatar img{animation:tkGuideWave .55s ease-in-out 2}
+.tkGuide.is-found .tkGuideAvatar img{animation:tkGuideFound .55s ease-out 2}
+.tkGuide.is-lost .tkGuideAvatar img{animation:tkGuideLost .55s ease-in-out 2}
+@keyframes tkGuideBob{0%,100%{transform:translateY(1px) rotate(-2deg)}50%{transform:translateY(-3px) rotate(3deg)}}
+@keyframes tkGuideWave{0%,100%{transform:rotate(0)}50%{transform:rotate(10deg)}}
+@keyframes tkGuideFound{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes tkGuideLost{0%,100%{transform:rotate(0)}50%{transform:rotate(-7deg)}}
+.tkGuidePanel{position:fixed;inset:auto 20px 90px auto;display:flex;flex-direction:column;margin:0;padding:0;width:min(390px,calc(100vw - 24px));max-height:min(650px,calc(100dvh - 106px));border:1px solid #c7d7e7;border-radius:20px;background:#fff;box-shadow:0 24px 70px #122d4b3d;overflow:hidden}
+.tkGuidePanel:not([open]){display:none}
+.tkGuidePanel::backdrop{background:#10253a33}
+.tkGuideHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #e3ebf2;background:#f4f8fc}
+.tkGuideIdentity{display:flex;align-items:center;gap:10px}.tkGuideIdentity img{image-rendering:pixelated}.tkGuideIdentity strong,.tkGuideIdentity small{display:block}.tkGuideIdentity strong{font-size:17px}.tkGuideIdentity small{font-size:12px;color:#60738a}
+.tkGuideClose{border:0;background:transparent;color:#315986;font-size:29px;line-height:1;cursor:pointer}
+.tkGuideIntro{padding:14px 17px 8px}.tkGuideIntro p{margin:0 0 6px;font-size:14px;line-height:1.5}.tkGuideIntro small{color:#647a90;font-size:11px}
+.tkGuidePrompts{display:flex;gap:7px;padding:8px 17px 12px;overflow-x:auto}.tkGuidePrompts button{flex:none;max-width:210px;border:1px solid #cbdce9;border-radius:999px;background:#f7fafc;color:#315986;padding:7px 10px;font:600 12px Karla,Arial,sans-serif;cursor:pointer}.tkGuidePrompts button:hover{background:#eaf3fb}
+.tkGuideResults{min-height:90px;overflow-y:auto;padding:12px 17px;flex:1;background:linear-gradient(#fff,#fafcfe);border-block:1px solid #e3ebf2}.tkGuideResults p{margin:0 0 11px;line-height:1.45}.tkGuideAsked{font-size:13px;color:#60738a}.tkGuideAnswer{font-size:14px}.tkGuideLabel{text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:700;color:#315986}.tkGuideLoading{font-size:13px;color:#60738a}
+.tkGuideSource{display:block;margin:8px 0;padding:10px 12px;border:1px solid #d6e3ed;border-radius:11px;background:#fff;color:#18304b;text-decoration:none}.tkGuideSource:hover,.tkGuideSource:focus-visible{border-color:#315986;background:#f3f8fd;color:#18304b;text-decoration:none}.tkGuideSource small,.tkGuideSource strong,.tkGuideSource span{display:block}.tkGuideSource small{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#446f9d}.tkGuideSource strong{font-size:14px;margin:3px 0}.tkGuideSource span{font-size:12px;color:#5b6f84;line-height:1.4}
+.tkGuideForm{padding:12px 17px 7px}.tkGuideForm label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.tkGuideForm>div{display:flex;gap:6px}.tkGuideForm input{min-width:0;flex:1;padding:10px;border:1px solid #bdcedc;border-radius:9px;color:#18304b;background:#fff;font:14px Karla,Arial,sans-serif}.tkGuideForm button{border:0;border-radius:9px;padding:0 13px;background:#315986;color:#fff;font:700 13px Karla,Arial,sans-serif;cursor:pointer}.tkGuideForm button:hover{background:#23466e}.tkGuideFoot{margin:0;padding:0 17px 12px;color:#687e92;font-size:11px;line-height:1.4}.tkGuideFoot a{color:#315986;text-decoration:underline}
+@media(max-width:540px){.tkGuide{right:12px;bottom:12px}.tkGuideLaunch{font-size:12px}.tkGuidePanel{inset:auto 12px 82px 12px;width:calc(100vw - 24px);max-width:none;max-height:calc(100dvh - 96px)}}
+@media(prefers-reduced-motion:reduce){.tkGuideAvatar img,.tkGuide.is-greeting .tkGuideAvatar img,.tkGuide.is-found .tkGuideAvatar img,.tkGuide.is-lost .tkGuideAvatar img{animation:none}}
+
+body.dark-mode .tkGuide{color:#e9f1fa}
+body.dark-mode .tkGuideLaunch,body.dark-mode .tkGuidePanel{background:#17283c;color:#e9f1fa;border-color:#49617b}
+body.dark-mode .tkGuideHeader{background:#21364e;border-color:#40566d}
+body.dark-mode .tkGuideIdentity small,body.dark-mode .tkGuideIntro small,body.dark-mode .tkGuideAsked,body.dark-mode .tkGuideLoading,body.dark-mode .tkGuideFoot{color:#b1c2d4}
+body.dark-mode .tkGuideClose,body.dark-mode .tkGuideFoot a{color:#a8d3ff}
+body.dark-mode .tkGuidePrompts button,body.dark-mode .tkGuideSource{background:#20364d;color:#e9f1fa;border-color:#49617b}
+body.dark-mode .tkGuidePrompts button:hover,body.dark-mode .tkGuideSource:hover{background:#2d4864}
+body.dark-mode .tkGuideResults{background:#17283c;border-color:#40566d}
+body.dark-mode .tkGuideSource small,body.dark-mode .tkGuideLabel{color:#a8d3ff}
+body.dark-mode .tkGuideSource span{color:#b1c2d4}
+body.dark-mode .tkGuideForm input{background:#20364d;color:#e9f1fa;border-color:#617890}
+body.dark-mode .tkGuideForm button{background:#4b82bd}
+body.dark-mode .tkGuidePanel::backdrop{background:#0209148c}

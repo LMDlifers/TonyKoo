@@ -1,0 +1,14 @@
+name = "tony-portfolio-guide"
+main = "worker.mjs"
+compatibility_date = "2026-10-19"
+
+[ai]
+binding = "AI"
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 10
+period = 60

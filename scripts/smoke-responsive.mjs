@@ -8,7 +8,8 @@ const playwrightPath =
   "/Users/kootony/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright";
 const { chromium } = require(playwrightPath);
 
-const chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const chromePath = process.env.PLAYWRIGHT_BROWSER_EXECUTABLE || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const baseURL = process.env.SITE_BASE_URL || "http://localhost:8000";
 const launchOptions = fs.existsSync(chromePath)
   ? { headless: true, executablePath: chromePath }
   : { headless: true };
@@ -53,7 +54,7 @@ const results = [];
 for (const pagePath of pages) {
   for (const width of widths) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
-    await page.goto(`http://localhost:8000${pagePath}`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${baseURL}${pagePath}`, { waitUntil: "domcontentloaded" });
     await page.evaluate(async () => {
       const localImages = [...document.querySelectorAll("img")].filter(
         (img) => new URL(img.currentSrc || img.src, window.location.href).origin === window.location.origin,
@@ -161,7 +162,7 @@ for (const pagePath of pages) {
 }
 
 const research = await browser.newPage({ viewport: { width: 390, height: 900 } });
-await research.goto("http://localhost:8000/research/");
+await research.goto(`${baseURL}/research/`);
 const leadLayout = await research.evaluate(() => {
   const card = document.querySelector('.topicCard--lead').getBoundingClientRect();
   const image = document.querySelector('.leadFigure img').getBoundingClientRect();
@@ -192,7 +193,7 @@ assert.equal(await research.locator('[data-topic="system-design"]').isVisible(),
 assert.equal(await research.locator('[data-topic="cloud-operations"]').isVisible(), false);
 await research.close();
 const narrowFilters = await browser.newPage({ viewport: { width: 320, height: 900 } });
-await narrowFilters.goto('http://localhost:8000/research/');
+await narrowFilters.goto(`${baseURL}/research/`);
 await narrowFilters.locator('[data-topic-filter="all"]').focus();
 for (const filter of ['ai-agents', 'ml-data', 'systems-cloud', 'decisions-money']) {
   await narrowFilters.keyboard.press('Tab');
@@ -207,7 +208,7 @@ for (const filter of ['ai-agents', 'ml-data', 'systems-cloud', 'decisions-money'
 }
 await narrowFilters.close();
 const desktopResearch = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-await desktopResearch.goto("http://localhost:8000/research/");
+await desktopResearch.goto(`${baseURL}/research/`);
 assert.notEqual(await desktopResearch.locator('.readingPath').evaluate((element) => getComputedStyle(element).position), 'sticky');
 const leadTitle = desktopResearch.locator('.topicCard--lead h3 a');
 const titleBefore = await leadTitle.evaluate((element) => getComputedStyle(element).textDecorationColor);
@@ -229,7 +230,7 @@ assert.match(desktopResearch.url(), /\/research\/when-agents-need-search\.html$/
 if (supportsPageTransitions) assert.equal(await desktopResearch.evaluate(() => sessionStorage.getItem('researchViewTransition')), 'true');
 await desktopResearch.close();
 const reducedResearch = await browser.newPage({ viewport: { width: 390, height: 900 }, reducedMotion: 'reduce' });
-await reducedResearch.goto('http://localhost:8000/research/');
+await reducedResearch.goto(`${baseURL}/research/`);
 assert.equal(await reducedResearch.locator('.topicCard--lead h3 a').evaluate((element) => getComputedStyle(element).transitionDuration), '0s');
 const reducedFigure = reducedResearch.locator('.leadFigureLink');
 await reducedFigure.hover();
@@ -243,7 +244,7 @@ assert.match(reducedResearch.url(), /\/research\/when-agents-need-search\.html$/
 if (supportsPageTransitions) assert.equal(await reducedResearch.evaluate(() => sessionStorage.getItem('researchViewTransition')), 'false');
 await reducedResearch.close();
 const article = await browser.newPage({ viewport: { width: 390, height: 900 } });
-await article.goto("http://localhost:8000/research/how-to-decide-under-uncertainty.html");
+await article.goto(`${baseURL}/research/how-to-decide-under-uncertainty.html`);
 assert.equal(await article.locator('details.articleToc').getAttribute('open'), null);
 await article.locator('details.articleToc summary').click();
 assert.equal(await article.locator('details.articleToc').getAttribute('open'), '');
