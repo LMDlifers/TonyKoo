@@ -83,6 +83,40 @@ try {
   const scene = page.locator('.fieldScene');
   await scene.scrollIntoViewIfNeeded();
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'true');
+  const motionToggle = page.locator('.fieldMotionToggle');
+  await motionToggle.waitFor({ state: 'visible' });
+  assert.equal(await motionToggle.getAttribute('aria-pressed'), 'false');
+  assert.equal((await motionToggle.innerText()).trim(), 'Pause motion');
+  await motionToggle.click();
+  assert.equal(await motionToggle.getAttribute('aria-pressed'), 'true');
+  assert.equal((await motionToggle.innerText()).trim(), 'Play motion');
+  const allPaused = () => page.locator('.personaAnimated').evaluateAll(els => els.every(el =>
+    el.getAnimations().length === 2 && el.getAnimations().every(animation => animation.playState === 'paused')));
+  assert.equal(await allPaused(), true, 'Scene pause button stops all six sprite animations');
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'false');
+  await scene.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'true');
+  assert.equal(await allPaused(), true, 'Scene pause persists through offscreen and reentry');
+  await page.locator('[data-persona="researcher"]').focus();
+  assert.equal(await allPaused(), true, 'Scene pause persists after focus moves');
+  await page.locator('[data-persona="student"]').focus();
+  assert.equal(await allPaused(), true, 'Scene pause persists across station focus changes');
+  await motionToggle.click();
+  assert.equal(await motionToggle.getAttribute('aria-pressed'), 'false');
+  assert.equal((await motionToggle.innerText()).trim(), 'Pause motion');
+  await page.waitForFunction(() => [...document.querySelectorAll('.personaAnimated')].every(el =>
+    el.getAnimations().length === 2 && el.getAnimations().every(animation => animation.playState === 'running')));
+  await motionToggle.focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await motionToggle.getAttribute('aria-pressed'), 'true');
+  assert.equal((await motionToggle.innerText()).trim(), 'Play motion');
+  assert.equal(await allPaused(), true, 'Keyboard activation pauses the whole scene');
+  await page.keyboard.press('Enter');
+  assert.equal(await motionToggle.getAttribute('aria-pressed'), 'false');
+  assert.equal((await motionToggle.innerText()).trim(), 'Pause motion');
+  await page.waitForFunction(() => [...document.querySelectorAll('.personaAnimated')].every(el =>
+    el.getAnimations().length === 2 && el.getAnimations().every(animation => animation.playState === 'running')));
   const boxes = await page.locator('.personaStation').evaluateAll(els => els.map(el => el.getBoundingClientRect().toJSON()));
   const pose = await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).backgroundPosition);
   await page.waitForTimeout(1150);
@@ -113,11 +147,13 @@ try {
   await page.waitForURL('**/research/');
   const native = await browser.newPage({ javaScriptEnabled: false });
   await native.goto(base);
+  assert.equal(await native.locator('.fieldMotionToggle').isVisible(), false, 'No-JS page hides the nonfunctional motion control');
   await native.locator('[data-persona="ai-engineer"]').click();
   assert.equal(new URL(native.url()).hash, '#portfolio');
   for (const options of [{ reducedMotion: 'reduce', viewport: { width: 1440, height: 1000 } }, { viewport: { width: 390, height: 844 } }]) {
     const still = await browser.newPage(options);
     await still.goto(base);
+    assert.equal(await still.locator('.fieldMotionToggle').isVisible(), false, 'Hide toggle when motion is unavailable');
     await still.locator('.fieldScene').scrollIntoViewIfNeeded();
     assert.equal(await still.locator('.personaStill').first().isVisible(), true);
     assert.equal(await still.locator('.personaAnimated').first().isVisible(), false);
