@@ -182,3 +182,13 @@ body.dark-mode{--ink:#ecf2f8;--body:#c9d7e5;--muted:#a6bdd2;--line:#40566b;--sur
 .harnessFeedback span{color:var(--accent);font-size:1.1rem;margin-right:.25rem}
 .harnessParts{margin-top:.75rem}
 @media(max-width:620px){.harnessFlow{grid-template-columns:1fr;gap:.3rem}.harnessFlow>div{min-height:0}.harnessFlow .harnessFlowArrow{justify-self:center;transform:rotate(90deg)}}
+
+/* Agent-loop article: quick editorial maps that remain legible in one column. */
+.loopLadder,.loopChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:1.35rem 0 1.6rem}
+.loopLadder>div,.loopChoices>div{padding:.8rem .95rem;border:1px solid var(--line);border-left:3px solid #6d97b7;border-radius:8px;background:var(--surface)}
+.loopLadder b,.loopChoices b,.loopLadder span,.loopChoices span{display:block}
+.loopLadder b,.loopChoices b{font:700 .86rem/1.25 Karla,Arial,sans-serif;color:var(--ink)}
+.loopLadder span,.loopChoices span{margin-top:.3rem;font:.8rem/1.43 Lato,Arial,sans-serif;color:var(--muted)}
+.loopChoices>div:nth-child(3n+2){border-left-color:#82a88f}
+.loopFigure--compact img{max-width:520px;margin-inline:auto}
+@media(max-width:620px){.loopLadder,.loopChoices{grid-template-columns:1fr;gap:.45rem}.loopLadder>div,.loopChoices>div{padding:.72rem .85rem}.loopFigure--compact img{width:100%;max-width:100%}}

@@ -4,8 +4,9 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const directory = path.join(root, 'research');
 const hub = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
-const files = [...new Set([...hub.matchAll(/class="topicImageLink" href="([^"]+\.html)"/g)].map(match => match[1]))];
-if (files.length !== 10) throw new Error(`Expected 10 research essays; found ${files.length}`);
+const files = [...new Set([...hub.matchAll(/<h3><a href="([^"]+\.html)"/g)].map(match => match[1]))];
+const expected = [...hub.matchAll(/class="topicCard topicCard--(?:lead|secondary|row)"/g)].length;
+if (files.length !== expected) throw new Error(`Expected ${expected} research essays; found ${files.length}`);
 
 const value = (html, pattern, label) => {
   const match = html.match(pattern);
