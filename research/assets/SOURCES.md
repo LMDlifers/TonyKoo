@@ -1,6 +1,33 @@
 # Research figure sources
 
-The thirteen figures below are displayed with adjacent source and reuse credits. The Spec Kit diagram is an editorial redraw of a source workflow; the others reproduce source figures.
+Source figures are displayed with adjacent credit and reuse terms. The Spec Kit diagram is an editorial redraw of a source workflow; the others reproduce source figures.
+
+## how-agent-loops-work.html
+- Asset: `source-reflexion-loop.png`
+- Original: https://arxiv.org/abs/2303.11366
+- Credit: Shinn et al. · Reflexion Figure 2a
+- Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Preparation: Figure 2a diagram cropped from page 4 of the paper PDF at 250 dpi; the algorithm panel and caption were omitted for article readability. Paper license was checked on arXiv.
+
+- Asset: `source-rewoo-loop.png`
+- Original: https://arxiv.org/abs/2305.18323
+- Credit: Xu et al. · ReWOO Figure 1
+- Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Preparation: Figure 1 cropped from page 2 of the paper PDF at 250 dpi; caption appears as article text. Paper license was checked on arXiv.
+
+- Asset: `source-lats-loop.png`
+- Original: https://arxiv.org/abs/2310.04406
+- Credit: Zhou et al. · LATS Figure 2
+- Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Preparation: Figure 2 cropped from page 5 of the paper PDF at 250 dpi; caption appears as article text. Paper license was checked on arXiv.
+
+- Reused assets in the same article: `source-react-pattern.svg`, `source-tree-of-thoughts.png`, and `source-human-review.png`; their individual source and reuse records are below.
+
+- Assets: `source-agent-coordinator.svg`, `source-agent-parallel.svg`
+- Original: https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system
+- Credit: Google Cloud · coordinator and parallel agent patterns
+- Reuse basis: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Preparation: Original Google Cloud SVGs, reproduced without altering their content.
 
 ## how-coding-agents-find-and-change-code.html
 - Asset: `source-react-pattern.svg`

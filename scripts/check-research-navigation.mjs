@@ -5,6 +5,8 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const hub = fs.readFileSync(path.join(root, 'research/index.html'), 'utf8');
 const articles = [
+  'how-agent-loops-work.html',
+  'when-a-website-needs-a-digital-twin.html',
   'how-coding-agents-find-and-change-code.html',
   'from-specification-to-verified-release.html',
   'what-language-models-learn.html',
@@ -39,7 +41,7 @@ assert.match(hub, /class="storyFeed"/);
 assert.equal([...hub.matchAll(/data-topic="[a-z-]+"/g)].length, articles.length);
 assert.equal([...hub.matchAll(/class="topicCard topicCard--lead"/g)].length, 1);
 assert.equal([...hub.matchAll(/class="topicCard topicCard--secondary"/g)].length, 2);
-assert.equal([...hub.matchAll(/class="topicCard topicCard--row"/g)].length, 9);
+assert.equal([...hub.matchAll(/class="topicCard topicCard--row"/g)].length, 11);
 assert.match(hub, /href="assets\/source-tree-of-thoughts\.png"[^>]*><img[^>]*src="assets\/source-tree-of-thoughts-detail\.png"/);
 assert.match(hub, /detail cropped from Figure 1/i);
 for (const fragment of ['guides', 'reading-path', 'reads']) assert.ok(hub.includes(`id="${fragment}"`), `Missing section ${fragment}`);
