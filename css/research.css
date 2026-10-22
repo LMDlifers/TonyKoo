@@ -168,3 +168,17 @@ body.dark-mode{--ink:#ecf2f8;--body:#c9d7e5;--muted:#a6bdd2;--line:#40566b;--sur
   .articleHero .deck{font-size:1.04rem}.articleBody{font-size:18px;line-height:1.68;padding:0}.articleBody h2{font-size:1.5rem}
   .articleQualifier{margin-left:0}
 }
+
+/* A compact, editable explanation of the model-to-harness boundary. */
+.harnessFlow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:.6rem;align-items:center}
+.harnessFlow>div{min-width:0;min-height:8.1rem;padding:.9rem 1rem;border:1px solid var(--line);border-top:3px solid #668db7;border-radius:10px;background:var(--surface)}
+.harnessFlow>div:last-child{border-top-color:#58a18a}
+.harnessFlow span,.harnessFlow strong,.harnessFlow small{display:block}
+.harnessFlow div>span{font:700 .7rem Karla,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.harnessFlow strong{margin:.45rem 0;color:var(--ink);font:.96rem/1.3 Karla,Arial,sans-serif}
+.harnessFlow small{color:var(--muted);font:.77rem/1.35 Lato,Arial,sans-serif}
+.harnessFlow .harnessFlowArrow{color:var(--accent);font:700 1.4rem Karla,Arial,sans-serif}
+.harnessFeedback{margin:.55rem 0 .2rem;color:var(--muted);font:.77rem/1.35 Lato,Arial,sans-serif;text-align:center}
+.harnessFeedback span{color:var(--accent);font-size:1.1rem;margin-right:.25rem}
+.harnessParts{margin-top:.75rem}
+@media(max-width:620px){.harnessFlow{grid-template-columns:1fr;gap:.3rem}.harnessFlow>div{min-height:0}.harnessFlow .harnessFlowArrow{justify-self:center;transform:rotate(90deg)}}
