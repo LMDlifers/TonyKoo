@@ -44,6 +44,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/portfolio-field.css">
 
     <link rel="icon" href="images/portfolio/tonykoo.png" type="image/png">
 
@@ -111,29 +112,8 @@
     </nav>
 
     <header id="heroSection">
-        <img id="headerImage" src="images/header2.png" alt="Portfolio header banner">
-        <div class="hero-gradient-overlay"></div>
-        <div class="labGrid" aria-hidden="true">
-            <span class="labNode labNodeA"></span>
-            <span class="labNode labNodeB"></span>
-            <span class="labNode labNodeC"></span>
-        </div>
-        <aside class="heroEvidencePanel" aria-label="Featured portfolio evidence">
-            <div class="heroEvidenceHeader">
-                <span>Evidence Board</span>
-                <strong>Agentic analytics, legal NLP, quant tooling</strong>
-            </div>
-            <div class="heroEvidenceMedia">
-                <img src="images/reports/healthcare_agentic_pipeline_light.svg"
-                    alt="Agentic healthcare analytics pipeline preview">
-            </div>
-            <div class="heroEvidenceRows" aria-label="Selected project proof">
-                <span>6.09s -> 0.86s APAC analytics runtime</span>
-                <span>Leakage-aware legal NLP evaluation design</span>
-                <span>FAISS cache with freshness and fallback gates</span>
-            </div>
-        </aside>
-        <div class="heroOverlay">
+        <div id="portfolioField">
+            <div class="fieldIntro">
             <p class="heroEyebrow">AI systems / quant tooling / data products</p>
             <h1 class="heroTitle">
                 <span class="title-word">Tony Koo</span>
@@ -150,6 +130,45 @@
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
                 <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
             </div>
+            </div>
+            <div class="fieldScene" aria-label="Explore my work and background">
+                <a class="personaStation" data-persona="ai-engineer" href="#portfolio">
+                    <img class="personaStill" src="images/portfolio-field/ai-engineer-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">AI Engineer · Projects</span>
+                    <span class="personaDescription">Build and inspect practical systems.</span>
+                </a>
+                <a class="personaStation" data-persona="researcher" href="research/">
+                    <img class="personaStill" src="images/portfolio-field/researcher-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">Researcher · Research</span>
+                    <span class="personaDescription">Explore papers, experiments, and ideas.</span>
+                </a>
+                <a class="personaStation" data-persona="student" href="#resume">
+                    <img class="personaStill" src="images/portfolio-field/student-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">Student · Background</span>
+                    <span class="personaDescription">Follow my education and experience.</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <section id="fieldProof" aria-label="Selected portfolio evidence">
+        <aside class="heroEvidencePanel" aria-label="Featured portfolio evidence">
+            <div class="heroEvidenceHeader">
+                <span>Evidence Board</span>
+                <strong>Agentic analytics, legal NLP, quant tooling</strong>
+            </div>
+            <div class="heroEvidenceMedia">
+                <img src="images/reports/healthcare_agentic_pipeline_light.svg"
+                    alt="Agentic healthcare analytics pipeline preview">
+            </div>
+            <div class="heroEvidenceRows" aria-label="Selected project proof">
+                <span>6.09s -> 0.86s APAC analytics runtime</span>
+                <span>Leakage-aware legal NLP evaluation design</span>
+                <span>FAISS cache with freshness and fallback gates</span>
+            </div>
+        </aside>
             <div class="heroMetrics" aria-label="Selected proof metrics">
                 <div class="heroMetric">
                     <span>6.09s to 0.86s</span>
@@ -164,8 +183,7 @@
                     <p>Semantic caching for lower-cost LLM pipelines</p>
                 </div>
             </div>
-        </div>
-    </header>
+    </section>
 
     <!-- Scroll Progress Bar -->
     <div id="scrollProgress"></div>
@@ -795,7 +813,7 @@
             <div class="row">
                 <div id="filter" class="col-md-12 text-center">
                     <button class="btn active" onclick="filterSelection('all')">All</button>
-                    <button class="btn" onclick="filterSelection('ai')">AI</button>
+                    <button class="btn" data-project-filter="ai" onclick="filterSelection('ai')">AI</button>
                     <button class="btn" onclick="filterSelection('quant')">Quant</button>
                     <button class="btn" onclick="filterSelection('data')">Data</button>
                     <button class="btn" onclick="filterSelection('apps')">Apps</button>
