@@ -66,3 +66,10 @@ body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/fi
   .personaLabel, .personaDescription { overflow-wrap: anywhere; }
   .personaStation:is(:hover, :focus-visible) { background: #fffced; }
 }
+
+/* In the narrow entrance, the guide is a secondary action in document flow. */
+@media (max-width: 767px) {
+  #portfolioField > .tkGuide { position: static; padding: 0 6vw 16px; }
+  #portfolioField .tkGuideLaunch { min-height: 44px; font-size: 12px; box-shadow: none; }
+  #portfolioField .tkGuideAvatar { width: 32px; height: 32px; }
+}

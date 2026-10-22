@@ -26,7 +26,9 @@ widget.innerHTML = `
     <form class="tkGuideForm"><label for="tkGuideQuestion">Ask about the work</label><div><input id="tkGuideQuestion" name="question" maxlength="400" autocomplete="off" placeholder="Try “agent evaluation”" required><button type="submit">Ask <span aria-hidden="true">→</span></button></div></form>
     <p class="tkGuideFoot">Answers can be imperfect. Check cited pages or <a href="${home}#contact">contact Tony</a>.</p>
   </dialog>`;
-document.body.append(widget);
+const field = document.querySelector('#portfolioField .fieldScene');
+if (field) field.before(widget);
+else document.body.append(widget);
 
 const launch = widget.querySelector('.tkGuideLaunch');
 const panel = widget.querySelector('.tkGuidePanel');
