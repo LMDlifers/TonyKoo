@@ -1084,52 +1084,6 @@ $(document).ready(function () {
     window.updateProjectDeckFilter("all");
   }
 
-  // Typing Animation
-  const phrases = [
-    "Quant developer + AI data systems engineer",
-    "Agentic analytics with audit trails",
-    "Privacy-safe data workflows",
-    "Fixed income and trading tooling",
-    "Complex data into decisions",
-  ];
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const typingSpeed = 100;
-  const deletingSpeed = 50;
-  const pauseTime = 2000;
-
-  function typeText() {
-    const currentPhrase = phrases[phraseIndex];
-    const typedTextElement = document.querySelector(".typed-text");
-
-    if (!typedTextElement) return;
-
-    if (isDeleting) {
-      typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      typedTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-      charIndex++;
-    }
-
-    let typeSpeed = isDeleting ? deletingSpeed : typingSpeed;
-
-    if (!isDeleting && charIndex === currentPhrase.length) {
-      typeSpeed = pauseTime;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      typeSpeed = 500;
-    }
-
-    setTimeout(typeText, typeSpeed);
-  }
-
-  // Start typing animation after the loading screen begins to clear.
-  setTimeout(typeText, prefersReducedMotion ? 0 : 900);
-
   // Scroll Progress Bar
   $(window).on("scroll", function () {
     const scrollTop = $(window).scrollTop();
@@ -1162,13 +1116,6 @@ $(document).ready(function () {
       },
       800
     );
-  });
-
-  // Parallax Effect on Header
-  $(window).on("scroll", function () {
-    if (prefersReducedMotion) return;
-    const scrolled = $(window).scrollTop();
-    $("#headerImage").css("transform", "translateY(" + scrolled * 0.5 + "px)");
   });
 
   // Smooth scroll to sections
