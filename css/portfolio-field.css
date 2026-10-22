@@ -1,11 +1,11 @@
 /* Native links and text remain usable before artwork or JavaScript loads. */
-#heroSection { min-height: 0; height: auto; padding: 100px 0 0; overflow: visible; }
+#heroSection { min-height: 0; height: auto; padding: 84px 0 0; overflow: visible; }
 #portfolioField { max-width: 1440px; margin: auto; }
-.fieldIntro { max-width: 1000px; padding: 30px 6vw 24px; position: relative; z-index: 1; }
+.fieldIntro { max-width: 1000px; padding: 18px 6vw 24px; position: relative; z-index: 1; }
 .fieldIntro .heroTitle { font-size: clamp(36px, 4vw, 62px); line-height: 1.1; margin: 12px 0; }
 .fieldIntro .heroPositioning { max-width: 760px; margin: 18px 0; }
 .fieldIntro .heroActions { margin: 20px 0 0; }
-.fieldScene { min-height: 350px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 22px; padding: 70px 6vw 26px; background: #dce8bd url('../images/portfolio-field/field.svg') center / cover no-repeat; }
+.fieldScene { min-height: 310px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 22px; padding: 30px 6vw 26px; background: #dce8bd url('../images/portfolio-field/field.svg') center / cover no-repeat; }
 .personaStation { display: flex; flex-direction: column; align-items: center; justify-content: end; min-height: 240px; padding: 12px; color: #173c35; text-align: center; border: 2px solid transparent; border-radius: 10px; text-decoration: none; }
 .personaStill { width: 128px; height: 160px; object-fit: contain; image-rendering: pixelated; }
 .personaLabel, .personaDescription { background: #fffced; padding: 7px 12px; }
@@ -55,4 +55,14 @@ body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/fi
 @keyframes personaWalk {
   0%, 45%, 100% { transform: translateX(0); }
   55%, 85% { transform: translateX(16px); }
+}
+
+/* Keep the entrance stable and readable while the decorative scene moves. */
+.fieldIntro .heroSubtitle { margin: 14px 0; min-height: 0; }
+.fieldIntro .heroButton { min-height: 44px; }
+.fieldIntro .title-word, .fieldIntro .title-line { animation: none; opacity: 1; }
+@media (max-width: 767px) {
+  .personaStation { grid-template-columns: 64px minmax(0, 1fr); }
+  .personaLabel, .personaDescription { overflow-wrap: anywhere; }
+  .personaStation:is(:hover, :focus-visible) { background: #fffced; }
 }

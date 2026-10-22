@@ -25,6 +25,38 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || '/Users/kootony/.c
 const browser = await chromium.launch({ headless: true, executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' });
 const base = process.env.SITE_BASE_URL || 'http://localhost:8000';
 try {
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    for (const dark of [false, true]) {
+      const responsive = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
+      await responsive.goto(base);
+      await responsive.waitForTimeout(1100);
+      if (dark) await responsive.evaluate(() => document.body.classList.add('dark-mode'));
+      await responsive.evaluate(() => document.fonts.ready);
+      await responsive.waitForTimeout(350);
+      const geometry = await responsive.evaluate(() => {
+        const box = el => el.getBoundingClientRect().toJSON();
+        return { overflow: document.documentElement.scrollWidth > innerWidth, title: box(document.querySelector('.fieldIntro')), targets: [...document.querySelectorAll('.personaStation')].map(box), labels: [...document.querySelectorAll('.personaLabel')].map(box) };
+      });
+      assert.equal(geometry.overflow, false, `Overflow at ${width}`);
+      for (const [index, target] of geometry.targets.entries()) {
+        assert.ok(target.width >= 44 && target.height >= 44, `Touch target at ${width}`);
+        assert.ok(target.top >= geometry.title.bottom, `Title overlap at ${width}`);
+        for (const other of geometry.targets.slice(index + 1)) assert.ok(target.right <= other.left || other.right <= target.left || target.bottom <= other.top || other.bottom <= target.top, `Target overlap at ${width}`);
+        const label = geometry.labels[index];
+        assert.ok(label.left >= target.left && label.right <= target.right && label.bottom <= target.bottom, `Clipped label at ${width}`);
+      }
+      if (width >= 768) assert.ok(geometry.labels.every(label => label.bottom < 900), `Desktop labels below first viewport at ${width}`);
+      if (width === 1440) assert.ok(geometry.labels.every(label => label.bottom < 820), 'Desktop labels should appear earlier');
+      const station = responsive.locator('.personaStation').first();
+      await station.focus();
+      assert.ok(await station.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
+      assert.equal(await responsive.locator('.personaAnimated').first().isVisible(), false);
+      assert.equal(await responsive.locator('.personaStill').first().isVisible(), true);
+      assert.ok(await responsive.locator('.fieldScene').evaluate(el => el.getAnimations({ subtree: true }).every(animation => animation.constructor.name !== 'CSSAnimation')));
+      await responsive.screenshot({ path: `/tmp/portfolio-field-${width}-${dark ? 'dark' : 'light'}.png`, fullPage: false });
+      await responsive.close();
+    }
+  }
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await page.goto(base);
   await page.waitForTimeout(1100);
