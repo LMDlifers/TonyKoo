@@ -29,3 +29,30 @@ body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/fi
   .personaLabel, .personaDescription { background: transparent; padding: 4px; }
   #fieldProof { grid-template-columns: 1fr; }
 }
+
+/* Fixed targets contain the sprite's entire bounded walk. */
+.personaAnimated { display: none; width: 128px; height: 160px; flex-shrink: 0; image-rendering: pixelated; background-size: auto 160px; background-repeat: no-repeat; }
+[data-persona="ai-engineer"] { --idle: url('../images/portfolio-field/ai-engineer-idle.png'); --walk: url('../images/portfolio-field/ai-engineer-walk.png'); }
+[data-persona="researcher"] { --idle: url('../images/portfolio-field/researcher-idle.png'); --walk: url('../images/portfolio-field/researcher-walk.png'); }
+[data-persona="student"] { --idle: url('../images/portfolio-field/student-idle.png'); --walk: url('../images/portfolio-field/student-walk.png'); }
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .fieldScene[data-active="true"] .personaStill { display: none; }
+  .fieldScene[data-active="true"] .personaAnimated {
+    display: block;
+    background-image: var(--idle);
+    animation: personaFrames 8s infinite, personaWalk 8s linear infinite;
+  }
+  .fieldScene[data-active="true"] [data-persona="researcher"] .personaAnimated { animation-delay: -.3s, -2s; }
+  .fieldScene[data-active="true"] [data-persona="student"] .personaAnimated { animation-delay: -.6s, -4s; }
+  .fieldScene[data-active="true"] .personaStation:is(:hover, :focus-within) .personaAnimated { animation-play-state: paused; }
+}
+@keyframes personaFrames {
+  0% { background-image: var(--idle); background-position-x: 0; animation-timing-function: steps(4); }
+  49.999% { background-image: var(--idle); background-position-x: -512px; }
+  50% { background-image: var(--walk); background-position-x: 0; animation-timing-function: steps(6); }
+  100% { background-image: var(--walk); background-position-x: -768px; }
+}
+@keyframes personaWalk {
+  0%, 45%, 100% { transform: translateX(0); }
+  55%, 85% { transform: translateX(16px); }
+}
