@@ -53,6 +53,26 @@ try {
       assert.equal(await responsive.locator('.personaAnimated').first().isVisible(), false);
       assert.equal(await responsive.locator('.personaStill').first().isVisible(), true);
       assert.ok(await responsive.locator('.fieldScene').evaluate(el => el.getAnimations({ subtree: true }).every(animation => animation.constructor.name !== 'CSSAnimation')));
+      if (width < 768) {
+        for (const position of ['start', 'center', 'end']) {
+          await responsive.locator('[data-persona="researcher"]').evaluate((el, block) => el.scrollIntoView({ block }), position);
+          await responsive.waitForTimeout(350);
+          const blocked = await responsive.locator('.personaStation').evaluateAll(stations => {
+            const navBottom = document.querySelector('#navigation').getBoundingClientRect().bottom;
+            return stations.flatMap(station => {
+              const rect = station.getBoundingClientRect();
+              const points = [.2, .5, .8].flatMap(x => [.2, .5, .8].map(y => [rect.left + rect.width * x, rect.top + rect.height * y]));
+              for (const text of station.querySelectorAll('.personaLabel, .personaDescription')) {
+                const label = text.getBoundingClientRect();
+                points.push([label.left + label.width / 2, label.top + label.height / 2]);
+              }
+              return points.filter(([x, y]) => y > navBottom + 4 && y < innerHeight - 4 && !station.contains(document.elementFromPoint(x, y))).map(([x, y]) => ({ persona: station.dataset.persona, x, y, covering: document.elementFromPoint(x, y)?.className }));
+            });
+          });
+          assert.deepEqual(blocked, [], `Mobile persona hit area blocked at ${width}/${position}/${dark ? 'dark' : 'light'}`);
+        }
+        await responsive.evaluate(() => scrollTo(0, 0));
+      }
       await responsive.screenshot({ path: `/tmp/portfolio-field-${width}-${dark ? 'dark' : 'light'}.png`, fullPage: false });
       await responsive.close();
     }
