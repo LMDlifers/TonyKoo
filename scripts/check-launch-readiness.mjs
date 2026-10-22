@@ -138,4 +138,9 @@ for (const unsupportedLabel of [
   assert.doesNotMatch(ibkrVisual, new RegExp(unsupportedLabel));
 }
 
+
+assert.match(html, /id="portfolioField"/);
+assert.match(html, /id="fieldProof"/);
+assert.match(html, /href="css\/portfolio-field.css"/);
+
 console.log("Launch-readiness checks passed.");
