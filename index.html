@@ -122,8 +122,8 @@
             <div class="heroActions" aria-label="Primary actions">
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
                 <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
-                <button class="findAskTrigger findAskHero" type="button" data-find-ask-trigger aria-expanded="false">⌕ Find / Ask</button>
             </div>
+            <p class="heroGuideLine">Curious about the work? <button type="button" data-find-ask-trigger data-find-ask-mode="ask" aria-expanded="false">Ask the portfolio guide <span aria-hidden="true">↗</span></button></p>
             </div>
             <div class="fieldScene" aria-label="Explore my work and background">
                 <a class="personaStation" data-persona="ai-engineer" href="#portfolio">
@@ -177,6 +177,23 @@
                     <p>Semantic caching for lower-cost LLM pipelines</p>
                 </div>
             </div>
+    </section>
+
+    <section class="portfolioGuide" aria-labelledby="portfolioGuideTitle">
+        <div class="portfolioGuideInner">
+            <div class="portfolioGuideCopy">
+                <p class="sectionKicker">A guide to the work</p>
+                <h2 id="portfolioGuideTitle">Ask about a project, method, or result.</h2>
+                <p>The public guide reads this portfolio and research library, then points you to the pages behind its answer.</p>
+                <button class="portfolioGuideButton" type="button" data-find-ask-trigger data-find-ask-mode="ask" aria-expanded="false">Ask the guide <span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="portfolioGuideExamples" aria-label="Example questions">
+                <span>Try asking</span>
+                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="What AI systems has Tony built?" aria-expanded="false">What AI systems has Tony built? <span aria-hidden="true">↗</span></button>
+                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="How does Tony evaluate agents?" aria-expanded="false">How does Tony evaluate agents? <span aria-hidden="true">↗</span></button>
+                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="What does the research cover?" aria-expanded="false">What does the research cover? <span aria-hidden="true">↗</span></button>
+            </div>
+        </div>
     </section>
 
     <!-- Scroll Progress Bar -->

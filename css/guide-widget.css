@@ -1,48 +1,63 @@
-.findAskTrigger{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.45rem .85rem;border:1px solid #a9c0d2;border-radius:999px;background:#fff;color:#18304b;font:700 .82rem Karla,Arial,sans-serif;white-space:nowrap;cursor:pointer}
-.findAskTrigger:hover,.findAskTrigger:focus-visible{border-color:#315986;color:#214c79;box-shadow:0 0 0 3px #31598622}
-.findAskTrigger kbd{padding:.1rem .28rem;border:1px solid #d8e3eb;border-radius:4px;background:#f5f8fa;color:#627891;font:600 .67rem Karla,Arial,sans-serif}
+.findAskTrigger{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.45rem .85rem;border:1px solid #b8ccba;border-radius:999px;background:#fff;color:#24392d;font:700 .82rem Karla,Arial,sans-serif;white-space:nowrap;cursor:pointer}
+.findAskTrigger:hover,.findAskTrigger:focus-visible{border-color:#285b4c;color:#1b473a;box-shadow:0 0 0 3px #285b4c22}
+.findAskTrigger kbd{padding:.1rem .28rem;border:1px solid #dce6da;border-radius:4px;background:#f7f8f2;color:#657668;font:600 .67rem Karla,Arial,sans-serif}
 .findAskHero{display:none}
-.findAskDialog{box-sizing:border-box;width:min(680px,calc(100vw - 32px));max-height:min(760px,calc(100dvh - 32px));margin:auto;padding:0;border:1px solid #c9d8e5;border-radius:18px;background:#fff;color:#18304b;box-shadow:0 30px 90px #122d4b38;font-family:Karla,Arial,sans-serif;overflow:auto}
+.findAskDialog{box-sizing:border-box;width:min(680px,calc(100vw - 32px));max-height:min(760px,calc(100dvh - 32px));margin:auto;padding:0;border:1px solid #d5e1d2;border-radius:18px;background:#fff;color:#24392d;box-shadow:0 30px 90px #1a302238;font-family:Karla,Arial,sans-serif;overflow:auto}
 .findAskDialog *{box-sizing:border-box}
-.findAskDialog::backdrop{background:#10253a8c}
+.findAskDialog::backdrop{background:#0c20148c}
 .findAskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.65rem 1.8rem .2rem}
 .findAskHeader h2{margin:.3rem 0 0;color:inherit;font:700 clamp(1.5rem,3vw,2rem)/1.13 Karla,Arial,sans-serif}
-.findAskEyebrow,.findAskLabel{margin:0;color:#315986;font:700 .68rem/1.3 Karla,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
-.findAskClose{border:0;background:transparent;color:#315986;font:400 1.9rem/1 Karla,Arial,sans-serif;cursor:pointer}
-.findAskIntro{margin:0;padding:.7rem 1.8rem 1rem;color:#526880;font-size:.91rem;line-height:1.5}
-.findAskModes{display:flex;gap:.35rem;margin:0 1.8rem 1rem;border-bottom:1px solid #d8e4ed}
-.findAskModes button{padding:.7rem 1rem;border:0;border-bottom:2px solid transparent;background:transparent;color:#526880;font:700 .9rem Karla,Arial,sans-serif;cursor:pointer}
-.findAskModes button[aria-pressed=true]{border-bottom-color:#315986;color:#18304b}
+.findAskEyebrow,.findAskLabel{margin:0;color:#285b4c;font:700 .68rem/1.3 Karla,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.findAskClose{border:0;background:transparent;color:#285b4c;font:400 1.9rem/1 Karla,Arial,sans-serif;cursor:pointer}
+.findAskIntro{margin:0;padding:.7rem 1.8rem 1rem;color:#576c5c;font-size:.91rem;line-height:1.5}
+.findAskModes{display:flex;gap:.35rem;margin:0 1.8rem 1rem;border-bottom:1px solid #dbe6d9}
+.findAskModes button{padding:.7rem 1rem;border:0;border-bottom:2px solid transparent;background:transparent;color:#576c5c;font:700 .9rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskModes button[aria-pressed=true]{border-bottom-color:#285b4c;color:#24392d}
 .findAskForm{padding:0 1.8rem}
 .findAskForm label{display:block;margin:0 0 .4rem;font-size:.8rem;font-weight:700}
 .findAskForm>div{display:flex;gap:.5rem}
-.findAskForm input{width:100%;min-width:0;min-height:46px;padding:.7rem .8rem;border:1px solid #a9c0d2;border-radius:9px;background:#fff;color:#18304b;font:400 .93rem Karla,Arial,sans-serif}
-.findAskForm button{min-width:86px;border:0;border-radius:9px;background:#315986;color:#fff;font:700 .85rem Karla,Arial,sans-serif;cursor:pointer}
-.findAskForm button:hover{background:#214c79}
+.findAskForm input{width:100%;min-width:0;min-height:46px;padding:.7rem .8rem;border:1px solid #b8ccba;border-radius:9px;background:#fff;color:#24392d;font:400 .93rem Karla,Arial,sans-serif}
+.findAskForm button{min-width:86px;border:0;border-radius:9px;background:#285b4c;color:#fff;font:700 .85rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskForm button:hover{background:#1b473a}
 .findAskForm button:disabled{opacity:.55;cursor:wait}
 .findAskSuggestions{display:flex;flex-wrap:wrap;gap:.5rem;padding:.8rem 1.8rem 1.1rem}
-.findAskSuggestions button{padding:.4rem .7rem;border:1px solid #d4e1ea;border-radius:999px;background:#f6f9fb;color:#315986;font:600 .77rem Karla,Arial,sans-serif;cursor:pointer}
-.findAskSuggestions button:hover{background:#eaf2f8}
-.findAskResults{max-height:min(360px,40dvh);overflow:auto;padding:1rem 1.8rem;border-top:1px solid #e1e9ef;background:#fbfdfe}
+.findAskSuggestions button{padding:.4rem .7rem;border:1px solid #d8e5d8;border-radius:999px;background:#f7f8f2;color:#285b4c;font:600 .77rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskSuggestions button:hover{background:#eaf2e9}
+.findAskResults{max-height:min(360px,40dvh);overflow:auto;padding:1rem 1.8rem;border-top:1px solid #dfe8dc;background:#fbfcf8}
 .findAskResults[hidden]{display:none}
 .findAskMessage{margin:0 0 .8rem;font-size:.9rem;line-height:1.5}
 .findAskLabel{margin-bottom:.7rem}
-.findAskSource{display:block;padding:.8rem 0;border-bottom:1px solid #e1e9ef;color:#18304b;text-decoration:none}
+.findAskSource{display:block;padding:.8rem 0;border-bottom:1px solid #dfe8dc;color:#24392d;text-decoration:none}
 .findAskSource:last-child{border-bottom:0}
-.findAskSource:hover,.findAskSource:focus-visible{color:#214c79;text-decoration:underline}
+.findAskSource:hover,.findAskSource:focus-visible{color:#1b473a;text-decoration:underline}
 .findAskSource small,.findAskSource strong,.findAskSource span{display:block}
-.findAskSource small{color:#42668c;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.findAskSource small{color:#376c55;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
 .findAskSource strong{margin:.18rem 0;font-size:.98rem}
-.findAskSource span{color:#526880;font-size:.81rem;line-height:1.45}
-.findAskFoot{margin:0;padding:1rem 1.8rem 1.25rem;border-top:1px solid #e1e9ef;color:#667c90;font-size:.72rem;line-height:1.4}
-.findAskDialog :focus-visible{outline:3px solid #5294d2;outline-offset:2px}
+.findAskSource span{color:#576c5c;font-size:.81rem;line-height:1.45}
+.findAskFoot{margin:0;padding:1rem 1.8rem 1.25rem;border-top:1px solid #dfe8dc;color:#667969;font-size:.72rem;line-height:1.4}
+.findAskDialog :focus-visible{outline:3px solid #b16d3e;outline-offset:2px}
 @media(max-width:991px){.findAskHero{display:inline-flex}}
 @media(max-width:540px){.findAskTrigger kbd{display:none}.findAskDialog{width:100vw;max-width:none;max-height:100dvh;height:100dvh;border:0;border-radius:0}.findAskHeader{padding:1.2rem 1.1rem .1rem}.findAskIntro{padding:.6rem 1.1rem .9rem}.findAskModes{margin:0 1.1rem .9rem}.findAskForm{padding:0 1.1rem}.findAskSuggestions{padding:.8rem 1.1rem 1rem}.findAskResults{max-height:calc(100dvh - 330px);padding:1rem 1.1rem}.findAskFoot{padding:.9rem 1.1rem 1.2rem}}
-body.dark-mode .findAskTrigger,body.dark-mode .findAskDialog{background:#17283c;color:#e9f1fa;border-color:#49617b}
-body.dark-mode .findAskTrigger kbd,body.dark-mode .findAskSuggestions button{background:#20364d;color:#c9ddf1;border-color:#49617b}
-body.dark-mode .findAskIntro,body.dark-mode .findAskModes button,body.dark-mode .findAskFoot,body.dark-mode .findAskSource span{color:#b1c2d4}
-body.dark-mode .findAskModes,body.dark-mode .findAskResults,body.dark-mode .findAskSource,body.dark-mode .findAskFoot{border-color:#40566d}
-body.dark-mode .findAskModes button[aria-pressed=true],body.dark-mode .findAskSource{color:#e9f1fa}
-body.dark-mode .findAskResults{background:#1d3046}
-body.dark-mode .findAskForm input{background:#20364d;color:#e9f1fa;border-color:#617890}
-body.dark-mode .findAskEyebrow,body.dark-mode .findAskLabel,body.dark-mode .findAskSource small,body.dark-mode .findAskClose{color:#a8d3ff}
+body.dark-mode .findAskTrigger,body.dark-mode .findAskDialog{background:#1b2d22;color:#f1f6ed;border-color:#4c6552}
+body.dark-mode .findAskTrigger kbd,body.dark-mode .findAskSuggestions button{background:#263d2e;color:#d8ebd8;border-color:#4c6552}
+body.dark-mode .findAskIntro,body.dark-mode .findAskModes button,body.dark-mode .findAskFoot,body.dark-mode .findAskSource span{color:#becfbe}
+body.dark-mode .findAskModes,body.dark-mode .findAskResults,body.dark-mode .findAskSource,body.dark-mode .findAskFoot{border-color:#425a47}
+body.dark-mode .findAskModes button[aria-pressed=true],body.dark-mode .findAskSource{color:#f1f6ed}
+body.dark-mode .findAskResults{background:#23382a}
+body.dark-mode .findAskForm input{background:#263d2e;color:#f1f6ed;border-color:#78947c}
+body.dark-mode .findAskEyebrow,body.dark-mode .findAskLabel,body.dark-mode .findAskSource small,body.dark-mode .findAskClose{color:#a8d4b3}
+
+/* A source-backed reading companion, shared by the portfolio and Research. */
+.findAskDialog{border-radius:12px;background:#fffdf8;box-shadow:0 24px 80px rgba(27,52,35,.2)}
+.findAskTrigger{background:#fffdf8}
+.findAskHeader{padding-top:1.8rem}
+.findAskHeader h2{letter-spacing:-.035em}
+.findAskForm input{background:#fff;outline-offset:2px}
+.findAskResults{background:#f8faf4}
+.findAskSource{padding:.75rem .9rem;margin:0 -.9rem;border-radius:7px}
+.findAskSource:hover,.findAskSource:focus-visible{background:#eaf2e9;text-decoration:none}
+.findAskFoot{background:#fffdf8}
+body.dark-mode .findAskDialog,body.dark-mode .findAskTrigger,body.dark-mode .findAskFoot{background:#1b2d22;color:#f1f5ed}
+body.dark-mode .findAskResults{background:#203528}
+body.dark-mode .findAskSource:hover,body.dark-mode .findAskSource:focus-visible{background:#2b4835}
+@media(max-width:540px){.findAskDialog{border-radius:0}}

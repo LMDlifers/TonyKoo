@@ -70,6 +70,10 @@ if (triggers.length) {
     controller = null;
     submit.disabled = false;
     mode = next;
+    dialog.querySelector('#findAskTitle').textContent = mode === 'find' ? 'Find your way in.' : 'Ask the portfolio.';
+    dialog.querySelector('.findAskIntro').textContent = mode === 'find'
+      ? 'Find a project or article in the published work.'
+      : 'Ask about a project, method, or result. Answers link back to public sources.';
     for (const button of modeButtons) button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
     form.querySelector('label').textContent = mode === 'find' ? 'Search published work' : 'Ask about published work';
     submit.textContent = mode === 'find' ? 'Find →' : 'Ask →';
@@ -128,16 +132,24 @@ if (triggers.length) {
     }
   }
 
-  function open() {
+  function open(trigger) {
     if (dialog.open || document.querySelector('dialog[open]')) return;
     previousFocus = document.activeElement;
     dialog.showModal();
     triggers.forEach((button) => button.setAttribute('aria-expanded', 'true'));
+    const requestedMode = trigger?.dataset.findAskMode;
+    if (requestedMode && requestedMode !== mode) setMode(requestedMode);
+    const question = trigger?.dataset.guideQuestion;
+    if (question) {
+      input.value = question;
+      if (mode === 'ask') ask(question);
+      else find(question);
+    }
     input.focus({ preventScroll: true });
     dialog.scrollTop = 0;
   }
 
-  triggers.forEach((button) => button.addEventListener('click', open));
+  triggers.forEach((button) => button.addEventListener('click', () => open(button)));
   dialog.querySelector('.findAskClose').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {
     requestId++;
