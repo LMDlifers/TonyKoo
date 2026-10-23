@@ -21,6 +21,7 @@ try {
       await page.locator('[data-find-ask-trigger]:visible').first().click();
       assert.equal(await page.locator('.findAskDialog').evaluate((node) => node.open), true);
       assert.equal(await page.evaluate(() => document.activeElement?.id), 'findAskQuery');
+      await page.locator('[data-mode="find"]').click();
       await page.locator('#findAskQuery').fill('HNSW');
       await page.locator('.findAskSource').first().waitFor();
       assert.match(await page.locator('.findAskSource').first().textContent(), /data becomes reliable evidence/i);
