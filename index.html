@@ -95,14 +95,7 @@
                     <a class="nav-link" href="#contact" aria-label="Navigate to Contact section">Contact</a>
                 </li>
             </ul>
-
-            <!-- Search Bar -->
-            <div class="search-container ml-auto">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search portfolio..."
-                    aria-label="Search portfolio">
-                <i class="fas fa-search search-icon"></i>
-                <div id="searchResults" class="search-results"></div>
-            </div>
+            <button class="findAskTrigger ml-auto" type="button" data-find-ask-trigger aria-expanded="false">⌕ <span>Find / Ask</span> <kbd>⌘ K</kbd></button>
 
             <!-- Dark Mode Toggle -->
             <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Switch to dark mode">
@@ -129,6 +122,7 @@
             <div class="heroActions" aria-label="Primary actions">
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
                 <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
+                <button class="findAskTrigger findAskHero" type="button" data-find-ask-trigger aria-expanded="false">⌕ Find / Ask</button>
             </div>
             </div>
             <div class="fieldScene" aria-label="Explore my work and background">
@@ -188,22 +182,6 @@
     <!-- Scroll Progress Bar -->
     <div id="scrollProgress"></div>
 
-    <div id="commandPalette" class="commandPalette" aria-hidden="true">
-        <div class="commandPaletteBackdrop" data-command-close></div>
-        <div class="commandPalettePanel" role="dialog" aria-modal="true" aria-labelledby="commandPaletteTitle">
-            <div class="commandPaletteHeader">
-                <i class="fas fa-terminal" aria-hidden="true"></i>
-                <input id="commandPaletteInput" type="text" autocomplete="off"
-                    aria-labelledby="commandPaletteTitle" placeholder="Jump to projects, reports, resume..." />
-                <button type="button" class="commandPaletteClose" data-command-close aria-label="Close command palette">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <p id="commandPaletteTitle" class="commandPaletteTitle">Command Palette</p>
-            <div id="commandPaletteResults" class="commandPaletteResults" role="listbox"></div>
-        </div>
-    </div>
-
     <section id="proof" class="proofSection section" aria-label="Proof section">
         <div class="container">
             <div class="proofHeader">
@@ -260,10 +238,6 @@
                     <p>Designed Transformer, LangChain, and FAISS-backed caching paths for structured extraction and retrieval.</p>
                 </article>
             </div>
-            <button id="commandPaletteTrigger" class="commandTrigger" type="button">
-                <i class="fas fa-search"></i>
-                <span>Open command palette</span>
-            </button>
         </div>
     </section>
 
@@ -309,51 +283,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Quick Jump Sidebar -->
-    <div id="quickJumpSidebar" class="quick-jump-sidebar">
-        <div class="sidebar-toggle" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <nav class="sidebar-nav">
-            <a href="#proof" class="sidebar-link" data-section="proof">
-                <i class="fas fa-signal"></i>
-                <span>Proof</span>
-            </a>
-            <a href="#portfolio" class="sidebar-link" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-                <span>Projects</span>
-            </a>
-            <a href="#writing" class="sidebar-link" data-section="writing">
-                <i class="fas fa-pencil-alt"></i>
-                <span>Writing</span>
-            </a>
-            <a href="#resume" class="sidebar-link" data-section="resume">
-                <i class="fas fa-file-alt"></i>
-                <span>Resume</span>
-            </a>
-            <a href="#evidence" class="sidebar-link" data-section="evidence">
-                <i class="fas fa-photo-video"></i>
-                <span>Evidence</span>
-            </a>
-            <a href="#testimonials" class="sidebar-link" data-section="testimonials">
-                <i class="fas fa-comments"></i>
-                <span>Testimonials</span>
-            </a>
-            <a href="#reading" class="sidebar-link" data-section="reading">
-                <i class="fas fa-book-reader"></i>
-                <span>Reading</span>
-            </a>
-            <a href="research/" class="sidebar-link" aria-label="Open Research essays">
-                <i class="fas fa-flask"></i>
-                <span>Research</span>
-            </a>
-            <a href="#contact" class="sidebar-link" data-section="contact">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </nav>
-    </div>
 
     <section id="about" class="aboutSection section" aria-label="About section">
         <div class="container">
@@ -2039,11 +1968,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Back to Top Button -->
-    <button id="backToTop" aria-label="Back to top" title="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
     <!-- Loading Screen -->
     <div id="loadingScreen">

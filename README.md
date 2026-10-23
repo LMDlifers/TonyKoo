@@ -103,7 +103,7 @@ TonyKoo/
 - **Code Size**: 2,923 lines (HTML + CSS + JS)
 - **Animation Performance**: 60fps target for all transitions
 - **Dark Mode**: localStorage cached for instant preference loading
-- **Search Performance**: Real-time indexing on DOM load with 300ms debounce
+- **Search Performance**: Public-page index loads when Find / Ask opens; Find searches locally and Ask requests a cited answer
 
 ## Browser Support
 | Browser | Support Level |
@@ -238,6 +238,8 @@ rsvg-convert -w 1200 -h 627 \
 After deployment, use LinkedIn Post Inspector to refresh the cached preview.
 
 ### Deployment
+The public portfolio is deployed via GitHub Pages. Its Find / Ask control appears on the homepage and Research hub; articles and reports keep distraction-free reading layouts. The private Engineering Desk is developed and deployed separately from this public repository.
+
 Site is deployed via GitHub Pages:
 - **Repository**: LMDlifers/TonyKoo
 - **Branch**: main
