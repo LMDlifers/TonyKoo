@@ -40,10 +40,10 @@ body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/fi
   .fieldScene[data-active="true"] .personaAnimated {
     display: block;
     background-image: var(--idle);
-    animation: personaFrames 8s infinite, personaWalk 8s linear infinite;
+    animation: personaFrames 4s 1, personaWalk 4s linear 1;
   }
-  .fieldScene[data-active="true"] [data-persona="researcher"] .personaAnimated { animation-delay: -.3s, -2s; }
-  .fieldScene[data-active="true"] [data-persona="student"] .personaAnimated { animation-delay: -.6s, -4s; }
+  .fieldScene[data-active="true"] [data-persona="researcher"] .personaAnimated { animation-delay: -.2s, -.2s; }
+  .fieldScene[data-active="true"] [data-persona="student"] .personaAnimated { animation-delay: -.4s, -.4s; }
   .fieldScene[data-active="true"] .personaStation:is(:hover, :focus-within) .personaAnimated { animation-play-state: paused; }
 }
 @keyframes personaFrames {
@@ -65,11 +65,4 @@ body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/fi
   .personaStation { grid-template-columns: 64px minmax(0, 1fr); }
   .personaLabel, .personaDescription { overflow-wrap: anywhere; }
   .personaStation:is(:hover, :focus-visible) { background: #fffced; }
-}
-
-/* In the narrow entrance, the guide is a secondary action in document flow. */
-@media (max-width: 767px) {
-  #portfolioField > .tkGuide { position: static; padding: 0 6vw 16px; }
-  #portfolioField .tkGuideLaunch { min-height: 44px; font-size: 12px; box-shadow: none; }
-  #portfolioField .tkGuideAvatar { width: 32px; height: 32px; }
 }

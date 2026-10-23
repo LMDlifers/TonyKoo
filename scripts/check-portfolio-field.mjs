@@ -83,8 +83,10 @@ try {
   const scene = page.locator('.fieldScene');
   await scene.scrollIntoViewIfNeeded();
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'true');
+  await scene.evaluate(el => { el.dataset.active = 'false'; void el.offsetWidth; el.dataset.active = 'true'; });
   await page.waitForFunction(() => [...document.querySelectorAll('.personaAnimated')].every(el =>
     el.getAnimations().length === 2 && el.getAnimations().every(animation => animation.playState === 'running')));
+  assert.ok(await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).animationIterationCount.split(', ').every(count => count === '1')));
   const boxes = await page.locator('.personaStation').evaluateAll(els => els.map(el => el.getBoundingClientRect().toJSON()));
   const pose = await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).backgroundPosition);
   await page.waitForTimeout(1150);
@@ -95,6 +97,7 @@ try {
   await page.mouse.move(0, 0);
   await page.screenshot({ path: '/tmp/portfolio-field-motion-0.png' });
   await page.waitForTimeout(4200);
+  assert.ok(await page.locator('.personaAnimated').first().evaluate(el => el.getAnimations().every(animation => animation.playState === 'finished')));
   await page.screenshot({ path: '/tmp/portfolio-field-motion-1.png' });
   await page.evaluate(() => {
     Object.defineProperty(document, 'hidden', { configurable: true, get: () => true });

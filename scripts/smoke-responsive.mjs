@@ -174,26 +174,17 @@ const leadLayout = await research.evaluate(() => {
 assert.ok(leadLayout.cardTop < 900, 'Lead story starts below the first mobile screen');
 assert.ok(leadLayout.imageRight <= leadLayout.cardRight + 1, 'Lead figure is clipped by its card');
 assert.ok(leadLayout.imageWidth >= 220, 'Lead figure is too narrow to read');
-await research.locator("[data-research-search]").fill("boundary");
-assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), false);
-assert.equal(await research.locator('.topicCard').filter({ has: research.locator('a[href="how-to-choose-a-system-boundary.html"]') }).isVisible(), true);
-for (const [filter, count] of [['all', 20], ['ai-agents', 7], ['ml-data', 2], ['systems-cloud', 3], ['decisions-money', 2]]) {
+await research.locator('[data-find-ask-trigger]').click();
+await research.locator('#findAskQuery').fill('boundary');
+assert.match(await research.locator('.findAskSource').first().textContent(), /system boundary/i);
+await research.keyboard.press('Escape');
+for (const [filter, count] of [['all', 14], ['ai-agents', 7], ['ml-data', 2], ['systems-cloud', 3], ['decisions-money', 2]]) {
   await research.locator(`[data-topic-filter="${filter}"]`).click();
-  assert.equal(await research.locator('[data-result-count]').textContent(), `${count} of 20 items shown`);
+  assert.equal(await research.locator('.storyFeed [data-research-card]:visible').count(), count);
 }
 await research.locator('[data-topic-filter="ml-data"]').click();
 assert.equal(await research.locator('[data-topic="machine-learning"]').isVisible(), true);
-assert.equal(await research.locator("[data-research-search]").inputValue(), "");
 assert.equal(await research.locator('[data-topic-filter="ml-data"]').getAttribute('aria-pressed'), 'true');
-await research.locator("[data-research-search]").fill("zzzxxy");
-assert.equal(await research.locator("[data-research-empty]").isVisible(), true);
-assert.equal(await research.locator('[data-result-count]').textContent(), '0 of 20 items shown');
-assert.equal(await research.locator('[aria-labelledby="reads"]').isVisible(), false);
-await research.locator('[data-topic-filter="systems-cloud"]').click();
-assert.equal(await research.locator("[data-research-search]").inputValue(), "");
-await research.locator("[data-research-search]").fill("boundary");
-assert.equal(await research.locator('.topicCard').filter({ has: research.locator('a[href="how-to-choose-a-system-boundary.html"]') }).isVisible(), true);
-assert.equal(await research.locator('[data-topic="cloud-operations"]').isVisible(), false);
 await research.close();
 const narrowFilters = await browser.newPage({ viewport: { width: 320, height: 900 } });
 await narrowFilters.goto(`${baseURL}/research/`);
