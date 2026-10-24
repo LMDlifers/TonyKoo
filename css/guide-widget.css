@@ -61,3 +61,13 @@ body.dark-mode .findAskDialog,body.dark-mode .findAskTrigger,body.dark-mode .fin
 body.dark-mode .findAskResults{background:#203528}
 body.dark-mode .findAskSource:hover,body.dark-mode .findAskSource:focus-visible{background:#2b4835}
 @media(max-width:540px){.findAskDialog{border-radius:0}}
+.findAskLauncher{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:7px;min-height:58px;padding:6px 13px 6px 6px;border:0;border-radius:15px;background:#fffdf8;color:#24392d;box-shadow:0 10px 30px rgba(27,52,35,.22);font:700 .87rem/1.15 Karla,Arial,sans-serif;text-align:left;cursor:pointer}
+.findAskLauncher img{display:block;width:46px;height:46px;image-rendering:pixelated}
+.findAskLauncher span{display:block;white-space:nowrap}
+.findAskLauncher small{display:block;margin-top:4px;color:#576c5c;font:400 .75rem/1.2 Karla,Arial,sans-serif}
+.findAskLauncher:hover{background:#f4f6ed;transform:translateY(-2px)}
+.findAskLauncher:focus-visible{outline:3px solid #b16d3e;outline-offset:3px}
+body.dark-mode .findAskLauncher{background:#1b2d22;color:#f1f6ed}
+body.dark-mode .findAskLauncher small{color:#becfbe}
+body.dark-mode .findAskLauncher:hover{background:#263d2e}
+@media(max-width:540px){.findAskLauncher{right:12px;bottom:max(12px,env(safe-area-inset-bottom));min-height:54px;padding:5px 11px 5px 5px;gap:4px;font-size:.82rem}.findAskLauncher img{width:44px;height:44px}.findAskLauncher small{display:none}}

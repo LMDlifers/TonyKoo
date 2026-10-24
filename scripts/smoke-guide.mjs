@@ -18,9 +18,13 @@ try {
       const errors = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(base + path, { waitUntil: 'domcontentloaded' });
-      await page.locator('[data-find-ask-trigger]:visible').first().click();
+      const launcher = page.locator('.findAskLauncher');
+      assert.equal(await launcher.isVisible(), true);
+      assert.match(await launcher.getAttribute('aria-label'), /Ask me anything/);
+      await launcher.click();
       assert.equal(await page.locator('.findAskDialog').evaluate((node) => node.open), true);
       assert.equal(await page.evaluate(() => document.activeElement?.id), 'findAskQuery');
+      assert.equal(await page.locator('[data-mode="ask"]').getAttribute('aria-pressed'), 'true');
       await page.locator('[data-mode="find"]').click();
       await page.locator('#findAskQuery').fill('HNSW');
       await page.locator('.findAskSource').first().waitFor();
