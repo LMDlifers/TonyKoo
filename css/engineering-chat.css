@@ -90,13 +90,13 @@ button { cursor: pointer; }
 .chatComposer button:disabled { background: #b5c5b7; cursor: not-allowed; }
 .chatComposer button[hidden] { display: none; }
 .composerNote { margin: 9px 3px 0; color: var(--muted); font-size: .72rem; text-align: center; }
-body.dark-mode { --bg:#111512;--surface:#1c241e;--rail:#171d19;--ink:#f1f5ed;--body:#d4dfd3;--muted:#b9cab9;--line:#36473b;--accent:#a8d4b3;--accent-strong:#c5e4c9;--user:#26382b; }
-.dark-mode .newChat:hover, .dark-mode .railNav a:hover, .dark-mode .headerActions button:hover, .dark-mode .menuButton:hover { background: #2c4634; }
-.dark-mode .promptStarts button:hover { border-color: #739c7b; background: #263d2e; }
-.dark-mode .chatComposer button { background: #a8d4b3; color: #15251b; }
-.dark-mode .chatComposer button:hover { background: #c5e4c9; }
-.dark-mode .chatComposer button:disabled { background: #506a55; color: #d4dfd3; }
-.dark-mode .chatComposer textarea::placeholder { color: #b9cab9; }
+body.dark-mode { --bg:#121519;--surface:#20252a;--rail:#191d21;--ink:#f4f6f7;--body:#d5dbe0;--muted:#b4bec7;--line:#3b444c;--accent:#dce5eb;--accent-strong:#fff;--user:#2b3239;--focus:#a5c0d2; }
+.dark-mode .newChat:hover, .dark-mode .railNav a:hover, .dark-mode .headerActions button:hover, .dark-mode .menuButton:hover { background: #303840; }
+.dark-mode .promptStarts button:hover { border-color: #8898a5; background: #2b3239; }
+.dark-mode .chatComposer button { background: #dce5eb; color: #13171a; }
+.dark-mode .chatComposer button:hover { background: #fff; }
+.dark-mode .chatComposer button:disabled { background: #4c5862; color: #d5dbe0; }
+.dark-mode .chatComposer textarea::placeholder { color: #b4bec7; }
 .dark-mode .turnStatus--inference { color: #efc297; }
 .dark-mode .turnStatus--unknown, .dark-mode .turnStatus--error { color: #efb3a2; }
 @media (max-width: 850px) {
@@ -129,3 +129,11 @@ body.dark-mode { --bg:#111512;--surface:#1c241e;--rail:#171d19;--ink:#f1f5ed;--b
 @media (max-width: 360px) { .headerActions a { display: none; } }
 @media (max-height: 700px) { .chatEmpty { justify-content: flex-start; } }
 @media (prefers-reduced-motion: reduce) { .chatScroll { scroll-behavior: auto; } .chatRail { transition: none; } }
+
+/* Embedded chat keeps the reading page visible behind the dialog. */
+body.embedded .chatApp{grid-template-columns:minmax(0,1fr)}
+body.embedded .chatRail,body.embedded .chatHeader{display:none}
+body.embedded .chatMain{min-width:0}
+body.dark-mode .chatComposer{border-color:#56616b;box-shadow:0 7px 24px rgba(0,0,0,.16)}
+body.dark-mode .chatComposer:focus-within{box-shadow:0 0 0 3px rgba(165,192,210,.22)}
+body.dark-mode::selection{background:#586b79;color:#fff}

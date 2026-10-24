@@ -9,7 +9,7 @@ const pages = ['index.html', 'chat/index.html', ...['research', 'reports'].flatM
   fs.readdirSync(new URL(`../${directory}/`, import.meta.url))
     .filter((name) => name.endsWith('.html')).map((name) => `${directory}/${name}`))];
 
-test('mascot chat launcher and quick Find load only on the homepage and Research hub', () => {
+test('chat overlay loads across the site while quick Find stays on the homepage and Research hub', () => {
   for (const page of pages) {
     const html = fs.readFileSync(new URL(page, root), 'utf8');
     const prefix = page === 'index.html' ? '' : '../';
@@ -19,8 +19,12 @@ test('mascot chat launcher and quick Find load only on the homepage and Research
     assert.equal(html.includes('data-find-ask-trigger'), expected, page);
   }
   const widget = fs.readFileSync(new URL('../js/guide-widget.mjs', import.meta.url), 'utf8');
-  assert.match(widget, /images\/portfolio\/tonykoo\.png/);
-  assert.match(widget, /Open AI Engineering Lab chat/);
+  assert.match(widget, /chat-overlay\.mjs/);
+  const overlay = fs.readFileSync(new URL('../js/chat-overlay.mjs', import.meta.url), 'utf8');
+  assert.match(overlay, /images\/portfolio\/tonykoo\.png/);
+  assert.match(overlay, /Open AI Engineering Lab chat/);
+  assert.match(fs.readFileSync(new URL('../js/research.js', import.meta.url), 'utf8'), /chat-overlay\.mjs/);
+  assert.match(fs.readFileSync(new URL('../js/report-theme.js', import.meta.url), 'utf8'), /chat-overlay\.mjs/);
   assert.ok(fs.existsSync(new URL('../chat/index.html', import.meta.url)));
 });
 

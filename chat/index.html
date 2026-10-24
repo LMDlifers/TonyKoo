@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/engineering-chat.css">
 </head>
 <body class="dark-mode">
+  <script>if(new URLSearchParams(location.search).has('embed'))document.body.classList.add('embedded')</script>
   <script>try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
   <a class="skipLink" href="#chatComposer">Skip to chat input</a>
   <div class="chatApp">
