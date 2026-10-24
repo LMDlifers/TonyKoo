@@ -1,7 +1,16 @@
 import { searchSources } from './guide-core.mjs';
 
-const triggers = [...document.querySelectorAll('[data-find-ask-trigger]')];
 const endpoint = 'https://tony-portfolio-guide.assistant-api.workers.dev/ask';
+const launcher = document.createElement('button');
+launcher.className = 'findAskLauncher';
+launcher.type = 'button';
+launcher.dataset.findAskTrigger = '';
+launcher.dataset.findAskMode = 'ask';
+launcher.setAttribute('aria-expanded', 'false');
+launcher.setAttribute('aria-label', 'Ask me anything about Tony’s work');
+launcher.innerHTML = `<img src="${new URL('../images/portfolio/tonykoo.png', import.meta.url)}" alt="" width="50" height="50"><span>Ask me<small>about the work</small></span>`;
+document.body.append(launcher);
+const triggers = [...document.querySelectorAll('[data-find-ask-trigger]')];
 
 if (triggers.length) {
   const dialog = document.createElement('dialog');
