@@ -211,3 +211,15 @@ body.dark-mode{--ink:#f1f5ed;--body:#d4dfd3;--muted:#bacabc;--line:#425a47;--sur
 body.dark-mode a:hover{color:#d2ead5}
 body.dark-mode .conceptFigure{background:#203528}
 body.dark-mode .researchNavLinks button{background:#1b2d22;color:#f1f5ed}
+
+/* The reading path now introduces the essays, not follows them. */
+.researchHero + .readingPath { margin-top: 1.35rem; }
+.readingPath + .researchSection { margin-top: 2rem; }
+@media (max-width: 850px) {
+  .articleToc summary { min-height: 44px; display: list-item; align-content: center; }
+  .articleToc a { min-height: 44px; display: flex; align-items: center; }
+}
+@media (max-width: 620px) {
+  .readingPath .researchMap a { min-height: 72px; }
+  .researchNavLinks a, .researchNavLinks button { min-height: 44px; display: inline-flex; align-items: center; }
+}

@@ -717,23 +717,6 @@
     </section>
 
 
-    <section class="portfolioGuide" aria-labelledby="portfolioGuideTitle">
-        <div class="portfolioGuideInner">
-            <div class="portfolioGuideCopy">
-                <p class="sectionKicker">A guide to the work</p>
-                <h2 id="portfolioGuideTitle">Ask about a project, method, or result.</h2>
-                <p>The public guide reads this portfolio and research library, then points you to the pages behind its answer.</p>
-                <button class="portfolioGuideButton" type="button" data-find-ask-trigger data-find-ask-mode="ask" aria-expanded="false">Ask the guide <span aria-hidden="true">↗</span></button>
-            </div>
-            <div class="portfolioGuideExamples" aria-label="Example questions">
-                <span>Try asking</span>
-                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="What AI systems has Tony built?" aria-expanded="false">What AI systems has Tony built? <span aria-hidden="true">↗</span></button>
-                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="How does Tony evaluate agents?" aria-expanded="false">How does Tony evaluate agents? <span aria-hidden="true">↗</span></button>
-                <button type="button" data-find-ask-trigger data-find-ask-mode="ask" data-guide-question="What does the research cover?" aria-expanded="false">What does the research cover? <span aria-hidden="true">↗</span></button>
-            </div>
-        </div>
-    </section>
-
     <section id="proof" class="proofSection section" aria-label="Proof section">
         <div class="container">
             <div class="proofHeader">
@@ -1499,21 +1482,6 @@
         </p>
         <p class="sectionIntro"><a href="research/">Explore the AI Engineering Research guides and curated reading →</a></p>
         <div class="container">
-            <div class="writingHubGrid" aria-label="Writing types">
-                <article class="writingTypeCard">
-                    <span>Technical notes</span>
-                    <p>Implementation lessons on retrieval, caching, latency, cost, and guardrails.</p>
-                </article>
-                <article class="writingTypeCard">
-                    <span>Project case studies</span>
-                    <p>Sanitized reports that show problem framing, architecture, trade-offs, and evidence boundaries.</p>
-                </article>
-                <article class="writingTypeCard">
-                    <span>Research-style papers</span>
-                    <p>Structured writeups with abstract, method, evaluation design, limitations, and next steps.</p>
-                </article>
-            </div>
-
             <div class="row justify-content-center writingArticleGrid">
                 <div class="col-md-6 col-lg-4">
                     <article class="writingCard">
@@ -1763,46 +1731,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <div class="loader">
-            <div class="spinner"></div>
-            <p class="loading-text">Loading Portfolio...</p>
-            <p id="loadingFact" class="loading-fact">Preparing a few systems-thinking notes...</p>
-        </div>
-    </div>
-
-    <script>
-        (function () {
-            var loadingScreen = document.getElementById("loadingScreen");
-            if (!loadingScreen) return;
-
-            function hideFallbackLoader() {
-                loadingScreen.classList.add("hidden");
-            }
-
-            function restoreHashTarget() {
-                if (!window.location.hash) return;
-
-                var target = document.getElementById(window.location.hash.slice(1));
-                if (target) {
-                    target.scrollIntoView({ block: "start" });
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                window.setTimeout(function () {
-                    hideFallbackLoader();
-                    restoreHashTarget();
-                }, 450);
-            });
-            window.setTimeout(function () {
-                hideFallbackLoader();
-                restoreHashTarget();
-            }, 1000);
-        })();
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

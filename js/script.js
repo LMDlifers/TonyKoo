@@ -31,58 +31,7 @@ $(document).ready(function () {
     );
   }
 
-  // Loading Screen
-  const loadingFacts = [
-    "Fun fact: FAISS makes similarity search over embeddings fast enough for practical retrieval workflows.",
-    "Fun fact: Bass diffusion models split adoption into innovation effects and imitation effects.",
-    "Fun fact: behavioral finance studies how psychology leaks into market prices.",
-    "Fun fact: a yield curve is a compact snapshot of market expectations across maturities.",
-    "Fun fact: human review gates make AI workflows easier to audit when decisions are sensitive.",
-    "Fun fact: scenario analysis is less about predicting one future and more about stress-testing assumptions.",
-  ];
-  const loadingFact = $("#loadingFact");
-  let loadingFactIndex = Math.floor(Math.random() * loadingFacts.length);
-  let loadingFactTimer;
-
   $(".filterItemImg").attr("loading", "lazy").attr("decoding", "async");
-  let loadingScreenHidden = false;
-  const loadingStartedAt = Date.now();
-  const minimumLoadingTime = prefersReducedMotion ? 0 : 350;
-
-  function showLoadingFact(index) {
-    if (!loadingFact.length) return;
-
-    loadingFact.addClass("fact-changing");
-    setTimeout(function () {
-      loadingFact.text(loadingFacts[index]);
-      loadingFact.removeClass("fact-changing");
-    }, 180);
-  }
-
-  showLoadingFact(loadingFactIndex);
-  if (!prefersReducedMotion) {
-    loadingFactTimer = setInterval(function () {
-      loadingFactIndex = (loadingFactIndex + 1) % loadingFacts.length;
-      showLoadingFact(loadingFactIndex);
-    }, 1200);
-  }
-
-  function hideLoadingScreen() {
-    if (loadingScreenHidden) return;
-
-    const elapsed = Date.now() - loadingStartedAt;
-    const remainingTime = Math.max(minimumLoadingTime - elapsed, 0);
-
-    setTimeout(function () {
-      if (loadingScreenHidden) return;
-      loadingScreenHidden = true;
-      $("#loadingScreen").addClass("hidden");
-      clearInterval(loadingFactTimer);
-    }, remainingTime);
-  }
-
-  $(window).on("load", hideLoadingScreen);
-  setTimeout(hideLoadingScreen, prefersReducedMotion ? 100 : 900);
 
   // Dark Mode Toggle
   const darkModeToggle = $("#darkModeToggle");

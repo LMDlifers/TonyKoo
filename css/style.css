@@ -5646,20 +5646,6 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
 .heroGuideLine button { border: 0; padding: 0; margin-left: .28rem; background: none; color: var(--lab-accent); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
 .heroGuideLine button:hover { color: var(--lab-accent-hover); }
 .heroGuideLine button:focus-visible, .portfolioGuide button:focus-visible { outline: 3px solid #b16d3e; outline-offset: 3px; }
-.portfolioGuide { padding: clamp(2.5rem, 5vw, 4.5rem) 6vw; background: #fffdf8; border-top: 1px solid var(--lab-line); border-bottom: 1px solid var(--lab-line); }
-.portfolioGuideInner { max-width: 1120px; margin: auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
-.portfolioGuideCopy h2 { max-width: 650px; margin: 0 0 .8rem; color: var(--lab-ink); font: 700 clamp(2rem, 3.3vw, 3.1rem)/1.08 'Karla', sans-serif; letter-spacing: -.035em; }
-.portfolioGuideCopy>p:not(.sectionKicker) { max-width: 570px; margin: 0 0 1.3rem; color: var(--lab-muted); font-size: 1rem; line-height: 1.65; }
-.portfolioGuideButton { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--lab-accent); border-radius: 7px; background: var(--lab-accent); color: var(--lab-on-accent); font: 700 .9rem 'Karla', sans-serif; cursor: pointer; }
-.portfolioGuideButton:hover { background: var(--lab-accent-hover); }
-.portfolioGuideExamples { border-left: 1px solid var(--lab-line); padding-left: clamp(1.5rem, 4vw, 3.5rem); }
-.portfolioGuideExamples>span { display: block; margin: 0 0 .55rem; color: var(--lab-accent); font: 700 .7rem 'Karla', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-.portfolioGuideExamples button { display: flex; width: 100%; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .95rem 0; border: 0; border-bottom: 1px solid var(--lab-line); background: none; color: var(--lab-ink); text-align: left; font: 700 .98rem 'Karla', sans-serif; cursor: pointer; }
-.portfolioGuideExamples button:hover { color: var(--lab-accent); }
-.portfolioGuideExamples button span { color: var(--lab-accent); }
-body.dark-mode .portfolioGuide { background: #152019; }
-@media (max-width: 700px) { .portfolioGuideInner { grid-template-columns: 1fr; gap: 1.8rem; } .portfolioGuideExamples { border-left: 0; border-top: 1px solid var(--lab-line); padding: 1.4rem 0 0; } }
-
 /* Keep the homepage concise while retaining the complete résumé on demand. */
 .resumeDownload {
     margin: 0 auto 1.5rem;
@@ -5695,3 +5681,15 @@ body.dark-mode .portfolioGuide { background: #152019; }
 }
 .proofGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 900px) { .proofGrid { grid-template-columns: 1fr; } }
+
+/* Let the writing itself lead; compact the cards on small screens. */
+@media (max-width: 700px) {
+    .writingSection { padding-block: 3.5rem; }
+    .writingSection .sectionIntro { margin-bottom: .65rem; }
+    .writingArticleGrid { row-gap: 0; }
+    .writingCard { margin: .55rem 0; padding: 1.1rem; }
+    .writingThumb { margin: -1.1rem -1.1rem .8rem; }
+    .writingThumb img { aspect-ratio: 2 / 1; }
+    .writingTitle { margin-bottom: .45rem; }
+    .writingMeta, .writingExcerpt, .writingTags { margin-bottom: .65rem; }
+}
