@@ -5615,10 +5615,10 @@ body.dark-mode #loadingScreen::before {
     --lab-card-shadow: 0 16px 54px rgba(39, 58, 45, 0.08);
 }
 body.dark-mode {
-    --lab-bg: #111a16;
-    --lab-bg-soft: #19251e;
-    --lab-panel: rgba(27, 40, 32, 0.88);
-    --lab-panel-solid: #202e25;
+    --lab-bg: #111512;
+    --lab-bg-soft: #1a211b;
+    --lab-panel: rgba(28, 36, 30, 0.92);
+    --lab-panel-solid: #1c261f;
     --lab-ink: #f2f5ee;
     --lab-muted: #bacabc;
     --lab-dim: #a0b2a3;
@@ -5630,22 +5630,23 @@ body.dark-mode {
     --lab-on-accent: #15251b;
 }
 #navigation { background: rgba(251, 250, 246, 0.94); box-shadow: 0 8px 28px rgba(39, 58, 45, 0.06); }
-body.dark-mode #navigation { background: rgba(17, 26, 22, 0.94); }
+body.dark-mode #navigation { background: rgba(17, 21, 18, 0.96); }
+body.dark-mode #navigation .navbar-toggler { color: var(--lab-ink); }
 #heroSection {
     background: radial-gradient(circle at 83% 18%, rgba(139, 170, 130, 0.13), transparent 32%), linear-gradient(135deg, #fbfaf6 0%, #f0f4ec 65%, #fffdf8 100%);
 }
-body.dark-mode #heroSection { background: radial-gradient(circle at 83% 18%, rgba(146, 187, 149, 0.12), transparent 32%), linear-gradient(135deg, #111a16 0%, #19251e 100%); }
+body.dark-mode #heroSection { background: radial-gradient(circle at 83% 18%, rgba(146, 187, 149, 0.08), transparent 32%), linear-gradient(135deg, #111512 0%, #1a211b 100%); }
 .proofSection { background: linear-gradient(180deg, #fbfaf6 0%, #f0f4ec 100%); }
-body.dark-mode .proofSection { background: linear-gradient(180deg, #111a16 0%, #19251e 100%); }
+body.dark-mode .proofSection { background: linear-gradient(180deg, #111512 0%, #1a211b 100%); }
 #loadingScreen { background: linear-gradient(135deg, #fbfaf6 0%, #f0f4ec 100%); }
 body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, #19251e 100%); }
 .heroButtonPrimary { box-shadow: 0 16px 36px rgba(40, 91, 76, 0.2); }
 .dark-mode-toggle, body.dark-mode .dark-mode-toggle, .sidebar-toggle, body.dark-mode .sidebar-toggle, #backToTop, body.dark-mode #backToTop { box-shadow: 0 10px 26px rgba(40, 91, 76, 0.16); }
 
 .heroGuideLine { margin: 1.2rem 0 0; color: var(--lab-muted); font: 400 .92rem/1.5 'Karla', sans-serif; }
-.heroGuideLine button { border: 0; padding: 0; margin-left: .28rem; background: none; color: var(--lab-accent); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
-.heroGuideLine button:hover { color: var(--lab-accent-hover); }
-.heroGuideLine button:focus-visible, .portfolioGuide button:focus-visible { outline: 3px solid #b16d3e; outline-offset: 3px; }
+.heroGuideLine a { margin-left: .28rem; color: var(--lab-accent); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+.heroGuideLine a:hover { color: var(--lab-accent-hover); }
+.heroGuideLine a:focus-visible, .navFindButton:focus-visible { outline: 3px solid #b16d3e; outline-offset: 3px; }
 /* Keep the homepage concise while retaining the complete résumé on demand. */
 .resumeDownload {
     margin: 0 auto 1.5rem;
@@ -5693,3 +5694,5 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
     .writingTitle { margin-bottom: .45rem; }
     .writingMeta, .writingExcerpt, .writingTags { margin-bottom: .65rem; }
 }
+
+.navFindButton { border: 0; background: transparent; cursor: pointer; font: inherit; }

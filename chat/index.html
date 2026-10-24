@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ask source-backed questions about AI engineering, software design, and Tony Koo's published work.">
+  <title>AI Engineering Lab | Tony Koo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/engineering-chat.css">
+</head>
+<body class="dark-mode">
+  <script>try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
+  <a class="skipLink" href="#chatComposer">Skip to chat input</a>
+  <div class="chatApp">
+    <aside class="chatRail" id="chatRail" aria-label="Chat navigation">
+      <div class="railTop">
+        <a class="railBrand" href="../index.html"><img src="../images/portfolio/tonykoo.png" alt="" width="38" height="38"><span>Tony Koo <small>AI Engineering Lab</small></span></a>
+        <button class="railClose" id="railClose" type="button" aria-label="Close navigation"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      </div>
+      <button class="newChat" id="newChat" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New chat</button>
+      <nav class="railNav" aria-label="Explore the site">
+        <span class="railLabel">Explore</span>
+        <a href="../research/">Research articles</a>
+        <a href="../index.html#portfolio">Projects</a>
+        <a href="../index.html#writing">Technical writing</a>
+      </nav>
+      <div class="railBottom">
+        <p>Answers use Tony’s published pages. The AI guide cannot inspect your repository or act on your behalf.</p>
+        <a href="../research/">Browse the sources <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+    <button class="railShade" id="railShade" type="button" aria-label="Close navigation" hidden></button>
+    <main class="chatMain" id="main">
+      <canvas class="glyphField" id="glyphField" aria-hidden="true"></canvas>
+      <header class="chatHeader">
+        <button class="menuButton" id="menuButton" type="button" aria-label="Open navigation" aria-controls="chatRail" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="headerTitle"><strong>AI Engineering Lab</strong><span>Source-backed conversations</span></div>
+        <div class="headerActions"><a href="../research/">Research</a><button id="themeToggle" type="button" aria-label="Switch to dark mode" title="Change theme"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button></div>
+      </header>
+      <div class="chatScroll" id="chatScroll">
+        <section class="chatEmpty" id="chatEmpty" aria-labelledby="welcomeTitle">
+          <img src="../images/portfolio/tonykoo.png" alt="" width="56" height="56">
+          <h1 id="welcomeTitle">What are you working through?</h1>
+          <p>Explore an AI concept or pressure-test a software design. The guide answers from published sources and shows what supports its answer.</p>
+          <div class="promptStarts" aria-label="Ideas to start with">
+            <button type="button" data-prompt="Explain how RAG evaluation differs from testing an agent workflow."><strong>Explain a concept</strong><span>RAG evaluation versus agent testing</span></button>
+            <button type="button" data-prompt="Review this design: a document-processing agent reads uploaded PDFs, writes results to a database, and sends an email. What boundaries and tests should I add?"><strong>Review a design</strong><span>Find boundaries and useful tests</span></button>
+            <button type="button" data-prompt="When should I use a simple workflow instead of a multi-agent system?"><strong>Compare approaches</strong><span>Workflow versus multi-agent system</span></button>
+          </div>
+        </section>
+        <div class="chatTurns" id="chatTurns" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation"></div>
+      </div>
+      <div class="composerDock">
+        <form class="chatComposer" id="chatComposer">
+          <label class="visuallyHidden" for="chatInput">Message the AI Engineering Lab</label>
+          <textarea id="chatInput" name="question" rows="1" maxlength="400" placeholder="Ask about AI or software…" required></textarea>
+          <button class="sendButton" id="sendButton" type="submit" aria-label="Send message" disabled><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5m0 0-6 6m6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="stopButton" id="stopButton" type="button" aria-label="Stop response" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor"/></svg></button>
+        </form>
+        <p class="composerNote">This chat stays in your tab. Verify cited sources; avoid private data.</p>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="../js/engineering-chat.mjs"></script>
+</body>
+</html>

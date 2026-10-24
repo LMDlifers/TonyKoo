@@ -6,9 +6,9 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = sorted((ROOT / 'research').glob('*.html')) + sorted((ROOT / 'reports').glob('*.html'))
 KEYWORDS = {
-    'research/how-agent-loops-work.html': 'agent loops ReAct Reflexion Self-Refine CRITIC ReWOO Ralph tree of thoughts LATS best of N router debate human in the loop context compaction planning',
+    'research/how-agent-loops-work.html': 'agent loops multi-agent subagents orchestration coordination when to use workflow ReAct Reflexion Self-Refine CRITIC ReWOO Ralph tree of thoughts LATS best of N router debate human in the loop context compaction planning',
     'research/how-coding-agents-find-and-change-code.html': 'coding agent harness model tools sandbox context state verification code navigation',
-    'research/how-to-prove-an-agent-works.html': 'agent evaluation evals metrics testing validated success baselines',
+    'research/how-to-prove-an-agent-works.html': 'agent workflow evaluation evals metrics testing validated success baselines',
     'research/when-agents-need-search.html': 'agent search reasoning tree of thoughts MCTS when to use deliberate search',
     'research/when-an-ml-model-is-ready.html': 'research model evaluation validation baseline leakage deployment readiness',
     'reports/faiss-caching-llm-cost-latency.html': 'FAISS semantic cache freshness fallback gate similarity confidence',

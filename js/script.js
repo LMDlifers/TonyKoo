@@ -37,9 +37,7 @@ $(document).ready(function () {
   const darkModeToggle = $("#darkModeToggle");
   const body = $("body");
 
-  if (localStorage.getItem("darkMode") === "enabled") {
-    body.addClass("dark-mode");
-  }
+  if (localStorage.getItem("darkMode") === "disabled") body.removeClass("dark-mode");
 
   function syncThemeToggle() {
     const isDark = body.hasClass("dark-mode");

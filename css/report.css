@@ -974,3 +974,28 @@ body { background: #fbfaf6; color: var(--report-body); }
   .reportNav a:first-child { flex: 1; }
   .reportNav a:last-child { flex: 0 0 auto; background: transparent; }
 }
+
+/* A dark reading surface that preserves the original, light-backed figures. */
+.reportThemeButton { min-height: 44px; margin-left: auto; padding: 8px 14px; border: 1px solid var(--report-line); border-radius: 9px; background: var(--report-surface); color: var(--report-blue); font: 700 14px Karla,Arial,sans-serif; cursor: pointer; }
+.reportThemeButton:hover { border-color: var(--report-blue); }
+.reportThemeButton:focus-visible { outline: 3px solid #b16d3e; outline-offset: 3px; }
+body.dark-mode { --report-ink:#f1f5ed;--report-body:#d4dfd3;--report-muted:#b9cab9;--report-blue:#a8d4b3;--report-blue-soft:#283b2d;--report-line:#36473b;--report-surface:#1c241e;--report-warm:#111512;--report-shadow:none; background:#111512; color:var(--report-body); }
+body.dark-mode :is(h1,h2,h3,.signalValue,.thoughtCard strong,.flowNode strong,.matrixCell strong,.sequenceStep strong,.modelCard strong,.noteCard strong,.sourceFigure figcaption strong) { color:var(--report-ink); }
+body.dark-mode :is(.reportHero,.reportSection,.reportTldr,.sourceFigure,.researchFigure,.demoVideo,.reportHeroVisual,.visualEvidenceItem) { background:#1c241e; border-color:var(--report-line); box-shadow:none; }
+body.dark-mode .reportHero { background:linear-gradient(145deg,#1c241e 0%,#202b23 100%); }
+body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.flowNode,.matrixCell,.sequenceStep,.modelCard,.noteCard,.referenceItem,.chartPanel,.thoughtCard) { background:#222d25; border-color:var(--report-line); }
+body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]) { background:#283b2d; border-color:#547d5d; box-shadow:none; }
+body.dark-mode :is(.reportNav a,.reportThemeButton) { background:#1c241e; border-color:var(--report-line); color:var(--report-blue); }
+body.dark-mode :is(.reportNav a,.reportThemeButton):hover { background:#283b2d; }
+body.dark-mode :is(.reportSubtitle,.reportTldrHeader p,.reportTldrItem p,.fieldNote p,.sourceFigure figcaption,.reportHeroVisual figcaption,.visualCaption,.researchCredit,.researchConnection,.demoVideoCaption p,.decisionTable td,.chartLabel,.chartMeta,.referenceItem,.thoughtCard span) { color:var(--report-body); }
+body.dark-mode :is(.signalLabel,.flowNode span,.matrixCell span,.sequenceStep span,.modelCard span,.noteCard span,.matrixAxis,.reportFooter) { color:var(--report-muted); }
+body.dark-mode :is(.reportEyebrow,.reportTldrLabel,.diagramTitle,.fieldNoteLabel,.demoVideoLabel,.researchLabel,.referenceItem a,.researchCredit a,.researchConnection a,.visualCaption a,.demoVideoCaption a,.videoTranscript summary) { color:var(--report-blue); }
+body.dark-mode :is(.reportMeta span,.tag,.licenseNote,.decisionTable th) { background:#283b2d; border-color:var(--report-line); color:var(--report-blue); }
+body.dark-mode .reportHeroAction { background:var(--report-blue); border-color:var(--report-blue); color:#15251b; }
+body.dark-mode .reportHeroAction:hover { background:#c5e4c9; color:#15251b; }
+body.dark-mode :is(.sourceFigure img,.researchFigure img,.reportHeroVisual img,.visualEvidenceItem img,.reportFigureLink) { background:#fff; }
+body.dark-mode :is(.reportHeroVisual figcaption,.sourceFigure figcaption,.demoVideoCaption,.videoTranscript,.decisionTable th,.decisionTable td,.researchFigure img,.tableWrap) { border-color:var(--report-line); }
+body.dark-mode .chartTrack { background:#344c39; }
+body.dark-mode a { color:var(--report-blue); }
+@media(max-width:820px){ .reportThemeButton { flex:0 0 auto; padding:.6rem .75rem; font-size:.84rem; } }
+@media print { body.dark-mode { background:#fff; color:#24312b; } .reportThemeButton { display:none; } }

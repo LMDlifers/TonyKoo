@@ -31,6 +31,10 @@ test('search returns no source for an unrelated question', () => {
   assert.deepEqual(searchSources('What is Tony’s favourite food?', sources), []);
 });
 
+test('evaluation wording finds the evaluation guide', () => {
+  assert.equal(searchSources('How are agents evaluated?', sources)[0]?.id, 'agent-evals');
+});
+
 test('excerpt includes the matching passage without exceeding its limit', () => {
   const excerpt = excerptForQuery(sources[0].text, 'freshness', 80);
   assert.match(excerpt, /freshness gate/);
