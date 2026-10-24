@@ -20,11 +20,15 @@ try {
       await page.goto(base + path, { waitUntil: 'domcontentloaded' });
       const launcher = page.locator('.findAskLauncher');
       assert.equal(await launcher.isVisible(), true);
-      assert.match(await launcher.getAttribute('aria-label'), /Ask me anything/);
+      assert.match(await launcher.getAttribute('aria-label'), /Open AI Engineering Lab chat/);
       await launcher.click();
+      assert.match(page.url(), /\/chat\/$/);
+      await page.goBack();
+      if (path === '/' && width < 992) await page.locator('.navbar-toggler').click();
+      await page.locator('[data-find-ask-trigger]').click();
       assert.equal(await page.locator('.findAskDialog').evaluate((node) => node.open), true);
       assert.equal(await page.evaluate(() => document.activeElement?.id), 'findAskQuery');
-      assert.equal(await page.locator('[data-mode="ask"]').getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('[data-mode="find"]').getAttribute('aria-pressed'), 'true');
       await page.locator('[data-mode="find"]').click();
       await page.locator('#findAskQuery').fill('HNSW');
       await page.locator('.findAskSource').first().waitFor();

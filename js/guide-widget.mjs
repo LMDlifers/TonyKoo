@@ -1,14 +1,11 @@
 import { searchSources } from './guide-core.mjs';
 
 const endpoint = 'https://tony-portfolio-guide.assistant-api.workers.dev/ask';
-const launcher = document.createElement('button');
+const launcher = document.createElement('a');
 launcher.className = 'findAskLauncher';
-launcher.type = 'button';
-launcher.dataset.findAskTrigger = '';
-launcher.dataset.findAskMode = 'ask';
-launcher.setAttribute('aria-expanded', 'false');
-launcher.setAttribute('aria-label', 'Ask me anything about Tony’s work');
-launcher.innerHTML = `<img src="${new URL('../images/portfolio/tonykoo.png', import.meta.url)}" alt="" width="50" height="50"><span>Ask me<small>about the work</small></span>`;
+launcher.href = new URL('../chat/', import.meta.url).href;
+launcher.setAttribute('aria-label', 'Open AI Engineering Lab chat');
+launcher.innerHTML = `<img src="${new URL('../images/portfolio/tonykoo.png', import.meta.url)}" alt="" width="50" height="50"><span>Ask me<small>in the lab</small></span>`;
 document.body.append(launcher);
 const triggers = [...document.querySelectorAll('[data-find-ask-trigger]')];
 
@@ -35,7 +32,7 @@ if (triggers.length) {
       <button type="button" data-example="How are agents evaluated?" data-example-mode="ask">How are agents evaluated?</button>
     </div>
     <div class="findAskResults" aria-live="polite" hidden></div>
-    <p class="findAskFoot">The AI guide uses Tony’s public pages and cites them. It is not Tony; check the linked work for details.</p>`;
+    <p class="findAskFoot">The AI guide uses Tony’s public pages and cites them. It is not Tony; check the linked work for details. <a href="${new URL('../chat/', import.meta.url)}">Open the full chat →</a></p>`;
   document.body.append(dialog);
 
   const form = dialog.querySelector('form');

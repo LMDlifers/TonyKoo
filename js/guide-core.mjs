@@ -7,7 +7,12 @@ const STOP_WORDS = new Set([
 function words(value) {
   return (String(value).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [])
     .filter((word) => word.length > 2 && !STOP_WORDS.has(word))
-    .map((word) => word.length > 4 && word.endsWith('s') ? word.slice(0, -1) : word);
+    .map((word) => {
+      if (/^evaluat/.test(word) || /^evals?$/.test(word)) return 'evaluat';
+      if (/^validat/.test(word)) return 'validat';
+      if (/^test(?:s|ed|ing)?$/.test(word)) return 'test';
+      return word.length > 4 && word.endsWith('s') ? word.slice(0, -1) : word;
+    });
 }
 
 export function searchSources(query, sources, limit = 6) {
@@ -20,7 +25,7 @@ export function searchSources(query, sources, limit = 6) {
     const matchedTerms = terms.filter((term) => fields.some((field) => field.includes(term)));
     const score = matchedTerms.reduce((total, term) =>
       total + fields.reduce((sum, field, index) =>
-        sum + (field.includes(term) ? [5, 4, 3, 1][index] : 0), 0), 0);
+        sum + (field.includes(term) ? [5, 10, 3, 1][index] : 0), 0), 0);
     return { source, score, matchedTerms: matchedTerms.length };
   }).filter(({ score, matchedTerms }) => score > 0 && matchedTerms >= Math.min(2, terms.length))
     .sort((a, b) => b.score - a.score || a.source.title.localeCompare(b.source.title))

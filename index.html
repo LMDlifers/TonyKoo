@@ -61,7 +61,8 @@
     <link rel="stylesheet" href="css/guide-widget.css">
 </head>
 
-<body>
+<body class="dark-mode">
+    <script>try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
     <nav id="navigation" class="shadow-sm navbar navbar-expand-lg" role="navigation" aria-label="Main navigation">
         <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Tony Koo - Home">
             <img src="images/portfolio/tonykoo.png" alt="Tony Koo Logo" width="30" height="30"
@@ -84,6 +85,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="research/" aria-label="Open AI Engineering Research">Research</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="chat/" aria-label="Open AI Engineering Lab chat">Chat</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link navFindButton" type="button" data-find-ask-trigger data-find-ask-mode="find" aria-expanded="false">Find</button>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#resume" aria-label="Navigate to Resume section">Resume</a>
@@ -118,7 +125,7 @@
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
                 <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
             </div>
-            <p class="heroGuideLine">Curious about the work? <button type="button" data-find-ask-trigger data-find-ask-mode="ask" aria-expanded="false">Ask the portfolio guide <span aria-hidden="true">↗</span></button></p>
+            <p class="heroGuideLine">Curious about the work? <a href="chat/">Ask the AI Engineering Lab <span aria-hidden="true">↗</span></a></p>
             </div>
             <div class="fieldScene" aria-label="Explore my work and background">
                 <a class="personaStation" data-persona="ai-engineer" href="#portfolio">

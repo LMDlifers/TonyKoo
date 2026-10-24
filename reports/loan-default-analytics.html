@@ -15,7 +15,8 @@
 
 </head>
 
-<body>
+<body class="dark-mode">
+    <script>try{if(localStorage.getItem("darkMode")==="disabled")document.body.classList.remove("dark-mode")}catch(_){}</script>
     <main class="reportShell">
         <nav class="reportNav" aria-label="Report navigation">
             <a href="../index.html#portfolio">← Projects</a>
@@ -495,6 +496,7 @@
         </p>
     </main>
 
+    <script src="../js/report-theme.js" defer></script>
 </body>
 
 </html>
