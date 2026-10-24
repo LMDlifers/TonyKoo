@@ -1,3 +1,4 @@
+import('./chat-overlay.mjs');
 (() => {
   const toggle = document.querySelector('[data-theme-toggle]');
   try { if (localStorage.getItem('darkMode') !== 'disabled') document.body.classList.add('dark-mode'); } catch (_) { document.body.classList.add('dark-mode'); }

@@ -1,3 +1,4 @@
+import('./chat-overlay.mjs');
 (() => {
   const nav = document.querySelector('.reportNav');
   if (!nav) return;

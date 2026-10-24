@@ -1,12 +1,7 @@
 import { searchSources } from './guide-core.mjs';
+import './chat-overlay.mjs';
 
 const endpoint = 'https://tony-portfolio-guide.assistant-api.workers.dev/ask';
-const launcher = document.createElement('a');
-launcher.className = 'findAskLauncher';
-launcher.href = new URL('../chat/', import.meta.url).href;
-launcher.setAttribute('aria-label', 'Open AI Engineering Lab chat');
-launcher.innerHTML = `<img src="${new URL('../images/portfolio/tonykoo.png', import.meta.url)}" alt="" width="50" height="50"><span>Ask me<small>in the lab</small></span>`;
-document.body.append(launcher);
 const triggers = [...document.querySelectorAll('[data-find-ask-trigger]')];
 
 if (triggers.length) {

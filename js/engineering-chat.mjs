@@ -201,7 +201,18 @@ function closeRail() { rail.classList.remove('isOpen'); shade.hidden = true; men
 menuButton.addEventListener('click', openRail);
 document.querySelector('#railClose').addEventListener('click', closeRail);
 shade.addEventListener('click', closeRail);
-document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && rail.classList.contains('isOpen')) closeRail(); });
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  if (rail.classList.contains('isOpen')) closeRail();
+  else if (window.parent !== window) window.parent.postMessage({ type: 'tony-chat-close' }, location.origin);
+});
+document.addEventListener('click', (event) => {
+  if (!document.body.classList.contains('embedded')) return;
+  const link = event.target.closest?.('a[href]');
+  if (!link || link.target === '_blank' || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  window.top.location.assign(link.href);
+});
 try { if (localStorage.getItem('darkMode') === 'disabled') document.body.classList.remove('dark-mode'); } catch {}
 const glyphField = startGlyphField(document.querySelector('#glyphField'), document.querySelector('#main'), scrollEl);
 function updateTheme() {

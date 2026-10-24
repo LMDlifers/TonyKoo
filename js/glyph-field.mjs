@@ -31,7 +31,7 @@ export function startGlyphField(canvas, main, scroll) {
   function draw(now) {
     context.clearRect(0, 0, width, height);
     const dark = document.body.classList.contains('dark-mode');
-    const color = dark ? '168, 212, 179' : '59, 101, 74';
+    const color = dark ? '176, 195, 210' : '86, 107, 122';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.font = '13px ui-monospace, SFMono-Regular, Menlo, monospace';
