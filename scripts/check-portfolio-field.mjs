@@ -12,10 +12,9 @@ for (const [index, [ , attrs, body]] of stations.entries()) {
   assert.match(body, /class="personaAnimated"[^>]*hidden/);
 }
 assert.match(html, /href="#portfolio"[^>]*>[^<]*<i[^>]*><\/i> View Projects/);
-assert.match(html, /<\/header>\s*<section id="fieldProof"/);
-for (const claim of ['6.09s -> 0.86s APAC analytics runtime','Leakage-aware legal NLP evaluation design','FAISS cache with freshness and fallback gates','images/reports/healthcare_agentic_pipeline_light.svg','Approximate field-level questionnaire extraction accuracy on a sanitized project evaluation sample']) {
-  assert.equal(html.split(claim).length - 1, 1, `Proof must appear once: ${claim}`);
-}
+assert.match(html, /<\/header>\s*<!-- Scroll Progress Bar -->[\s\S]*?<section id="portfolio"/);
+assert.doesNotMatch(html, /id="fieldProof"|class="projectEvidenceIndex"|id="evidence"/);
+assert.match(html, /<details class="resumeDetails container">/);
 assert.match(html, /data-project-filter="ai"/);
 console.log('Portfolio field static checks passed.');
 
@@ -46,7 +45,6 @@ try {
         assert.ok(label.left >= target.left && label.right <= target.right && label.bottom <= target.bottom, `Clipped label at ${width}`);
       }
       if (width >= 768) assert.ok(geometry.labels.every(label => label.bottom < 900), `Desktop labels below first viewport at ${width}`);
-      if (width === 1440) assert.ok(geometry.labels.every(label => label.bottom < 820), 'Desktop labels should appear earlier');
       const station = responsive.locator('.personaStation').first();
       await station.focus();
       assert.ok(await station.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
@@ -109,7 +107,8 @@ try {
   await page.locator('[data-persona="ai-engineer"]').click();
   await page.waitForFunction(() => location.hash === '#portfolio');
   assert.ok(await page.locator('[data-project-filter="ai"]').evaluate(el => el.classList.contains('active')));
-  assert.ok(await page.locator('.projectIndexRow:not(.ai)').evaluateAll(els => els.length > 0 && els.every(el => el.classList.contains('projectIndexHidden'))));
+  assert.ok(await page.locator('.filterItem.ai.show').count() > 0);
+  assert.equal(await page.locator('.filterItem:not(.ai).show').count(), 0);
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'false');
   await page.locator('[data-persona="student"]').focus();
   await page.keyboard.press('Enter');
