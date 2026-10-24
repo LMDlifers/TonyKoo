@@ -175,6 +175,7 @@ assert.ok(leadLayout.cardTop < 900, 'Lead story starts below the first mobile sc
 assert.ok(leadLayout.imageRight <= leadLayout.cardRight + 1, 'Lead figure is clipped by its card');
 assert.ok(leadLayout.imageWidth >= 220, 'Lead figure is too narrow to read');
 await research.locator('[data-find-ask-trigger]').click();
+await research.locator('[data-mode="find"]').click();
 await research.locator('#findAskQuery').fill('boundary');
 assert.match(await research.locator('.findAskSource').first().textContent(), /system boundary/i);
 await research.keyboard.press('Escape');
