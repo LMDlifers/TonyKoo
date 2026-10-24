@@ -114,7 +114,7 @@ for (const pagePath of pages) {
         ".heroSubtitle",
         ".heroPositioning",
         ".heroActions",
-        "#fieldProof",
+        "#portfolio",
         ".fieldIntro",
         ".fieldScene",
         ".personaStation",

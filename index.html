@@ -77,9 +77,6 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#proof" aria-label="Navigate to Proof section">Proof</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#portfolio" aria-label="Navigate to Projects section">Projects</a>
                 </li>
                 <li class="nav-item">
@@ -147,37 +144,580 @@
             </div>
         </div>
     </header>
-    <section id="fieldProof" aria-label="Selected portfolio evidence">
-        <aside class="heroEvidencePanel" aria-label="Featured portfolio evidence">
-            <div class="heroEvidenceHeader">
-                <span>Evidence Board</span>
-                <strong>Agentic analytics, legal NLP, quant tooling</strong>
-            </div>
-            <div class="heroEvidenceMedia">
-                <img src="images/reports/healthcare_agentic_pipeline_light.svg"
-                    alt="Agentic healthcare analytics pipeline preview">
-            </div>
-            <div class="heroEvidenceRows" aria-label="Selected project proof">
-                <span>6.09s -> 0.86s APAC analytics runtime</span>
-                <span>Leakage-aware legal NLP evaluation design</span>
-                <span>FAISS cache with freshness and fallback gates</span>
-            </div>
-        </aside>
-            <div class="heroMetrics" aria-label="Selected proof metrics">
-                <div class="heroMetric">
-                    <span>6.09s to 0.86s</span>
-                    <p>APAC correlation analytics optimization</p>
-                </div>
-                <div class="heroMetric">
-                    <span>~90%</span>
-                    <p>Approximate field-level questionnaire extraction accuracy on a sanitized project evaluation sample</p>
-                </div>
-                <div class="heroMetric">
-                    <span>FAISS + RAG</span>
-                    <p>Semantic caching for lower-cost LLM pipelines</p>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress"></div>
+
+    <!-- FEATURED PROJECTS -->
+    <section id="portfolio" class="portfolioSection section" aria-label="Portfolio section">
+        <h2 class="sectionTitle">Featured Projects</h2>
+        <p class="sectionIntro">
+            Public-safe summaries structured for fast review: problem, build, evidence boundary, stack, and deeper
+            case-study notes.
+        </p>
+        <div class="container">
+            <!-- Control buttons -->
+            <div class="row">
+                <div id="filter" class="col-md-12 text-center">
+                    <button class="btn active" onclick="filterSelection('all')">All</button>
+                    <button class="btn" data-project-filter="ai" onclick="filterSelection('ai')">AI</button>
+                    <button class="btn" onclick="filterSelection('quant')">Quant</button>
+                    <button class="btn" onclick="filterSelection('data')">Data</button>
+                    <button class="btn" onclick="filterSelection('apps')">Apps</button>
+                    <button class="btn" onclick="filterSelection('research')">Research</button>
                 </div>
             </div>
+
+            <div class="projectDeck" data-project-deck aria-label="Project flashcard browser">
+                <div class="projectDeckHeader">
+                    <div>
+                        <p class="projectDeckEyebrow">Project Browser</p>
+                        <h3>My Projects</h3>
+                    </div>
+                    <div class="projectDeckControls" aria-label="Project deck controls">
+                        <div class="projectViewSwitch" role="group" aria-label="Project view">
+                            <button class="projectViewButton active" type="button" data-project-view="deck"
+                                aria-pressed="true">Deck</button>
+                            <button class="projectViewButton" type="button" data-project-view="grid"
+                                aria-pressed="false">Grid</button>
+                        </div>
+                        <div class="projectDeckNavGroup" aria-label="Project deck browsing">
+                            <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="projectDeckCounter" class="projectDeckCounter">1 / 1</span>
+                            <button class="projectDeckNav projectDeckNext" type="button" aria-label="Next project">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <article class="projectDeckCard" aria-live="polite">
+                    <div class="projectDeckMedia">
+                        <img id="projectDeckImage" src="images/portfolio/healthcare_agentic.png"
+                            alt="Agentic healthcare analytics architecture">
+                    </div>
+                    <div class="projectDeckContent">
+                        <div id="projectDeckCategories" class="projectDeckCategories"></div>
+                        <h3 id="projectDeckTitle">Agentic Healthcare Analytics Chatbot</h3>
+                        <div class="projectDeckRows">
+                            <div>
+                                <span>Problem</span>
+                                <p id="projectDeckProblem">Clinical and research users need auditable healthcare data
+                                    workflows.</p>
+                            </div>
+                            <div>
+                                <span>Method</span>
+                                <p id="projectDeckBuilt">Multi-agent analytics workflow with routing, SQL, statistics,
+                                    charts, and human review.</p>
+                            </div>
+                            <div>
+                                <span>Evidence</span>
+                                <p id="projectDeckEvidence">Sanitized capstone-backed summary with private data
+                                    excluded.</p>
+                            </div>
+                        </div>
+                        <div class="projectDeckReviewerNotes" aria-label="Reviewer notes">
+                            <div>
+                                <span>Evaluation</span>
+                                <p id="projectDeckEvaluation">Review SQL trace quality, answer usefulness, and human approval boundaries before production.</p>
+                            </div>
+                            <div>
+                                <span>Limits</span>
+                                <p id="projectDeckLimitations">Public version excludes private data and does not claim clinical deployment.</p>
+                            </div>
+                        </div>
+                        <div id="projectDeckTech" class="projectDeckTech"></div>
+                        <div class="projectDeckActions">
+                            <a id="projectDeckLink" class="projectDeckLink" href="#">
+                                Open project detail
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <div id="projectDeckRail" class="projectDeckRail" aria-label="Select a project"></div>
+            </div>
+
+            <div id="projectGridWrap" class="projectGridWrap projectGridCollapsed">
+                <div class="row justify-content-center itemsContainer">
+                <!-- Agentic Healthcare Analytics -->
+                <div class="item">
+                    <div class="filterItem ai data research">
+                        <img class="filterItemImg" src="images/portfolio/healthcare_agentic.png"
+                            alt="Agentic healthcare analytics architecture">
+                        <div class="filterItemContent">
+                            <h3 class="filterItemName">Agentic Healthcare Analytics Chatbot</h3>
+
+                            <span class="filterItemProblem">
+                                <strong>Problem:</strong> Clinical and research users need auditable ways to ask
+                                natural-language questions over complex healthcare data without losing traceability.
+                            </span>
+
+                            <span class="filterItemArchitecture">
+                                <strong>Built:</strong> Designed a multi-agent analytics workflow for intent routing,
+                                SQL generation, feature engineering, statistical testing, charting, and human review
+                                checkpoints before results are returned.
+                            </span>
+
+                            <span class="filterItemResults">
+                                <strong>Evidence:</strong> Sanitized from capstone documentation only. Public summary
+                                excludes private partner references, reviewer details, personal identifiers, and raw
+                                data examples.
+                            </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">LangGraph</span>
+                                <span class="techBadge">SQL</span>
+                                <span class="techBadge">Agentic AI</span>
+                                <span class="techBadge">Healthcare Analytics</span>
+                                <span class="techBadge">Auditability</span>
+                                <span class="techBadge">Human-in-the-Loop</span>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/agentic-healthcare-analytics.html">
+                                    <i class="fas fa-file-alt"></i> Read sanitized report
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Judicial Analytics -->
+                <div class="item">
+                    <div class="filterItem ai data research">
+                        <img class="filterItemImg" src="images/portfolio/judicial_analytics.png"
+                            alt="Judicial analytics NLP pipeline">
+                        <div class="filterItemContent">
+                            <h3 class="filterItemName">Judicial Analytics: Legal NLP</h3>
+
+                            <span class="filterItemProblem">
+                                <strong>Problem:</strong> Litigation risk assessment requires structured features from
+                                lengthy judgments while avoiding hindsight bias and target leakage.
+                            </span>
+
+                            <span class="filterItemArchitecture">
+                                <strong>Built:</strong> Created a legal text analytics pipeline with feature extraction,
+                                temporal isolation, leakage checks, Legal-BERT embeddings, and model benchmarking
+                                against traditional ML baselines.
+                            </span>
+
+                            <span class="filterItemResults">
+                                <strong>Evidence:</strong> Public version describes architecture and methods only.
+                                Raw judgments, private metadata, and evaluator details are not published.
+                            </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">NLP</span>
+                                <span class="techBadge">Legal-BERT</span>
+                                <span class="techBadge">XGBoost</span>
+                                <span class="techBadge">Feature Engineering</span>
+                                <span class="techBadge">Leakage Control</span>
+                                <span class="techBadge">Model Evaluation</span>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/judicial-analytics-legal-nlp.html">
+                                    <i class="fas fa-file-alt"></i> Read sanitized report
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self-Reflective RL -->
+                <div class="item">
+                    <div class="filterItem ai data">
+                        <img class="filterItemImg" src="images/portfolio/self_rl_pipeline.png"
+                            alt="Self-RL and RAG extraction pipeline visual">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">Self-RL &amp; RAG Extraction Pipelines</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Convert unstructured PDF and questionnaire content into
+                                    reliable structured outputs while controlling LLM latency and cost.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Architected RAG pipelines with Transformers, LangChain, and
+                                    FAISS-backed semantic caching. Added computer-vision extraction and a data-efficient
+                                    self-RL loop for iterative output improvement.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Resume-backed internship project. Public version avoids
+                                    proprietary datasets, raw documents, contact details, and internal implementation
+                                    screenshots.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Python</span>
+                                <span class="techBadge">Reinforcement Learning</span>
+                                <span class="techBadge">NLP</span>
+                                <span class="techBadge">RAG</span>
+                                <span class="techBadge">LLMs</span>
+                                <span class="techBadge">FAISS</span>
+                                <span class="techBadge">asyncio</span>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/faiss-caching-llm-cost-latency.html">
+                                    <i class="fas fa-file-alt"></i> Read technical note
+                                </a>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IBKR team project -->
+                <div class="item">
+                    <div class="filterItem apps quant">
+                        <img class="filterItemImg" src="images/portfolio/ibkr_mean_reversion.svg"
+                            alt="IBKR mean-reversion research prototype workflow">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">IBKR Mean-Reversion Trading Prototype</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Team project.</strong> <strong>Problem:</strong> Explore SPY mean reversion using historical IBKR data and a
+                                    transparent Ornstein–Uhlenbeck signal model.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Tony's contribution:</strong> Implemented and refined the Ornstein–Uhlenbeck
+                                    strategy, mean-reversion speed and signal calculations, equity adaptation,
+                                    historical-data flow, and project documentation in a two-contributor repository.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence boundary:</strong> The public code demonstrates a research prototype
+                                    with IBKR connectivity; it does not substantiate live profitability, production
+                                    deployment, or walk-forward results.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Python</span>
+                                <span class="techBadge">ib_insync</span>
+                                <span class="techBadge">pandas</span>
+                                <span class="techBadge">NumPy</span>
+                                <span class="techBadge">SciPy</span>
+                            </div>
+                            </div>
+                            <p class="filterItemDesc">
+                                <strong>Links:</strong>
+                                <a class="filterItemLink" href="https://github.com/df-Nic/Trading-Algo"
+                                    target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> Team repository
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RentLock dApp -->
+                <div class="item">
+                    <div class="filterItem apps data research">
+                        <img class="filterItemImg" src="images/portfolio/rentlock_dapp.png"
+                            alt="RentLock escrow dApp workflow">
+                        <div class="filterItemContent">
+                            <h3 class="filterItemName">RentLock: Smart Contract Escrow dApp</h3>
+
+                            <span class="filterItemProblem">
+                                <strong>Problem:</strong> Rental deposits create trust and custody problems when funds
+                                are held off-chain by one party without transparent settlement rules.
+                            </span>
+
+                            <span class="filterItemArchitecture">
+                                <strong>Built:</strong> Designed a decentralized escrow workflow with lease lifecycle
+                                states, ERC-20-style test tokens, verifier escalation, frontend-contract integration,
+                                and evidence anchoring as a future extension.
+                            </span>
+
+                            <span class="filterItemResults">
+                                <strong>Evidence:</strong> Sanitized from project report. Public card excludes teammate
+                                references, academic identifiers, screenshots with private accounts, and unredacted
+                                report pages.
+                            </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Smart Contracts</span>
+                                <span class="techBadge">ERC-20</span>
+                                <span class="techBadge">Escrow Logic</span>
+                                <span class="techBadge">MetaMask</span>
+                                <span class="techBadge">Frontend Integration</span>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/rentlock-escrow-dapp.html">
+                                    <i class="fas fa-file-alt"></i> Read sanitized report
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smoodee -->
+                <div class="item">
+                    <div class="filterItem apps research">
+                        <img class="filterItemImg" src="images/portfolio/Smoodee.jpg"
+                            alt="Smoodee Sustainability Startup">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">Smoodee - Sustainable Food Tech Startup</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Reduce food waste by transforming blemished produce into
+                                    value-added products while optimizing supply chain logistics.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Co-founded sustainability startup focused on circular
+                                    economy principles. Developed supply chain optimization model, business analytics
+                                    dashboard, and partnered with local farms and food banks. Built full-stack web
+                                    platform for customer orders and inventory management.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Included as entrepreneurship and product-building work.
+                                    Public summary avoids customer data, partner details, and unverifiable operating
+                                    metrics.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Entrepreneurship</span>
+                                <span class="techBadge">Supply Chain</span>
+                                <span class="techBadge">Web Development</span>
+                                <span class="techBadge">Business Analytics</span>
+                                <span class="techBadge">Sustainability</span>
+                            </div>
+                            </div>
+                            <p class="filterItemDesc">
+                                <strong>Links:</strong>
+                                <a class="filterItemLink" href="https://smoodee.sg/">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loan Default Analytics Project -->
+                <div class="item">
+                    <div class="filterItem data ai research">
+                        <img class="filterItemImg" src="images/portfolio/loan_default_analytics.png"
+                            alt="Loan default analytics dashboard visual">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">Loan Default Analytics Pipeline</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Estimate credit default risk from structured borrower and
+                                    loan features while keeping the modelling process interpretable for business users.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Designed a big-data analytics workflow covering data
+                                    cleaning, feature engineering, model training, model comparison, and communication
+                                    of risk drivers through business-facing analysis.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> The public site keeps only a sanitized project summary
+                                    and does not link the raw PDF or private submission material.
+                                </span>
+
+                                <div class="filterItemTech">
+                                    <span class="techBadge">Python</span>
+                                    <span class="techBadge">PySpark</span>
+                                    <span class="techBadge">Apache Spark</span>
+                                    <span class="techBadge">Tableau</span>
+                                    <span class="techBadge">MySQL</span>
+                                    <span class="techBadge">Big Data</span>
+                                    <span class="techBadge">ETL Pipelines</span>
+                                </div>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/loan-default-analytics.html">
+                                    <i class="fas fa-file-alt"></i> Read sanitized report
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FairTracker Application -->
+                <div class="item">
+                    <div class="filterItem apps">
+                        <img class="filterItemImg" src="images/portfolio/fairtracker_platform.png"
+                            alt="FairTracker event platform map interface visual">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">FairTracker: Event Management &amp; Analytics Platform</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Develop a geospatial event tracking application to help
+                                    users discover and manage local events with real-time location services and crowd
+                                    analytics.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Built full-stack web application with interactive mapping
+                                    interface using Google Maps API. Implemented real-time geolocation tracking, event
+                                    clustering algorithms, user authentication system, and MySQL database for event
+                                    persistence. Features distance-based filtering and category organization.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Included as an application engineering project. Public
+                                    summary avoids user data, deployment claims, and analytics numbers that are not
+                                    backed by public logs.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">JavaScript</span>
+                                <span class="techBadge">Google Maps API</span>
+                                <span class="techBadge">Bootstrap</span>
+                                <span class="techBadge">MySQL</span>
+                                <span class="techBadge">RESTful APIs</span>
+                                <span class="techBadge">Geospatial Data</span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WelfareHome Website -->
+                <div class="item">
+                    <div class="filterItem apps">
+                        <img class="filterItemImg" src="images/portfolio/welfarehome_platform.png"
+                            alt="WelfareHome operations platform dashboard visual">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">WelfareHome: Social Impact Web Platform</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Build a comprehensive web platform for elderly care
+                                    services, streamlining appointment booking, resource management, and communication
+                                    between caregivers and families.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Developed full-stack web application with responsive
+                                    design using Bootstrap. Implemented backend with RESTful APIs, MySQL database for
+                                    user and appointment management, and secure authentication with role-based access
+                                    control for different user types.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Presented as a social-impact application build. Public
+                                    version avoids beneficiary data and removes unsupported production/user metrics.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Full-stack Development</span>
+                                <span class="techBadge">MySQL</span>
+                                <span class="techBadge">Bootstrap</span>
+                                <span class="techBadge">RESTful APIs</span>
+                                <span class="techBadge">UX Design</span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yield Curve Construction Models -->
+                <div class="item">
+                    <div class="filterItem quant data">
+                        <img class="filterItemImg" src="images/portfolio/yield_curve.png"
+                            alt="Yield Curve Construction Models">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">Fixed Income Analytics: Yield Curve Modeling</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Implement multiple yield curve construction models
+                                    (Nelson-Siegel, Svensson, Monotone Convex) to enhance fixed income pricing accuracy
+                                    for institutional clients in energy derivatives markets.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Developed Python-based yield curve fitting algorithms
+                                    using NumPy and SciPy for numerical optimization. Integrated VBA with Excel for
+                                    seamless trading system integration. Implemented Nelson-Siegel and Svensson
+                                    parametric models plus monotone convex interpolation for smooth curve generation.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Resume-backed quantitative development work. The public
+                                    card keeps proprietary pricing details out while retaining the reproducible technical
+                                    framing and the documented 6.09s to 0.86s optimization result.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Python</span>
+                                <span class="techBadge">NumPy</span>
+                                <span class="techBadge">SciPy</span>
+                                <span class="techBadge">VBA</span>
+                                <span class="techBadge">Financial Mathematics</span>
+                                <span class="techBadge">Quantitative Finance</span>
+                                <span class="techBadge">Fixed Income</span>
+                            </div>
+                            <p class="filterItemReport">
+                                <a class="filterItemLink" href="reports/yield-curve-quant-engineering-notes.html">
+                                    <i class="fas fa-file-alt"></i> Read quant note
+                                </a>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options Pricing Calculator -->
+                <div class="item">
+                    <div class="filterItem apps quant">
+                        <img class="filterItemImg" src="images/portfolio/options_pricing.png"
+                            alt="Options Pricing Calculator Dashboard">
+                        <div class="filterItemContent">
+                            <div class="filterItemDesc">
+                                <h3 class="filterItemName">Black-Scholes Options Analytics Dashboard</h3>
+
+                                <span class="filterItemProblem">
+                                    <strong>Problem:</strong> Build an interactive options pricing calculator with
+                                    real-time Greeks visualization, enabling traders to analyze option strategies and
+                                    risk exposure across multiple scenarios.
+                                </span>
+
+                                <span class="filterItemArchitecture">
+                                    <strong>Built:</strong> Developed Python-based options analytics tool using
+                                    Black-Scholes model implementation with NumPy. Created interactive web dashboard
+                                    with Streamlit, featuring Plotly for 3D Greeks surface visualization. Added Monte
+                                    Carlo simulation capabilities for exotic options pricing.
+                                </span>
+
+                                <span class="filterItemResults">
+                                    <strong>Evidence:</strong> Research-style quantitative finance prototype covering
+                                    comprehensive Greeks calculation (Delta, Gamma, Vega, Theta, Rho), volatility smile
+                                    analysis, and strategy comparison tools (straddles, strangles, butterflies) with
+                                    scenario heatmaps.
+                                </span>
+
+                            <div class="filterItemTech">
+                                <span class="techBadge">Python</span>
+                                <span class="techBadge">NumPy</span>
+                                <span class="techBadge">pandas</span>
+                                <span class="techBadge">Streamlit</span>
+                                <span class="techBadge">Plotly</span>
+                                <span class="techBadge">Stochastic Calculus</span>
+                                <span class="techBadge">Options Theory</span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
 
     <section class="portfolioGuide" aria-labelledby="portfolioGuideTitle">
         <div class="portfolioGuideInner">
@@ -196,48 +736,17 @@
         </div>
     </section>
 
-    <!-- Scroll Progress Bar -->
-    <div id="scrollProgress"></div>
-
     <section id="proof" class="proofSection section" aria-label="Proof section">
         <div class="container">
             <div class="proofHeader">
-                <p class="sectionKicker">Selected work</p>
-                <h2>Systems I can explain, defend, and improve.</h2>
+                <p class="sectionKicker">Selected outcomes</p>
+                <h2>Evidence behind the work.</h2>
                 <p>
-                    Start with a problem you recognize. Each case study shows the design choices, measured outcomes,
-                    and boundaries that would matter when adapting the idea to a new team or product.
+                    These examples show the result and its boundary. Open a project above for the method,
+                    assumptions, and fuller context.
                 </p>
             </div>
-            <div class="reviewerScan" aria-label="Reviewer quick scan">
-                <article>
-                    <span>What I build</span>
-                    <h3>AI, data, and quant decision systems</h3>
-                    <p>For teams working through agentic analytics, trustworthy retrieval, and quantitative engineering decisions.</p>
-                </article>
-                <article>
-                    <span>Evidence</span>
-                    <h3>Metrics, methods, and boundaries</h3>
-                    <p>Speedups, extraction accuracy, leakage-aware evaluation, and public-safe reports with limitations stated.</p>
-                </article>
-                <article>
-                    <span>Fast path</span>
-                    <h3>Projects, writing, and a conversation</h3>
-                    <p>
-                        <a href="#portfolio">Review projects</a>
-                        <a href="#writing">Read notes</a>
-                        <a href="./files/Resume_TonyKooYeLong.pdf" target="_blank" rel="noopener">Resume</a>
-                        <a href="#contact">Contact</a>
-                    </p>
-                </article>
-            </div>
             <div class="proofGrid">
-                <article class="proofCard proofCardPrimary">
-                    <span class="proofLabel">Agentic analytics</span>
-                    <h3>Healthcare chatbot architecture</h3>
-                    <p>Multi-agent workflow for natural-language SQL, statistical review, charting, and human checkpoints.</p>
-                    <a href="reports/agentic-healthcare-analytics.html">Read case study</a>
-                </article>
                 <article class="proofCard">
                     <span class="proofMetric">0.86s</span>
                     <h3>Quant analytics latency</h3>
@@ -254,49 +763,6 @@
                     <h3>Lower-cost LLM pipelines</h3>
                     <p>Designed Transformer, LangChain, and FAISS-backed caching paths for structured extraction and retrieval.</p>
                 </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="evidence" class="visualStorySection section" aria-label="Visual evidence gallery">
-        <div class="container">
-            <div class="visualStoryHeader">
-                <p class="sectionKicker">Visual evidence</p>
-                <h2>Project pages that show the work, not just describe it.</h2>
-                <p>
-                    Major case studies now pair written method notes with owned diagrams, slide-derived artifacts,
-                    short muted demos, and licensed research references where reuse is clear.
-                </p>
-            </div>
-            <div class="visualStoryGrid">
-                <a class="visualStoryCard" href="reports/agentic-healthcare-analytics.html">
-                    <img src="images/portfolio/healthcare_agentic.png"
-                        alt="Agentic healthcare analytics visual with intent router, SQL agent, stats agent, and clinician review">
-                    <span>Agent workflow</span>
-                    <h3>Healthcare analytics with review gates</h3>
-                    <p>Hero visual, architecture diagram, HITL flow, ReAct/Reflexion research cards, and demo clip.</p>
-                </a>
-                <a class="visualStoryCard" href="reports/judicial-analytics-legal-nlp.html">
-                    <img src="images/portfolio/judicial_analytics.png"
-                        alt="Legal NLP visual with judgments, feature extraction, Legal-BERT, and case metrics">
-                    <span>Evaluation design</span>
-                    <h3>Legal NLP without leakage theater</h3>
-                    <p>Extraction architecture, HAN diagram, model-results artifact, leakage walkthrough, and field note.</p>
-                </a>
-                <a class="visualStoryCard" href="reports/faiss-caching-llm-cost-latency.html">
-                    <img src="images/portfolio/self_rl_pipeline.png"
-                        alt="Self-RL and RAG extraction pipeline visual with FAISS cache and JSON output">
-                    <span>Systems cost</span>
-                    <h3>FAISS cache decisions with fallback logic</h3>
-                    <p>Semantic-cache evidence, Reflexion/ReAct paper cards, and a short cache decision demo.</p>
-                </a>
-                <a class="visualStoryCard" href="reports/yield-curve-quant-engineering-notes.html">
-                    <img src="images/portfolio/yield_curve.png"
-                        alt="Yield curve modeling visual with an upward-sloping term structure">
-                    <span>Quant tooling</span>
-                    <h3>Yield curves to risk-aware tooling</h3>
-                    <p>Curve artifact, IBKR architecture visual, assumptions-to-risk demo, and conservative deployment boundary.</p>
-                </a>
             </div>
         </div>
     </section>
@@ -408,7 +874,11 @@
                 </article>
             </div>
         </div>
+        <p class="resumeDownload"><a href="./files/Resume_TonyKooYeLong.pdf" target="_blank" rel="noopener">Download résumé PDF <span aria-hidden="true">↗</span></a></p>
 
+        <details class="resumeDetails container">
+            <summary>View full experience, education, and skills</summary>
+            <div class="resumeDetailsInner">
         <!-- EXPERIENCE -->
         <h3 class="sectionTagline">Work Experience</h3>
         <div class="container resumeTimelineWrap">
@@ -745,699 +1215,9 @@
             </div>
         </div>
 
-    </section>
-
-    <!-- FEATURED PROJECTS -->
-    <section id="portfolio" class="portfolioSection section" aria-label="Portfolio section">
-        <h2 class="sectionTitle">Featured Projects</h2>
-        <p class="sectionIntro">
-            Public-safe summaries structured for fast review: problem, build, evidence boundary, stack, and deeper
-            case-study notes.
-        </p>
-        <div class="container">
-            <!-- Control buttons -->
-            <div class="row">
-                <div id="filter" class="col-md-12 text-center">
-                    <button class="btn active" onclick="filterSelection('all')">All</button>
-                    <button class="btn" data-project-filter="ai" onclick="filterSelection('ai')">AI</button>
-                    <button class="btn" onclick="filterSelection('quant')">Quant</button>
-                    <button class="btn" onclick="filterSelection('data')">Data</button>
-                    <button class="btn" onclick="filterSelection('apps')">Apps</button>
-                    <button class="btn" onclick="filterSelection('research')">Research</button>
-                </div>
             </div>
+        </details>
 
-            <div class="projectDeck" data-project-deck aria-label="Project flashcard browser">
-                <div class="projectDeckHeader">
-                    <div>
-                        <p class="projectDeckEyebrow">Project Browser</p>
-                        <h3>My Projects</h3>
-                    </div>
-                    <div class="projectDeckControls" aria-label="Project deck controls">
-                        <div class="projectViewSwitch" role="group" aria-label="Project view">
-                            <button class="projectViewButton active" type="button" data-project-view="deck"
-                                aria-pressed="true">Deck</button>
-                            <button class="projectViewButton" type="button" data-project-view="grid"
-                                aria-pressed="false">Grid</button>
-                        </div>
-                        <div class="projectDeckNavGroup" aria-label="Project deck browsing">
-                            <button class="projectDeckNav projectDeckPrev" type="button" aria-label="Previous project">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <span id="projectDeckCounter" class="projectDeckCounter">1 / 1</span>
-                            <button class="projectDeckNav projectDeckNext" type="button" aria-label="Next project">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <article class="projectDeckCard" aria-live="polite">
-                    <div class="projectDeckMedia">
-                        <img id="projectDeckImage" src="images/portfolio/healthcare_agentic.png"
-                            alt="Agentic healthcare analytics architecture">
-                    </div>
-                    <div class="projectDeckContent">
-                        <div id="projectDeckCategories" class="projectDeckCategories"></div>
-                        <h3 id="projectDeckTitle">Agentic Healthcare Analytics Chatbot</h3>
-                        <div class="projectDeckRows">
-                            <div>
-                                <span>Problem</span>
-                                <p id="projectDeckProblem">Clinical and research users need auditable healthcare data
-                                    workflows.</p>
-                            </div>
-                            <div>
-                                <span>Method</span>
-                                <p id="projectDeckBuilt">Multi-agent analytics workflow with routing, SQL, statistics,
-                                    charts, and human review.</p>
-                            </div>
-                            <div>
-                                <span>Evidence</span>
-                                <p id="projectDeckEvidence">Sanitized capstone-backed summary with private data
-                                    excluded.</p>
-                            </div>
-                        </div>
-                        <div class="projectDeckReviewerNotes" aria-label="Reviewer notes">
-                            <div>
-                                <span>Evaluation</span>
-                                <p id="projectDeckEvaluation">Review SQL trace quality, answer usefulness, and human approval boundaries before production.</p>
-                            </div>
-                            <div>
-                                <span>Limits</span>
-                                <p id="projectDeckLimitations">Public version excludes private data and does not claim clinical deployment.</p>
-                            </div>
-                        </div>
-                        <div id="projectDeckTech" class="projectDeckTech"></div>
-                        <div class="projectDeckActions">
-                            <a id="projectDeckLink" class="projectDeckLink" href="#">
-                                Open project detail
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <div id="projectDeckRail" class="projectDeckRail" aria-label="Select a project"></div>
-            </div>
-
-            <section class="projectEvidenceIndex" aria-label="Project evidence index">
-                <div class="projectEvidenceIntro">
-                    <p class="projectDeckEyebrow">Evidence Index</p>
-                    <h3>My Projects</h3>
-                    <p>
-                        A compact view of domain, implementation signal, stack, and public evidence boundaries.
-                    </p>
-                </div>
-                <div class="projectIndexList">
-                    <article class="projectIndexRow ai data research">
-                        <div>
-                            <span class="projectIndexName">Agentic Healthcare Analytics Chatbot</span>
-                            <span class="projectIndexDomain">Healthcare AI</span>
-                        </div>
-                        <p>Multi-agent analytics workflow for natural-language SQL, schema grounding, statistical review,
-                            chart generation, and human-in-the-loop auditability.</p>
-                        <p>LangGraph, SQL, DuckDB, OMOP CDM, ClinicalBERT, FAISS, Responsible AI.</p>
-                        <a href="reports/agentic-healthcare-analytics.html">Case study</a>
-                    </article>
-                    <article class="projectIndexRow ai data research">
-                        <div>
-                            <span class="projectIndexName">Judicial Analytics: Legal NLP</span>
-                            <span class="projectIndexDomain">Legal AI</span>
-                        </div>
-                        <p>Leakage-aware legal NLP pipeline that converts lengthy judgments into structured case-level
-                            features and evaluation-ready records.</p>
-                        <p>Legal-BERT, XGBoost, HAN, JSON QA, target-leakage audits, feature engineering.</p>
-                        <a href="reports/judicial-analytics-legal-nlp.html">Case study</a>
-                    </article>
-                    <article class="projectIndexRow ai research">
-                        <div>
-                            <span class="projectIndexName">Self-RL &amp; RAG Extraction Pipelines</span>
-                            <span class="projectIndexDomain">LLM Systems</span>
-                        </div>
-                        <p>RAG extraction architecture with Transformers, LangChain, FAISS caching, OCR review, and
-                            iterative self-reflection loops for structured output quality.</p>
-                        <p>Python, reinforcement learning, RAG, LLMs, FAISS, asyncio.</p>
-                        <a href="reports/faiss-caching-llm-cost-latency.html">Technical note</a>
-                    </article>
-                    <article class="projectIndexRow quant data">
-                        <div>
-                            <span class="projectIndexName">IBKR Mean-Reversion Trading Prototype</span>
-                            <span class="projectIndexDomain">Quant Engineering</span>
-                        </div>
-                        <p><strong>Team project.</strong> Tony's public commits cover the Ornstein–Uhlenbeck strategy,
-                            mean-reversion speed and signal calculations, equity adaptation, and project documentation.</p>
-                        <p>Python, ib_insync, pandas, NumPy, SciPy.</p>
-                        <a href="https://github.com/df-Nic/Trading-Algo" target="_blank"
-                            rel="noopener">Team repository</a>
-                    </article>
-                    <article class="projectIndexRow apps research">
-                        <div>
-                            <span class="projectIndexName">RentLock Escrow dApp</span>
-                            <span class="projectIndexDomain">Web3 Product</span>
-                        </div>
-                        <p>Smart-contract rental deposit workflow covering escrow state transitions, ERC-20 deposits,
-                            dispute escalation, verifier logic, and frontend-contract integration.</p>
-                        <p>Smart contracts, ERC-20, MetaMask, IPFS concepts, mechanism design.</p>
-                        <a href="reports/rentlock-escrow-dapp.html">Case study</a>
-                    </article>
-                    <article class="projectIndexRow apps data">
-                        <div>
-                            <span class="projectIndexName">Smoodee Sustainable Food Tech</span>
-                            <span class="projectIndexDomain">Startup Operations</span>
-                        </div>
-                        <p>Food-tech venture work spanning sustainable supply-chain planning, business analytics,
-                            product positioning, and web presence for customer acquisition.</p>
-                        <p>Entrepreneurship, supply chain, web development, analytics, sustainability.</p>
-                        <a href="https://smoodee.sg/" target="_blank" rel="noopener">Website</a>
-                    </article>
-                    <article class="projectIndexRow data research">
-                        <div>
-                            <span class="projectIndexName">Loan Default Analytics Pipeline</span>
-                            <span class="projectIndexDomain">Credit Risk</span>
-                        </div>
-                        <p>End-to-end credit-risk workflow covering ETL, feature engineering, model comparison,
-                            calibration, explainability, and business-facing risk communication.</p>
-                        <p>Python, PySpark, Apache Spark, Tableau, MySQL, ETL pipelines.</p>
-                        <a href="reports/loan-default-analytics.html">Case study</a>
-                    </article>
-                    <article class="projectIndexRow apps data">
-                        <div>
-                            <span class="projectIndexName">FairTracker Event Analytics Platform</span>
-                            <span class="projectIndexDomain">Geospatial App</span>
-                        </div>
-                        <p>Full-stack event discovery application with mapping, geolocation, event persistence,
-                            filtering, authentication, and crowd analytics boundaries.</p>
-                        <p>JavaScript, Google Maps API, Bootstrap, MySQL, REST APIs, geospatial data.</p>
-                        <span class="projectIndexBoundary">Public summary only</span>
-                    </article>
-                    <article class="projectIndexRow apps">
-                        <div>
-                            <span class="projectIndexName">WelfareHome Social Impact Platform</span>
-                            <span class="projectIndexDomain">Care Services</span>
-                        </div>
-                        <p>Responsive full-stack platform for appointment booking, resource management,
-                            role-based access control, and caregiver-family communication flows.</p>
-                        <p>Full-stack development, MySQL, Bootstrap, REST APIs, UX design.</p>
-                        <span class="projectIndexBoundary">Public summary only</span>
-                    </article>
-                    <article class="projectIndexRow quant data">
-                        <div>
-                            <span class="projectIndexName">Fixed Income Yield Curve Modeling</span>
-                            <span class="projectIndexDomain">Financial Engineering</span>
-                        </div>
-                        <p>Quantitative toolkit for bond pricing, yield curve construction, duration, convexity,
-                            scenario analysis, and spreadsheet-assisted fixed-income workflows.</p>
-                        <p>Python, NumPy, SciPy, VBA, fixed income, quantitative finance.</p>
-                        <a href="reports/yield-curve-quant-engineering-notes.html">Quant note</a>
-                    </article>
-                    <article class="projectIndexRow quant apps">
-                        <div>
-                            <span class="projectIndexName">Black-Scholes Options Analytics Dashboard</span>
-                            <span class="projectIndexDomain">Derivatives Analytics</span>
-                        </div>
-                        <p>Interactive options analytics dashboard covering Black-Scholes pricing, Greeks,
-                            volatility sensitivity, payoff visualization, and scenario testing.</p>
-                        <p>Python, pandas, NumPy, Streamlit, Plotly, stochastic calculus, options theory.</p>
-                        <span class="projectIndexBoundary">Public summary only</span>
-                    </article>
-                </div>
-            </section>
-
-            <div id="projectGridWrap" class="projectGridWrap projectGridCollapsed">
-                <div class="row justify-content-center itemsContainer">
-                <!-- Agentic Healthcare Analytics -->
-                <div class="item">
-                    <div class="filterItem ai data research">
-                        <img class="filterItemImg" src="images/portfolio/healthcare_agentic.png"
-                            alt="Agentic healthcare analytics architecture">
-                        <div class="filterItemContent">
-                            <h3 class="filterItemName">Agentic Healthcare Analytics Chatbot</h3>
-
-                            <span class="filterItemProblem">
-                                <strong>Problem:</strong> Clinical and research users need auditable ways to ask
-                                natural-language questions over complex healthcare data without losing traceability.
-                            </span>
-
-                            <span class="filterItemArchitecture">
-                                <strong>Built:</strong> Designed a multi-agent analytics workflow for intent routing,
-                                SQL generation, feature engineering, statistical testing, charting, and human review
-                                checkpoints before results are returned.
-                            </span>
-
-                            <span class="filterItemResults">
-                                <strong>Evidence:</strong> Sanitized from capstone documentation only. Public summary
-                                excludes private partner references, reviewer details, personal identifiers, and raw
-                                data examples.
-                            </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">LangGraph</span>
-                                <span class="techBadge">SQL</span>
-                                <span class="techBadge">Agentic AI</span>
-                                <span class="techBadge">Healthcare Analytics</span>
-                                <span class="techBadge">Auditability</span>
-                                <span class="techBadge">Human-in-the-Loop</span>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/agentic-healthcare-analytics.html">
-                                    <i class="fas fa-file-alt"></i> Read sanitized report
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Judicial Analytics -->
-                <div class="item">
-                    <div class="filterItem ai data research">
-                        <img class="filterItemImg" src="images/portfolio/judicial_analytics.png"
-                            alt="Judicial analytics NLP pipeline">
-                        <div class="filterItemContent">
-                            <h3 class="filterItemName">Judicial Analytics: Legal NLP</h3>
-
-                            <span class="filterItemProblem">
-                                <strong>Problem:</strong> Litigation risk assessment requires structured features from
-                                lengthy judgments while avoiding hindsight bias and target leakage.
-                            </span>
-
-                            <span class="filterItemArchitecture">
-                                <strong>Built:</strong> Created a legal text analytics pipeline with feature extraction,
-                                temporal isolation, leakage checks, Legal-BERT embeddings, and model benchmarking
-                                against traditional ML baselines.
-                            </span>
-
-                            <span class="filterItemResults">
-                                <strong>Evidence:</strong> Public version describes architecture and methods only.
-                                Raw judgments, private metadata, and evaluator details are not published.
-                            </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">NLP</span>
-                                <span class="techBadge">Legal-BERT</span>
-                                <span class="techBadge">XGBoost</span>
-                                <span class="techBadge">Feature Engineering</span>
-                                <span class="techBadge">Leakage Control</span>
-                                <span class="techBadge">Model Evaluation</span>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/judicial-analytics-legal-nlp.html">
-                                    <i class="fas fa-file-alt"></i> Read sanitized report
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Self-Reflective RL -->
-                <div class="item">
-                    <div class="filterItem ai data">
-                        <img class="filterItemImg" src="images/portfolio/self_rl_pipeline.png"
-                            alt="Self-RL and RAG extraction pipeline visual">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">Self-RL &amp; RAG Extraction Pipelines</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Convert unstructured PDF and questionnaire content into
-                                    reliable structured outputs while controlling LLM latency and cost.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Architected RAG pipelines with Transformers, LangChain, and
-                                    FAISS-backed semantic caching. Added computer-vision extraction and a data-efficient
-                                    self-RL loop for iterative output improvement.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Resume-backed internship project. Public version avoids
-                                    proprietary datasets, raw documents, contact details, and internal implementation
-                                    screenshots.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Python</span>
-                                <span class="techBadge">Reinforcement Learning</span>
-                                <span class="techBadge">NLP</span>
-                                <span class="techBadge">RAG</span>
-                                <span class="techBadge">LLMs</span>
-                                <span class="techBadge">FAISS</span>
-                                <span class="techBadge">asyncio</span>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/faiss-caching-llm-cost-latency.html">
-                                    <i class="fas fa-file-alt"></i> Read technical note
-                                </a>
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- IBKR team project -->
-                <div class="item">
-                    <div class="filterItem apps quant">
-                        <img class="filterItemImg" src="images/portfolio/ibkr_mean_reversion.svg"
-                            alt="IBKR mean-reversion research prototype workflow">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">IBKR Mean-Reversion Trading Prototype</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Explore SPY mean reversion using historical IBKR data and a
-                                    transparent Ornstein–Uhlenbeck signal model.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Tony's contribution:</strong> Implemented and refined the Ornstein–Uhlenbeck
-                                    strategy, mean-reversion speed and signal calculations, equity adaptation,
-                                    historical-data flow, and project documentation in a two-contributor repository.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence boundary:</strong> The public code demonstrates a research prototype
-                                    with IBKR connectivity; it does not substantiate live profitability, production
-                                    deployment, or walk-forward results.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Python</span>
-                                <span class="techBadge">ib_insync</span>
-                                <span class="techBadge">pandas</span>
-                                <span class="techBadge">NumPy</span>
-                                <span class="techBadge">SciPy</span>
-                            </div>
-                            </div>
-                            <p class="filterItemDesc">
-                                <strong>Links:</strong>
-                                <a class="filterItemLink" href="https://github.com/df-Nic/Trading-Algo"
-                                    target="_blank" rel="noopener">
-                                    <i class="fab fa-github"></i> Team repository
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RentLock dApp -->
-                <div class="item">
-                    <div class="filterItem apps data research">
-                        <img class="filterItemImg" src="images/portfolio/rentlock_dapp.png"
-                            alt="RentLock escrow dApp workflow">
-                        <div class="filterItemContent">
-                            <h3 class="filterItemName">RentLock: Smart Contract Escrow dApp</h3>
-
-                            <span class="filterItemProblem">
-                                <strong>Problem:</strong> Rental deposits create trust and custody problems when funds
-                                are held off-chain by one party without transparent settlement rules.
-                            </span>
-
-                            <span class="filterItemArchitecture">
-                                <strong>Built:</strong> Designed a decentralized escrow workflow with lease lifecycle
-                                states, ERC-20-style test tokens, verifier escalation, frontend-contract integration,
-                                and evidence anchoring as a future extension.
-                            </span>
-
-                            <span class="filterItemResults">
-                                <strong>Evidence:</strong> Sanitized from project report. Public card excludes teammate
-                                references, academic identifiers, screenshots with private accounts, and unredacted
-                                report pages.
-                            </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Smart Contracts</span>
-                                <span class="techBadge">ERC-20</span>
-                                <span class="techBadge">Escrow Logic</span>
-                                <span class="techBadge">MetaMask</span>
-                                <span class="techBadge">Frontend Integration</span>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/rentlock-escrow-dapp.html">
-                                    <i class="fas fa-file-alt"></i> Read sanitized report
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Smoodee -->
-                <div class="item">
-                    <div class="filterItem apps research">
-                        <img class="filterItemImg" src="images/portfolio/Smoodee.jpg"
-                            alt="Smoodee Sustainability Startup">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">Smoodee - Sustainable Food Tech Startup</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Reduce food waste by transforming blemished produce into
-                                    value-added products while optimizing supply chain logistics.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Co-founded sustainability startup focused on circular
-                                    economy principles. Developed supply chain optimization model, business analytics
-                                    dashboard, and partnered with local farms and food banks. Built full-stack web
-                                    platform for customer orders and inventory management.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Included as entrepreneurship and product-building work.
-                                    Public summary avoids customer data, partner details, and unverifiable operating
-                                    metrics.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Entrepreneurship</span>
-                                <span class="techBadge">Supply Chain</span>
-                                <span class="techBadge">Web Development</span>
-                                <span class="techBadge">Business Analytics</span>
-                                <span class="techBadge">Sustainability</span>
-                            </div>
-                            </div>
-                            <p class="filterItemDesc">
-                                <strong>Links:</strong>
-                                <a class="filterItemLink" href="https://smoodee.sg/">
-                                    <i class="fas fa-globe"></i> Website
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Loan Default Analytics Project -->
-                <div class="item">
-                    <div class="filterItem data ai research">
-                        <img class="filterItemImg" src="images/portfolio/loan_default_analytics.png"
-                            alt="Loan default analytics dashboard visual">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">Loan Default Analytics Pipeline</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Estimate credit default risk from structured borrower and
-                                    loan features while keeping the modelling process interpretable for business users.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Designed a big-data analytics workflow covering data
-                                    cleaning, feature engineering, model training, model comparison, and communication
-                                    of risk drivers through business-facing analysis.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> The public site keeps only a sanitized project summary
-                                    and does not link the raw PDF or private submission material.
-                                </span>
-
-                                <div class="filterItemTech">
-                                    <span class="techBadge">Python</span>
-                                    <span class="techBadge">PySpark</span>
-                                    <span class="techBadge">Apache Spark</span>
-                                    <span class="techBadge">Tableau</span>
-                                    <span class="techBadge">MySQL</span>
-                                    <span class="techBadge">Big Data</span>
-                                    <span class="techBadge">ETL Pipelines</span>
-                                </div>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/loan-default-analytics.html">
-                                    <i class="fas fa-file-alt"></i> Read sanitized report
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FairTracker Application -->
-                <div class="item">
-                    <div class="filterItem apps">
-                        <img class="filterItemImg" src="images/portfolio/fairtracker_platform.png"
-                            alt="FairTracker event platform map interface visual">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">FairTracker: Event Management &amp; Analytics Platform</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Develop a geospatial event tracking application to help
-                                    users discover and manage local events with real-time location services and crowd
-                                    analytics.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Built full-stack web application with interactive mapping
-                                    interface using Google Maps API. Implemented real-time geolocation tracking, event
-                                    clustering algorithms, user authentication system, and MySQL database for event
-                                    persistence. Features distance-based filtering and category organization.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Included as an application engineering project. Public
-                                    summary avoids user data, deployment claims, and analytics numbers that are not
-                                    backed by public logs.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">JavaScript</span>
-                                <span class="techBadge">Google Maps API</span>
-                                <span class="techBadge">Bootstrap</span>
-                                <span class="techBadge">MySQL</span>
-                                <span class="techBadge">RESTful APIs</span>
-                                <span class="techBadge">Geospatial Data</span>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- WelfareHome Website -->
-                <div class="item">
-                    <div class="filterItem apps">
-                        <img class="filterItemImg" src="images/portfolio/welfarehome_platform.png"
-                            alt="WelfareHome operations platform dashboard visual">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">WelfareHome: Social Impact Web Platform</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Build a comprehensive web platform for elderly care
-                                    services, streamlining appointment booking, resource management, and communication
-                                    between caregivers and families.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Developed full-stack web application with responsive
-                                    design using Bootstrap. Implemented backend with RESTful APIs, MySQL database for
-                                    user and appointment management, and secure authentication with role-based access
-                                    control for different user types.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Presented as a social-impact application build. Public
-                                    version avoids beneficiary data and removes unsupported production/user metrics.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Full-stack Development</span>
-                                <span class="techBadge">MySQL</span>
-                                <span class="techBadge">Bootstrap</span>
-                                <span class="techBadge">RESTful APIs</span>
-                                <span class="techBadge">UX Design</span>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Yield Curve Construction Models -->
-                <div class="item">
-                    <div class="filterItem quant data">
-                        <img class="filterItemImg" src="images/portfolio/yield_curve.png"
-                            alt="Yield Curve Construction Models">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">Fixed Income Analytics: Yield Curve Modeling</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Implement multiple yield curve construction models
-                                    (Nelson-Siegel, Svensson, Monotone Convex) to enhance fixed income pricing accuracy
-                                    for institutional clients in energy derivatives markets.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Developed Python-based yield curve fitting algorithms
-                                    using NumPy and SciPy for numerical optimization. Integrated VBA with Excel for
-                                    seamless trading system integration. Implemented Nelson-Siegel and Svensson
-                                    parametric models plus monotone convex interpolation for smooth curve generation.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Resume-backed quantitative development work. The public
-                                    card keeps proprietary pricing details out while retaining the reproducible technical
-                                    framing and the documented 6.09s to 0.86s optimization result.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Python</span>
-                                <span class="techBadge">NumPy</span>
-                                <span class="techBadge">SciPy</span>
-                                <span class="techBadge">VBA</span>
-                                <span class="techBadge">Financial Mathematics</span>
-                                <span class="techBadge">Quantitative Finance</span>
-                                <span class="techBadge">Fixed Income</span>
-                            </div>
-                            <p class="filterItemReport">
-                                <a class="filterItemLink" href="reports/yield-curve-quant-engineering-notes.html">
-                                    <i class="fas fa-file-alt"></i> Read quant note
-                                </a>
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Options Pricing Calculator -->
-                <div class="item">
-                    <div class="filterItem apps quant">
-                        <img class="filterItemImg" src="images/portfolio/options_pricing.png"
-                            alt="Options Pricing Calculator Dashboard">
-                        <div class="filterItemContent">
-                            <div class="filterItemDesc">
-                                <h3 class="filterItemName">Black-Scholes Options Analytics Dashboard</h3>
-
-                                <span class="filterItemProblem">
-                                    <strong>Problem:</strong> Build an interactive options pricing calculator with
-                                    real-time Greeks visualization, enabling traders to analyze option strategies and
-                                    risk exposure across multiple scenarios.
-                                </span>
-
-                                <span class="filterItemArchitecture">
-                                    <strong>Built:</strong> Developed Python-based options analytics tool using
-                                    Black-Scholes model implementation with NumPy. Created interactive web dashboard
-                                    with Streamlit, featuring Plotly for 3D Greeks surface visualization. Added Monte
-                                    Carlo simulation capabilities for exotic options pricing.
-                                </span>
-
-                                <span class="filterItemResults">
-                                    <strong>Evidence:</strong> Research-style quantitative finance prototype covering
-                                    comprehensive Greeks calculation (Delta, Gamma, Vega, Theta, Rho), volatility smile
-                                    analysis, and strategy comparison tools (straddles, strangles, butterflies) with
-                                    scenario heatmaps.
-                                </span>
-
-                            <div class="filterItemTech">
-                                <span class="techBadge">Python</span>
-                                <span class="techBadge">NumPy</span>
-                                <span class="techBadge">pandas</span>
-                                <span class="techBadge">Streamlit</span>
-                                <span class="techBadge">Plotly</span>
-                                <span class="techBadge">Stochastic Calculus</span>
-                                <span class="techBadge">Options Theory</span>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- TESTIMONIALS -->

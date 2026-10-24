@@ -8,9 +8,9 @@ export function initPortfolioField(root = document) {
   update();
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(([entry]) => {
-      inViewport = entry.isIntersecting;
+      inViewport = entry.intersectionRatio >= 0.5;
       update();
-    });
+    }, { threshold: [0, 0.5] });
     observer.observe(scene);
     document.addEventListener('visibilitychange', update);
   }

@@ -5659,3 +5659,39 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
 .portfolioGuideExamples button span { color: var(--lab-accent); }
 body.dark-mode .portfolioGuide { background: #152019; }
 @media (max-width: 700px) { .portfolioGuideInner { grid-template-columns: 1fr; gap: 1.8rem; } .portfolioGuideExamples { border-left: 0; border-top: 1px solid var(--lab-line); padding: 1.4rem 0 0; } }
+
+/* Keep the homepage concise while retaining the complete résumé on demand. */
+.resumeDownload {
+    margin: 0 auto 1.5rem;
+    text-align: center;
+}
+.resumeDownload a {
+    color: var(--lab-accent);
+    font: 700 .95rem/1.5 'Karla', sans-serif;
+    text-underline-offset: .2em;
+}
+.resumeDetails {
+    max-width: 920px;
+    margin: 0 auto;
+    border: 1px solid var(--lab-line);
+    border-radius: 10px;
+    background: var(--lab-panel, #fff);
+    color: var(--lab-ink);
+    overflow: hidden;
+}
+.resumeDetails summary {
+    display: list-item;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    font: 700 1rem/1.5 'Karla', sans-serif;
+}
+.resumeDetails summary:hover { background: var(--lab-bg-soft); }
+.resumeDetails summary:focus-visible { outline: 3px solid #b16d3e; outline-offset: -4px; }
+.resumeDetails[open] summary { border-bottom: 1px solid var(--lab-line); }
+.resumeDetailsInner { padding: 1.5rem 1rem 2rem; }
+@media (max-width: 700px) {
+    .resumeDetails { width: calc(100% - 2rem); }
+    .resumeDetailsInner { padding: 1rem .25rem 1.5rem; }
+}
+.proofGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .proofGrid { grid-template-columns: 1fr; } }

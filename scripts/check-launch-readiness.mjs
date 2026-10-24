@@ -78,8 +78,8 @@ assert.match(
   /"graduation"<\/span>:\s*<span class="json-string">"Jun\s+2026"/,
 );
 assert.match(html, /Graduated:<b> Jun 2026<\/b>/);
-assert.match(html, /field-level questionnaire extraction accuracy/i);
-assert.match(html, /sanitized project evaluation sample/i);
+assert.match(html, /Approximate field-level accuracy on a project-scoped sanitized evaluation sample/i);
+assert.match(html, /project-scoped sanitized evaluation sample/i);
 
 const heroActions = html.match(
   /<div class="heroActions"[^>]*>([\s\S]*?)<\/div>/,
@@ -96,7 +96,7 @@ assert.match(heroActions, /href="#contact"/);
 
 assert.equal(
   (html.match(/IBKR Mean-Reversion Trading Prototype/g) ?? []).length,
-  2,
+  1,
 );
 assert.match(html, /<strong>Team project\.<\/strong>/);
 assert.match(html, /<strong>Tony's contribution:<\/strong>/);
@@ -107,7 +107,7 @@ const repositoryLinks = [
     /<a\b[^>]*href="https:\/\/github\.com\/df-Nic\/Trading-Algo"[^>]*>/g,
   ),
 ];
-assert.equal(repositoryLinks.length, 2);
+assert.equal(repositoryLinks.length, 1);
 for (const [link] of repositoryLinks) {
   assert.match(link, /target="_blank"/);
   assert.match(link, /rel="noopener"/);
@@ -140,7 +140,7 @@ for (const unsupportedLabel of [
 
 
 assert.match(html, /id="portfolioField"/);
-assert.match(html, /id="fieldProof"/);
+assert.match(html, /<\/header>\s*<!-- Scroll Progress Bar -->[\s\S]*?<section id="portfolio"/);
 assert.match(html, /href="css\/portfolio-field.css"/);
 
 console.log("Launch-readiness checks passed.");

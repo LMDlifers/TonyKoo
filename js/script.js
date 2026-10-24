@@ -243,7 +243,6 @@ $(document).ready(function () {
     const projectDeckCounter = $("#projectDeckCounter");
     const projectDeckRail = $("#projectDeckRail");
     const projectGridWrap = $("#projectGridWrap");
-    const projectEvidenceIndex = $(".projectEvidenceIndex");
     const projectViewButtons = projectDeck.find("[data-project-view]");
     let activeProjectIndex = 0;
     let visibleProjects = [];
@@ -485,7 +484,6 @@ $(document).ready(function () {
 
       projectDeck.toggleClass("is-grid-mode", isGridView);
       projectGridWrap.toggleClass("projectGridCollapsed", !isGridView);
-      projectEvidenceIndex.toggleClass("is-hidden", isGridView);
       projectViewButtons
         .removeClass("active")
         .attr("aria-pressed", "false")
@@ -552,7 +550,7 @@ $(document).ready(function () {
   );
 
   // Observe all resume subsections for fade-in effect
-  document.querySelectorAll(".proofCard, .resumeSubsection, .filterItem, .projectDeck, .projectEvidenceIndex, .testimonialCard, .bookCarousel, .writingCard, .certCard").forEach((el) => {
+  document.querySelectorAll(".proofCard, .resumeSubsection, .filterItem, .projectDeck, .testimonialCard, .bookCarousel, .writingCard, .certCard").forEach((el) => {
     el.classList.add("motion-reveal");
     observer.observe(el);
   });
@@ -609,19 +607,11 @@ filterSelection("all");
 function filterSelection(c) {
   var requestedFilter = c;
   var x = document.getElementsByClassName("filterItem");
-  var projectIndexRows = document.getElementsByClassName("projectIndexRow");
   if (c == "all") c = "";
 
   for (var i = 0; i < x.length; i++) {
     removeClass(x[i], "show");
     if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
-  }
-
-  for (var j = 0; j < projectIndexRows.length; j++) {
-    removeClass(projectIndexRows[j], "projectIndexHidden");
-    if (c && !projectIndexRows[j].classList.contains(c)) {
-      addClass(projectIndexRows[j], "projectIndexHidden");
-    }
   }
 
   if (typeof window.updateProjectDeckFilter === "function") {
