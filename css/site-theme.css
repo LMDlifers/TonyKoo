@@ -1,0 +1,68 @@
+/* Site-wide graphite and silver palette. Source diagrams keep their own colors. */
+:root{--color-ink:#20262c;--color-body:#35414b;--color-muted:#61707a;--color-surface-soft:#f3f5f6;--color-line:#d9e0e4;--color-line-strong:#c5d0d6;--color-primary:#3a5568;--color-primary-strong:#263f51;--color-primary-soft:#e8eef2;--lab-bg:#f8f9fa;--lab-bg-soft:#eef1f3;--lab-ink:#20262c;--lab-muted:#56646e;--lab-dim:#66747e;--lab-line:rgba(50,66,77,.2);--lab-line-strong:rgba(55,77,93,.38);--lab-accent:#3a5568;--lab-accent-hover:#263f51;--lab-accent-soft:rgba(58,85,104,.1);--lab-shadow:0 24px 70px rgba(30,43,52,.1);--lab-card-shadow:0 16px 54px rgba(30,43,52,.08);--ink:#20262c;--body:#35414b;--muted:#61707a;--line:#d9e0e4;--wash:#f8f9fa;--accent:#3a5568;--focus:#587b94;--report-ink:#20262c;--report-body:#35414b;--report-muted:#61707a;--report-blue:#3a5568;--report-blue-soft:#e8eef2;--report-line:#d9e0e4;--report-warm:#f8f9fa}
+body.dark-mode{--lab-bg:#121519;--lab-bg-soft:#191e23;--lab-panel:rgba(31,36,42,.94);--lab-panel-solid:#1f242a;--lab-ink:#f3f5f6;--lab-muted:#bbc5cd;--lab-dim:#aab5be;--lab-line:rgba(194,207,217,.2);--lab-line-strong:rgba(190,207,219,.42);--lab-accent:#dce5eb;--lab-accent-hover:#fff;--lab-accent-soft:rgba(199,215,226,.13);--lab-on-accent:#14191d;--ink:#f3f5f6;--body:#d2d9df;--muted:#b7c2cb;--line:#3c454e;--surface:#20252a;--wash:#121519;--accent:#dce5eb;--mint:#28323a;--focus:#a5c0d2;--report-ink:#f3f5f6;--report-body:#d2d9df;--report-muted:#b7c2cb;--report-blue:#dce5eb;--report-blue-soft:#303840;--report-line:#3c454e;--report-surface:#20252a;--report-warm:#121519;background:#121519;color:#d2d9df}
+body.dark-mode #navigation,body.dark-mode .researchNav{background:rgba(18,21,25,.96)}
+body.dark-mode #heroSection{background:radial-gradient(circle at 83% 18%,rgba(169,187,201,.07),transparent 32%),linear-gradient(135deg,#121519,#1d2329)}
+body.dark-mode .proofSection{background:linear-gradient(180deg,#121519,#191e23)}
+body.dark-mode #loadingScreen{background:linear-gradient(135deg,#121519,#1d2329)}
+body.dark-mode .researchHero{background:none}
+body.dark-mode .researchNavLinks button,body.dark-mode .researchSearch input,body.dark-mode .reportThemeButton{background:#20252a;color:#f3f5f6;border-color:#3c454e}
+body.dark-mode .conceptFigure,body.dark-mode .leadFigureLink{background:#252d34}
+body.dark-mode .takeaway,body.dark-mode .worked,body.dark-mode .articleToc a:hover,body.dark-mode .researchFind:hover{background:#273139}
+body.dark-mode .caution{background:#38302a}
+body.dark-mode .reportHero,body.dark-mode .reportSection,body.dark-mode .reportTldr,body.dark-mode .sourceFigure,body.dark-mode .researchFigure,body.dark-mode .demoVideo,body.dark-mode .reportHeroVisual,body.dark-mode .visualEvidenceItem{background:#20252a;border-color:#3c454e}
+body.dark-mode .reportMeta span,body.dark-mode .tag,body.dark-mode .licenseNote,body.dark-mode .decisionTable th{background:#2b333a;border-color:#3c454e;color:#dce5eb}
+body.dark-mode .chartTrack{background:#333c44}
+body.dark-mode .reportHeroAction{background:#dce5eb;border-color:#dce5eb;color:#14191d}
+body.dark-mode .reportHeroAction:hover{background:#fff;color:#14191d}
+body.dark-mode .reportHero{background:linear-gradient(145deg,#20252a,#242b32)}
+body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.flowNode,.matrixCell,.sequenceStep,.modelCard,.noteCard,.referenceItem,.chartPanel,.thoughtCard){background:#252c33;border-color:#3c454e}
+body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]){background:#2b343c;border-color:#687985}
+body.dark-mode :is(.reportNav a,.reportThemeButton){background:#20252a;border-color:#3c454e;color:#dce5eb}
+body.dark-mode :is(.reportNav a,.reportThemeButton):hover{background:#303840}
+body.dark-mode .articleByline .authorMark{background:#303840;color:#edf3f6}
+body.dark-mode .findAskDialog,body.dark-mode .findAskTrigger,body.dark-mode .findAskFoot{background:#20252a;color:#f3f5f6;border-color:#3c454e}
+body.dark-mode .findAskResults{background:#1b2025}
+body.dark-mode .findAskForm input,body.dark-mode .findAskSuggestions button,body.dark-mode .findAskTrigger kbd{background:#292f36;color:#f3f5f6;border-color:#56616b}
+body.dark-mode .findAskSource:hover,body.dark-mode .findAskSource:focus-visible{background:#303840}
+body.dark-mode .findAskEyebrow,body.dark-mode .findAskLabel,body.dark-mode .findAskSource small,body.dark-mode .findAskClose{color:#dce5eb}
+body.dark-mode .findAskModes,body.dark-mode .findAskResults,body.dark-mode .findAskSource,body.dark-mode .findAskFoot{border-color:#3c454e}
+body.dark-mode .findAskForm button{background:#dce5eb;color:#14191d}
+body.dark-mode .findAskForm button:hover{background:#fff}
+body.dark-mode .findAskLauncher{background:#22272d;color:#f4f6f7;border-color:#69727b}
+body.dark-mode .findAskLauncher:hover{background:#30363d}
+body:not(.dark-mode) .findAskLauncher{background:#e9edf0;color:#20262c;border-color:#b9c5ce}
+body:not(.dark-mode) .findAskLauncher small{color:#56646e}
+body:not(.dark-mode) .chatOverlay{background:#f8f9fa;color:#20262c;border-color:#b9c5ce}
+body:not(.dark-mode) .chatOverlayBar{background:#e9edf0;color:#20262c;border-color:#c5d0d6}
+body:not(.dark-mode) .chatOverlayActions a,body:not(.dark-mode) .chatOverlayActions button{color:#263f51}
+body:not(.dark-mode) .chatOverlay iframe{background:#f8f9fa}
+body.dark-mode ::selection{background:#586b79;color:#fff}
+
+body.dark-mode .fieldScene{background-color:#151b21}
+body.dark-mode .personaStation{color:#eff3f5}
+body.dark-mode .personaLabel,body.dark-mode .personaDescription{background:#222a31;color:#f1f4f6}
+body.dark-mode .personaStation:hover,body.dark-mode .personaStation:focus-visible{background:rgba(100,124,140,.14);border-color:#95afc1;color:#f1f4f6}
+@media(max-width:767px){body.dark-mode .personaStation{background:#222a31}body.dark-mode .personaLabel,body.dark-mode .personaDescription{background:transparent}}
+
+
+/* Shared technical accents; article prose keeps its reading face. */
+.storyMeta,.articleQualifier,.articleMeta,.reportMeta span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+:is(a,button,input,textarea):focus-visible{outline:3px solid var(--focus,#a5c0d2);outline-offset:3px}
+
+/* A still glyph scatter wakes briefly under the pointer on entry surfaces. */
+.fieldIntro,.researchHero{position:relative;isolation:isolate}
+.fieldIntro>.glyphField,.researchHero>.glyphField{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;user-select:none}
+.fieldIntro>.glyphField{mask-image:linear-gradient(90deg,transparent 24%,#000 70%)}
+.researchHero>.glyphField{mask-image:linear-gradient(90deg,transparent 35%,#000 82%)}
+.fieldIntro>:not(.glyphField),.researchHero>:not(.glyphField){position:relative;z-index:1}
+@media(max-width:767px){.fieldIntro>.glyphField,.researchHero>.glyphField{opacity:.5;mask-image:linear-gradient(90deg,transparent 42%,#000 95%)}}
+
+/* The standalone chat uses the same graphite and silver surfaces as the site. */
+:root{--bg:#f8f9fa;--surface:#fff;--rail:#eef1f3;--user:#e8eef2}
+body:not(.dark-mode)::selection{background:#dce5eb;color:#20262c}
+body:not(.dark-mode) :is(.newChat:hover,.railNav a:hover,.promptStarts button:hover){background:#e8eef2;border-color:#c5d0d6}
+:root{--accent-strong:#263f51}
+body:not(.dark-mode) .chatComposer{border-color:#b9c5ce;box-shadow:0 7px 24px rgba(30,43,52,.07)}
+body:not(.dark-mode) .chatComposer textarea::placeholder{color:#61707a}
+body:not(.dark-mode) .chatComposer button:disabled{background:#b9c5ce}

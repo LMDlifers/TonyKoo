@@ -1,3 +1,5 @@
+import { startGlyphField } from './glyph-field.mjs';
+
 export function initPortfolioField(root = document) {
   const scene = root.querySelector('.fieldScene');
   if (!scene || scene.dataset.initialized) return;
@@ -20,3 +22,12 @@ export function initPortfolioField(root = document) {
 }
 
 initPortfolioField();
+const intro = document.querySelector('.fieldIntro');
+if (intro) {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'glyphField glyphField--hero';
+  canvas.setAttribute('aria-hidden', 'true');
+  intro.prepend(canvas);
+  const field = startGlyphField(canvas, intro, intro, { ambientCount: 19, quiet: true });
+  document.querySelector('#darkModeToggle')?.addEventListener('click', () => requestAnimationFrame(() => field?.redraw()));
+}

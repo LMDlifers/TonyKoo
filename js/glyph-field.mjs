@@ -1,93 +1,129 @@
 const glyphs = ['∑', 'λ', '∂', '∞', 'π', 'μ', '∫', '0', '1', '+', '×', '=', '{', '}'];
+const maxWake = 48;
+const frameInterval = 1000 / 30;
 
-export function startGlyphField(canvas, main, scroll) {
-  const context = canvas.getContext('2d', { alpha: true });
-  if (!context) return;
+export function startGlyphField(canvas, host, activeRegion = host, options = {}) {
+  const context = canvas?.getContext('2d', { alpha: true });
+  if (!context || !host) return null;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(pointer: fine)');
-  const ambient = Array.from({ length: 24 }, (_, index) => ({
-    x: ((index * 0.61803398875) % 1),
-    y: ((index * 0.41421356237 + 0.15) % 1),
+  const count = options.ambientCount ?? 24;
+  const quiet = options.quiet ?? false;
+  const ambient = Array.from({ length: count }, (_, index) => ({
+    x: (index * 0.61803398875 + 0.13) % 1,
+    y: (index * 0.41421356237 + 0.17) % 1,
     glyph: glyphs[index % glyphs.length],
-    phase: index * 1.7,
   }));
   const wake = [];
   let width = 0;
   let height = 0;
-  let previous = 0;
-  let lastSpawn = 0;
   let frame = 0;
+  let lastDraw = 0;
+  let lastPoint = null;
+  let visible = true;
 
-  function resize() {
-    width = main.clientWidth;
-    height = main.clientHeight;
-    const ratio = Math.min(devicePixelRatio || 1, 2);
-    canvas.width = Math.max(1, Math.round(width * ratio));
-    canvas.height = Math.max(1, Math.round(height * ratio));
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    draw(performance.now());
-  }
-
-  function draw(now) {
+  function draw(now = performance.now()) {
     context.clearRect(0, 0, width, height);
     const dark = document.body.classList.contains('dark-mode');
     const color = dark ? '176, 195, 210' : '86, 107, 122';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.font = '13px ui-monospace, SFMono-Regular, Menlo, monospace';
-    const motion = reduced.matches || !finePointer.matches ? 0 : now / 2300;
     for (const item of ambient) {
-      const x = item.x * width + Math.sin(motion + item.phase) * 7;
-      const y = item.y * height + Math.cos(motion * 0.8 + item.phase) * 6;
-      context.fillStyle = `rgba(${color}, ${dark ? 0.13 : 0.10})`;
-      context.fillText(item.glyph, x, y);
+      context.fillStyle = `rgba(${color}, ${quiet ? (dark ? 0.085 : 0.07) : (dark ? 0.13 : 0.10)})`;
+      context.fillText(item.glyph, item.x * width, item.y * height);
     }
     for (let index = wake.length - 1; index >= 0; index--) {
       const item = wake[index];
-      const age = (now - item.born) / 1050;
+      const age = (now - item.born) / item.life;
       if (age >= 1) { wake.splice(index, 1); continue; }
-      const ease = 1 - age;
-      context.fillStyle = `rgba(${color}, ${ease * ease * (dark ? 0.58 : 0.43)})`;
+      const fade = (1 - age) ** 2;
+      context.fillStyle = `rgba(${color}, ${fade * item.strength * (quiet ? 0.62 : 1)})`;
       context.fillText(item.glyph, item.x + item.vx * age, item.y + item.vy * age);
     }
   }
 
-  function tick(now) {
-    if (document.hidden || reduced.matches || !finePointer.matches) { frame = 0; return; }
-    if (now - previous >= 33) { previous = now; draw(now); }
-    frame = requestAnimationFrame(tick);
+  function canAnimate() {
+    return visible && !document.hidden && !reduced.matches && finePointer.matches;
   }
 
-  function syncMotion() {
+  function stop() {
     if (frame) cancelAnimationFrame(frame);
     frame = 0;
-    draw(performance.now());
-    if (!document.hidden && !reduced.matches && finePointer.matches) frame = requestAnimationFrame(tick);
+    wake.length = 0;
+    lastPoint = null;
+    draw();
   }
 
-  main.addEventListener('pointermove', (event) => {
-    if (event.pointerType !== 'mouse' || reduced.matches || !finePointer.matches) return;
-    const scrollRect = scroll.getBoundingClientRect();
-    if (event.clientY < scrollRect.top || event.clientY > scrollRect.bottom) return;
+  function tick(now) {
+    frame = 0;
+    if (!canAnimate()) { stop(); return; }
+    if (now - lastDraw >= frameInterval) {
+      lastDraw = now;
+      draw(now);
+    }
+    if (wake.length) frame = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    if (!frame && wake.length && canAnimate()) frame = requestAnimationFrame(tick);
+  }
+
+  function resize() {
+    width = host.clientWidth;
+    height = host.clientHeight;
+    const ratio = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(width * ratio));
+    canvas.height = Math.max(1, Math.round(height * ratio));
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    draw();
+  }
+
+  function onMove(event) {
+    if (event.pointerType !== 'mouse' || !canAnimate()) return;
+    const region = activeRegion.getBoundingClientRect();
+    if (event.clientX < region.left || event.clientX > region.right || event.clientY < region.top || event.clientY > region.bottom) {
+      lastPoint = null;
+      return;
+    }
     const now = performance.now();
-    if (now - lastSpawn < 35) return;
-    lastSpawn = now;
-    const rect = main.getBoundingClientRect();
-    wake.push({
-      x: event.clientX - rect.left + (Math.random() - 0.5) * 26,
-      y: event.clientY - rect.top + (Math.random() - 0.5) * 26,
-      vx: (Math.random() - 0.5) * 24,
-      vy: -14 - Math.random() * 25,
-      born: now,
-      glyph: glyphs[Math.floor(Math.random() * glyphs.length)],
-    });
-    if (wake.length > 48) wake.shift();
-  }, { passive: true });
-  document.addEventListener('visibilitychange', syncMotion);
-  reduced.addEventListener('change', syncMotion);
-  finePointer.addEventListener('change', syncMotion);
-  new ResizeObserver(resize).observe(main);
+    const rect = host.getBoundingClientRect();
+    const point = { x: event.clientX - rect.left, y: event.clientY - rect.top, time: now };
+    const distance = lastPoint ? Math.hypot(point.x - lastPoint.x, point.y - lastPoint.y) : 0;
+    const speed = lastPoint ? distance / Math.max(1, now - lastPoint.time) : 0;
+    const steps = Math.min(maxWake, Math.max(1, Math.ceil(distance / 15)));
+    for (let step = 1; step <= steps; step++) {
+      const fraction = step / steps;
+      const x = lastPoint ? lastPoint.x + (point.x - lastPoint.x) * fraction : point.x;
+      const y = lastPoint ? lastPoint.y + (point.y - lastPoint.y) * fraction : point.y;
+      wake.push({
+        x: x + (Math.random() - 0.5) * 9,
+        y: y + (Math.random() - 0.5) * 9,
+        vx: (Math.random() - 0.5) * 11,
+        vy: -7 - Math.random() * 12,
+        born: now,
+        life: Math.max(650, 1080 - speed * 80),
+        strength: Math.min(0.62, (document.body.classList.contains('dark-mode') ? 0.42 : 0.32) + speed * 0.035),
+        glyph: glyphs[Math.floor(Math.random() * glyphs.length)],
+      });
+    }
+    if (wake.length > maxWake) wake.splice(0, wake.length - maxWake);
+    lastPoint = point;
+    start();
+  }
+
+  const observer = new ResizeObserver(resize);
+  observer.observe(host);
+  const intersection = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (!visible) stop();
+  });
+  intersection.observe(host);
+  host.addEventListener('pointermove', onMove, { passive: true });
+  host.addEventListener('pointerleave', () => { lastPoint = null; }, { passive: true });
+  document.addEventListener('visibilitychange', stop);
+  reduced.addEventListener('change', stop);
+  finePointer.addEventListener('change', stop);
   resize();
-  syncMotion();
-  return { redraw: () => draw(performance.now()) };
+  return { redraw: () => draw() };
 }

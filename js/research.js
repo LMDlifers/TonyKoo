@@ -1,4 +1,15 @@
 import('./chat-overlay.mjs');
+const researchHero = document.querySelector('.researchHero');
+if (researchHero) {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'glyphField glyphField--research';
+  canvas.setAttribute('aria-hidden', 'true');
+  researchHero.prepend(canvas);
+  import('./glyph-field.mjs').then(({ startGlyphField }) => {
+    const field = startGlyphField(canvas, researchHero, researchHero, { ambientCount: 14, quiet: true });
+    document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => requestAnimationFrame(() => field?.redraw()));
+  });
+}
 (() => {
   const toggle = document.querySelector('[data-theme-toggle]');
   try { if (localStorage.getItem('darkMode') !== 'disabled') document.body.classList.add('dark-mode'); } catch (_) { document.body.classList.add('dark-mode'); }
