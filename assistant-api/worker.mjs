@@ -131,7 +131,8 @@ export default {
       { role: 'user', content: JSON.stringify({ question, history, evidence }) },
     ];
     try {
-      const budget = await reserveDailyCall(env);
+      const budget = await reserveDailyCall(env, request.headers.get('cf-connecting-ip'));
+      if (budget === 'client_exhausted') return reply({ error: 'You reached today’s answer limit. Try again tomorrow.' }, 429, origin);
       if (budget === 'exhausted') return reply({ error: 'The public guide reached today’s answer limit. Try again tomorrow.' }, 429, origin);
       if (budget === 'unavailable') return reply({ error: 'The answer service is unavailable.' }, 503, origin);
       const output = await env.AI.run(MODEL, { messages, max_completion_tokens: 420, temperature: 0.2, chat_template_kwargs: { enable_thinking: false }, response_format: { type: 'json_object' } });
