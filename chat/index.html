@@ -21,6 +21,7 @@
         <button class="railClose" id="railClose" type="button" aria-label="Close navigation"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       </div>
       <button class="newChat" id="newChat" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New chat</button>
+      <button class="newChat mySharesButton" id="myShares" type="button">My shared links</button>
       <nav class="railNav" aria-label="Explore the site">
         <span class="railLabel">Explore</span>
         <a href="../research/">Research articles</a>
@@ -40,7 +41,7 @@
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
         <div class="headerTitle"><strong>AI Engineering Lab</strong><span>Source-backed conversations</span></div>
-        <div class="headerActions"><a href="../research/">Research</a><button id="themeToggle" type="button" aria-label="Switch to dark mode" title="Change theme"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button></div>
+        <div class="headerActions"><button class="shareChatButton" id="shareChat" type="button" disabled>Share chat</button><a href="../research/">Research</a><button id="themeToggle" type="button" aria-label="Switch to dark mode" title="Change theme"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button></div>
       </header>
       <div class="chatScroll" id="chatScroll">
         <section class="chatEmpty" id="chatEmpty" aria-labelledby="welcomeTitle">
@@ -66,6 +67,28 @@
       </div>
     </main>
   </div>
+  <dialog class="shareDialog" id="shareDialog" aria-labelledby="shareTitle">
+    <div class="shareDialogHead"><div><span class="shareEyebrow">LINK-ONLY SHARE</span><h2 id="shareTitle">Review before sharing</h2></div><button id="shareClose" type="button" aria-label="Close sharing dialog">×</button></div>
+    <p>Choose the exchanges to include. Anyone with the link can read the selected text and cited sources for 30 days. Exclude anything private. Answers can be shared for seven days after they are given.</p>
+    <form id="shareForm">
+      <fieldset id="sharePairs"><legend>Selected exchanges</legend></fieldset>
+      <label class="shareAcknowledgement"><input id="shareReviewed" type="checkbox"> I reviewed the selected text and removed private details.</label>
+      <p class="shareStatus" id="shareStatus" role="status"></p>
+      <div class="shareDialogActions"><button id="shareCancel" type="button">Cancel</button><button id="shareSubmit" type="submit" disabled>Create link</button></div>
+    </form>
+    <div class="shareResult" id="shareResult" hidden>
+      <label for="shareLink">Unlisted link</label>
+      <div class="shareLinkRow"><input id="shareLink" type="text" readonly><button id="shareCopy" type="button">Copy</button></div>
+      <p id="shareExpiry"></p>
+      <p>The revoke key stays in this browser. If you clear its storage, you lose the ability to revoke this link early; it still expires automatically.</p>
+      <button id="shareRevoke" type="button">Revoke this link</button>
+    </div>
+  </dialog>
+  <dialog class="shareDialog" id="manageDialog" aria-labelledby="manageTitle">
+    <div class="shareDialogHead"><div><span class="shareEyebrow">THIS BROWSER</span><h2 id="manageTitle">My shared links</h2></div><button id="manageClose" type="button" aria-label="Close shared links">×</button></div>
+    <p>Links made in this browser appear here until they expire. Clearing browser storage removes this list and its revoke keys.</p>
+    <div id="manageList" class="manageList"></div>
+  </dialog>
   <script type="module" src="../js/engineering-chat.mjs"></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ try {
     await page.locator('.findAskLauncher').click();
     assert.equal(await page.locator('#tonyChatOverlay').evaluate((node) => node.open), true);
     await page.keyboard.press('Escape');
-    assert.equal(await page.locator('#tonyChatOverlay').evaluate((node) => node.open), false);
+    await page.waitForFunction(() => !document.querySelector('#tonyChatOverlay')?.open);
     await page.close();
   }
   const navigation = await browser.newPage();
