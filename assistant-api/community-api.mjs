@@ -209,15 +209,27 @@ export async function handleCommunity(request, env, origin, pathname) {
   return response({ error: 'Not found' }, 404, origin);
 }
 
-export async function reserveDailyCall(env) {
-  if (!env.MAX_DAILY_AI_CALLS) return 'allowed';
+export async function reserveDailyCall(env, clientIp) {
   const max = Number(env.MAX_DAILY_AI_CALLS);
-  if (!env.COMMUNITY_DB || !Number.isSafeInteger(max) || max < 1) return 'unavailable';
+  const clientMax = Number(env.MAX_DAILY_AI_CALLS_PER_CLIENT);
+  if (!env.COMMUNITY_DB || !env.MAX_DAILY_AI_CALLS || !env.MAX_DAILY_AI_CALLS_PER_CLIENT
+    || !Number.isSafeInteger(max) || max < 1
+    || !Number.isSafeInteger(clientMax) || clientMax < 1 || clientMax >= max) return 'unavailable';
   const day = new Date().toISOString().slice(0, 10);
   try {
+    const clientHash = base64url(new Uint8Array(await crypto.subtle.sign('HMAC',
+      await keyFor(env.FEEDBACK_SIGNING_KEY), encoder.encode(`${day}:${clientIp || 'local'}`))));
+    const clientRow = await env.COMMUNITY_DB.prepare(`INSERT INTO daily_ai_usage_by_client(day, client_hash, calls) VALUES (?, ?, 1)
+      ON CONFLICT(day, client_hash) DO UPDATE SET calls = calls + 1 WHERE calls < ? RETURNING calls`)
+      .bind(day, clientHash, clientMax).first();
+    if (!clientRow) return 'client_exhausted';
     const row = await env.COMMUNITY_DB.prepare(`INSERT INTO daily_ai_usage(day, calls) VALUES (?, 1)
       ON CONFLICT(day) DO UPDATE SET calls = calls + 1 WHERE calls < ? RETURNING calls`)
       .bind(day, max).first();
+    if (!row) {
+      await env.COMMUNITY_DB.prepare('UPDATE daily_ai_usage_by_client SET calls = calls - 1 WHERE day = ? AND client_hash = ? AND calls > 0')
+        .bind(day, clientHash).run();
+    }
     return row ? 'allowed' : 'exhausted';
   } catch { return 'unavailable'; }
 }
@@ -252,6 +264,8 @@ export async function cleanupCommunity(env) {
   await env.COMMUNITY_DB.prepare('DELETE FROM shares WHERE expires_at <= ?').bind(now).run();
   await env.COMMUNITY_DB.prepare('DELETE FROM feedback WHERE created_at < ?').bind(now - 90 * 86400_000).run();
   await env.COMMUNITY_DB.prepare('DELETE FROM daily_ai_usage WHERE day < ?')
+    .bind(new Date(now - 3 * 86400_000).toISOString().slice(0, 10)).run();
+  await env.COMMUNITY_DB.prepare('DELETE FROM daily_ai_usage_by_client WHERE day < ?')
     .bind(new Date(now - 3 * 86400_000).toISOString().slice(0, 10)).run();
   await env.COMMUNITY_DB.prepare('DELETE FROM daily_share_usage WHERE day < ?')
     .bind(new Date(now - 3 * 86400_000).toISOString().slice(0, 10)).run();

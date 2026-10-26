@@ -9,7 +9,7 @@ const answerText = 'Start with “How to prove an agent works”. Compare a simp
 
 function database() {
   const sqlite = new DatabaseSync(':memory:');
-  for (const migration of ['0001_community.sql', '0002_share_budget.sql', '0003_feedback_budget.sql', '0004_share_dedup.sql']) {
+  for (const migration of ['0001_community.sql', '0002_share_budget.sql', '0003_feedback_budget.sql', '0004_share_dedup.sql', '0005_client_ai_budget.sql']) {
     sqlite.exec(fs.readFileSync(new URL(`../assistant-api/migrations/${migration}`, import.meta.url), 'utf8'));
   }
   return {
@@ -34,13 +34,15 @@ function env() {
     COMMUNITY_RATE_LIMITER: { limit: async () => ({ success: true }) },
     AI: { run: async () => ({ response: JSON.stringify({ status: 'supported', answer: answerText,
       citations: ['research-how-to-prove-an-agent-works'] }) }) },
-    MAX_DAILY_AI_CALLS: '250', MAX_DAILY_SHARES: '100', MAX_DAILY_FEEDBACK: '500',
+    MAX_DAILY_AI_CALLS: '250', MAX_DAILY_AI_CALLS_PER_CLIENT: '20',
+    MAX_DAILY_SHARES: '100', MAX_DAILY_FEEDBACK: '500',
   };
 }
 
-function request(path, method = 'GET', body, from = origin) {
+function request(path, method = 'GET', body, from = origin, ip) {
   return new Request(`https://assistant.example${path}`, {
-    method, headers: { origin: from, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
+    method, headers: { origin: from, ...(ip ? { 'cf-connecting-ip': ip } : {}),
+      ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
 }
@@ -135,6 +137,56 @@ test('daily model budget blocks a model call after the hard cap', async () => {
   const response = await worker.fetch(request('/ask', 'POST', { question: 'How are agents evaluated?' }), bindings);
   assert.equal(response.status, 429);
   assert.equal(calls, 0);
+  assert.equal(bindings.COMMUNITY_DB.sqlite.prepare('SELECT SUM(calls) AS calls FROM daily_ai_usage_by_client').get().calls, 0);
+});
+
+test('missing daily quota configuration fails closed before a model call', async () => {
+  const bindings = env();
+  let calls = 0;
+  bindings.AI.run = async () => { calls++; return {}; };
+  for (const key of ['MAX_DAILY_AI_CALLS', 'MAX_DAILY_AI_CALLS_PER_CLIENT']) {
+    const original = bindings[key];
+    for (const invalid of [undefined, '']) {
+      bindings[key] = invalid;
+      const response = await worker.fetch(request('/ask', 'POST', { question: 'How are agents evaluated?' }), bindings);
+      assert.equal(response.status, 503);
+    }
+    bindings[key] = original;
+  }
+  assert.equal(calls, 0);
+});
+
+test('one IP cannot use the shared daily AI allowance, while another can still ask', async () => {
+  const bindings = env();
+  bindings.MAX_DAILY_AI_CALLS_PER_CLIENT = '2';
+  let calls = 0;
+  bindings.AI.run = async () => { calls++; return { response: JSON.stringify({
+    status: 'supported', answer: answerText, citations: ['research-how-to-prove-an-agent-works'],
+  }) }; };
+  const ask = (ip) => worker.fetch(request('/ask', 'POST',
+    { question: 'How are agents evaluated?' }, origin, ip), bindings);
+  assert.equal((await ask('203.0.113.7')).status, 200);
+  assert.equal((await ask('203.0.113.7')).status, 200);
+  assert.equal((await ask('203.0.113.7')).status, 429);
+  assert.equal((await ask('198.51.100.9')).status, 200);
+  assert.equal(calls, 3);
+  assert.equal(bindings.COMMUNITY_DB.sqlite.prepare('SELECT calls FROM daily_ai_usage').get().calls, 3);
+  const rows = bindings.COMMUNITY_DB.sqlite.prepare('SELECT client_hash, calls FROM daily_ai_usage_by_client').all();
+  assert.deepEqual(rows.map(({ calls: count }) => count).sort(), [1, 2]);
+  assert.ok(rows.every(({ client_hash: hash }) => hash !== '203.0.113.7' && hash !== '198.51.100.9'));
+});
+
+test('requests without a connecting IP share one bounded fallback allowance', async () => {
+  const bindings = env();
+  bindings.MAX_DAILY_AI_CALLS_PER_CLIENT = '1';
+  let calls = 0;
+  bindings.AI.run = async () => { calls++; return { response: JSON.stringify({
+    status: 'supported', answer: answerText, citations: ['research-how-to-prove-an-agent-works'],
+  }) }; };
+  const ask = () => worker.fetch(request('/ask', 'POST', { question: 'How are agents evaluated?' }), bindings);
+  assert.equal((await ask()).status, 200);
+  assert.equal((await ask()).status, 429);
+  assert.equal(calls, 1);
 });
 
 test('daily share budget prevents repeated valid receipts from filling storage', async () => {

@@ -4,6 +4,11 @@ import worker from '../assistant-api/worker.mjs';
 
 const origin = 'https://lmdlifers.github.io';
 const allowingLimiter = { limit: async () => ({ success: true }) };
+const quotaBindings = {
+  MAX_DAILY_AI_CALLS: '250', MAX_DAILY_AI_CALLS_PER_CLIENT: '20',
+  FEEDBACK_SIGNING_KEY: 'test-key-that-is-long-enough-for-hmac',
+  COMMUNITY_DB: { prepare: () => ({ bind: () => ({ first: async () => ({ calls: 1 }) }) }) },
+};
 const request = (question, from = origin) => new Request('https://assistant.example/ask', {
   method: 'POST',
   headers: { origin: from, 'content-type': 'application/json' },
@@ -21,6 +26,7 @@ test('worker uses bounded prior turns for a sourced follow-up', async () => {
     { role: 'user', content: 'How does the FAISS cache work?' },
     { role: 'assistant', content: 'A semantic cache needs freshness and fallback gates.' },
   ]), {
+    ...quotaBindings,
     RATE_LIMITER: allowingLimiter,
     AI: { run: async (_model, input) => {
       prompt = JSON.parse(input.messages.at(-1).content);
@@ -50,6 +56,7 @@ test('worker grounds answers in public sources and checks citations', async () =
   let prompt = '';
   let modelOptions;
   const env = {
+    ...quotaBindings,
     RATE_LIMITER: allowingLimiter,
     AI: { run: async (_model, input) => {
       prompt = input.messages.at(-1).content;
