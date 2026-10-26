@@ -33,6 +33,7 @@ button { cursor: pointer; }
 .railClose svg { width: 20px; height: 20px; }
 .newChat { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); text-align: left; font: 700 .89rem Karla, sans-serif; }
 .newChat:hover, .railNav a:hover { background: #e5ede3; }
+.mySharesButton { margin-top: 8px; }
 .newChat svg { width: 20px; height: 20px; }
 .railNav { display: grid; gap: 2px; margin-top: 28px; }
 .railLabel { padding: 0 .75rem .55rem; color: var(--muted); font: 700 .72rem Karla, sans-serif; }
@@ -52,6 +53,8 @@ button { cursor: pointer; }
 .headerActions a:hover { text-decoration: underline; }
 .headerActions button, .menuButton { display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 9px; background: transparent; color: var(--ink); }
 .headerActions button:hover, .menuButton:hover, .railClose:hover { background: var(--user); }
+.headerActions .shareChatButton { width: auto; min-width: 92px; padding: 0 .7rem; border: 1px solid var(--line); font: 700 .78rem Karla, sans-serif; }
+.headerActions .shareChatButton:disabled { opacity: .45; cursor: not-allowed; }
 .menuButton { display: none; }
 .chatScroll { position: relative; z-index: 1; flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth; }
 .chatEmpty { display: flex; flex-direction: column; justify-content: center; width: min(100%,760px); min-height: 100%; margin: 0 auto; padding: 38px 30px 54px; }
@@ -80,6 +83,45 @@ button { cursor: pointer; }
 .turnActions { display: flex; gap: 12px; margin-top: 13px; }
 .turnActions button { min-height: 34px; padding: .3rem .15rem; border: 0; background: none; color: var(--muted); font: 700 .75rem Karla, sans-serif; }
 .turnActions button:hover { color: var(--accent); text-decoration: underline; }
+.feedbackForm { display: grid; gap: 8px; max-width: 400px; margin-top: 9px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.feedbackForm label { color: var(--muted); font: 700 .75rem Karla, sans-serif; }
+.feedbackComment { width: 100%; min-height: 66px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--ink); resize: vertical; font-size: .84rem; }
+.feedbackForm button { justify-self: start; padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 7px; background: var(--user); color: var(--ink); font: 700 .75rem Karla, sans-serif; }
+.feedbackThanks { margin: 9px 0 0; color: var(--muted); font-size: .75rem; }
+.shareDialog { width: min(560px,calc(100vw - 28px)); max-height: min(84dvh,780px); padding: 25px; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); color: var(--body); box-shadow: 0 24px 80px rgba(0,0,0,.24); overflow-y: auto; }
+.shareDialog::backdrop { background: rgba(10,15,19,.68); }
+.shareDialogHead { display: flex; justify-content: space-between; gap: 12px; }
+.shareEyebrow { color: var(--muted); font: 700 .67rem Karla, sans-serif; letter-spacing: .12em; }
+.shareDialog h2 { margin: 3px 0 0; color: var(--ink); font: 700 1.5rem Karla, sans-serif; }
+.shareDialog p { margin: 13px 0 17px; color: var(--muted); font-size: .89rem; }
+.shareDialogHead button { align-self: flex-start; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font-size: 1.8rem; line-height: 1; }
+.shareDialogHead button:hover { background: var(--user); }
+.shareDialog fieldset { display: grid; gap: 9px; max-height: 290px; margin: 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; overflow-y: auto; }
+.shareDialog legend { padding: 0 5px; color: var(--ink); font: 700 .8rem Karla, sans-serif; }
+.sharePair { display: flex; align-items: flex-start; gap: 10px; padding: 9px; border-radius: 8px; background: var(--bg); }
+.sharePair input { margin-top: 4px; accent-color: var(--accent); }
+.sharePair span { min-width: 0; overflow-wrap: anywhere; font-size: .82rem; }
+.sharePair strong { display: block; color: var(--ink); font: 700 .81rem Karla, sans-serif; }
+.sharePreviewQuestion,.sharePreviewAnswer { display: block; margin-top: 5px; white-space: pre-wrap; }
+.sharePreviewAnswer { color: var(--muted); }
+.shareAcknowledgement { display: flex; align-items: flex-start; gap: 9px; margin-top: 16px; color: var(--ink); font-size: .83rem; }
+.shareAcknowledgement input { margin-top: 4px; accent-color: var(--accent); }
+.shareDialogActions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 13px; }
+.shareDialogActions button,.shareLinkRow button { min-height: 38px; padding: 7px 13px; border: 1px solid var(--line); border-radius: 8px; background: var(--user); color: var(--ink); font: 700 .8rem Karla, sans-serif; }
+.shareDialogActions button[type=submit] { background: var(--accent); color: var(--bg); }
+.shareDialogActions button:disabled { opacity: .45; cursor: not-allowed; }
+.shareDialog .shareStatus { min-height: 1.3em; margin: 8px 0; color: var(--ink); }
+.shareResult { margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line); }
+.shareResult[hidden] { display: none; }
+.shareResult label { color: var(--ink); font: 700 .82rem Karla, sans-serif; }
+.shareLinkRow { display: flex; gap: 7px; margin-top: 7px; }
+.shareLinkRow input { flex: 1; min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--ink); font-size: .78rem; }
+.shareResult #shareRevoke { padding: 0; border: 0; background: none; color: var(--muted); text-decoration: underline; font: 700 .75rem Karla, sans-serif; }
+.manageList { display: grid; gap: 10px; }
+.manageItem { padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); }
+.manageItem a { display: block; overflow-wrap: anywhere; font: 700 .78rem Karla, sans-serif; }
+.manageItem p { margin: 6px 0; font-size: .76rem; }
+.manageItem button { padding: 0; border: 0; background: none; color: var(--muted); font: 700 .76rem Karla,sans-serif; text-decoration: underline; }
 .composerDock { position: relative; z-index: 2; flex: 0 0 auto; padding: 15px max(24px,calc((100% - 760px)/2)) max(14px,env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--bg); }
 .chatComposer { display: flex; align-items: flex-end; gap: 11px; min-height: 62px; padding: 9px 10px 9px 17px; border: 1px solid #b9cdbb; border-radius: 16px; background: var(--surface); box-shadow: 0 7px 24px rgba(39,58,45,.07); }
 .chatComposer:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(40,91,76,.11); }
@@ -127,6 +169,7 @@ body.dark-mode { --bg:#121519;--surface:#20252a;--rail:#191d21;--ink:#f4f6f7;--b
   .composerNote { font-size: .72rem; line-height: 1.35; }
 }
 @media (max-width: 360px) { .headerActions a { display: none; } }
+@media (max-width: 360px) { .headerActions .shareChatButton { min-width: 82px; padding-inline: .4rem; } .shareDialog { padding: 18px; } }
 @media (max-height: 700px) { .chatEmpty { justify-content: flex-start; } }
 @media (prefers-reduced-motion: reduce) { .chatScroll { scroll-behavior: auto; } .chatRail { transition: none; } }
 

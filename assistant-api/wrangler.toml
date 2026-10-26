@@ -2,6 +2,14 @@ name = "tony-portfolio-guide"
 main = "worker.mjs"
 compatibility_date = "2026-10-19"
 
+[vars]
+MAX_DAILY_AI_CALLS = "250"
+MAX_DAILY_SHARES = "100"
+MAX_DAILY_FEEDBACK = "500"
+
+[triggers]
+crons = ["0 3 * * *"]
+
 [ai]
 binding = "AI"
 remote = true
@@ -13,3 +21,17 @@ namespace_id = "62827104"
 [ratelimits.simple]
 limit = 10
 period = 60
+
+[[ratelimits]]
+name = "COMMUNITY_RATE_LIMITER"
+namespace_id = "62827105"
+
+[ratelimits.simple]
+limit = 20
+period = 60
+
+[[d1_databases]]
+binding = "COMMUNITY_DB"
+database_name = "tony-community-chat"
+database_id = "a2e573e2-d706-4ffc-a938-ff92f3c099c0"
+migrations_dir = "migrations"

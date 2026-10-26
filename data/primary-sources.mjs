@@ -1,0 +1,43 @@
+// Editorially reviewed source summaries. Re-check publisher pages when changing these claims.
+export default [
+  {
+    id: 'primary-anthropic-effective-agents', title: 'Building effective agents', publisher: 'Anthropic',
+    url: 'https://www.anthropic.com/engineering/building-effective-agents', kind: 'primary guidance',
+    accessDate: '2026-10-26', reuseTerms: 'Link and original short summary only; no publisher figures reproduced.',
+    reviewedSummary: 'Distinguishes predefined workflows from agents that choose tools and steps dynamically; describes routing, parallelization, orchestrator–worker and evaluator–optimizer patterns.',
+    summary: 'Choose the simplest workflow or agent pattern that solves the task, then make tool boundaries explicit.',
+    keywords: 'agent architecture workflow routing parallelization orchestrator worker evaluator optimizer tools agent patterns',
+    facts: 'Anthropic distinguishes workflows with predefined code paths from agents that direct their own process and tool use. Its patterns are design guidance, not a guarantee that adding agents improves outcomes.',
+    text: 'Building effective agents explains when to use predefined workflows and when dynamic agent control is useful. It discusses prompt chaining, routing, parallelization, orchestrator–worker and evaluator–optimizer patterns. It recommends simple, composable designs and well-described tools.',
+  },
+  {
+    id: 'primary-anthropic-agent-evals', title: 'Demystifying evals for AI agents', publisher: 'Anthropic',
+    url: 'https://www.anthropic.com/research/demystifying-evals-for-ai-agents', kind: 'primary guidance',
+    accessDate: '2026-10-26', reuseTerms: 'Link and original short summary only; no publisher figures reproduced.',
+    reviewedSummary: 'Defines tasks, trials, graders, transcripts and outcomes, and recommends inspecting traces and checking that graders measure the intended result.',
+    summary: 'Evaluate agent outcomes and trajectories with tasks, graders and human review of failure cases.',
+    keywords: 'agent evaluation evals grader outcome transcript trajectory trials baseline task benchmark',
+    facts: 'An agent can produce a plausible final answer while the environment outcome is wrong. Evaluation design should specify tasks and success criteria, run trials, check graders, and inspect transcripts.',
+    text: 'Demystifying evals for AI agents separates a task, trial, grader, transcript and outcome. It describes multi-turn tool-use evaluations and notes that grader bugs or shortcuts can distort results. Teams should inspect failed trials and compare what the agent said with the actual state of the environment.',
+  },
+  {
+    id: 'primary-owasp-prompt-injection', title: 'LLM Prompt Injection Prevention Cheat Sheet', publisher: 'OWASP Cheat Sheet Series',
+    url: 'https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html', kind: 'primary security guidance',
+    accessDate: '2026-10-26', reuseTerms: 'Link and original short summary only; no diagrams reproduced.',
+    reviewedSummary: 'Explains direct and indirect prompt injection, why filtering alone is insufficient, and how permission boundaries, validation and monitoring reduce exposure.',
+    summary: 'Treat retrieved text and tool results as untrusted data; enforce permissions outside the model.',
+    keywords: 'prompt injection untrusted instructions retrieved content tools authorization security defense',
+    facts: 'Prompt injection can arrive through a user message or untrusted retrieved content. A keyword denylist is not a security boundary; validate outputs and enforce tool permissions independently.',
+    text: 'The OWASP prompt-injection cheat sheet describes direct and indirect attacks against LLM applications. It recommends layered controls including explicit trust boundaries, constrained tool access, output validation, monitoring and testing. Input screening alone cannot reliably distinguish data from instructions.',
+  },
+  {
+    id: 'primary-cloudflare-d1', title: 'Cloudflare D1 overview', publisher: 'Cloudflare',
+    url: 'https://developers.cloudflare.com/d1/', kind: 'primary documentation',
+    accessDate: '2026-10-26', reuseTerms: 'Link and original short summary only; no publisher figures reproduced.',
+    reviewedSummary: 'Documents a managed SQLite-compatible serverless database that Workers can access through a binding; app-level authorization and retention are still application responsibilities.',
+    summary: 'Use a Worker binding to query D1; design authorization, limits and retention in the application.',
+    keywords: 'Cloudflare D1 serverless database SQLite Worker binding SQL integration architecture',
+    facts: 'Cloudflare D1 is a managed serverless database with SQLite SQL semantics and Worker access. The application must still decide which data to store, who may read it, and when to delete it.',
+    text: 'The D1 documentation describes a SQLite-compatible serverless database for Cloudflare Workers and Pages. A Worker uses a D1 binding to run SQL. Its managed service does not remove the need for application-level data minimization, authorization or retention rules.',
+  },
+];
