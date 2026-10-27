@@ -3,13 +3,15 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-assert.match(html, /class="fieldScene" data-season="summer"/);
+assert.match(html, /class="fieldScene" data-season="summer" data-cast="work"/);
 assert.match(html, /data-season-choice="summer"/);
 assert.match(html, /data-season-choice="snow"/);
+assert.match(html, /data-cast-choice="work"/);
+assert.match(html, /data-cast-choice="ideas"/);
 const stations = [...html.matchAll(/<a\b([^>]*class="personaStation"[^>]*)>([\s\S]*?)<\/a>/g)];
-assert.equal(stations.length, 3, 'Exactly three native persona links');
+assert.equal(stations.length, 5, 'Five native persona links across two casts');
 for (const [index, [, attrs, body]] of stations.entries()) {
-  const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background']][index];
+  const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background'],['writer','#writing','Writer · Writing'],['reader','#reading','Reader · Reading']][index];
   assert.ok(attrs.includes(`data-persona="${persona}"`) && attrs.includes(`href="${href}"`));
   assert.ok(body.includes(label), `Missing visible label: ${label}`);
   assert.match(body, /class="personaStill"[^>]*alt=""/);
@@ -35,13 +37,14 @@ try {
           overflow: document.documentElement.scrollWidth > innerWidth,
           intro: rect(document.querySelector('.fieldIntro')),
           world: rect(document.querySelector('.fieldWorld')),
-          targets: [...document.querySelectorAll('.personaStation')].map(rect),
+          targets: [...document.querySelectorAll('.personaStation:not([hidden])')].map(rect),
           images: [...document.querySelectorAll('.personaStill')].map(img => img.complete && img.naturalWidth > 0),
           map: getComputedStyle(document.querySelector('.fieldWorld')).backgroundImage,
         };
       });
       assert.equal(geometry.overflow, false, `Overflow at ${width}`);
       assert.ok(geometry.images.every(Boolean), `Missing sprites at ${width}`);
+      assert.equal(geometry.targets.length, 3, `Work cast shows three characters at ${width}`);
       assert.match(geometry.map, dark ? /field-summer-night\.svg/ : /field-summer\.svg/);
       assert.ok(geometry.intro.right <= geometry.world.left || geometry.intro.bottom <= geometry.world.top, `Intro overlaps world at ${width}`);
       for (const [index, target] of geometry.targets.entries()) {
@@ -71,6 +74,14 @@ try {
       assert.ok(await first.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
       assert.equal(await page.locator('.personaAnimated').first().isVisible(), false);
       assert.equal(await page.locator('.personaStill').first().isVisible(), true);
+      await page.locator('[data-cast-choice="ideas"]').click();
+      assert.equal(await page.locator('.fieldScene').getAttribute('data-cast'), 'ideas');
+      assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['researcher','writer','reader']);
+      await page.locator('[data-persona="writer"]').click();
+      assert.equal(await page.locator('.fieldSelectionLink').getAttribute('href'), '#writing');
+      await page.locator('[data-cast-choice="work"]').click();
+      assert.equal(await page.locator('.fieldSelectionCard').isVisible(), false, 'Cast change closes the destination card');
+      assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['ai-engineer','researcher','student']);
       await page.close();
     }
   }
@@ -92,6 +103,10 @@ try {
 
   const native = await browser.newPage({ javaScriptEnabled: false });
   await native.goto(base);
+  assert.equal(await native.locator('.personaStation:visible').count(), 3);
+  assert.equal(await native.locator('.fieldFallbackLinks a').count(), 2);
+  assert.equal(await native.locator('.fieldFallbackLinks a').first().getAttribute('href'), '#writing');
+  assert.equal(await native.locator('.fieldFallbackLinks a').last().getAttribute('href'), '#reading');
   await native.locator('[data-persona="ai-engineer"]').click();
   assert.equal(new URL(native.url()).hash, '#portfolio');
   await native.close();

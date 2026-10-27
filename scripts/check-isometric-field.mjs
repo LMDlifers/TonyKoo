@@ -64,6 +64,27 @@ try {
   assert.ok(separation >= .09, 'Characters cannot be dropped on top of one another');
   await page.keyboard.press('Escape');
   assert.notEqual(await engineer.getAttribute('aria-expanded'), 'true');
+  await scene.locator('[data-season-choice="snow"]').click();
+  const researcherBeforeCast = await researcher.evaluate(el => [Number(el.dataset.x), Number(el.dataset.y)]);
+  await scene.locator('[data-cast-choice="ideas"]').click();
+  assert.equal(await scene.getAttribute('data-cast'), 'ideas');
+  assert.equal(await scene.getAttribute('data-season'), 'snow', 'Cast switching preserves the chosen season');
+  assert.ok((await researcher.evaluate(el => [Number(el.dataset.x), Number(el.dataset.y)])).every((value, index) => Math.abs(value - researcherBeforeCast[index]) < .01), 'Researcher stays in place during cast switch');
+  const writer = scene.locator('[data-persona="writer"]');
+  const writerStart = await writer.evaluate(el => [Number(el.dataset.x), Number(el.dataset.y)]);
+  const writerBox = await writer.boundingBox();
+  await page.mouse.move(writerBox.x + writerBox.width / 2, writerBox.y + writerBox.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(writerBox.x + writerBox.width / 2 + 55, writerBox.y + writerBox.height / 2 + 20, { steps: 5 });
+  await page.mouse.up();
+  const writerDropped = await writer.evaluate(el => [Number(el.dataset.x), Number(el.dataset.y)]);
+  assert.notDeepEqual(writerDropped, writerStart, 'Writer can be dragged');
+  await scene.locator('[data-cast-choice="work"]').click();
+  assert.equal(await scene.locator('.fieldSelectionCard').isVisible(), false, 'Cast switch closes an open card');
+  await scene.locator('[data-cast-choice="ideas"]').click();
+  assert.deepEqual(await writer.evaluate(el => [Number(el.dataset.x), Number(el.dataset.y)]), writerDropped, 'Writer returns to the last position');
+  assert.equal(await scene.locator('[data-persona="reader"]').isVisible(), true);
+  await scene.locator('[data-cast-choice="work"]').click();
   await scene.locator('[data-persona="researcher"]').click();
   assert.match(await scene.locator('.fieldSelectionLink').getAttribute('href'), /research\//);
   await scene.locator('.fieldSelectionLink').click();
@@ -98,6 +119,30 @@ try {
     await roaming.waitForTimeout(120);
   }
   await roaming.close();
+
+  const castCollision = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  await castCollision.goto(base);
+  const collisionScene = castCollision.locator('.fieldScene');
+  await collisionScene.scrollIntoViewIfNeeded();
+  const collisionWorld = await collisionScene.locator('.fieldWorld').boundingBox();
+  async function dragRole(role, x, y) {
+    const box = await collisionScene.locator(`[data-persona="${role}"]`).boundingBox();
+    await castCollision.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await castCollision.mouse.down();
+    await castCollision.mouse.move(collisionWorld.x + collisionWorld.width * x, collisionWorld.y + collisionWorld.height * y, { steps: 8 });
+    await castCollision.mouse.up();
+  }
+  await dragRole('student', .85, .51);
+  await dragRole('ai-engineer', .68, .58);
+  await dragRole('researcher', .28, .62);
+  await collisionScene.locator('[data-cast-choice="ideas"]').click();
+  const restoredOverlap = await collisionScene.evaluate(sceneEl => {
+    const a = sceneEl.querySelector('[data-persona="writer"]').getBoundingClientRect();
+    const b = sceneEl.querySelector('[data-persona="researcher"]').getBoundingClientRect();
+    return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+  });
+  assert.equal(restoredOverlap, false, 'Restored cast never overlaps the shared Researcher');
+  await castCollision.close();
 
   const still = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   await still.goto(base);

@@ -11,6 +11,8 @@ const sourceById = new Map([...sources, ...primarySources].map((source) => [sour
 const turnsEl = document.querySelector('#chatTurns');
 const scrollEl = document.querySelector('#chatScroll');
 const emptyEl = document.querySelector('#chatEmpty');
+const mascotButton = document.querySelector('#welcomeMascot');
+const mascotActionStatus = document.querySelector('#mascotActionStatus');
 const form = document.querySelector('#chatComposer');
 const input = document.querySelector('#chatInput');
 const sendButton = document.querySelector('#sendButton');
@@ -28,6 +30,22 @@ const shareStatus = document.querySelector('#shareStatus');
 const shareResult = document.querySelector('#shareResult');
 let running = null;
 let generation = 0;
+const mascotActions = [
+  { name: 'jump', announcement: 'Tony jumps.' },
+  { name: 'move', announcement: 'Tony moves to the side and back.' },
+  { name: 'run', announcement: 'Tony runs out and back.' },
+];
+let mascotActionIndex = 0;
+mascotButton.addEventListener('click', () => {
+  const action = mascotActions[mascotActionIndex % mascotActions.length];
+  mascotActionIndex += 1;
+  mascotButton.removeAttribute('data-action');
+  // Restart the motion if a visitor clicks again before the previous action finishes.
+  void mascotButton.offsetWidth;
+  mascotButton.dataset.action = action.name;
+  mascotActionStatus.textContent = action.announcement;
+});
+mascotButton.addEventListener('animationend', () => mascotButton.removeAttribute('data-action'));
 
 function readSaved() {
   try {
