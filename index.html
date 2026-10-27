@@ -127,25 +127,42 @@
             </div>
             <p class="heroGuideLine">Curious about the work? <a href="chat/">Ask the AI Engineering Lab <span aria-hidden="true">↗</span></a></p>
             </div>
-            <div class="fieldScene" aria-label="Explore my work and background">
-                <a class="personaStation" data-persona="ai-engineer" href="#portfolio">
+            <div class="fieldScene" data-season="summer" aria-label="Explore my work and background">
+                <div class="fieldToolbar">
+                    <span class="fieldToolbarTitle">Explore the field</span>
+                    <div class="fieldSeasonChoices" role="group" aria-label="Map season">
+                        <button type="button" data-season-choice="summer" aria-pressed="true">Summer</button>
+                        <button type="button" data-season-choice="snow" aria-pressed="false">Snow</button>
+                    </div>
+                </div>
+                <div class="fieldWorld">
+                <a class="personaStation" data-persona="ai-engineer" data-x="0.28" data-y="0.62" style="--x: .28; --y: .62" href="#portfolio" aria-controls="fieldSelectionCard" aria-expanded="false">
                     <img class="personaStill" src="images/portfolio-field/ai-engineer-still.png" alt="" width="128" height="160">
                     <span class="personaAnimated" hidden aria-hidden="true"></span>
                     <span class="personaLabel">AI Engineer · Projects</span>
                     <span class="personaDescription">Build and inspect practical systems.</span>
                 </a>
-                <a class="personaStation" data-persona="researcher" href="research/">
+                <a class="personaStation" data-persona="researcher" data-x="0.50" data-y="0.49" style="--x: .50; --y: .49" href="research/" aria-controls="fieldSelectionCard" aria-expanded="false">
                     <img class="personaStill" src="images/portfolio-field/researcher-still.png" alt="" width="128" height="160">
                     <span class="personaAnimated" hidden aria-hidden="true"></span>
                     <span class="personaLabel">Researcher · Research</span>
                     <span class="personaDescription">Explore papers, experiments, and ideas.</span>
                 </a>
-                <a class="personaStation" data-persona="student" href="#resume">
+                <a class="personaStation" data-persona="student" data-x="0.72" data-y="0.62" style="--x: .72; --y: .62" href="#resume" aria-controls="fieldSelectionCard" aria-expanded="false">
                     <img class="personaStill" src="images/portfolio-field/student-still.png" alt="" width="128" height="160">
                     <span class="personaAnimated" hidden aria-hidden="true"></span>
                     <span class="personaLabel">Student · Background</span>
                     <span class="personaDescription">Follow my education and experience.</span>
                 </a>
+                </div>
+                <div class="fieldSelectionCard" id="fieldSelectionCard" hidden>
+                    <div>
+                        <strong class="fieldSelectionTitle"></strong>
+                        <p class="fieldSelectionDescription"></p>
+                    </div>
+                    <a class="fieldSelectionLink" href="#portfolio">Open destination <span aria-hidden="true">↗</span></a>
+                    <button class="fieldSelectionClose" type="button" aria-label="Deselect character">×</button>
+                </div>
             </div>
         </div>
     </header>

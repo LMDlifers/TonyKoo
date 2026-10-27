@@ -20,7 +20,84 @@ for night in (False,True):
   s += [rect(x,y,3,7,leaf),rect(x+4,y+3,3,4,leaf)]
  for x,y in [(120,275),(310,360),(706,248),(888,357)]: s += [rect(x,y,6,4,'#c9a874'),rect(x+2,y-3,2,3,cream)]
  if night: s += [rect(91,46,24,24,'#e8dcac'),rect(103,42,16,25,sky)]+[rect(x,y,2,2,'#b8c6bc') for x,y in [(210,42),(397,77),(735,47),(880,88),(650,40)]]
- p.joinpath('field-night.svg' if night else 'field.svg').write_text(svg(960,400,s))
+ legacy=p.joinpath('field-night.svg' if night else 'field.svg')
+ if not legacy.exists(): legacy.write_text(svg(960,400,s))
+
+# The interactive homepage uses one isometric footprint in four palettes. Keeping
+# the geometry identical lets the visitor change seasons without moving a persona.
+def polygon(points, color, extra=''):
+ return f'<polygon points="{points}" fill="{color}" {extra}/>'
+def line(x1,y1,x2,y2,color,width=2,opacity=1):
+ return f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{color}" stroke-width="{width}" opacity="{opacity}" fill="none"/>'
+for season in ('summer','snow'):
+ for night in (False,True):
+  winter=season=='snow'
+  sky='#101923' if night else '#e9eeed'
+  soil='#263942' if night else '#58695e'
+  soil_edge='#19282e' if night else '#394c48'
+  top=('#768996' if night else '#e7eff1') if winter else ('#3e645d' if night else '#82aa82')
+  tile=('#91a4af' if night else '#f4faf8') if winter else ('#547971' if night else '#a3c19a')
+  path=('#7b8d96' if night else '#d9e2e1') if winter else ('#718a7b' if night else '#d4c8a2')
+  ink='#172a33' if night else '#314b52'
+  roof=('#526a76' if night else '#c8d9dc') if winter else ('#345659' if night else '#bf6849')
+  wall='#9daeb1' if night else '#f0e7d3'
+  leaf=('#c6d4da' if night else '#ffffff') if winter else ('#527a72' if night else '#3e7968')
+  accent='#e9b574' if night else '#cb8154'
+  s=[rect(0,0,960,520,sky)]
+  # Small technical stars/dots keep the scene connected to the rest of the site.
+  for i in range(34):
+   x=(i*173+41)%960; y=(i*89+31)%480
+   s.append(rect(x,y,2,2,'#718993' if night else '#bdcbc7'))
+  s += [polygon('480,133 911,300 480,482 49,300','#071219' if night else '#adbbb7','opacity=".28"'),
+        polygon('480,103 906,278 480,461 54,278',soil_edge),
+        polygon('54,278 480,461 480,486 54,303',soil),
+        polygon('480,461 906,278 906,303 480,486',soil_edge),
+        polygon('480,103 906,278 480,461 54,278',top)]
+  s.append('<clipPath id="island"><polygon points="480,103 906,278 480,461 54,278"/></clipPath>')
+  s.append('<g clip-path="url(#island)">')
+  for i in range(-8,18):
+   x=i*60
+   s += [line(x,85,x+900,470,tile,1,.24),line(x,470,x+900,85,tile,1,.24)]
+  # Cross-island path and a quiet central plaza, drawn in the same projection.
+  s += [polygon('130,278 180,258 480,380 430,401',path,'opacity=".83"'),
+        polygon('480,380 787,254 835,273 528,402',path,'opacity=".83"'),
+        polygon('480,270 593,316 480,363 367,316',path,'opacity=".88"')]
+  s.append('</g>')
+  # Left workshop: flat-shaded isometric walls, roof, windows and a tiny laptop.
+  s += [polygon('211,174 285,203 285,270 211,240',wall),
+        polygon('285,203 365,171 365,239 285,270','#b9b0a1' if not night else '#71838a'),
+        polygon('197,171 283,135 378,173 289,211',roof),
+        polygon('211,183 279,209 279,215 211,189',ink),
+        polygon('313,222 341,210 341,239 313,251',ink),
+        polygon('318,224 336,217 336,235 318,242',accent),
+        polygon('230,210 250,218 250,232 230,224',ink),
+        polygon('234,214 246,219 246,227 234,222','#85b9bb')]
+  # Research board, study bench and two stylized pines set the three zones.
+  s += [polygon('475,191 544,219 544,266 475,237',ink),
+        polygon('481,198 537,221 537,255 481,232','#edf2e9' if not night else '#bac9cd'),
+        line(489,213,527,228,'#4d8e91',3),line(495,226,519,236,accent,3),
+        line(486,239,473,279,ink,5),line(539,260,554,286,ink,5),
+        polygon('681,284 743,259 766,268 704,294',ink),
+        polygon('681,279 743,254 766,263 704,289',wall),
+        line(700,288,700,311,ink,5),line(750,271,750,293,ink,5)]
+  for cx,cy,scale in [(730,180,1),(807,242,.78),(137,266,.7)]:
+   w=int(34*scale); h=int(64*scale)
+   s += [rect(cx-4,cy+20,8,int(50*scale),soil_edge),
+         polygon(f'{cx},{cy-h//2} {cx+w},{cy+23} {cx-w},{cy+23}',leaf),
+         polygon(f'{cx},{cy-h//2-13} {cx+w//2},{cy+2} {cx-w//2},{cy+2}',leaf)]
+  # Snow and grass details stay sparse so moving personas remain legible.
+  for i in range(24):
+   x=135+(i*113)%680; y=238+(i*47)%160
+   if 365<x<600 and 275<y<365: continue
+   s += [rect(x,y,4,2,'#dce7e8' if winter else '#386d60'),
+         rect(x+5,y-3,2,3,'#e9f5f6' if winter else accent)]
+  if winter:
+   for x,y in [(172,146),(424,129),(617,163),(848,174),(90,100),(887,101)]:
+    s += [line(x-4,y,x+4,y,'#d3e8ee',2,.6),line(x,y-4,x,y+4,'#d3e8ee',2,.6)]
+  if night:
+   s += [rect(73,65,26,26,'#e9d7ab'),rect(84,60,20,29,sky)]
+  name=f'field-{season}{"-night" if night else ""}.svg'
+  p.joinpath(name).write_text(svg(960,520,s))
 roles={'ai-engineer':('#304d6b','#7db4b2'),'researcher':('#bd873c','#f1dfae'),'student':('#e8ddbb','#608b68')}
 def frame(role,state,i):
  coat,accent=roles[role]; bob= -1 if state=='idle' and i in (1,2) else 0
