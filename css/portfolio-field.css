@@ -34,6 +34,9 @@ body.dark-mode .fieldScene[data-season="snow"] .fieldWorld { background-image: u
 [data-persona="student"] { --idle: url('../images/portfolio-field/student-idle.png'); --walk: url('../images/portfolio-field/student-walk.png'); }
 [data-persona="writer"] { --idle: url('../images/portfolio-field/writer-idle.png'); --walk: url('../images/portfolio-field/writer-walk.png'); }
 [data-persona="reader"] { --idle: url('../images/portfolio-field/reader-idle.png'); --walk: url('../images/portfolio-field/reader-walk.png'); }
+[data-persona="quant"] { --idle: url('../images/portfolio-field/quant-idle.png'); --walk: url('../images/portfolio-field/quant-walk.png'); }
+[data-persona="architect"] { --idle: url('../images/portfolio-field/architect-idle.png'); --walk: url('../images/portfolio-field/architect-walk.png'); }
+[data-persona="investor"] { --idle: url('../images/portfolio-field/investor-idle.png'); --walk: url('../images/portfolio-field/investor-walk.png'); }
 .personaLabel { max-width: 118px; padding: 5px 8px; border: 1px solid #b8c7c6; border-radius: 7px; background: #fbfcf8f2; box-shadow: 0 3px 9px #0c263225; color: #253e40; font-size: 12px; font-weight: 750; line-height: 1.25; white-space: nowrap; }
 .personaDescription { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .personaStation:is(:hover, :focus-visible, [aria-expanded="true"]) .personaLabel { border-color: #b46d4d; background: #fffaf1; }

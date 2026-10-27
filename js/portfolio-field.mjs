@@ -7,6 +7,9 @@ const ROUTES = {
   student: [[.72, .62], [.75, .63], [.73, .69], [.72, .64]],
   writer: [[.28, .62], [.31, .64], [.30, .59], [.25, .63]],
   reader: [[.72, .62], [.75, .63], [.73, .69], [.72, .64]],
+  quant: [[.28, .62], [.31, .64], [.30, .59], [.25, .63]],
+  architect: [[.50, .49], [.55, .54], [.51, .56], [.49, .51]],
+  investor: [[.72, .62], [.75, .63], [.73, .69], [.72, .64]],
 };
 
 function nearestWalkable(x, y, occupied = [], width = 960, height = 520) {
@@ -161,8 +164,8 @@ export function initPortfolioField(root = document) {
       const incoming = activePeople();
       const bounds = world.getBoundingClientRect();
       const occupied = [];
-      const shared = incoming.find(person => person.element.dataset.persona === 'researcher');
-      for (const person of [shared, ...incoming.filter(candidate => candidate !== shared)]) {
+      const shared = incoming.find(person => !person.element.hidden);
+      for (const person of shared ? [shared, ...incoming.filter(candidate => candidate !== shared)] : incoming) {
         const [x, y] = nearestWalkable(person.x, person.y, occupied, bounds.width, bounds.height);
         if (x !== person.x || y !== person.y) {
           position(person, x, y);
@@ -227,9 +230,8 @@ export function initPortfolioField(root = document) {
     previous?.element.focus();
   });
   cardLink.addEventListener('click', () => {
-    if (selected?.element.dataset.persona === 'ai-engineer') {
-      document.querySelector('[data-project-filter="ai"]')?.click();
-    }
+    const projectFilter = selected?.element.dataset.projectFilterTarget || (selected?.element.dataset.persona === 'ai-engineer' ? 'ai' : null);
+    if (projectFilter) document.querySelector(`[data-project-filter="${projectFilter}"]`)?.click();
     deselect();
   });
   scene.addEventListener('keydown', event => {
