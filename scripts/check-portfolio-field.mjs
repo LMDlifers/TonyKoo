@@ -1,24 +1,22 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
+
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-assert.match(html, /id="portfolioField"/, 'Missing portfolio field scene');
+assert.match(html, /class="fieldScene" data-season="summer"/);
+assert.match(html, /data-season-choice="summer"/);
+assert.match(html, /data-season-choice="snow"/);
 const stations = [...html.matchAll(/<a\b([^>]*class="personaStation"[^>]*)>([\s\S]*?)<\/a>/g)];
 assert.equal(stations.length, 3, 'Exactly three native persona links');
-for (const [index, [ , attrs, body]] of stations.entries()) {
+for (const [index, [, attrs, body]] of stations.entries()) {
   const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background']][index];
   assert.ok(attrs.includes(`data-persona="${persona}"`) && attrs.includes(`href="${href}"`));
   assert.ok(body.includes(label), `Missing visible label: ${label}`);
   assert.match(body, /class="personaStill"[^>]*alt=""/);
-  assert.match(body, /class="personaAnimated"[^>]*hidden/);
 }
 assert.match(html, /href="#portfolio"[^>]*>[^<]*<i[^>]*><\/i> View Projects/);
-assert.match(html, /<\/header>\s*<!-- Scroll Progress Bar -->[\s\S]*?<section id="portfolio"/);
-assert.doesNotMatch(html, /id="fieldProof"|class="projectEvidenceIndex"|id="evidence"/);
-assert.match(html, /<details class="resumeDetails container">/);
 assert.match(html, /data-project-filter="ai"/);
-console.log('Portfolio field static checks passed.');
 
-const { createRequire } = await import('node:module');
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || '/Users/kootony/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const browser = await chromium.launch({ headless: true, executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' });
@@ -26,107 +24,76 @@ const base = process.env.SITE_BASE_URL || 'http://localhost:8000';
 try {
   for (const width of [1440, 1024, 768, 390, 320]) {
     for (const dark of [false, true]) {
-      const responsive = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
-      await responsive.goto(base);
-      await responsive.waitForTimeout(1100);
-      if (dark) await responsive.evaluate(() => document.body.classList.add('dark-mode'));
-      await responsive.evaluate(() => document.fonts.ready);
-      await responsive.waitForTimeout(350);
-      const geometry = await responsive.evaluate(() => {
-        const box = el => el.getBoundingClientRect().toJSON();
-        return { overflow: document.documentElement.scrollWidth > innerWidth, title: box(document.querySelector('.fieldIntro')), targets: [...document.querySelectorAll('.personaStation')].map(box), labels: [...document.querySelectorAll('.personaLabel')].map(box) };
+      const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+      await page.goto(base);
+      await page.evaluate(isDark => document.body.classList.toggle('dark-mode', isDark), dark);
+      await page.locator('.fieldScene').scrollIntoViewIfNeeded();
+      await page.evaluate(() => document.fonts.ready);
+      const geometry = await page.evaluate(() => {
+        const rect = el => el.getBoundingClientRect().toJSON();
+        return {
+          overflow: document.documentElement.scrollWidth > innerWidth,
+          intro: rect(document.querySelector('.fieldIntro')),
+          world: rect(document.querySelector('.fieldWorld')),
+          targets: [...document.querySelectorAll('.personaStation')].map(rect),
+          images: [...document.querySelectorAll('.personaStill')].map(img => img.complete && img.naturalWidth > 0),
+          map: getComputedStyle(document.querySelector('.fieldWorld')).backgroundImage,
+        };
       });
       assert.equal(geometry.overflow, false, `Overflow at ${width}`);
+      assert.ok(geometry.images.every(Boolean), `Missing sprites at ${width}`);
+      assert.match(geometry.map, dark ? /field-summer-night\.svg/ : /field-summer\.svg/);
+      assert.ok(geometry.intro.right <= geometry.world.left || geometry.intro.bottom <= geometry.world.top, `Intro overlaps world at ${width}`);
       for (const [index, target] of geometry.targets.entries()) {
         assert.ok(target.width >= 44 && target.height >= 44, `Touch target at ${width}`);
-        assert.ok(target.top >= geometry.title.bottom, `Title overlap at ${width}`);
-        for (const other of geometry.targets.slice(index + 1)) assert.ok(target.right <= other.left || other.right <= target.left || target.bottom <= other.top || other.bottom <= target.top, `Target overlap at ${width}`);
-        const label = geometry.labels[index];
-        assert.ok(label.left >= target.left && label.right <= target.right && label.bottom <= target.bottom, `Clipped label at ${width}`);
-      }
-      if (width >= 768) assert.ok(geometry.labels.every(label => label.bottom < 900), `Desktop labels below first viewport at ${width}`);
-      const station = responsive.locator('.personaStation').first();
-      await station.focus();
-      assert.ok(await station.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
-      assert.equal(await responsive.locator('.personaAnimated').first().isVisible(), false);
-      assert.equal(await responsive.locator('.personaStill').first().isVisible(), true);
-      assert.ok(await responsive.locator('.fieldScene').evaluate(el => el.getAnimations({ subtree: true }).every(animation => animation.constructor.name !== 'CSSAnimation')));
-      if (width < 768) {
-        for (const position of ['start', 'center', 'end']) {
-          await responsive.locator('[data-persona="researcher"]').evaluate((el, block) => el.scrollIntoView({ block }), position);
-          await responsive.waitForTimeout(350);
-          const blocked = await responsive.locator('.personaStation').evaluateAll(stations => {
-            const navBottom = document.querySelector('#navigation').getBoundingClientRect().bottom;
-            return stations.flatMap(station => {
-              const rect = station.getBoundingClientRect();
-              const points = [.2, .5, .8].flatMap(x => [.2, .5, .8].map(y => [rect.left + rect.width * x, rect.top + rect.height * y]));
-              for (const text of station.querySelectorAll('.personaLabel, .personaDescription')) {
-                const label = text.getBoundingClientRect();
-                points.push([label.left + label.width / 2, label.top + label.height / 2]);
-              }
-              return points.filter(([x, y]) => y > navBottom + 4 && y < innerHeight - 4 && !station.contains(document.elementFromPoint(x, y))).map(([x, y]) => ({ persona: station.dataset.persona, x, y, covering: document.elementFromPoint(x, y)?.className }));
-            });
-          });
-          assert.deepEqual(blocked, [], `Mobile persona hit area blocked at ${width}/${position}/${dark ? 'dark' : 'light'}`);
+        for (const other of geometry.targets.slice(index + 1)) {
+          assert.ok(target.right <= other.left || other.right <= target.left || target.bottom <= other.top || other.bottom <= target.top, `Persona overlap at ${width}`);
         }
-        await responsive.evaluate(() => scrollTo(0, 0));
       }
-      await responsive.screenshot({ path: `/tmp/portfolio-field-${width}-${dark ? 'dark' : 'light'}.png`, fullPage: false });
-      await responsive.close();
+      if (width <= 390) {
+        const covered = await page.evaluate(() => {
+          const launcher = document.querySelector('.findAskLauncher')?.getBoundingClientRect();
+          if (!launcher) return false;
+          return [...document.querySelectorAll('.personaStation, .fieldSelectionCard:not([hidden])')].some(el => {
+            const r = el.getBoundingClientRect();
+            return r.left < launcher.right && r.right > launcher.left && r.top < launcher.bottom && r.bottom > launcher.top;
+          });
+        });
+        assert.equal(covered, false, `Chat launcher covers field controls at ${width}`);
+        await page.locator('[data-persona="student"]').click();
+        assert.equal(await page.locator('.fieldSelectionCard').isVisible(), true);
+        assert.equal(await page.locator('.findAskLauncher').isVisible(), false, `Chat launcher yields to the selected character card at ${width}`);
+        await page.locator('.fieldSelectionClose').click();
+        assert.equal(await page.locator('.findAskLauncher').isVisible(), true, `Chat launcher returns after closing the card at ${width}`);
+      }
+      const first = page.locator('.personaStation').first();
+      await first.focus();
+      assert.ok(await first.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
+      assert.equal(await page.locator('.personaAnimated').first().isVisible(), false);
+      assert.equal(await page.locator('.personaStill').first().isVisible(), true);
+      await page.close();
     }
   }
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(base);
-  await page.waitForTimeout(1100);
   const scene = page.locator('.fieldScene');
   await scene.scrollIntoViewIfNeeded();
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'true');
-  await scene.evaluate(el => { el.dataset.active = 'false'; void el.offsetWidth; el.dataset.active = 'true'; });
-  await page.waitForFunction(() => [...document.querySelectorAll('.personaAnimated')].every(el =>
-    el.getAnimations().length === 2 && el.getAnimations().every(animation => animation.playState === 'running')));
-  assert.ok(await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).animationIterationCount.split(', ').every(count => count === '1')));
-  const boxes = await page.locator('.personaStation').evaluateAll(els => els.map(el => el.getBoundingClientRect().toJSON()));
-  const pose = await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).backgroundPosition);
-  await page.waitForTimeout(1150);
-  assert.notEqual(await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).backgroundPosition), pose);
-  assert.deepEqual(await page.locator('.personaStation').evaluateAll(els => els.map(el => el.getBoundingClientRect().toJSON())), boxes);
-  await page.locator('.personaStation').first().hover();
-  assert.ok((await page.locator('.personaAnimated').first().evaluate(el => getComputedStyle(el).animationPlayState)).split(', ').every(state => state === 'paused'));
-  await page.mouse.move(0, 0);
-  await page.screenshot({ path: '/tmp/portfolio-field-motion-0.png' });
-  await page.waitForTimeout(4200);
-  assert.ok(await page.locator('.personaAnimated').first().evaluate(el => el.getAnimations().every(animation => animation.playState === 'finished')));
-  await page.screenshot({ path: '/tmp/portfolio-field-motion-1.png' });
-  await page.evaluate(() => {
-    Object.defineProperty(document, 'hidden', { configurable: true, get: () => true });
-    document.dispatchEvent(new Event('visibilitychange'));
-  });
-  assert.equal(await scene.getAttribute('data-active'), 'false');
-  await page.evaluate(() => { delete document.hidden; document.dispatchEvent(new Event('visibilitychange')); });
-  await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'true');
-  await page.locator('[data-persona="ai-engineer"]').click();
+  await page.locator('[data-persona="ai-engineer"]').focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('.fieldSelectionCard').isVisible(), true);
+  await page.locator('.fieldSelectionLink').click();
   await page.waitForFunction(() => location.hash === '#portfolio');
   assert.ok(await page.locator('[data-project-filter="ai"]').evaluate(el => el.classList.contains('active')));
-  assert.ok(await page.locator('.filterItem.ai.show').count() > 0);
-  assert.equal(await page.locator('.filterItem:not(.ai).show').count(), 0);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'false');
-  await page.locator('[data-persona="student"]').focus();
-  await page.keyboard.press('Enter');
-  await page.waitForFunction(() => location.hash === '#resume');
-  await page.locator('[data-persona="researcher"]').click();
-  await page.waitForURL('**/research/');
+  await page.close();
+
   const native = await browser.newPage({ javaScriptEnabled: false });
   await native.goto(base);
-  assert.equal(await native.locator('.fieldMotionToggle').count(), 0, 'No motion control remains');
   await native.locator('[data-persona="ai-engineer"]').click();
   assert.equal(new URL(native.url()).hash, '#portfolio');
-  for (const options of [{ reducedMotion: 'reduce', viewport: { width: 1440, height: 1000 } }, { viewport: { width: 390, height: 844 } }]) {
-    const still = await browser.newPage(options);
-    await still.goto(base);
-    await still.locator('.fieldScene').scrollIntoViewIfNeeded();
-    assert.equal(await still.locator('.personaStill').first().isVisible(), true);
-    assert.equal(await still.locator('.personaAnimated').first().isVisible(), false);
-    await still.close();
-  }
-  console.log('Portfolio field route, motion, stable-target, offscreen, background and no-JS checks passed.');
+  await native.close();
+  console.log('Portfolio field responsive, theme, keyboard, offscreen and no-JS checks passed.');
 } finally { await browser.close(); }

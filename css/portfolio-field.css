@@ -1,68 +1,93 @@
-/* Native links and text remain usable before artwork or JavaScript loads. */
+/* Homepage field: the copy and native links work even if its script never loads. */
 #heroSection { min-height: 0; height: auto; padding: 84px 0 0; overflow: visible; }
-#portfolioField { max-width: 1440px; margin: auto; }
-.fieldIntro { max-width: 1000px; padding: 18px 6vw 24px; position: relative; z-index: 1; }
-.fieldIntro .heroTitle { font-size: clamp(36px, 4vw, 62px); line-height: 1.1; margin: 12px 0; }
+#portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); align-items: center; gap: 22px; padding: 18px 3vw 34px; }
+.fieldIntro { max-width: 1000px; padding: 18px 2vw 24px; position: relative; z-index: 1; }
+.fieldIntro .heroTitle { font-size: clamp(36px, 3.6vw, 56px); line-height: 1.1; margin: 12px 0; }
 .fieldIntro .heroPositioning { max-width: 760px; margin: 18px 0; }
 .fieldIntro .heroActions { margin: 20px 0 0; }
-.fieldScene { min-height: 310px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 22px; padding: 30px 6vw 26px; background: #dce8bd url('../images/portfolio-field/field.svg') center / cover no-repeat; position: relative; }
-.personaStation { display: flex; flex-direction: column; align-items: center; justify-content: end; min-height: 240px; padding: 12px; color: #173c35; text-align: center; border: 2px solid transparent; border-radius: 10px; text-decoration: none; }
-.personaStill { width: 128px; height: 160px; object-fit: contain; image-rendering: pixelated; }
-.personaLabel, .personaDescription { background: #fffced; padding: 7px 12px; }
-.personaLabel { font-weight: 700; font-size: 18px; border-radius: 6px 6px 0 0; }
-.personaDescription { font-size: 13px; border-radius: 0 0 6px 6px; }
-.personaStation:hover, .personaStation:focus-visible { border-color: #17695c; color: #173c35; text-decoration: none; background: #fffced55; }
-.personaStation:focus-visible, .fieldIntro a:focus-visible { outline: 3px solid #a64b24; outline-offset: 4px; }
-#fieldProof { max-width: 1320px; margin: auto; padding: 28px 6vw; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-#fieldProof .heroEvidencePanel { display: grid; position: static; width: auto; margin: 0; padding: 18px; }
-#fieldProof .heroMetrics { display: grid; grid-template-columns: 1fr; margin: 0; gap: 12px; }
-#fieldProof .heroMetric { padding: 12px 16px; }
-body.dark-mode .fieldScene { background-image: url('../images/portfolio-field/field-night.svg'); background-color: #192e36; }
-@media (max-width: 767px) {
-  #heroSection { padding-top: 85px; }
-  .fieldIntro { padding: 20px 6vw; }
-  .fieldScene { grid-template-columns: 1fr; min-height: 460px; padding: 22px 6vw; gap: 12px; }
-  .personaStation { min-height: 132px; display: grid; grid-template-columns: 100px 1fr; grid-template-rows: 1fr 1fr; column-gap: 10px; background: #fffcedee; text-align: left; }
-  .personaStill { width: 64px; height: 80px; grid-row: 1 / 3; }
-  .personaLabel { align-self: end; font-size: 16px; }
-  .personaDescription { align-self: start; }
-  .personaLabel, .personaDescription { background: transparent; padding: 4px; }
-  #fieldProof { grid-template-columns: 1fr; }
-}
-
-/* Fixed targets contain the sprite's entire bounded walk. */
-.personaAnimated { display: none; width: 128px; height: 160px; flex-shrink: 0; image-rendering: pixelated; background-size: auto 160px; background-repeat: no-repeat; }
-[data-persona="ai-engineer"] { --idle: url('../images/portfolio-field/ai-engineer-idle.png'); --walk: url('../images/portfolio-field/ai-engineer-walk.png'); }
-[data-persona="researcher"] { --idle: url('../images/portfolio-field/researcher-idle.png'); --walk: url('../images/portfolio-field/researcher-walk.png'); }
-[data-persona="student"] { --idle: url('../images/portfolio-field/student-idle.png'); --walk: url('../images/portfolio-field/student-walk.png'); }
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .fieldScene[data-active="true"] .personaStill { display: none; }
-  .fieldScene[data-active="true"] .personaAnimated {
-    display: block;
-    background-image: var(--idle);
-    animation: personaFrames 4s 1, personaWalk 4s linear 1;
-  }
-  .fieldScene[data-active="true"] [data-persona="researcher"] .personaAnimated { animation-delay: -.2s, -.2s; }
-  .fieldScene[data-active="true"] [data-persona="student"] .personaAnimated { animation-delay: -.4s, -.4s; }
-  .fieldScene[data-active="true"] .personaStation:is(:hover, :focus-within) .personaAnimated { animation-play-state: paused; }
-}
-@keyframes personaFrames {
-  0% { background-image: var(--idle); background-position-x: 0; animation-timing-function: steps(4); }
-  49.999% { background-image: var(--idle); background-position-x: -512px; }
-  50% { background-image: var(--walk); background-position-x: 0; animation-timing-function: steps(6); }
-  100% { background-image: var(--walk); background-position-x: -768px; }
-}
-@keyframes personaWalk {
-  0%, 45%, 100% { transform: translateX(0); }
-  55%, 85% { transform: translateX(16px); }
-}
-
-/* Keep the entrance stable and readable while the decorative scene moves. */
 .fieldIntro .heroSubtitle { margin: 14px 0; min-height: 0; }
 .fieldIntro .heroButton { min-height: 44px; }
 .fieldIntro .title-word, .fieldIntro .title-line { animation: none; opacity: 1; }
-@media (max-width: 767px) {
-  .personaStation { grid-template-columns: 64px minmax(0, 1fr); }
-  .personaLabel, .personaDescription { overflow-wrap: anywhere; }
-  .personaStation:is(:hover, :focus-visible) { background: #fffced; }
+
+.fieldScene { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0; position: relative; color: #223a3e; }
+.fieldToolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 8px 12px; }
+.fieldToolbarTitle { color: #536a69; font-size: 12px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.fieldSeasonChoices { display: flex; gap: 4px; padding: 4px; border: 1px solid #bdc9c9; border-radius: 999px; background: #f4f6f3; }
+.fieldSeasonChoices button { min-width: 76px; min-height: 36px; padding: 4px 12px; border: 0; border-radius: 999px; background: transparent; color: #405759; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.fieldSeasonChoices button[aria-pressed="true"] { background: #283f44; color: #fff; box-shadow: 0 1px 4px #172c3030; }
+.fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #e3e9e7; }
+.fieldWorld { position: relative; width: 100%; aspect-ratio: 960 / 520; overflow: hidden; isolation: isolate; border: 1px solid #c4d0d0; border-radius: 20px; background: #e9eeed url('../images/portfolio-field/field-summer.svg') center / 100% 100% no-repeat; box-shadow: 0 18px 46px #19303816; }
+.fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow.svg'); }
+body.dark-mode .fieldWorld { border-color: #40545b; background-color: #101923; background-image: url('../images/portfolio-field/field-summer-night.svg'); }
+body.dark-mode .fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow-night.svg'); }
+
+.personaStation { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); z-index: var(--depth, 2); display: flex; flex-direction: column; align-items: center; width: 120px; min-height: 138px; padding: 3px 2px; transform: translate(-50%, -80%); color: #263d41; text-decoration: none; text-align: center; cursor: grab; touch-action: none; user-select: none; }
+.personaStation:active { cursor: grabbing; }
+.personaStation::before { content: ''; position: absolute; top: 89px; width: 56px; height: 12px; border-radius: 50%; background: #0d222a3d; filter: blur(4px); z-index: -1; }
+.personaStill { width: 80px; height: 100px; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
+.personaAnimated { display: none; width: 80px; height: 100px; flex: 0 0 auto; image-rendering: pixelated; background-image: var(--idle); background-size: 320px 100px; background-repeat: no-repeat; pointer-events: none; }
+[data-persona="ai-engineer"] { --idle: url('../images/portfolio-field/ai-engineer-idle.png'); --walk: url('../images/portfolio-field/ai-engineer-walk.png'); }
+[data-persona="researcher"] { --idle: url('../images/portfolio-field/researcher-idle.png'); --walk: url('../images/portfolio-field/researcher-walk.png'); }
+[data-persona="student"] { --idle: url('../images/portfolio-field/student-idle.png'); --walk: url('../images/portfolio-field/student-walk.png'); }
+.personaLabel { max-width: 118px; padding: 5px 8px; border: 1px solid #b8c7c6; border-radius: 7px; background: #fbfcf8f2; box-shadow: 0 3px 9px #0c263225; color: #253e40; font-size: 12px; font-weight: 750; line-height: 1.25; white-space: nowrap; }
+.personaDescription { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.personaStation:is(:hover, :focus-visible, [aria-expanded="true"]) .personaLabel { border-color: #b46d4d; background: #fffaf1; }
+.personaStation:focus-visible, .fieldSeasonChoices button:focus-visible, .fieldSelectionCard :focus-visible, .fieldIntro a:focus-visible { outline: 3px solid #aa6747; outline-offset: 4px; }
+.personaStation[aria-expanded="true"], .personaStation:focus-visible { z-index: 20; }
+.personaStation.is-dragging { z-index: 30; }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .fieldScene[data-active="true"] .personaStill { display: none; }
+  .fieldScene[data-active="true"] .personaAnimated { display: block; }
+  .fieldScene[data-active="true"] .personaStation.is-walking .personaAnimated { background-image: var(--walk); background-size: 480px 100px; animation: fieldWalkFrames .75s steps(6) infinite; }
+}
+@keyframes fieldWalkFrames { to { background-position-x: -480px; } }
+
+.fieldSelectionCard { position: absolute; z-index: 40; top: 74px; right: 38px; width: min(270px, 32%); padding: 18px 38px 18px 18px; border: 1px solid #c6d2d0; border-radius: 14px; background: #fbfcf9f7; box-shadow: 0 16px 35px #142b3440; }
+.fieldSelectionCard[hidden] { display: none; }
+.fieldSelectionCard strong { display: block; font-size: 16px; }
+.fieldSelectionCard p { margin: 6px 0 12px; color: #506465; font-size: 13px; line-height: 1.45; }
+.fieldSelectionLink { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; color: #1c5653; font-size: 13px; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+.fieldSelectionClose { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border: 0; border-radius: 6px; background: transparent; color: #42585b; cursor: pointer; font-size: 23px; line-height: 1; }
+.fieldSelectionClose:hover { background: #e8efec; }
+body.dark-mode .fieldScene { color: #e9eeed; }
+body.dark-mode .fieldToolbarTitle { color: #a9babf; }
+body.dark-mode .fieldSeasonChoices { border-color: #465860; background: #1b282f; }
+body.dark-mode .fieldSeasonChoices button { color: #d4e2e2; }
+body.dark-mode .fieldSeasonChoices button[aria-pressed="true"] { background: #dbe7e4; color: #22353c; }
+body.dark-mode .fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #34484c; }
+body.dark-mode .personaLabel, body.dark-mode .fieldSelectionCard { border-color: #4b6369; background: #213239f2; color: #eef3f1; }
+body.dark-mode .personaStation:is(:hover, :focus-visible, [aria-expanded="true"]) .personaLabel { border-color: #d3a073; background: #31444b; }
+body.dark-mode .fieldSelectionCard p { color: #bfd0d0; }
+body.dark-mode .fieldSelectionLink { color: #aee1d1; }
+body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
+
+@media (max-width: 1100px) {
+  #portfolioField { grid-template-columns: 1fr; gap: 4px; padding: 14px 4vw 30px; }
+  .fieldIntro { padding: 18px 2vw 24px; }
+}
+@media (max-width: 899px) {
+  .fieldScene { padding: 0 14px; }
+  .fieldWorld { display: grid; grid-template-columns: 1fr; align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
+  .personaStation { position: relative; left: auto; top: auto; transform: none; width: 100%; min-height: 78px; display: grid; grid-template-columns: 54px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 8px; padding: 6px 10px; border: 1px solid #c5d1ce; border-radius: 11px; background: #fbfcf9f2; text-align: left; cursor: pointer; touch-action: auto; }
+  .personaStation::before { display: none; }
+  .personaStill { width: 48px; height: 60px; grid-row: 1 / 3; }
+  .personaAnimated { display: none !important; }
+  .personaLabel { max-width: none; align-self: end; padding: 0; border: 0; background: none; box-shadow: none; font-size: 15px; white-space: normal; }
+  .personaDescription { position: static; width: auto; height: auto; clip-path: none; overflow: visible; align-self: start; color: #607171; font-size: 12px; white-space: normal; }
+  .fieldSelectionCard { position: relative; top: auto; right: auto; width: 100%; margin-top: 10px; }
+  body.dark-mode .personaStation { border-color: #405961; background: #243740ef; }
+  body.dark-mode .personaDescription { color: #b8c8c9; }
+}
+@media (max-width: 560px) {
+  body.fieldSelectionOpen .findAskLauncher { display: none; }
+  #heroSection { padding-top: 85px; }
+  .fieldIntro { padding: 20px 6vw; }
+  .fieldToolbar { padding-left: 0; padding-right: 0; gap: 8px; }
+  .fieldToolbarTitle { font-size: 9px; letter-spacing: .1em; }
+  .fieldSeasonChoices button { min-width: 66px; min-height: 36px; padding: 4px 8px; }
+  .fieldWorld { min-height: 510px; padding-top: min(57vw, 225px); padding-bottom: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .personaAnimated { display: none !important; }
+  .personaStill { display: block !important; }
 }
