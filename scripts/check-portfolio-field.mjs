@@ -8,10 +8,11 @@ assert.match(html, /data-season-choice="summer"/);
 assert.match(html, /data-season-choice="snow"/);
 assert.match(html, /data-cast-choice="work"/);
 assert.match(html, /data-cast-choice="ideas"/);
+assert.match(html, /data-cast-choice="methods"/);
 const stations = [...html.matchAll(/<a\b([^>]*class="personaStation"[^>]*)>([\s\S]*?)<\/a>/g)];
-assert.equal(stations.length, 5, 'Five native persona links across two casts');
+assert.equal(stations.length, 8, 'Eight native persona links across three casts');
 for (const [index, [, attrs, body]] of stations.entries()) {
-  const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background'],['writer','#writing','Writer · Writing'],['reader','#reading','Reader · Reading']][index];
+  const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background'],['writer','#writing','Writer · Writing'],['reader','#reading','Reader · Reading'],['quant','#portfolio','Quant · Projects'],['architect','research/how-to-choose-a-system-boundary.html','Architect · Systems'],['investor','research/how-to-decide-under-uncertainty.html','Investor · Decisions']][index];
   assert.ok(attrs.includes(`data-persona="${persona}"`) && attrs.includes(`href="${href}"`));
   assert.ok(body.includes(label), `Missing visible label: ${label}`);
   assert.match(body, /class="personaStill"[^>]*alt=""/);
@@ -82,6 +83,16 @@ try {
       await page.locator('[data-cast-choice="work"]').click();
       assert.equal(await page.locator('.fieldSelectionCard').isVisible(), false, 'Cast change closes the destination card');
       assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['ai-engineer','researcher','student']);
+      await page.locator('[data-cast-choice="methods"]').click();
+      assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['quant','architect','investor']);
+      const methodsOverlap = await page.locator('.personaStation:visible').evaluateAll(els => {
+        const boxes = els.map(el => el.getBoundingClientRect());
+        return boxes.some((a, index) => boxes.slice(index + 1).some(b => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
+      });
+      assert.equal(methodsOverlap, false, `Methods cast characters stay separate at ${width}`);
+      await page.locator('[data-persona="architect"]').click();
+      assert.equal(await page.locator('.fieldSelectionLink').getAttribute('href'), 'research/how-to-choose-a-system-boundary.html');
+      await page.locator('[data-cast-choice="work"]').click();
       await page.close();
     }
   }
@@ -97,6 +108,11 @@ try {
   await page.locator('.fieldSelectionLink').click();
   await page.waitForFunction(() => location.hash === '#portfolio');
   assert.ok(await page.locator('[data-project-filter="ai"]').evaluate(el => el.classList.contains('active')));
+  await page.locator('[data-cast-choice="methods"]').click();
+  await page.locator('[data-persona="quant"]').click();
+  await page.locator('.fieldSelectionLink').click();
+  await page.waitForFunction(() => location.hash === '#portfolio');
+  assert.ok(await page.locator('[data-project-filter="quant"]').evaluate(el => el.classList.contains('active')));
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'false');
   await page.close();
@@ -104,9 +120,9 @@ try {
   const native = await browser.newPage({ javaScriptEnabled: false });
   await native.goto(base);
   assert.equal(await native.locator('.personaStation:visible').count(), 3);
-  assert.equal(await native.locator('.fieldFallbackLinks a').count(), 2);
+  assert.equal(await native.locator('.fieldFallbackLinks a').count(), 5);
   assert.equal(await native.locator('.fieldFallbackLinks a').first().getAttribute('href'), '#writing');
-  assert.equal(await native.locator('.fieldFallbackLinks a').last().getAttribute('href'), '#reading');
+  assert.equal(await native.locator('.fieldFallbackLinks a').last().getAttribute('href'), 'research/how-to-decide-under-uncertainty.html');
   await native.locator('[data-persona="ai-engineer"]').click();
   assert.equal(new URL(native.url()).hash, '#portfolio');
   await native.close();

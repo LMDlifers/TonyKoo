@@ -98,7 +98,7 @@ for season in ('summer','snow'):
    s += [rect(73,65,26,26,'#e9d7ab'),rect(84,60,20,29,sky)]
   name=f'field-{season}{"-night" if night else ""}.svg'
   p.joinpath(name).write_text(svg(960,520,s))
-roles={'ai-engineer':('#304d6b','#7db4b2'),'researcher':('#bd873c','#f1dfae'),'student':('#e8ddbb','#608b68'),'writer':('#694c60','#e0b2a5'),'reader':('#40655e','#e4d4a1')}
+roles={'ai-engineer':('#304d6b','#7db4b2'),'researcher':('#bd873c','#f1dfae'),'student':('#e8ddbb','#608b68'),'writer':('#694c60','#e0b2a5'),'reader':('#40655e','#e4d4a1'),'quant':('#354f70','#87b7c2'),'architect':('#745c58','#d7ae80'),'investor':('#395b50','#e2c47f')}
 def frame(role,state,i):
  coat,accent=roles[role]; bob= -1 if state=='idle' and i in (1,2) else 0
  stride=([0,2,3,0,-2,-3][i] if state=='walk' else 0)
@@ -119,6 +119,12 @@ def frame(role,state,i):
  elif role=='reader':
   R(20,51,30,17,ink); R(23,53,12,12,accent); R(36,53,11,12,'#f6ead0')
   R(35,51,2,16,ink); R(25,56,8,2,'#ba966b'); R(39,56,7,2,'#ba966b'); R(18,56,6,5,skin)
+ elif role=='quant':
+  R(26,47,26,18,ink); R(29,49,20,13,accent); R(32,57,3,3,'#f7ecd4'); R(36,54,3,6,'#f7ecd4'); R(40,51,3,9,'#f7ecd4'); R(25,63,28,3,ink)
+ elif role=='architect':
+  R(22,47,31,17,ink); R(25,49,25,13,'#e9d6b8'); R(28,53,19,2,accent); R(29,57,3,4,accent); R(38,55,2,6,accent); R(46,46,2,18,'#b98562')
+ elif role=='investor':
+  R(23,47,29,19,ink); R(26,50,23,13,'#f4e6ca'); R(29,58,4,3,accent); R(35,54,4,7,accent); R(41,51,4,10,accent); R(24,65,27,3,ink)
  else:
   R(24,52,24,13,accent); R(27,54,9,8,'#faf0d1'); R(38,54,8,8,'#faf0d1'); R(20,57,6,5,skin)
  return r
@@ -146,4 +152,4 @@ for role in roles:
   s.append(rect(0,row*80,384,80,'#cbd4cb' if row%2==0 else '#e9e5d9'))
   for i in range(count): s.append(f'<g transform="translate({i*64},{row*80})">'+''.join(rect(*v) for v in frame(role,state,i))+'</g>')
   row+=1
-Path('/tmp/portfolio-contact.svg').write_text(svg(384,720,s))
+Path('/tmp/portfolio-contact.svg').write_text(svg(384,row*80,s))

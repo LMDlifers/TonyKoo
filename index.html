@@ -134,6 +134,7 @@
                     <div class="fieldCastChoices" role="group" aria-label="Character cast" hidden>
                         <button type="button" data-cast-choice="work" aria-pressed="true">Work</button>
                         <button type="button" data-cast-choice="ideas" aria-pressed="false">Ideas</button>
+                        <button type="button" data-cast-choice="methods" aria-pressed="false">Methods</button>
                     </div>
                     <div class="fieldSeasonChoices" role="group" aria-label="Map season">
                         <button type="button" data-season-choice="summer" aria-pressed="true">Summer</button>
@@ -172,6 +173,24 @@
                     <span class="personaLabel">Reader · Reading</span>
                     <span class="personaDescription">Explore the books and ideas behind the work.</span>
                 </a>
+                <a class="personaStation" data-persona="quant" data-casts="methods" data-destination-label="Quant projects" data-project-filter-target="quant" data-x="0.28" data-y="0.62" style="--x: .28; --y: .62" href="#portfolio" aria-controls="fieldSelectionCard" aria-expanded="false" hidden>
+                    <img class="personaStill" src="images/portfolio-field/quant-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">Quant · Projects</span>
+                    <span class="personaDescription">Explore quantitative models and analytical tools.</span>
+                </a>
+                <a class="personaStation" data-persona="architect" data-casts="methods" data-destination-label="Systems research" data-x="0.50" data-y="0.49" style="--x: .50; --y: .49" href="research/how-to-choose-a-system-boundary.html" aria-controls="fieldSelectionCard" aria-expanded="false" hidden>
+                    <img class="personaStill" src="images/portfolio-field/architect-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">Architect · Systems</span>
+                    <span class="personaDescription">See how I reason about system boundaries and reliability.</span>
+                </a>
+                <a class="personaStation" data-persona="investor" data-casts="methods" data-destination-label="Decision research" data-x="0.72" data-y="0.62" style="--x: .72; --y: .62" href="research/how-to-decide-under-uncertainty.html" aria-controls="fieldSelectionCard" aria-expanded="false" hidden>
+                    <img class="personaStill" src="images/portfolio-field/investor-still.png" alt="" width="128" height="160">
+                    <span class="personaAnimated" hidden aria-hidden="true"></span>
+                    <span class="personaLabel">Investor · Decisions</span>
+                    <span class="personaDescription">Study evidence, uncertainty, and the risks behind a choice.</span>
+                </a>
                 </div>
                 <div class="fieldSelectionCard" id="fieldSelectionCard" hidden>
                     <div>
@@ -184,6 +203,9 @@
                 <div class="fieldFallbackLinks" aria-label="More ways to explore">
                     <a href="#writing">Writer · Writing</a>
                     <a href="#reading">Reader · Reading</a>
+                    <a href="#portfolio">Quant · Projects</a>
+                    <a href="research/how-to-choose-a-system-boundary.html">Architect · Systems</a>
+                    <a href="research/how-to-decide-under-uncertainty.html">Investor · Decisions</a>
                 </div>
             </div>
         </div>
@@ -205,7 +227,7 @@
                 <div id="filter" class="col-md-12 text-center">
                     <button class="btn active" onclick="filterSelection('all')">All</button>
                     <button class="btn" data-project-filter="ai" onclick="filterSelection('ai')">AI</button>
-                    <button class="btn" onclick="filterSelection('quant')">Quant</button>
+                    <button class="btn" data-project-filter="quant" onclick="filterSelection('quant')">Quant</button>
                     <button class="btn" onclick="filterSelection('data')">Data</button>
                     <button class="btn" onclick="filterSelection('apps')">Apps</button>
                     <button class="btn" onclick="filterSelection('research')">Research</button>
