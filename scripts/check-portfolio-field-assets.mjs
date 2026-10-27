@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 const root = new URL('../images/portfolio-field/', import.meta.url);
-const roles = ['ai-engineer', 'researcher', 'student'];
+const roles = ['ai-engineer', 'researcher', 'student', 'writer', 'reader'];
 for (const name of ['field.svg', 'field-night.svg', 'field-summer.svg', 'field-summer-night.svg', 'field-snow.svg', 'field-snow-night.svg', 'ASSETS.md', ...roles.map(r => `${r}.svg`)]) {
   const data = await readFile(new URL(name, root), 'utf8');
   if (name.endsWith('.svg')) {
@@ -20,4 +20,4 @@ for (const role of roles) for (const [state, width] of [['idle', 256], ['walk', 
 let bytes = 0;
 for (const name of await readdir(root)) bytes += (await stat(new URL(name, root))).size;
 assert.ok(bytes <= 600 * 1024, `scene assets exceed 600 KB: ${bytes}`);
-console.log(`Portfolio field assets OK: 9 transparent sheets, 9 local SVGs; ${bytes} / 614400 bytes`);
+console.log(`Portfolio field assets OK: 15 transparent sheets, 11 local SVGs; ${bytes} / 614400 bytes`);

@@ -59,7 +59,16 @@ button { cursor: pointer; }
 .chatScroll { position: relative; z-index: 1; flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth; }
 .chatEmpty { display: flex; flex-direction: column; justify-content: center; width: min(100%,760px); min-height: 100%; margin: 0 auto; padding: 38px 30px 54px; }
 .chatEmpty[hidden] { display: none; }
-.chatEmpty > img { display: block; margin-bottom: 17px; image-rendering: pixelated; }
+.welcomeMascotStage { position: relative; width: 154px; height: 83px; margin-bottom: 13px; }
+.welcomeMascot { position: absolute; bottom: 0; left: 0; display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 8px; background: transparent; transform-origin: center bottom; }
+.welcomeMascot img { display: block; width: 56px; height: 56px; image-rendering: pixelated; }
+.welcomeMascot:hover img { filter: drop-shadow(0 3px 4px rgba(40,91,76,.25)); }
+.welcomeMascot[data-action="jump"] { animation: mascot-jump 650ms ease-in-out; }
+.welcomeMascot[data-action="move"] { animation: mascot-move 850ms ease-in-out; }
+.welcomeMascot[data-action="run"] { animation: mascot-run 1000ms linear; }
+@keyframes mascot-jump { 0%,100% { transform: translateY(0) scale(1); } 18% { transform: translateY(0) scale(1.1,.88); } 45% { transform: translateY(-27px) scale(.95,1.05); } 75% { transform: translateY(0) scale(1.07,.9); } }
+@keyframes mascot-move { 0%,100% { transform: translateX(0); } 35%,60% { transform: translateX(38px); } }
+@keyframes mascot-run { 0%,100% { transform: translate(0,0) scaleX(1); } 15% { transform: translate(18px,-4px) scaleX(1); } 30% { transform: translate(36px,0) scaleX(1); } 45% { transform: translate(56px,-4px) scaleX(1); } 58% { transform: translate(76px,0) scaleX(-1); } 72% { transform: translate(55px,-4px) scaleX(-1); } 86% { transform: translate(27px,0) scaleX(-1); } 99% { transform: translate(0,-3px) scaleX(-1); } }
 .chatEmpty h1 { max-width: 670px; margin: 0; color: var(--ink); font: 700 clamp(2.15rem,4vw,3.4rem)/1.1 Karla, sans-serif; letter-spacing: -.03em; }
 .chatEmpty > p { max-width: 620px; margin: 16px 0 32px; color: var(--muted); font-size: 1rem; line-height: 1.65; }
 .promptStarts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
@@ -155,7 +164,8 @@ body.dark-mode { --bg:#121519;--surface:#20252a;--rail:#191d21;--ink:#f4f6f7;--b
   .headerActions { gap: 3px; }
   .headerActions a { font-size: .78rem; }
   .chatEmpty { justify-content: flex-start; padding: clamp(55px,11vh,100px) 21px 30px; }
-  .chatEmpty > img { width: 50px; height: 50px; margin-bottom: 15px; }
+  .welcomeMascotStage { height: 78px; margin-bottom: 10px; }
+  .welcomeMascot, .welcomeMascot img { width: 50px; height: 50px; }
   .chatEmpty h1 { font-size: 2.15rem; }
   .chatEmpty > p { margin: 14px 0 24px; font-size: .93rem; }
   .promptStarts { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
@@ -171,7 +181,7 @@ body.dark-mode { --bg:#121519;--surface:#20252a;--rail:#191d21;--ink:#f4f6f7;--b
 @media (max-width: 360px) { .headerActions a { display: none; } }
 @media (max-width: 360px) { .headerActions .shareChatButton { min-width: 82px; padding-inline: .4rem; } .shareDialog { padding: 18px; } }
 @media (max-height: 700px) { .chatEmpty { justify-content: flex-start; } }
-@media (prefers-reduced-motion: reduce) { .chatScroll { scroll-behavior: auto; } .chatRail { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .chatScroll { scroll-behavior: auto; } .chatRail { transition: none; } .welcomeMascot[data-action] { animation: none; } }
 
 /* Embedded chat keeps the reading page visible behind the dialog. */
 body.embedded .chatApp{grid-template-columns:minmax(0,1fr)}

@@ -40,12 +40,17 @@
         <button class="menuButton" id="menuButton" type="button" aria-label="Open navigation" aria-controls="chatRail" aria-expanded="false">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
-        <div class="headerTitle"><strong>AI Engineering Lab</strong><span>Source-backed conversations</span></div>
+        <div class="headerTitle"><strong>AI Engineering Lab</strong><span>Ask boldly. Build carefully.</span></div>
         <div class="headerActions"><button class="shareChatButton" id="shareChat" type="button" disabled>Share chat</button><a href="../research/">Research</a><button id="themeToggle" type="button" aria-label="Switch to dark mode" title="Change theme"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button></div>
       </header>
       <div class="chatScroll" id="chatScroll">
         <section class="chatEmpty" id="chatEmpty" aria-labelledby="welcomeTitle">
-          <img src="../images/portfolio/tonykoo.png" alt="" width="56" height="56">
+          <div class="welcomeMascotStage">
+            <button class="welcomeMascot" id="welcomeMascot" type="button" aria-label="Make Tony's mascot perform an action">
+              <img src="../images/portfolio/tonykoo.png" alt="" width="56" height="56">
+            </button>
+          </div>
+          <span class="visuallyHidden" id="mascotActionStatus" role="status" aria-live="polite"></span>
           <h1 id="welcomeTitle">What are you working through?</h1>
           <p>Explore an AI concept or pressure-test a software design. The guide answers from published sources and shows what supports its answer.</p>
           <div class="promptStarts" aria-label="Ideas to start with">

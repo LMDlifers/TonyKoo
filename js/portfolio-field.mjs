@@ -5,6 +5,8 @@ const ROUTES = {
   'ai-engineer': [[.28, .62], [.31, .64], [.30, .59], [.25, .63]],
   researcher: [[.50, .49], [.55, .54], [.51, .56], [.49, .51]],
   student: [[.72, .62], [.75, .63], [.73, .69], [.72, .64]],
+  writer: [[.28, .62], [.31, .64], [.30, .59], [.25, .63]],
+  reader: [[.72, .62], [.75, .63], [.73, .69], [.72, .64]],
 };
 
 function nearestWalkable(x, y, occupied = [], width = 960, height = 520) {
@@ -29,6 +31,8 @@ export function initPortfolioField(root = document) {
   const scene = root.querySelector('.fieldScene');
   if (!scene || scene.dataset.initialized) return;
   scene.dataset.initialized = 'true';
+  scene.dataset.enhanced = 'true';
+  scene.querySelector('.fieldCastChoices').hidden = false;
   scene.dataset.active = 'false';
   const world = scene.querySelector('.fieldWorld');
   const card = scene.querySelector('.fieldSelectionCard');
@@ -44,6 +48,7 @@ export function initPortfolioField(root = document) {
     detour: null,
     restUntil: 0,
   }));
+  const activePeople = () => people.filter(person => person.element.dataset.casts.split(' ').includes(scene.dataset.cast));
   let selected = null;
   let inViewport = false;
   let frame = 0;
@@ -72,7 +77,7 @@ export function initPortfolioField(root = document) {
     cardTitle.textContent = person.element.querySelector('.personaLabel').textContent;
     cardDescription.textContent = person.element.querySelector('.personaDescription').textContent;
     cardLink.href = person.element.getAttribute('href');
-    cardLink.firstChild.textContent = 'Open ' + (person.element.dataset.persona === 'ai-engineer' ? 'Projects' : person.element.dataset.persona === 'researcher' ? 'Research' : 'Background') + ' ';
+    cardLink.firstChild.textContent = 'Open ' + person.element.dataset.destinationLabel + ' ';
     card.hidden = false;
   }
 
@@ -88,7 +93,7 @@ export function initPortfolioField(root = document) {
     if (scene.dataset.active !== 'true') return;
     const seconds = Math.min((now - (lastFrame || now)) / 1000, .05);
     lastFrame = now;
-    for (const person of people) {
+    for (const person of activePeople()) {
       if (person === selected || pointer?.person === person) continue;
       const goal = person.route[person.waypoint];
       if (!person.detour && !segmentWalkable([person.x, person.y], goal)) {
@@ -114,7 +119,7 @@ export function initPortfolioField(root = document) {
         const nx = person.x + (tx - person.x) / distance * step;
         const ny = person.y + (ty - person.y) / distance * step;
         const bounds = world.getBoundingClientRect();
-        const tooClose = people.some(other => other !== person && Math.abs(nx - other.x) * bounds.width < 124 && Math.abs(ny - other.y) * bounds.height < 142);
+        const tooClose = activePeople().some(other => other !== person && Math.abs(nx - other.x) * bounds.width < 124 && Math.abs(ny - other.y) * bounds.height < 142);
         if (!walkable(nx, ny) || tooClose) {
           person.element.classList.remove('is-walking');
           if (!person.restUntil) person.restUntil = now + 700;
@@ -148,6 +153,34 @@ export function initPortfolioField(root = document) {
     });
   }
 
+  for (const button of scene.querySelectorAll('[data-cast-choice]')) {
+    button.addEventListener('click', () => {
+      if (scene.dataset.cast === button.dataset.castChoice) return;
+      deselect();
+      scene.dataset.cast = button.dataset.castChoice;
+      const incoming = activePeople();
+      const bounds = world.getBoundingClientRect();
+      const occupied = [];
+      const shared = incoming.find(person => person.element.dataset.persona === 'researcher');
+      for (const person of [shared, ...incoming.filter(candidate => candidate !== shared)]) {
+        const [x, y] = nearestWalkable(person.x, person.y, occupied, bounds.width, bounds.height);
+        if (x !== person.x || y !== person.y) {
+          position(person, x, y);
+          person.detour = null;
+        }
+        occupied.push([person.x, person.y]);
+      }
+      for (const person of people) {
+        person.element.hidden = !incoming.includes(person);
+        person.element.classList.remove('is-walking');
+      }
+      for (const choice of scene.querySelectorAll('[data-cast-choice]')) {
+        choice.setAttribute('aria-pressed', String(choice === button));
+      }
+      lastFrame = 0;
+    });
+  }
+
   for (const person of people) {
     const link = person.element;
     link.querySelector('.personaAnimated').hidden = false;
@@ -166,7 +199,7 @@ export function initPortfolioField(root = document) {
       pointer.dragging = true;
       link.classList.add('is-dragging');
       const bounds = world.getBoundingClientRect();
-      const [x, y] = nearestWalkable((event.clientX - bounds.left) / bounds.width, (event.clientY - bounds.top) / bounds.height, people.filter(other => other !== person).map(other => [other.x, other.y]), bounds.width, bounds.height);
+      const [x, y] = nearestWalkable((event.clientX - bounds.left) / bounds.width, (event.clientY - bounds.top) / bounds.height, activePeople().filter(other => other !== person).map(other => [other.x, other.y]), bounds.width, bounds.height);
       person.detour = null;
       position(person, x, y);
     });
