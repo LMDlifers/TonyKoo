@@ -9,7 +9,7 @@ const answerText = 'Start with “How to prove an agent works”. Compare a simp
 
 function database() {
   const sqlite = new DatabaseSync(':memory:');
-  for (const migration of ['0001_community.sql', '0002_share_budget.sql', '0003_feedback_budget.sql', '0004_share_dedup.sql', '0005_client_ai_budget.sql']) {
+  for (const migration of ['0001_community.sql', '0002_share_budget.sql', '0003_feedback_budget.sql', '0004_share_dedup.sql', '0005_client_ai_budget.sql', '0006_web_search_usage.sql']) {
     sqlite.exec(fs.readFileSync(new URL(`../assistant-api/migrations/${migration}`, import.meta.url), 'utf8'));
   }
   return {
@@ -83,6 +83,21 @@ test('explicit share creates a 30-day unlisted snapshot and creator can revoke i
   assert.equal((await worker.fetch(request(`/shares/${share.id}`, 'DELETE', { revokeToken: 'wrong' }), bindings)).status, 403);
   assert.equal((await worker.fetch(request(`/shares/${share.id}`, 'DELETE', { revokeToken: share.revokeToken }), bindings)).status, 200);
   assert.equal((await worker.fetch(request(`/shares/${share.id}`), bindings)).status, 404);
+});
+
+test('a signed multi-paragraph design brief remains shareable', async () => {
+  const bindings = env();
+  const question = `How should I evaluate an agent against a simple baseline? ${'The agent runs a task, records its answer, and compares it with expected outcomes. '.repeat(22)}`.trim();
+  assert.ok(question.length > 400 && question.length < 3000);
+  const response = await worker.fetch(request('/ask', 'POST', { question }), bindings);
+  assert.equal(response.status, 200);
+  const answer = await response.json();
+  assert.ok(answer.receipt, JSON.stringify(answer));
+  const turns = [{ role: 'user', content: question },
+    { role: 'assistant', content: answer.answer, status: answer.status,
+      citations: answer.citations.map(({ id }) => id), answerId: answer.answerId, receipt: answer.receipt }];
+  const shared = await worker.fetch(request('/shares', 'POST', { turns }), bindings);
+  assert.equal(shared.status, 201);
 });
 
 test('sharing rejects edited answers, fabricated citations, invalid origin and stale receipt', async () => {

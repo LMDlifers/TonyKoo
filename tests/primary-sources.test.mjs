@@ -4,10 +4,10 @@ import primarySources from '../data/primary-sources.mjs';
 import { searchSources } from '../js/guide-core.mjs';
 
 test('approved primary sources are bounded, reviewable and searchable', () => {
-  assert.equal(primarySources.length, 4);
-  assert.equal(new Set(primarySources.map(({ id }) => id)).size, 4);
+  assert.equal(primarySources.length, 7);
+  assert.equal(new Set(primarySources.map(({ id }) => id)).size, 7);
   for (const source of primarySources) {
-    assert.match(source.url, /^https:\/\/(www\.anthropic\.com|cheatsheetseries\.owasp\.org|developers\.cloudflare\.com)\//);
+    assert.match(source.url, /^https:\/\/(www\.anthropic\.com|cheatsheetseries\.owasp\.org|developers\.cloudflare\.com|docs\.aws\.amazon\.com|aws\.amazon\.com)\//);
     assert.ok(source.publisher && source.accessDate && source.reviewedSummary && source.reuseTerms);
     assert.ok(source.text.length <= 850);
   }
@@ -15,4 +15,6 @@ test('approved primary sources are bounded, reviewable and searchable', () => {
     .some(({ id }) => id === 'primary-owasp-prompt-injection'));
   assert.ok(searchSources('agent evaluation grader outcome', primarySources, 4)
     .some(({ id }) => id === 'primary-anthropic-agent-evals'));
+  assert.ok(searchSources('multi region disaster recovery RTO RPO', primarySources, 4)
+    .some(({ id }) => id === 'primary-aws-disaster-recovery'));
 });

@@ -89,6 +89,35 @@ button { cursor: pointer; }
 .turnSources { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0 0; padding: 0; list-style: none; }
 .turnSources a { display: inline-block; padding: .35rem .6rem; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--accent); font: 700 .73rem/1.35 Karla, sans-serif; text-decoration: none; }
 .turnSources a:hover { border-color: var(--accent); text-decoration: underline; }
+.answerVisual { margin: 18px 0 0; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.answerVisual > img { display: block; width: 100%; max-height: 320px; object-fit: contain; background: #fff; border-radius: 8px; }
+.answerVisual figcaption { margin-top: 10px; color: var(--muted); font-size: .79rem; line-height: 1.5; }
+.answerVisual figcaption strong { color: var(--ink); font-weight: 700; }
+.answerVisual figcaption a { overflow-wrap: anywhere; }
+.figureEnlarge, .searchCurrentDocs { min-height: 38px; margin-top: 11px; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--accent); font: 700 .8rem Karla,sans-serif; }
+.figureEnlarge:hover, .searchCurrentDocs:hover { border-color: var(--accent); }
+.figureDialog { width: min(1000px,calc(100vw - 24px)); max-height: 90dvh; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); overflow: auto; }
+.figureDialog::backdrop { background: rgba(8,12,16,.78); }
+.figureDialogClose { display: block; margin-left: auto; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.figureDialog img { display: block; max-width: 100%; max-height: 72dvh; margin: 12px auto; object-fit: contain; background: #fff; }
+.figureDialog p { margin: 8px 0 0; font-size: .85rem; }
+.visualKind { color: var(--muted); font: 700 .68rem Karla,sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.answerVisual h3 { margin: 5px 0 12px; color: var(--ink); font: 700 1rem Karla,sans-serif; }
+.designDiagramViewport { max-width: 100%; overflow-x: auto; }
+.designDiagramViewport svg { display: block; max-width: none; color: var(--accent); }
+.designEdge { stroke: var(--accent); stroke-width: 1.8; opacity: .55; }
+.designNodeBox { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+.designNodeLabel { fill: var(--ink); font: 700 15px Karla,sans-serif; }
+.comparisonViewport { max-width: 100%; overflow-x: auto; }
+.comparisonViewport table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: .83rem; }
+.comparisonViewport th, .comparisonViewport td { padding: .65rem .7rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.comparisonViewport th { background: var(--bg); color: var(--ink); font: 700 .76rem Karla,sans-serif; }
+.comparisonViewport td:first-child { color: var(--ink); font-weight: 700; }
+.designConnections { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--body); font-size: .78rem; overflow-wrap: anywhere; }
+.answerNextStep, .answerLimits { margin-top: 15px; padding-left: 12px; border-left: 3px solid var(--accent); }
+.answerLimits { border-color: var(--line); }
+.answerNextStep strong, .answerLimits strong { display: block; color: var(--ink); font: 700 .77rem Karla,sans-serif; }
+.answerNextStep p, .answerLimits p { margin: 4px 0 0; font-size: .86rem; line-height: 1.5; }
 .turnActions { display: flex; gap: 12px; margin-top: 13px; }
 .turnActions button { min-height: 34px; padding: .3rem .15rem; border: 0; background: none; color: var(--muted); font: 700 .75rem Karla, sans-serif; }
 .turnActions button:hover { color: var(--accent); text-decoration: underline; }
