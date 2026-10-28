@@ -6,7 +6,7 @@ const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 const SHARE_LIFETIME = 30 * 86400_000;
 const RECEIPT_LIFETIME = 7 * 86400_000;
-const MAX_COMMUNITY_BODY = 16000;
+const MAX_COMMUNITY_BODY = 48000;
 const UUID = /^[a-f0-9-]{36}$/i;
 const SHARE_ID = /^[A-Za-z0-9_-]{22,64}$/;
 
@@ -99,7 +99,7 @@ async function verifiedTranscript(turns, env) {
     const question = turns[i];
     const answer = turns[i + 1];
     if (question?.role !== 'user' || typeof question.content !== 'string'
-      || question.content.trim().length < 3 || question.content.length > 400
+      || question.content.trim().length < 3 || question.content.length > 3000
       || answer?.role !== 'assistant' || typeof answer.content !== 'string'
       || !answer.content.trim() || answer.content.length > 1200
       || !UUID.test(answer.answerId || '') || !Array.isArray(answer.citations)) return null;
@@ -113,7 +113,7 @@ async function verifiedTranscript(turns, env) {
       { role: 'assistant', content: answer.content, status: proof.status,
         citations: proof.sourceIds, answerId: proof.id });
   }
-  return chars <= 10000 ? snapshot : null;
+  return chars <= 30000 ? snapshot : null;
 }
 
 async function limitCommunity(request, env) {
@@ -271,4 +271,6 @@ export async function cleanupCommunity(env) {
     .bind(new Date(now - 3 * 86400_000).toISOString().slice(0, 10)).run();
   await env.COMMUNITY_DB.prepare('DELETE FROM daily_feedback_usage WHERE day < ?')
     .bind(new Date(now - 3 * 86400_000).toISOString().slice(0, 10)).run();
+  await env.COMMUNITY_DB.prepare('DELETE FROM web_search_usage WHERE period < ?')
+    .bind(new Date(now - 35 * 86400_000).toISOString().slice(0, 7)).run();
 }
