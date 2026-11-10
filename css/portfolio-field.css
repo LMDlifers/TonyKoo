@@ -1,7 +1,6 @@
 /* Homepage field: the copy and native links work even if its script never loads. */
 #heroSection { min-height: 0; height: auto; padding: 84px 0 0; overflow: visible; }
-#portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: 1fr; align-content: center; min-height: min(78svh, 680px); padding: 18px 3vw 34px; }
-.fieldSection { padding: 56px 3vw; }
+#portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); align-items: center; gap: 22px; min-height: min(78svh, 680px); padding: 18px 3vw 34px; }
 .fieldIntro { max-width: 1000px; padding: 18px 2vw 24px; position: relative; z-index: 1; }
 .fieldIntro .heroTitle { font-size: clamp(36px, 3.6vw, 56px); line-height: 1.1; margin: 12px 0; }
 .fieldIntro .heroPositioning { max-width: 760px; margin: 18px 0; }
@@ -105,3 +104,5 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
   .personaStill { display: block !important; }
 }
 .personaDest { margin-left: .35em; font-weight: 500; }
+.fieldSelectionStatus { margin: 6px 0 0; font-size: 13px; color: var(--color-muted); }
+.fieldSelectionStatus[hidden] { display: none; }

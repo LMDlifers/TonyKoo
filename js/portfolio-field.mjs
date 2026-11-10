@@ -30,6 +30,17 @@ function nearestWalkable(x, y, occupied = [], width = 960, height = 520) {
   return best;
 }
 
+export function latestEntryFor(destination, root = document) {
+  const entries = [...root.querySelectorAll('.logEntry')].filter((entry) => entry.dataset.destination === destination);
+  if (!entries.length) return null;
+  const newest = entries.reduce((a, b) => (b.dataset.date > a.dataset.date ? b : a));
+  return {
+    date: newest.querySelector('time')?.textContent.trim() || newest.dataset.date,
+    title: newest.querySelector('a')?.textContent.trim() || '',
+    kind: newest.dataset.kind,
+  };
+}
+
 export function initPortfolioField(root = document) {
   const scene = root.querySelector('.fieldScene');
   if (!scene || scene.dataset.initialized) return;
@@ -41,6 +52,7 @@ export function initPortfolioField(root = document) {
   const card = scene.querySelector('.fieldSelectionCard');
   const cardTitle = card.querySelector('.fieldSelectionTitle');
   const cardDescription = card.querySelector('.fieldSelectionDescription');
+  const cardStatus = card.querySelector('.fieldSelectionStatus');
   const cardLink = card.querySelector('.fieldSelectionLink');
   const people = [...scene.querySelectorAll('.personaStation')].map((element) => ({
     element,
@@ -79,6 +91,9 @@ export function initPortfolioField(root = document) {
     }
     cardTitle.textContent = person.element.querySelector('.personaRole').textContent;
     cardDescription.textContent = person.element.querySelector('.personaDescription').textContent;
+    const latest = latestEntryFor(person.element.getAttribute('href'), root);
+    cardStatus.hidden = !(latest && latest.title);
+    cardStatus.textContent = cardStatus.hidden ? '' : `Latest: ${latest.title}, ${latest.date}`;
     cardLink.href = person.element.getAttribute('href');
     cardLink.firstChild.textContent = 'Open ' + person.element.dataset.destinationLabel + ' ';
     card.hidden = false;

@@ -66,6 +66,8 @@ try {
         });
         assert.equal(covered, false, `Chat launcher covers field controls at ${width}`);
         await page.locator('[data-persona="student"]').click();
+        const status = await page.locator('.fieldSelectionStatus').evaluate(el => ({ hidden: el.hidden, text: el.textContent.trim() }));
+        assert.ok(status.hidden || status.text.length > 0, `Selection status is never visible and empty at ${width}`);
         assert.equal(await page.locator('.fieldSelectionCard').isVisible(), true);
         assert.equal(await page.locator('.findAskLauncher').isVisible(), false, `Chat launcher yields to the selected character card at ${width}`);
         await page.locator('.fieldSelectionClose').click();
