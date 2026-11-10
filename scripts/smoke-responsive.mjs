@@ -18,6 +18,7 @@ const pages = [
   "/",
   "/chat/",
   "/log.html",
+  "/colophon.html",
   "/reports/agentic-healthcare-analytics.html",
   "/reports/judicial-analytics-legal-nlp.html",
   "/reports/faiss-caching-llm-cost-latency.html",

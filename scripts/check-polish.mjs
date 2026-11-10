@@ -52,4 +52,7 @@ assert.equal(labels.length, 11, "every project has an evidence label");
 for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Built", "Evidence", "Does not claim", "Stack", "Added to site"], "fixed label rows");
 for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
 
+assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
+assert.ok(fs.existsSync(new URL("../colophon.html", import.meta.url)), "colophon page exists");
+
 console.log("Polish checks passed.");
