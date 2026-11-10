@@ -46,4 +46,10 @@ for (const sel of ["bookStage", "projectDeckCard", "fieldWorld"]) {
 assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "resume visible without JS");
 assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
 
+
+const labels = [...html.matchAll(/<dl class="evidenceLabel">([\s\S]*?)<\/dl>/g)].map((m) => m[1]);
+assert.equal(labels.length, 11, "every project has an evidence label");
+for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Built", "Evidence", "Does not claim", "Stack", "Added to site"], "fixed label rows");
+for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
+
 console.log("Polish checks passed.");

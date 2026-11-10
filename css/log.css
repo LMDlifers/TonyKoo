@@ -1,7 +1,7 @@
 /* Lab log: one dated list shared by the homepage and log.html. */
 .logList {
-    --log-line: var(--color-line, var(--line));
-    --log-muted: var(--color-muted, var(--muted));
+    --log-line: var(--lab-line);
+    --log-muted: var(--lab-muted);
     --log-mono: 'Inconsolata', monospace;
     list-style: none;
     margin: 24px 0 0;
