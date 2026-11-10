@@ -103,4 +103,4 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
   .personaAnimated { display: none !important; }
   .personaStill { display: block !important; }
 }
-.personaDest { font-weight: 500; }
+.personaDest { margin-left: .35em; font-weight: 500; }

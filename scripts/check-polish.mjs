@@ -9,7 +9,6 @@ const css = fs
   .filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))
   .map((f) => fs.readFileSync(new URL(f, cssDir), "utf8"))
   .join("\n");
-const js = read("../js/script.js");
 
 const heroBlock = html.slice(html.indexOf('<header id="heroSection"'), html.indexOf("</header>"));
 
@@ -26,6 +25,5 @@ assert.doesNotMatch(html, /class="dot |console-dots/, "no decorative window dots
 assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a phrase");
 assert.doesNotMatch(html, /Explore the AI Engineering Research[^<]*→/, "no glued arrow");
 assert.doesNotMatch(html, /&bull;|[·•]/, "no middle-dot meta strings");
-assert.ok(js.length > 0);
 
 console.log("Polish checks passed.");
