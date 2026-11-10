@@ -31,4 +31,6 @@ const iPortfolioEnd = html.indexOf("</section>", html.indexOf('id="portfolio"'))
 const iField = html.indexOf('id="field"');
 assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
 
+assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
+
 console.log("Polish checks passed.");
