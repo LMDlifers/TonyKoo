@@ -37,4 +37,14 @@ assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height us
 assert.match(html, /data-project-view="grid"\s+aria-pressed="true"/, "grid pressed at load");
 assert.match(js, /setProjectView\("grid"\);/, "grid is the initial view");
 
+assert.doesNotMatch(css, /transition:\s*all/, "no transition: all");
+assert.doesNotMatch(css, /(^|\})\s*(html|body)[^{]*\{[^}]*overflow-x:\s*hidden/m, "html/body use overflow-x: clip");
+assert.doesNotMatch(css, /min-height:\s*calc\(100vh/, "hero uses svh");
+for (const sel of ["bookStage", "projectDeckCard", "fieldWorld"]) {
+  const rules = [...css.matchAll(new RegExp(`\\.${sel}\\s*\\{[^}]*grid-template-columns:([^;]*);`, "g"))];
+  for (const [, cols] of rules) assert.doesNotMatch(cols.replace(/minmax\([^)]*\)/g, ""), /\b1fr/, `${sel} image track uses minmax(0, 1fr)`);
+}
+assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "resume visible without JS");
+assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
+
 console.log("Polish checks passed.");
