@@ -1,0 +1,53 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+
+const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
+const html = read("../index.html");
+const js = read("../js/script.js");
+const cssDir = new URL("../css/", import.meta.url);
+const css = fs
+  .readdirSync(cssDir)
+  .filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))
+  .map((f) => fs.readFileSync(new URL(f, cssDir), "utf8"))
+  .join("\n");
+
+const heroBlock = html.slice(html.indexOf('<header id="heroSection"'), html.indexOf("</header>"));
+
+assert.doesNotMatch(html, /heroGuideLine/, "hero offers projects or contact, not chat");
+assert.match(html, /<a class="nav-link" href="chat\/"/, "nav Chat link kept");
+assert.equal((heroBlock.match(/heroButtonPrimary/g) || []).length, 1, "one primary hero action");
+assert.doesNotMatch(heroBlock, /heroEyebrow/, "no hero eyebrow");
+
+assert.doesNotMatch(html, /heroGuideLine|projectDeckEyebrow|sectionKicker|bookCarouselEyebrow/, "no eyebrow markup left");
+assert.doesNotMatch(css, /\.heroGuideLine|\.heroEyebrow|\.sectionKicker|\.projectDeckEyebrow|\.bookCarouselEyebrow/, "no eyebrow css left");
+assert.match(css, /\.heroButtonSecondary\s*\{[^}]*background:\s*transparent/, "secondary hero button is outlined");
+for (const [, inner] of html.matchAll(/<h4\b[^>]*>([\s\S]*?)<\/h4>/g)) assert.doesNotMatch(inner, /<(em|i)\b/, "no italics or icon-font <i> inside h4");
+assert.doesNotMatch(html, /class="dot |console-dots/, "no decorative window dots");
+assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a phrase");
+assert.doesNotMatch(html, /Explore the AI Engineering Research[^<]*→/, "no glued arrow");
+assert.doesNotMatch(html, /&bull;|[·•]/, "no middle-dot meta strings");
+
+assert.doesNotMatch(heroBlock, /class="fieldScene"/, "field scene not in hero");
+const iPortfolioEnd = html.indexOf("</section>", html.indexOf('id="portfolio"'));
+const iField = html.indexOf('id="field"');
+assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
+
+const fieldSection = html.slice(iField, html.indexOf("</section>", iField));
+assert.match(fieldSection, /<h2\b/, "#field has an h2");
+
+assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
+
+assert.match(html, /data-project-view="grid"\s+aria-pressed="true"/, "grid pressed at load");
+assert.match(js, /setProjectView\("grid"\);/, "grid is the initial view");
+
+assert.doesNotMatch(css, /transition:\s*all/, "no transition: all");
+assert.doesNotMatch(css, /(^|\})\s*(html|body)[^{]*\{[^}]*overflow-x:\s*hidden/m, "html/body use overflow-x: clip");
+assert.doesNotMatch(css, /min-height:\s*calc\(100vh/, "hero uses svh");
+for (const sel of ["bookStage", "projectDeckCard", "fieldWorld"]) {
+  const rules = [...css.matchAll(new RegExp(`\\.${sel}\\s*\\{[^}]*grid-template-columns:([^;]*);`, "g"))];
+  for (const [, cols] of rules) assert.doesNotMatch(cols.replace(/minmax\([^)]*\)/g, ""), /\b1fr/, `${sel} image track uses minmax(0, 1fr)`);
+}
+assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "resume visible without JS");
+assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
+
+console.log("Polish checks passed.");

@@ -37,6 +37,7 @@ try {
   assert.notDeepEqual(after, before, 'Dragging repositions the selected character');
   assert.ok(after.every(value => value >= 0 && value <= 1), 'Dropped character remains inside the map');
   await page.reload();
+  await engineer.scrollIntoViewIfNeeded();
   const longStart = await engineer.boundingBox();
   const longWorld = await scene.locator('.fieldWorld').boundingBox();
   await page.mouse.move(longStart.x + longStart.width / 2, longStart.y + longStart.height / 2);
@@ -94,6 +95,7 @@ try {
   const roaming = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await roaming.goto(base);
   const roamingScene = roaming.locator('.fieldScene');
+  await roamingScene.scrollIntoViewIfNeeded();
   const student = roamingScene.locator('[data-persona="student"]');
   const studentBox = await student.boundingBox();
   const roamingWorld = await roamingScene.locator('.fieldWorld').boundingBox();
@@ -151,6 +153,7 @@ try {
   await still.close();
   const quietDesktop = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
   await quietDesktop.goto(base);
+  await quietDesktop.locator('.fieldScene').scrollIntoViewIfNeeded();
   const quietEngineer = quietDesktop.locator('[data-persona="ai-engineer"]');
   const quietBox = await quietEngineer.boundingBox();
   const quietBefore = Number(await quietEngineer.getAttribute('data-x'));

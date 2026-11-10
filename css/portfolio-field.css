@@ -1,6 +1,7 @@
 /* Homepage field: the copy and native links work even if its script never loads. */
 #heroSection { min-height: 0; height: auto; padding: 84px 0 0; overflow: visible; }
-#portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); align-items: center; gap: 22px; padding: 18px 3vw 34px; }
+#portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: 1fr; align-content: center; min-height: min(78svh, 680px); padding: 18px 3vw 34px; }
+.fieldSection { padding: 56px 3vw; }
 .fieldIntro { max-width: 1000px; padding: 18px 2vw 24px; position: relative; z-index: 1; }
 .fieldIntro .heroTitle { font-size: clamp(36px, 3.6vw, 56px); line-height: 1.1; margin: 12px 0; }
 .fieldIntro .heroPositioning { max-width: 760px; margin: 18px 0; }
@@ -11,7 +12,7 @@
 
 .fieldScene { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0; position: relative; color: #223a3e; }
 .fieldToolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 8px 12px; }
-.fieldToolbarTitle { color: #536a69; font-size: 12px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.fieldToolbarTitle { color: #536a69; margin: 0; font-size: 18px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
 .fieldToolbarControls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .fieldCastChoices, .fieldSeasonChoices { display: flex; gap: 4px; padding: 4px; border: 1px solid #bdc9c9; border-radius: 999px; background: #f4f6f3; }
 .fieldCastChoices[hidden] { display: none; }
@@ -77,7 +78,7 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
 }
 @media (max-width: 899px) {
   .fieldScene { padding: 0 14px; }
-  .fieldWorld { display: grid; grid-template-columns: 1fr; align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
+  .fieldWorld { display: grid; grid-template-columns: minmax(0, 1fr); align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
   .personaStation { position: relative; left: auto; top: auto; transform: none; width: 100%; min-height: 78px; display: grid; grid-template-columns: 54px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 8px; padding: 6px 10px; border: 1px solid #c5d1ce; border-radius: 11px; background: #fbfcf9f2; text-align: left; cursor: pointer; touch-action: auto; }
   .personaStation::before { display: none; }
   .personaStill { width: 48px; height: 60px; grid-row: 1 / 3; }
@@ -93,7 +94,7 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
   #heroSection { padding-top: 85px; }
   .fieldIntro { padding: 20px 6vw; }
   .fieldToolbar { padding-left: 0; padding-right: 0; gap: 8px; }
-  .fieldToolbarTitle { font-size: 9px; letter-spacing: .1em; }
+  .fieldToolbarTitle { font-size: 16px; }
   .fieldToolbar { flex-wrap: wrap; }
   .fieldToolbarControls { width: 100%; justify-content: flex-start; }
   .fieldCastChoices button, .fieldSeasonChoices button { min-width: 66px; min-height: 36px; padding: 4px 8px; }
@@ -103,3 +104,4 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
   .personaAnimated { display: none !important; }
   .personaStill { display: block !important; }
 }
+.personaDest { margin-left: .35em; font-weight: 500; }

@@ -1,0 +1,8 @@
+Baseline at 2d77078 (servers on :8000 and :8765)
+PASS check-field-routing, check-isometric-field, check-launch-readiness, check-portfolio-field-assets, check-portfolio-field, check-research-navigation
+PASS smoke-guide, smoke-shared, smoke-theme
+PASS smoke-chat (failed once on first run, passed on rerun: flaky)
+PASS smoke-glyph (needs server on :8765, default port in script)
+FAIL smoke-responsive (pre-existing): research find-ask 'boundary' query does not match /system boundary/i at smoke-responsive.mjs:181
+node --test tests/*.test.mjs: 61 pass, 0 fail (bare `node --test tests/` errors on this Node; use glob)
+No suite skipped for network/keys.

@@ -14,7 +14,8 @@ assert.equal(stations.length, 8, 'Eight native persona links across three casts'
 for (const [index, [, attrs, body]] of stations.entries()) {
   const [persona, href, label] = [['ai-engineer','#portfolio','AI Engineer · Projects'],['researcher','research/','Researcher · Research'],['student','#resume','Student · Background'],['writer','#writing','Writer · Writing'],['reader','#reading','Reader · Reading'],['quant','#portfolio','Quant · Projects'],['architect','research/how-to-choose-a-system-boundary.html','Architect · Systems'],['investor','research/how-to-decide-under-uncertainty.html','Investor · Decisions']][index];
   assert.ok(attrs.includes(`data-persona="${persona}"`) && attrs.includes(`href="${href}"`));
-  assert.ok(body.includes(label), `Missing visible label: ${label}`);
+  const [role, dest] = label.split(' · ');
+  assert.match(body, new RegExp(`personaRole">${role}</span>\\s*<span class="personaDest">${dest}</span>`), `Missing visible label: ${label}`);
   assert.match(body, /class="personaStill"[^>]*alt=""/);
 }
 assert.match(html, /href="#portfolio"[^>]*>[^<]*<i[^>]*><\/i> View Projects/);

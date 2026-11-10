@@ -77,7 +77,7 @@ export function initPortfolioField(root = document) {
       candidate.element.setAttribute('aria-expanded', String(candidate === person));
       if (candidate === person) candidate.element.classList.remove('is-walking');
     }
-    cardTitle.textContent = person.element.querySelector('.personaLabel').textContent;
+    cardTitle.textContent = person.element.querySelector('.personaRole').textContent;
     cardDescription.textContent = person.element.querySelector('.personaDescription').textContent;
     cardLink.href = person.element.getAttribute('href');
     cardLink.firstChild.textContent = 'Open ' + person.element.dataset.destinationLabel + ' ';
