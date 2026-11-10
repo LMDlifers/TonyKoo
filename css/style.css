@@ -2269,11 +2269,14 @@ body.dark-mode .filterItemReport {
 }
 
 .evidenceLabel {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.evidenceLabel dl {
     display: grid;
     grid-template-columns: 8.5rem minmax(0, 1fr);
     margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
 }
 
 .evidenceLabel dt,
@@ -2283,8 +2286,8 @@ body.dark-mode .filterItemReport {
     border-top: 1px solid var(--lab-line);
 }
 
-.evidenceLabel dt:first-of-type,
-.evidenceLabel dt:first-of-type + dd {
+.evidenceLabel > dl:first-child dt:first-of-type,
+.evidenceLabel > dl:first-child dt:first-of-type + dd {
     border-top: 0;
     padding-top: 2px;
 }
@@ -2308,8 +2311,34 @@ body.dark-mode .filterItemReport {
     margin: 0;
 }
 
+.labelMore {
+    border-top: 1px solid var(--lab-line);
+}
+
+.labelMore > summary {
+    padding: 10px 0;
+    color: var(--lab-muted);
+    font-size: 13px;
+    cursor: pointer;
+    list-style-position: inside;
+}
+
+.labelMore > summary:hover {
+    color: var(--lab-ink);
+}
+
+.labelMore > summary:focus-visible {
+    outline: 2px solid var(--lab-accent);
+    outline-offset: 2px;
+}
+
+.labelMore[open] > dl dt:first-of-type,
+.labelMore[open] > dl dt:first-of-type + dd {
+    border-top: 0;
+}
+
 @media (max-width: 480px) {
-    .evidenceLabel { grid-template-columns: minmax(0, 1fr); }
+    .evidenceLabel dl { grid-template-columns: minmax(0, 1fr); }
     .evidenceLabel dt { padding-bottom: 0; }
     .evidenceLabel dd { border-top: 0; padding-top: 2px; }
 }

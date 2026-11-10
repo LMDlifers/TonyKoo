@@ -47,10 +47,11 @@ assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "
 assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
 
 
-const labels = [...html.matchAll(/<dl class="evidenceLabel">([\s\S]*?)<\/dl>/g)].map((m) => m[1]);
+const labels = [...html.matchAll(/<div class="evidenceLabel">([\s\S]*?<\/details>)\s*<\/div>/g)].map((m) => m[1]);
 assert.equal(labels.length, 11, "every project has an evidence label");
-for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Built", "Evidence", "Does not claim", "Stack", "Report added"], "fixed label rows");
+for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Evidence", "Does not claim", "Built", "Stack", "Report added"], "fixed label rows");
 for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
+for (const l of labels) assert.match(l, /<details class="labelMore"><summary>Full label<\/summary>\s*<dl>[\s\S]*<dt>Built<\/dt>[\s\S]*<dt>Stack<\/dt>[\s\S]*<dt>Report added<\/dt>[\s\S]*<\/dl>\s*<\/details>/, "build detail behind Full label");
 
 assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
 assert.ok(fs.existsSync(new URL("../colophon.html", import.meta.url)), "colophon page exists");

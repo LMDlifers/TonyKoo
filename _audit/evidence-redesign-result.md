@@ -34,3 +34,13 @@ Most of the remaining total FAILs are colour literals (gate 48). Many of them co
 - about 135 from the label row names and the "Not stated publicly" rows
 
 Paying this back without rewriting claims means taking content off the homepage. For example, the reading list and the certifications could move to their own pages, as the 2026-11-09 audit suggested. That decision belongs to the site owner, so this PR opens as a draft.
+
+## Word budget follow-up (2026-11-11)
+
+Plan: `docs/superpowers/plans/2026-11-11-word-budget.md`, options A and D.
+- Each label now shows Problem, Evidence and Does not claim.
+- Built, Stack and Report added sit behind a native "Full label" disclosure. It opens with Enter and also works with JS off.
+- "Not stated publicly" became "None stated" on 10 cards.
+
+Visible words at 1440 dropped from 1931 to 1473, against a budget of 1744. `check-portfolio-field.mjs` now fails above 1744.
+
