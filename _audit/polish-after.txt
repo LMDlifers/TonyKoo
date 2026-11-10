@@ -1,0 +1,1349 @@
+css/all.min.css
+  FAIL 7a :5 pure #fff: color: #fff (.fa-inverse) | fix: Tint the base toward the anchor hue
+  FAIL 47a :5 re-drawn chrome selector .fa-traffic-light:before | fix: Use a real screenshot in a figure
+  FAIL 48 :5 colour literal #eee outside tokens (border on .fa-border) | fix: Lift the value into the token block
+  FAIL 48 :5 colour literal #fff outside tokens (color on .fa-inverse)
+  FAIL 48 :5 font-family literal ""Font Awesome 5 Brands"" on .fab
+  FAIL 48 :5 font-family literal ""Font Awesome 5 Free"" on .fa,.far,.fas
+  REFLEX 47b :5 re-drawn chrome selector .fa-circle-notch:before | fix: Use a real screenshot in a figure
+css/guide-widget.css
+  FAIL 7a :1 pure #fff: background: #fff (.findAskTrigger)
+  FAIL 7a :5 pure #fff: background: #fff (.findAskDialog)
+  FAIL 7a :19 pure #fff: background: #fff (.findAskForm input)
+  FAIL 7a :20 pure #fff: color: #fff (.findAskForm button)
+  FAIL 7a :55 pure #fff: background: #fff (.findAskForm input)
+  FAIL 34 :5 width: min(680px,calc(100vw - 32px… on .findAskDialog (scrollbar overflow) | fix: width: 100% with container padding
+  FAIL 34 :40 width: 100vw on .findAskDialog (scrollbar overflow)
+  FAIL 39a :22 disabled via opacity alone on .findAskForm button:disabled | fix: Three disabled channels: fill, ink and cursor, plus the disabled attribute
+  FAIL 48 :1 colour literal #b8ccba outside tokens (border on .findAskTrigger)
+  FAIL 48 :1 colour literal #fff outside tokens (background on .findAskTrigger)
+  FAIL 48 :1 colour literal #24392d outside tokens (color on .findAskTrigger)
+  FAIL 48 :2 colour literal #285b4c outside tokens (border-color on .findAskTrigger:hover,.findAs…)
+  FAIL 48 :2 colour literal #1b473a outside tokens (color on .findAskTrigger:hover,.findAs…)
+  FAIL 48 :2 colour literal #285b4c22 outside tokens (box-shadow on .findAskTrigger:hover,.findAs…)
+  FAIL 48 :3 colour literal #dce6da outside tokens (border on .findAskTrigger kbd)
+  FAIL 48 :3 colour literal #f7f8f2 outside tokens (background on .findAskTrigger kbd)
+  FAIL 48 :3 colour literal #657668 outside tokens (color on .findAskTrigger kbd)
+  FAIL 48 :5 colour literal #d5e1d2 outside tokens (border on .findAskDialog)
+  FAIL 48 :5 colour literal #fff outside tokens (background on .findAskDialog)
+  FAIL 48 :5 colour literal #24392d outside tokens (color on .findAskDialog)
+  FAIL 48 :5 colour literal #1a302238 outside tokens (box-shadow on .findAskDialog)
+  FAIL 48 :5 font-family literal "Karla,Arial,sans-serif" on .findAskDialog
+  FAIL 48 :7 colour literal #0c20148c outside tokens (background on .findAskDialog::backdrop)
+  FAIL 48 :10 colour literal #285b4c outside tokens (color on .findAskEyebrow,.findAskLabel)
+  FAIL 48 :11 colour literal #285b4c outside tokens (color on .findAskClose)
+  FAIL 48 :12 colour literal #576c5c outside tokens (color on .findAskIntro)
+  FAIL 48 :13 colour literal #dbe6d9 outside tokens (border-bottom on .findAskModes)
+  FAIL 48 :14 colour literal #576c5c outside tokens (color on .findAskModes button)
+  FAIL 48 :15 colour literal #285b4c outside tokens (border-bottom-color on .findAskModes button[aria-pre…)
+  FAIL 48 :15 colour literal #24392d outside tokens (color on .findAskModes button[aria-pre…)
+  FAIL 48 :19 colour literal #b8ccba outside tokens (border on .findAskForm input)
+  FAIL 48 :19 colour literal #fff outside tokens (background on .findAskForm input)
+  FAIL 48 :19 colour literal #24392d outside tokens (color on .findAskForm input)
+  FAIL 48 :20 colour literal #285b4c outside tokens (background on .findAskForm button)
+  FAIL 48 :20 colour literal #fff outside tokens (color on .findAskForm button)
+  FAIL 48 :21 colour literal #1b473a outside tokens (background on .findAskForm button:hover)
+  FAIL 48 :24 colour literal #d8e5d8 outside tokens (border on .findAskSuggestions button)
+  FAIL 48 :24 colour literal #f7f8f2 outside tokens (background on .findAskSuggestions button)
+  FAIL 48 :24 colour literal #285b4c outside tokens (color on .findAskSuggestions button)
+  FAIL 48 :25 colour literal #eaf2e9 outside tokens (background on .findAskSuggestions button:ho…)
+  FAIL 48 :26 colour literal #dfe8dc outside tokens (border-top on .findAskResults)
+  FAIL 48 :26 colour literal #fbfcf8 outside tokens (background on .findAskResults)
+  FAIL 48 :30 colour literal #dfe8dc outside tokens (border-bottom on .findAskSource)
+  FAIL 48 :30 colour literal #24392d outside tokens (color on .findAskSource)
+  FAIL 48 :32 colour literal #1b473a outside tokens (color on .findAskSource:hover,.findAsk…)
+  FAIL 48 :34 colour literal #376c55 outside tokens (color on .findAskSource small)
+  FAIL 48 :36 colour literal #576c5c outside tokens (color on .findAskSource span)
+  FAIL 48 :37 colour literal #dfe8dc outside tokens (border-top on .findAskFoot)
+  FAIL 48 :37 colour literal #667969 outside tokens (color on .findAskFoot)
+  FAIL 48 :38 colour literal #b16d3e outside tokens (outline on .findAskDialog :focus-visible)
+  FAIL 48 :41 colour literal #1b2d22 outside tokens (background on body.dark-mode .findAskTrigge…)
+  FAIL 48 :41 colour literal #f1f6ed outside tokens (color on body.dark-mode .findAskTrigge…)
+  FAIL 48 :41 colour literal #4c6552 outside tokens (border-color on body.dark-mode .findAskTrigge…)
+  FAIL 48 :42 colour literal #263d2e outside tokens (background on body.dark-mode .findAskTrigge…)
+  FAIL 48 :42 colour literal #d8ebd8 outside tokens (color on body.dark-mode .findAskTrigge…)
+  FAIL 48 :42 colour literal #4c6552 outside tokens (border-color on body.dark-mode .findAskTrigge…)
+  FAIL 48 :43 colour literal #becfbe outside tokens (color on body.dark-mode .findAskIntro,…)
+  FAIL 48 :44 colour literal #425a47 outside tokens (border-color on body.dark-mode .findAskModes,…)
+  FAIL 48 :45 colour literal #f1f6ed outside tokens (color on body.dark-mode .findAskModes …)
+  FAIL 48 :46 colour literal #23382a outside tokens (background on body.dark-mode .findAskResults)
+  FAIL 48 :47 colour literal #263d2e outside tokens (background on body.dark-mode .findAskForm i…)
+  FAIL 48 :47 colour literal #f1f6ed outside tokens (color on body.dark-mode .findAskForm i…)
+  FAIL 48 :47 colour literal #78947c outside tokens (border-color on body.dark-mode .findAskForm i…)
+  FAIL 48 :48 colour literal #a8d4b3 outside tokens (color on body.dark-mode .findAskEyebro…)
+  FAIL 48 :51 colour literal #fffdf8 outside tokens (background on .findAskDialog)
+  FAIL 48 :51 colour literal rgba(27,52,35,.2) outside tokens (box-shadow on .findAskDialog)
+  FAIL 48 :52 colour literal #fffdf8 outside tokens (background on .findAskTrigger)
+  FAIL 48 :55 colour literal #fff outside tokens (background on .findAskForm input)
+  FAIL 48 :56 colour literal #f8faf4 outside tokens (background on .findAskResults)
+  FAIL 48 :58 colour literal #eaf2e9 outside tokens (background on .findAskSource:hover,.findAsk…)
+  FAIL 48 :59 colour literal #fffdf8 outside tokens (background on .findAskFoot)
+  FAIL 48 :60 colour literal #1b2d22 outside tokens (background on body.dark-mode .findAskDialog…)
+  FAIL 48 :60 colour literal #f1f5ed outside tokens (color on body.dark-mode .findAskDialog…)
+  FAIL 48 :61 colour literal #203528 outside tokens (background on body.dark-mode .findAskResults)
+  FAIL 48 :62 colour literal #2b4835 outside tokens (background on body.dark-mode .findAskSource…)
+  FAIL 48 :64 colour literal #fffdf8 outside tokens (background on .findAskLauncher)
+  FAIL 48 :64 colour literal #24392d outside tokens (color on .findAskLauncher)
+  FAIL 48 :64 colour literal rgba(27,52,35,.22) outside tokens (box-shadow on .findAskLauncher)
+  FAIL 48 :67 colour literal #576c5c outside tokens (color on .findAskLauncher small)
+  FAIL 48 :68 colour literal #f4f6ed outside tokens (background on .findAskLauncher:hover)
+  FAIL 48 :69 colour literal #b16d3e outside tokens (outline on .findAskLauncher:focus-visible)
+  FAIL 48 :70 colour literal #1b2d22 outside tokens (background on body.dark-mode .findAskLaunch…)
+  FAIL 48 :70 colour literal #f1f6ed outside tokens (color on body.dark-mode .findAskLaunch…)
+  FAIL 48 :71 colour literal #becfbe outside tokens (color on body.dark-mode .findAskLaunch…)
+  FAIL 48 :72 colour literal #263d2e outside tokens (background on body.dark-mode .findAskLaunch…)
+  FAIL 67 :10 .findAskEyebrow,.findAskLabel: uppercase tracked 0.13em in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+  FAIL 67 :34 .findAskSource small: uppercase tracked 0.1em in a label role
+  REFLEX 24b :64 gap: 7px (off the 4px scale) on .findAskLauncher | fix: Use the 4px spacing scale
+  REFLEX 24b :64 padding: 6px 13px 6px 6px (off the 4px scale) on .findAskLauncher
+  REFLEX 24b :73 padding: 5px 11px 5px 5px (off the 4px scale) on .findAskLauncher
+  WARN 41 :46 dark surface (L 32%) on body.dark-mode .findAskResults sets no text colour | fix: Swap text to paper in the same rule
+css/portfolio-field.css
+  FAIL 7a :20 pure #fff: color: #fff (.fieldCastChoices button[aria-pressed="true"], .fieldSeasonChoices button[aria-pressed="true"])
+  FAIL 48 :13 colour literal #223a3e outside tokens (color on .fieldScene)
+  FAIL 48 :15 colour literal #536a69 outside tokens (color on .fieldToolbarTitle)
+  FAIL 48 :17 colour literal #bdc9c9 outside tokens (border on .fieldCastChoices, .fieldSeas…)
+  FAIL 48 :17 colour literal #f4f6f3 outside tokens (background on .fieldCastChoices, .fieldSeas…)
+  FAIL 48 :19 colour literal #405759 outside tokens (color on .fieldCastChoices button, .fi…)
+  FAIL 48 :20 colour literal #283f44 outside tokens (background on .fieldCastChoices button[aria…)
+  FAIL 48 :20 colour literal #fff outside tokens (color on .fieldCastChoices button[aria…)
+  FAIL 48 :20 colour literal #172c3030 outside tokens (box-shadow on .fieldCastChoices button[aria…)
+  FAIL 48 :21 colour literal #e3e9e7 outside tokens (background on .fieldCastChoices button:hove…)
+  FAIL 48 :22 colour literal #c4d0d0 outside tokens (border on .fieldWorld)
+  FAIL 48 :22 colour literal #e9eeed outside tokens (background on .fieldWorld)
+  FAIL 48 :22 colour literal #19303816 outside tokens (box-shadow on .fieldWorld)
+  FAIL 48 :24 colour literal #40545b outside tokens (border-color on body.dark-mode .fieldWorld)
+  FAIL 48 :24 colour literal #101923 outside tokens (background-color on body.dark-mode .fieldWorld)
+  FAIL 48 :27 colour literal #263d41 outside tokens (color on .personaStation)
+  FAIL 48 :30 colour literal #0d222a3d outside tokens (background on .personaStation::before)
+  FAIL 48 :41 colour literal #b8c7c6 outside tokens (border on .personaLabel)
+  FAIL 48 :41 colour literal #fbfcf8f2 outside tokens (background on .personaLabel)
+  FAIL 48 :41 colour literal #0c263225 outside tokens (box-shadow on .personaLabel)
+  FAIL 48 :41 colour literal #253e40 outside tokens (color on .personaLabel)
+  FAIL 48 :43 colour literal #b46d4d outside tokens (border-color on .personaStation:is(:hover, :f…)
+  FAIL 48 :43 colour literal #fffaf1 outside tokens (background on .personaStation:is(:hover, :f…)
+  FAIL 48 :44 colour literal #aa6747 outside tokens (outline on .personaStation:focus-visible…)
+  FAIL 48 :54 colour literal #c6d2d0 outside tokens (border on .fieldSelectionCard)
+  FAIL 48 :54 colour literal #fbfcf9f7 outside tokens (background on .fieldSelectionCard)
+  FAIL 48 :54 colour literal #142b3440 outside tokens (box-shadow on .fieldSelectionCard)
+  FAIL 48 :57 colour literal #506465 outside tokens (color on .fieldSelectionCard p)
+  FAIL 48 :58 colour literal #1c5653 outside tokens (color on .fieldSelectionLink)
+  FAIL 48 :59 colour literal #42585b outside tokens (color on .fieldSelectionClose)
+  FAIL 48 :60 colour literal #e8efec outside tokens (background on .fieldSelectionClose:hover)
+  FAIL 48 :63 colour literal #e9eeed outside tokens (color on body.dark-mode .fieldScene)
+  FAIL 48 :64 colour literal #a9babf outside tokens (color on body.dark-mode .fieldToolbarT…)
+  FAIL 48 :65 colour literal #465860 outside tokens (border-color on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :65 colour literal #1b282f outside tokens (background on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :66 colour literal #d4e2e2 outside tokens (color on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :67 colour literal #dbe7e4 outside tokens (background on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :67 colour literal #22353c outside tokens (color on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :68 colour literal #34484c outside tokens (background on body.dark-mode .fieldCastChoi…)
+  FAIL 48 :69 colour literal #4b6369 outside tokens (border-color on body.dark-mode .personaLabel,…)
+  FAIL 48 :69 colour literal #213239f2 outside tokens (background on body.dark-mode .personaLabel,…)
+  FAIL 48 :69 colour literal #eef3f1 outside tokens (color on body.dark-mode .personaLabel,…)
+  FAIL 48 :70 colour literal #d3a073 outside tokens (border-color on body.dark-mode .personaStatio…)
+  FAIL 48 :70 colour literal #31444b outside tokens (background on body.dark-mode .personaStatio…)
+  FAIL 48 :71 colour literal #bfd0d0 outside tokens (color on body.dark-mode .fieldSelectio…)
+  FAIL 48 :72 colour literal #aee1d1 outside tokens (color on body.dark-mode .fieldSelectio…)
+  FAIL 48 :73 colour literal #d4e2e2 outside tokens (color on body.dark-mode .fieldSelectio…)
+  FAIL 48 :82 colour literal #c5d1ce outside tokens (border on .personaStation)
+  FAIL 48 :82 colour literal #fbfcf9f2 outside tokens (background on .personaStation)
+  FAIL 48 :87 colour literal #607171 outside tokens (color on .personaDescription)
+  FAIL 48 :89 colour literal #405961 outside tokens (border-color on body.dark-mode .personaStation)
+  FAIL 48 :89 colour literal #243740ef outside tokens (background on body.dark-mode .personaStation)
+  FAIL 48 :90 colour literal #b8c8c9 outside tokens (color on body.dark-mode .personaDescri…)
+  FAIL 67 :15 .fieldToolbarTitle: uppercase tracked 0.16em at 12px in a label role
+  REFLEX 24b :3 padding: 18px 3vw 34px (off the 4px scale) on #portfolioField
+  REFLEX 24b :5 padding: 18px 2vw 24px (off the 4px scale) on .fieldIntro
+  REFLEX 24b :7 margin: 18px 0 (off the 4px scale) on .fieldIntro .heroPositioning
+  REFLEX 24b :9 margin: 14px 0 (off the 4px scale) on .fieldIntro .heroSubtitle
+  REFLEX 24b :27 padding: 3px 2px (off the 4px scale) on .personaStation
+  REFLEX 24b :41 padding: 5px 8px (off the 4px scale) on .personaLabel
+  REFLEX 24b :54 padding: 18px 38px 18px 18px (off the 4px scale) on .fieldSelectionCard
+  REFLEX 24b :57 margin: 6px 0 12px (off the 4px scale) on .fieldSelectionCard p
+  REFLEX 24b :58 gap: 7px (off the 4px scale) on .fieldSelectionLink
+  REFLEX 24b :61 gap: 14px (off the 4px scale) on .fieldFallbackLinks
+  REFLEX 24b :76 padding: 14px 4vw 30px (off the 4px scale) on #portfolioField
+  REFLEX 24b :77 padding: 18px 2vw 24px (off the 4px scale) on .fieldIntro
+  REFLEX 24b :80 padding: 0 14px (off the 4px scale) on .fieldScene
+  REFLEX 24b :81 padding: 245px 14px 14px (off the 4px scale) on .fieldWorld
+  REFLEX 24b :82 padding: 6px 10px (off the 4px scale) on .personaStation
+  REFLEX 24b :88 margin-top: 10px (off the 4px scale) on .fieldSelectionCard
+  REFLEX 24b :94 padding-top: 85px (off the 4px scale) on #heroSection
+  REFLEX 24b :101 padding-top: min(57vw, 225px) (off the 4px scale) on .fieldWorld
+  WARN 41 :24 dark surface (L 21%) on body.dark-mode .fieldWorld sets no text colour
+  WARN 41 :65 dark surface (L 27%) on body.dark-mode .fieldCastChoices, body.dark-mode .fieldSeasonChoices sets no text colour
+css/site-theme.css
+  FAIL 7a :17 pure #fff: background: #fff (body.dark-mode .reportHeroAction:hover)
+  FAIL 7a :31 pure #fff: background: #fff (body.dark-mode .findAskForm button:hover)
+  FAIL 7a :40 pure #fff: color: #fff (body.dark-mode ::selection)
+  FAIL 48 :3 colour literal #121519 outside tokens (--lab-bg on body.dark-mode)
+  FAIL 48 :3 colour literal #191e23 outside tokens (--lab-bg-soft on body.dark-mode)
+  FAIL 48 :3 colour literal rgba(31,36,42,.94) outside tokens (--lab-panel on body.dark-mode)
+  FAIL 48 :3 colour literal #1f242a outside tokens (--lab-panel-solid on body.dark-mode)
+  FAIL 48 :3 colour literal #f3f5f6 outside tokens (--lab-ink on body.dark-mode)
+  FAIL 48 :3 colour literal #bbc5cd outside tokens (--lab-muted on body.dark-mode)
+  FAIL 48 :3 colour literal #aab5be outside tokens (--lab-dim on body.dark-mode)
+  FAIL 48 :3 colour literal rgba(194,207,217,.2) outside tokens (--lab-line on body.dark-mode)
+  FAIL 48 :3 colour literal rgba(190,207,219,.42) outside tokens (--lab-line-strong on body.dark-mode)
+  FAIL 48 :3 colour literal #dce5eb outside tokens (--lab-accent on body.dark-mode)
+  FAIL 48 :3 colour literal #fff outside tokens (--lab-accent-hover on body.dark-mode)
+  FAIL 48 :3 colour literal rgba(199,215,226,.13) outside tokens (--lab-accent-soft on body.dark-mode)
+  FAIL 48 :3 colour literal #14191d outside tokens (--lab-on-accent on body.dark-mode)
+  FAIL 48 :3 colour literal #f3f5f6 outside tokens (--ink on body.dark-mode)
+  FAIL 48 :3 colour literal #d2d9df outside tokens (--body on body.dark-mode)
+  FAIL 48 :3 colour literal #b7c2cb outside tokens (--muted on body.dark-mode)
+  FAIL 48 :3 colour literal #3c454e outside tokens (--line on body.dark-mode)
+  FAIL 48 :3 colour literal #20252a outside tokens (--surface on body.dark-mode)
+  FAIL 48 :3 colour literal #121519 outside tokens (--wash on body.dark-mode)
+  FAIL 48 :3 colour literal #dce5eb outside tokens (--accent on body.dark-mode)
+  FAIL 48 :3 colour literal #28323a outside tokens (--mint on body.dark-mode)
+  FAIL 48 :3 colour literal #a5c0d2 outside tokens (--focus on body.dark-mode)
+  FAIL 48 :3 colour literal #f3f5f6 outside tokens (--report-ink on body.dark-mode)
+  FAIL 48 :3 colour literal #d2d9df outside tokens (--report-body on body.dark-mode)
+  FAIL 48 :3 colour literal #b7c2cb outside tokens (--report-muted on body.dark-mode)
+  FAIL 48 :3 colour literal #dce5eb outside tokens (--report-blue on body.dark-mode)
+  FAIL 48 :3 colour literal #303840 outside tokens (--report-blue-soft on body.dark-mode)
+  FAIL 48 :3 colour literal #3c454e outside tokens (--report-line on body.dark-mode)
+  FAIL 48 :3 colour literal #20252a outside tokens (--report-surface on body.dark-mode)
+  FAIL 48 :3 colour literal #121519 outside tokens (--report-warm on body.dark-mode)
+  FAIL 48 :3 colour literal #121519 outside tokens (background on body.dark-mode)
+  FAIL 48 :3 colour literal #d2d9df outside tokens (color on body.dark-mode)
+  FAIL 48 :4 colour literal rgba(18,21,25,.96) outside tokens (background on body.dark-mode #navigation,bo…)
+  FAIL 48 :5 colour literal rgba(169,187,201,.07) outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :5 colour literal #121519 outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :5 colour literal #1d2329 outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :6 colour literal #121519 outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :6 colour literal #191e23 outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :7 colour literal #121519 outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :7 colour literal #1d2329 outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :9 colour literal #20252a outside tokens (background on body.dark-mode .researchNavLi…)
+  FAIL 48 :9 colour literal #f3f5f6 outside tokens (color on body.dark-mode .researchNavLi…)
+  FAIL 48 :9 colour literal #3c454e outside tokens (border-color on body.dark-mode .researchNavLi…)
+  FAIL 48 :10 colour literal #252d34 outside tokens (background on body.dark-mode .conceptFigure…)
+  FAIL 48 :11 colour literal #273139 outside tokens (background on body.dark-mode .takeaway,body…)
+  FAIL 48 :12 colour literal #38302a outside tokens (background on body.dark-mode .caution)
+  FAIL 48 :13 colour literal #20252a outside tokens (background on body.dark-mode .reportHero,bo…)
+  FAIL 48 :13 colour literal #3c454e outside tokens (border-color on body.dark-mode .reportHero,bo…)
+  FAIL 48 :14 colour literal #2b333a outside tokens (background on body.dark-mode .reportMeta sp…)
+  FAIL 48 :14 colour literal #3c454e outside tokens (border-color on body.dark-mode .reportMeta sp…)
+  FAIL 48 :14 colour literal #dce5eb outside tokens (color on body.dark-mode .reportMeta sp…)
+  FAIL 48 :15 colour literal #333c44 outside tokens (background on body.dark-mode .chartTrack)
+  FAIL 48 :16 colour literal #dce5eb outside tokens (background on body.dark-mode .reportHeroAct…)
+  FAIL 48 :16 colour literal #dce5eb outside tokens (border-color on body.dark-mode .reportHeroAct…)
+  FAIL 48 :16 colour literal #14191d outside tokens (color on body.dark-mode .reportHeroAct…)
+  FAIL 48 :17 colour literal #fff outside tokens (background on body.dark-mode .reportHeroAct…)
+  FAIL 48 :17 colour literal #14191d outside tokens (color on body.dark-mode .reportHeroAct…)
+  FAIL 48 :18 colour literal #20252a outside tokens (background on body.dark-mode .reportHero)
+  FAIL 48 :18 colour literal #242b32 outside tokens (background on body.dark-mode .reportHero)
+  FAIL 48 :19 colour literal #252c33 outside tokens (background on body.dark-mode :is(.reportTld…)
+  FAIL 48 :19 colour literal #3c454e outside tokens (border-color on body.dark-mode :is(.reportTld…)
+  FAIL 48 :20 colour literal #2b343c outside tokens (background on body.dark-mode :is(.callout,.…)
+  FAIL 48 :20 colour literal #687985 outside tokens (border-color on body.dark-mode :is(.callout,.…)
+  FAIL 48 :21 colour literal #20252a outside tokens (background on body.dark-mode :is(.reportNav…)
+  FAIL 48 :21 colour literal #3c454e outside tokens (border-color on body.dark-mode :is(.reportNav…)
+  FAIL 48 :21 colour literal #dce5eb outside tokens (color on body.dark-mode :is(.reportNav…)
+  FAIL 48 :22 colour literal #303840 outside tokens (background on body.dark-mode :is(.reportNav…)
+  FAIL 48 :23 colour literal #303840 outside tokens (background on body.dark-mode .articleByline…)
+  FAIL 48 :23 colour literal #edf3f6 outside tokens (color on body.dark-mode .articleByline…)
+  FAIL 48 :24 colour literal #20252a outside tokens (background on body.dark-mode .findAskDialog…)
+  FAIL 48 :24 colour literal #f3f5f6 outside tokens (color on body.dark-mode .findAskDialog…)
+  FAIL 48 :24 colour literal #3c454e outside tokens (border-color on body.dark-mode .findAskDialog…)
+  FAIL 48 :25 colour literal #1b2025 outside tokens (background on body.dark-mode .findAskResults)
+  FAIL 48 :26 colour literal #292f36 outside tokens (background on body.dark-mode .findAskForm i…)
+  FAIL 48 :26 colour literal #f3f5f6 outside tokens (color on body.dark-mode .findAskForm i…)
+  FAIL 48 :26 colour literal #56616b outside tokens (border-color on body.dark-mode .findAskForm i…)
+  FAIL 48 :27 colour literal #303840 outside tokens (background on body.dark-mode .findAskSource…)
+  FAIL 48 :28 colour literal #dce5eb outside tokens (color on body.dark-mode .findAskEyebro…)
+  FAIL 48 :29 colour literal #3c454e outside tokens (border-color on body.dark-mode .findAskModes,…)
+  FAIL 48 :30 colour literal #dce5eb outside tokens (background on body.dark-mode .findAskForm b…)
+  FAIL 48 :30 colour literal #14191d outside tokens (color on body.dark-mode .findAskForm b…)
+  FAIL 48 :31 colour literal #fff outside tokens (background on body.dark-mode .findAskForm b…)
+  FAIL 48 :32 colour literal #22272d outside tokens (background on body.dark-mode .findAskLaunch…)
+  FAIL 48 :32 colour literal #f4f6f7 outside tokens (color on body.dark-mode .findAskLaunch…)
+  FAIL 48 :32 colour literal #69727b outside tokens (border-color on body.dark-mode .findAskLaunch…)
+  FAIL 48 :33 colour literal #30363d outside tokens (background on body.dark-mode .findAskLaunch…)
+  FAIL 48 :34 colour literal #e9edf0 outside tokens (background on body:not(.dark-mode) .findAsk…)
+  FAIL 48 :34 colour literal #20262c outside tokens (color on body:not(.dark-mode) .findAsk…)
+  FAIL 48 :34 colour literal #b9c5ce outside tokens (border-color on body:not(.dark-mode) .findAsk…)
+  FAIL 48 :35 colour literal #56646e outside tokens (color on body:not(.dark-mode) .findAsk…)
+  FAIL 48 :36 colour literal #f8f9fa outside tokens (background on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :36 colour literal #20262c outside tokens (color on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :36 colour literal #b9c5ce outside tokens (border-color on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :37 colour literal #e9edf0 outside tokens (background on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :37 colour literal #20262c outside tokens (color on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :37 colour literal #c5d0d6 outside tokens (border-color on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :38 colour literal #263f51 outside tokens (color on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :39 colour literal #f8f9fa outside tokens (background on body:not(.dark-mode) .chatOve…)
+  FAIL 48 :40 colour literal #586b79 outside tokens (background on body.dark-mode ::selection)
+  FAIL 48 :40 colour literal #fff outside tokens (color on body.dark-mode ::selection)
+  FAIL 48 :42 colour literal #151b21 outside tokens (background-color on body.dark-mode .fieldScene)
+  FAIL 48 :43 colour literal #eff3f5 outside tokens (color on body.dark-mode .personaStation)
+  FAIL 48 :44 colour literal #222a31 outside tokens (background on body.dark-mode .personaLabel,…)
+  FAIL 48 :44 colour literal #f1f4f6 outside tokens (color on body.dark-mode .personaLabel,…)
+  FAIL 48 :45 colour literal rgba(100,124,140,.14) outside tokens (background on body.dark-mode .personaStatio…)
+  FAIL 48 :45 colour literal #95afc1 outside tokens (border-color on body.dark-mode .personaStatio…)
+  FAIL 48 :45 colour literal #f1f4f6 outside tokens (color on body.dark-mode .personaStatio…)
+  FAIL 48 :46 colour literal #222a31 outside tokens (background on body.dark-mode .personaStation)
+  FAIL 48 :51 colour literal #a5c0d2 outside tokens (outline on :is(a,button,input,textarea):…)
+  FAIL 48 :56 colour literal #000 outside tokens (mask-image on .fieldIntro>.glyphField)
+  FAIL 48 :57 colour literal #000 outside tokens (mask-image on .researchHero>.glyphField)
+  FAIL 48 :59 colour literal #000 outside tokens (mask-image on .fieldIntro>.glyphField,.rese…)
+  FAIL 48 :63 colour literal #dce5eb outside tokens (background on body:not(.dark-mode)::selecti…)
+  FAIL 48 :63 colour literal #20262c outside tokens (color on body:not(.dark-mode)::selecti…)
+  FAIL 48 :64 colour literal #e8eef2 outside tokens (background on body:not(.dark-mode) :is(.new…)
+  FAIL 48 :64 colour literal #c5d0d6 outside tokens (border-color on body:not(.dark-mode) :is(.new…)
+  FAIL 48 :66 colour literal #b9c5ce outside tokens (border-color on body:not(.dark-mode) .chatCom…)
+  FAIL 48 :66 colour literal rgba(30,43,52,.07) outside tokens (box-shadow on body:not(.dark-mode) .chatCom…)
+  FAIL 48 :67 colour literal #61707a outside tokens (color on body:not(.dark-mode) .chatCom…)
+  FAIL 48 :68 colour literal #b9c5ce outside tokens (background on body:not(.dark-mode) .chatCom…)
+  WARN 41 :10 dark surface (L 29%) on body.dark-mode .conceptFigure,body.dark-mode .leadFigureLink sets no text colour
+  WARN 41 :12 dark surface (L 32%) on body.dark-mode .caution sets no text colour
+  WARN 41 :13 dark surface (L 26%) on body.dark-mode .reportHero,body.dark-mode .reportSection,body.dark-mode .reportTldr,body.dark-m…
+  WARN 41 :15 dark surface (L 35%) on body.dark-mode .chartTrack sets no text colour
+  WARN 41 :19 dark surface (L 29%) on body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.flowNode,.matrixCell…
+  WARN 41 :20 dark surface (L 32%) on body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]) sets no text colour
+  WARN 41 :46 dark surface (L 28%) on body.dark-mode .personaStation sets no text colour
+css/style.css
+  FAIL 7a :41 pure #fff: color: white (.accent-success-bg)
+  FAIL 7a :289 pure #fff: color: white (body.dark-mode .contactLink)
+  FAIL 7a :357 pure #fff: background: white (.search-results)
+  FAIL 7a :440 pure #fff: color: white (.dark-mode-toggle)
+  FAIL 7a :662 pure #fff: color: #ffffff (.heroButtonSecondary)
+  FAIL 7a :667 pure #fff: color: #ffffff (.heroButtonSecondary:hover)
+  FAIL 7a :668 pure #fff: border-color: #ffffff (.heroButtonSecondary:hover)
+  FAIL 7a :680 pure #fff: background: #ffffff (.heroButtonTertiary:hover)
+  FAIL 7a :783 pure #fff: color: white (.sidebar-toggle)
+  FAIL 7a :798 pure #fff: background: white (.sidebar-nav)
+  FAIL 7a :1224 pure #fff: background: #ffffff (.resumeSubsection:hover)
+  FAIL 7a :1321 pure #fff: background: white (img.resumeIcon)
+  FAIL 7a :1335 pure #000: color: black (.resumeName)
+  FAIL 7a :1343 pure #000: color: black (.resumeDesc)
+  FAIL 7a :1355 pure #000: color: black (.resumeRole)
+  FAIL 7a :1415 pure #fff: color: #ffffff (.resumeSkill:hover)
+  FAIL 7a :1571 pure #fff: color: #ffffff (.btn.active)
+  FAIL 7a :1580 pure #fff: background-color: #ffffff (.btn:hover)
+  FAIL 7a :1589 pure #fff: color: #ffffff (.btn.active:hover)
+  FAIL 7a :1672 pure #fff: background: #ffffff (.projectViewButton.active)
+  FAIL 7a :1689 pure #fff: background: #ffffff (.projectDeckNav)
+  FAIL 7a :1704 pure #fff: color: #ffffff (.projectDeckNav:hover)
+  FAIL 7a :1726 pure #fff: color: #ffffff (body.dark-mode .projectViewButton.active)
+  FAIL 7a :1901 pure #fff: color: #ffffff (.projectDeckLink)
+  FAIL 7a :1916 pure #fff: color: #ffffff (.projectDeckLink:hover)
+  FAIL 7a :1942 pure #fff: background: #ffffff (.projectDeckThumb)
+  FAIL 7a :1981 pure #fff: background: #ffffff (.projectEvidenceIndex)
+  FAIL 7a :2043 pure #fff: background: #ffffff (.projectIndexRow)
+  FAIL 7a :2126 pure #fff: color: #ffffff (.projectIndexRow a:hover)
+  FAIL 7a :2195 pure #fff: background: #ffffff (.filterItem)
+  FAIL 7a :2401 pure #fff: color: white (.techBadge:hover)
+  FAIL 7a :2475 pure #fff: background: white (.testimonialCard)
+  FAIL 7a :2557 pure #fff: background: white (.testimonialLogo)
+  FAIL 7a :2616 pure #fff: background: #ffffff (.readingSection)
+  FAIL 7a :2722 pure #fff: background: #ffffff (.bookNav)
+  FAIL 7a :2737 pure #fff: color: #ffffff (.bookNav:hover)
+  FAIL 7a :2833 pure #fff: color: #ffffff (.bookCoverFallback)
+  FAIL 7a :2922 pure #fff: background: #ffffff (.bookThumb)
+  FAIL 7a :3072 pure #fff: background: white (.writingCard)
+  FAIL 7a :3125 pure #fff: color: white (.writingIcon i)
+  FAIL 7a :3278 pure #fff: background: white (.certCard)
+  FAIL 7a :3331 pure #fff: color: white (.certIcon i)
+  FAIL 7a :3444 pure #fff: background: #ffffff (.contactPanel)
+  FAIL 7a :3506 pure #fff: color: #ffffff (.contactLink:hover)
+  FAIL 7a :3718 pure #fff: color: white (#backToTop)
+  FAIL 7a :5365 pure #fff: color: white (body.dark-mode .loading-text)
+  FAIL 48 :36 colour literal #2E7D32 outside tokens (color on .accent-success)
+  FAIL 48 :40 colour literal #2E7D32 outside tokens (background-color on .accent-success-bg)
+  FAIL 48 :45 colour literal #F9A825 outside tokens (color on .accent-cta)
+  FAIL 48 :49 colour literal #F9A825 outside tokens (background-color on .accent-cta-bg)
+  FAIL 48 :50 colour literal #333 outside tokens (color on .accent-cta-bg)
+  FAIL 48 :69 font-family literal "'Lato', sans-serif" on body
+  FAIL 48 :82 colour literal rgba(249, 168, 37, 0.72) outside tokens (outline on a:focus-visible, button:focus…)
+  FAIL 48 :88 colour literal #1a1a1a outside tokens (background-color on body.dark-mode)
+  FAIL 48 :89 colour literal #e0e0e0 outside tokens (color on body.dark-mode)
+  FAIL 48 :93 colour literal #2d2d2d outside tokens (background-color on body.dark-mode #navigation)
+  FAIL 48 :94 colour literal rgba(0,0,0,0.3) outside tokens (box-shadow on body.dark-mode #navigation)
+  FAIL 48 :98 colour literal #e0e0e0 outside tokens (color on body.dark-mode .navbar-brand)
+  FAIL 48 :102 colour literal #b0b0b0 outside tokens (color on body.dark-mode .nav-link)
+  FAIL 48 :106 colour literal #A2BBDD outside tokens (color on body.dark-mode .nav-link:hover)
+  FAIL 48 :110 colour literal #A2BBDD outside tokens (color on body.dark-mode .nav-link.acti…)
+  FAIL 48 :114 colour literal #A2BBDD outside tokens (background-color on body.dark-mode .nav-link.acti…)
+  FAIL 48 :118 colour literal #3a3a3a outside tokens (background on body.dark-mode .search-input)
+  FAIL 48 :119 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .search-input)
+  FAIL 48 :120 colour literal #e0e0e0 outside tokens (color on body.dark-mode .search-input)
+  FAIL 48 :124 colour literal #888 outside tokens (color on body.dark-mode .search-input:…)
+  FAIL 48 :128 colour literal #A2BBDD outside tokens (border-color on body.dark-mode .search-input:…)
+  FAIL 48 :129 colour literal #404040 outside tokens (background on body.dark-mode .search-input:…)
+  FAIL 48 :133 colour literal #2d2d2d outside tokens (background on body.dark-mode .search-results)
+  FAIL 48 :134 colour literal rgba(0,0,0,0.5) outside tokens (box-shadow on body.dark-mode .search-results)
+  FAIL 48 :138 colour literal #404040 outside tokens (border-bottom-color on body.dark-mode .search-result…)
+  FAIL 48 :142 colour literal #3a3a3a outside tokens (background on body.dark-mode .search-result…)
+  FAIL 48 :146 colour literal #A2BBDD outside tokens (color on body.dark-mode .search-result…)
+  FAIL 48 :150 colour literal #b0b0b0 outside tokens (color on body.dark-mode .search-result…)
+  FAIL 48 :154 colour literal #A2BBDD outside tokens (background on body.dark-mode .sidebar-toggle)
+  FAIL 48 :154 colour literal #315d4e outside tokens (background on body.dark-mode .sidebar-toggle)
+  FAIL 48 :158 colour literal #2d2d2d outside tokens (background on body.dark-mode .sidebar-nav)
+  FAIL 48 :159 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on body.dark-mode .sidebar-nav)
+  FAIL 48 :163 colour literal #b0b0b0 outside tokens (color on body.dark-mode .sidebar-link)
+  FAIL 48 :167 colour literal #A2BBDD outside tokens (color on body.dark-mode .sidebar-link:…)
+  FAIL 48 :168 colour literal rgba(162,187,221,0.1) outside tokens (background on body.dark-mode .sidebar-link:…)
+  FAIL 48 :172 colour literal #A2BBDD outside tokens (color on body.dark-mode .sidebar-link.…)
+  FAIL 48 :173 colour literal rgba(162,187,221,0.15) outside tokens (background on body.dark-mode .sidebar-link.…)
+  FAIL 48 :174 colour literal #A2BBDD outside tokens (border-right-color on body.dark-mode .sidebar-link.…)
+  FAIL 48 :178 colour literal #A2BBDD outside tokens (background on body.dark-mode .sidebar-link.…)
+  FAIL 48 :182 colour literal #2d2d3d outside tokens (background-color on body.dark-mode .aboutSection)
+  FAIL 48 :186 colour literal #1e1e1e outside tokens (background on body.dark-mode #code)
+  FAIL 48 :190 colour literal #252526 outside tokens (background on body.dark-mode .console-header)
+  FAIL 48 :191 colour literal #3a3a3a outside tokens (border-bottom-color on body.dark-mode .console-header)
+  FAIL 48 :195 colour literal #1a1a1a outside tokens (background on body.dark-mode .resumeSection)
+  FAIL 48 :199 colour literal #A2BBDD outside tokens (background on body.dark-mode .resumeSubsect…)
+  FAIL 48 :203 colour literal #4a4a4a outside tokens (border-color on body.dark-mode img.resumeIcon)
+  FAIL 48 :204 colour literal rgba(0,0,0,0.3) outside tokens (box-shadow on body.dark-mode img.resumeIcon)
+  FAIL 48 :208 colour literal #A2BBDD outside tokens (border-color on body.dark-mode img.resumeIcon…)
+  FAIL 48 :214 colour literal #e0e0e0 outside tokens (color on body.dark-mode .resumeName, b…)
+  FAIL 48 :218 colour literal #A2BBDD outside tokens (color on body.dark-mode .resumeSubhead…)
+  FAIL 48 :222 colour literal #A2BBDD outside tokens (color on body.dark-mode .resumeSkill)
+  FAIL 48 :223 colour literal #A2BBDD outside tokens (border-color on body.dark-mode .resumeSkill)
+  FAIL 48 :227 colour literal #A2BBDD outside tokens (background-color on body.dark-mode .resumeSkill:h…)
+  FAIL 48 :228 colour literal #1a1a1a outside tokens (color on body.dark-mode .resumeSkill:h…)
+  FAIL 48 :232 colour literal #e0e0e0 outside tokens (color on body.dark-mode .sectionTitle)
+  FAIL 48 :236 colour literal #A2BBDD outside tokens (background-color on body.dark-mode .sectionTitle:…)
+  FAIL 48 :240 colour literal #e0e0e0 outside tokens (color on body.dark-mode .sectionTagline)
+  FAIL 48 :241 colour literal #4a4a4a outside tokens (border-bottom-color on body.dark-mode .sectionTagline)
+  FAIL 48 :245 colour literal #1f1f1f outside tokens (background-color on body.dark-mode .portfolioSect…)
+  FAIL 48 :249 colour literal #3a3a3a outside tokens (background-color on body.dark-mode .btn)
+  FAIL 48 :250 colour literal #e0e0e0 outside tokens (color on body.dark-mode .btn)
+  FAIL 48 :254 colour literal #4a4a4a outside tokens (background-color on body.dark-mode .btn:hover)
+  FAIL 48 :255 colour literal #A2BBDD outside tokens (border-color on body.dark-mode .btn:hover)
+  FAIL 48 :259 colour literal #A2BBDD outside tokens (background on body.dark-mode .btn.active)
+  FAIL 48 :259 colour literal #315d4e outside tokens (background on body.dark-mode .btn.active)
+  FAIL 48 :263 colour literal #2d2d2d outside tokens (background-color on body.dark-mode .filterItem)
+  FAIL 48 :264 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on body.dark-mode .filterItem)
+  FAIL 48 :268 colour literal rgba(0,0,0,0.6) outside tokens (box-shadow on body.dark-mode .filterItem:ho…)
+  FAIL 48 :273 colour literal #e0e0e0 outside tokens (color on body.dark-mode .filterItemNam…)
+  FAIL 48 :277 colour literal #A2BBDD outside tokens (color on body.dark-mode .filterItemLink)
+  FAIL 48 :281 colour literal #c0d5f0 outside tokens (color on body.dark-mode .filterItemLin…)
+  FAIL 48 :285 colour literal #2d2d3d outside tokens (background-color on body.dark-mode .contactSection)
+  FAIL 48 :293 colour literal #A2BBDD outside tokens (background on body.dark-mode #backToTop)
+  FAIL 48 :293 colour literal #315d4e outside tokens (background on body.dark-mode #backToTop)
+  FAIL 48 :297 colour literal #c0d5f0 outside tokens (background on body.dark-mode #backToTop:hov…)
+  FAIL 48 :297 colour literal #5d9273 outside tokens (background on body.dark-mode #backToTop:hov…)
+  FAIL 48 :302 colour literal rgba(255, 255, 255, 0.92) outside tokens (background-color on #navigation)
+  FAIL 48 :310 font-family literal "'Karla', sans-serif" on #navigation
+  FAIL 48 :314 colour literal rgba(31, 41, 51, 0.08) outside tokens (box-shadow on #navigation)
+  FAIL 48 :326 colour literal #e0e0e0 outside tokens (border on .search-input)
+  FAIL 48 :328 font-family literal "'Lato', sans-serif" on .search-input
+  FAIL 48 :337 colour literal #315d4e outside tokens (border-color on .search-input:focus)
+  FAIL 48 :338 colour literal rgba(74,111,165,0.1) outside tokens (box-shadow on .search-input:focus)
+  FAIL 48 :347 colour literal #888 outside tokens (color on .search-icon)
+  FAIL 48 :359 colour literal rgba(0,0,0,0.15) outside tokens (box-shadow on .search-results)
+  FAIL 48 :375 colour literal #f0f0f0 outside tokens (border-bottom on .search-result-item)
+  FAIL 48 :385 colour literal #f8f8f8 outside tokens (background on .search-result-item:hover)
+  FAIL 48 :390 colour literal #315d4e outside tokens (color on .search-result-title)
+  FAIL 48 :397 colour literal #666 outside tokens (color on .search-result-context)
+  FAIL 48 :402 colour literal rgba(74,111,165,0.2) outside tokens (background on .search-result-highlight)
+  FAIL 48 :411 colour literal #888 outside tokens (color on .no-results)
+  FAIL 48 :432 colour literal #315d4e outside tokens (background on .dark-mode-toggle)
+  FAIL 48 :432 colour literal #5d9273 outside tokens (background on .dark-mode-toggle)
+  FAIL 48 :444 colour literal rgba(74,111,165,0.3) outside tokens (box-shadow on .dark-mode-toggle)
+  FAIL 48 :451 colour literal rgba(74,111,165,0.5) outside tokens (box-shadow on .dark-mode-toggle:hover)
+  FAIL 48 :460 colour literal #ffd700 outside tokens (background on body.dark-mode .dark-mode-tog…)
+  FAIL 48 :460 colour literal #ffa500 outside tokens (background on body.dark-mode .dark-mode-tog…)
+  FAIL 48 :476 colour literal #333333 outside tokens (color on .navbar-brand, .navbar-brand:…)
+  FAIL 48 :497 colour literal #4C5364 outside tokens (color on .nav-link)
+  FAIL 48 :506 colour literal #315d4e outside tokens (color on .nav-link:hover)
+  FAIL 48 :517 colour literal #315d4e outside tokens (background-color on .nav-link::after)
+  FAIL 48 :533 colour literal rgba(31, 41, 51, 0.08) outside tokens (box-shadow on .fixedNav #navigation)
+  FAIL 48 :569 font-family literal "'Karla', sans-serif" on .heroTitle
+  FAIL 48 :574 colour literal rgba(0,0,0,0.5) outside tokens (text-shadow on .heroTitle)
+  FAIL 48 :598 font-family literal "'Lato', sans-serif" on .heroSubtitle
+  FAIL 48 :614 colour literal rgba(255, 255, 255, 0.92) outside tokens (color on .heroPositioning)
+  FAIL 48 :617 colour literal rgba(0, 0, 0, 0.42) outside tokens (text-shadow on .heroPositioning)
+  FAIL 48 :636 font-family literal "'Karla', sans-serif" on .heroButton
+  FAIL 48 :648 colour literal #F9A825 outside tokens (background on .heroButtonPrimary)
+  FAIL 48 :649 colour literal #1f2933 outside tokens (color on .heroButtonPrimary)
+  FAIL 48 :650 colour literal #F9A825 outside tokens (border on .heroButtonPrimary)
+  FAIL 48 :651 colour literal rgba(249, 168, 37, 0.28) outside tokens (box-shadow on .heroButtonPrimary)
+  FAIL 48 :655 colour literal #1f2933 outside tokens (color on .heroButtonPrimary:hover)
+  FAIL 48 :656 colour literal #ffd15c outside tokens (background on .heroButtonPrimary:hover)
+  FAIL 48 :657 colour literal rgba(249, 168, 37, 0.36) outside tokens (box-shadow on .heroButtonPrimary:hover)
+  FAIL 48 :662 colour literal #ffffff outside tokens (color on .heroButtonSecondary)
+  FAIL 48 :667 colour literal #ffffff outside tokens (color on .heroButtonSecondary:hover)
+  FAIL 48 :668 colour literal #ffffff outside tokens (border-color on .heroButtonSecondary:hover)
+  FAIL 48 :669 colour literal rgba(255,255,255,0.2) outside tokens (background on .heroButtonSecondary:hover)
+  FAIL 48 :673 colour literal rgba(255, 255, 255, 0.9) outside tokens (background on .heroButtonTertiary)
+  FAIL 48 :674 colour literal #1f2933 outside tokens (color on .heroButtonTertiary)
+  FAIL 48 :675 colour literal rgba(255, 255, 255, 0.9) outside tokens (border on .heroButtonTertiary)
+  FAIL 48 :679 colour literal #1f2933 outside tokens (color on .heroButtonTertiary:hover)
+  FAIL 48 :680 colour literal #ffffff outside tokens (background on .heroButtonTertiary:hover)
+  FAIL 48 :755 colour literal #315d4e outside tokens (background on #scrollProgress)
+  FAIL 48 :755 colour literal #A2BBDD outside tokens (background on #scrollProgress)
+  FAIL 48 :757 colour literal rgba(74,111,165,0.3) outside tokens (box-shadow on #scrollProgress)
+  FAIL 48 :777 colour literal #315d4e outside tokens (background on .sidebar-toggle)
+  FAIL 48 :777 colour literal #5d9273 outside tokens (background on .sidebar-toggle)
+  FAIL 48 :784 colour literal rgba(0,0,0,0.2) outside tokens (box-shadow on .sidebar-toggle)
+  FAIL 48 :789 colour literal #5d9273 outside tokens (background on .sidebar-toggle:hover)
+  FAIL 48 :789 colour literal #6a8fc5 outside tokens (background on .sidebar-toggle:hover)
+  FAIL 48 :790 colour literal rgba(0,0,0,0.3) outside tokens (box-shadow on .sidebar-toggle:hover)
+  FAIL 48 :801 colour literal rgba(0,0,0,0.1) outside tokens (box-shadow on .sidebar-nav)
+  FAIL 48 :817 colour literal #4C5364 outside tokens (color on .sidebar-link)
+  FAIL 48 :819 font-family literal "'Karla', sans-serif" on .sidebar-link
+  FAIL 48 :848 colour literal #315d4e outside tokens (color on .sidebar-link:hover)
+  FAIL 48 :849 colour literal rgba(74,111,165,0.05) outside tokens (background on .sidebar-link:hover)
+  FAIL 48 :854 colour literal #315d4e outside tokens (color on .sidebar-link.active-section)
+  FAIL 48 :855 colour literal rgba(74,111,165,0.1) outside tokens (background on .sidebar-link.active-section)
+  FAIL 48 :856 colour literal #315d4e outside tokens (border-right on .sidebar-link.active-section)
+  FAIL 48 :867 colour literal #315d4e outside tokens (background on .sidebar-link.active-section:…)
+  FAIL 48 :908 colour literal #315d4e outside tokens (background on .section::before)
+  FAIL 48 :913 font-family literal "'Karla', sans-serif" on .sectionTitle
+  FAIL 48 :929 colour literal #315d4e outside tokens (background on .sectionTitle::after)
+  FAIL 48 :929 colour literal #A2BBDD outside tokens (background on .sectionTitle::after)
+  FAIL 48 :934 colour literal rgba(74,111,165,0.4) outside tokens (box-shadow on .sectionTitle::after)
+  FAIL 48 :939 font-family literal "'Karla', sans-serif" on .sectionTagline
+  FAIL 48 :943 colour literal #ccc outside tokens (border-bottom on .sectionTagline)
+  FAIL 48 :958 colour literal #315d4e outside tokens (background on .aboutSection)
+  FAIL 48 :958 colour literal #5d9273 outside tokens (background on .aboutSection)
+  FAIL 48 :958 colour literal #6a8fc5 outside tokens (background on .aboutSection)
+  FAIL 48 :971 colour literal rgba(255,255,255,0.1) outside tokens (background on .aboutSection::before)
+  FAIL 48 :982 colour literal rgba(255,255,255,0.08) outside tokens (background on .aboutSection::after)
+  FAIL 48 :992 colour literal #1e1e1e outside tokens (background on #code)
+  FAIL 48 :992 colour literal #2a2a2a outside tokens (background on #code)
+  FAIL 48 :996 font-family literal "'Inconsolata', monospace" on #code
+  FAIL 48 :998 colour literal #fafafa outside tokens (color on #code)
+  FAIL 48 :999 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on #code)
+  FAIL 48 :999 colour literal rgba(255,255,255,0.1) outside tokens (box-shadow on #code)
+  FAIL 48 :1013 colour literal #315d4e outside tokens (background on #code::before)
+  FAIL 48 :1013 colour literal #A2BBDD outside tokens (background on #code::before)
+  FAIL 48 :1026 colour literal rgba(0,0,0,0.5) outside tokens (box-shadow on #code:hover)
+  FAIL 48 :1026 colour literal rgba(162,187,221,0.3) outside tokens (box-shadow on #code:hover)
+  FAIL 48 :1031 colour literal #2d2d2d outside tokens (background on .console-header)
+  FAIL 48 :1031 colour literal #252526 outside tokens (background on .console-header)
+  FAIL 48 :1036 colour literal #3a3a3a outside tokens (border-bottom on .console-header)
+  FAIL 48 :1047 colour literal rgba(162,187,221,0.3) outside tokens (background on .console-header::after)
+  FAIL 48 :1051 colour literal #999 outside tokens (color on .console-title)
+  FAIL 48 :1059 colour literal #1e1e1e outside tokens (background on .console-content)
+  FAIL 48 :1059 colour literal #252526 outside tokens (background on .console-content)
+  FAIL 48 :1072 colour literal #9cdcfe outside tokens (color on .json-key)
+  FAIL 48 :1073 colour literal rgba(156,220,254,0.3) outside tokens (text-shadow on .json-key)
+  FAIL 48 :1077 colour literal #ce9178 outside tokens (color on .json-string)
+  FAIL 48 :1078 colour literal rgba(206,145,120,0.2) outside tokens (text-shadow on .json-string)
+  FAIL 48 :1103 colour literal #2A9DF4 outside tokens (color on .jsonDetails a)
+  FAIL 48 :1110 colour literal #4db8ff outside tokens (color on .jsonDetails a:hover)
+  FAIL 48 :1150 colour literal rgba(255,255,255,0.86) outside tokens (background on .resumePriorityCard)
+  FAIL 48 :1151 colour literal #e3eae0 outside tokens (border on .resumePriorityCard)
+  FAIL 48 :1153 colour literal rgba(31, 41, 51, 0.06) outside tokens (box-shadow on .resumePriorityCard)
+  FAIL 48 :1159 colour literal #315d4e outside tokens (color on .resumePriorityCard span)
+  FAIL 48 :1161 font-family literal "'Karla', sans-serif" on .resumePriorityCard span
+  FAIL 48 :1168 colour literal #111 outside tokens (color on .resumePriorityCard h3)
+  FAIL 48 :1169 font-family literal "'Karla', sans-serif" on .resumePriorityCard h3
+  FAIL 48 :1177 colour literal #536575 outside tokens (color on .resumePriorityCard p)
+  FAIL 48 :1192 colour literal #315d4e outside tokens (color on .resumeTimelineLabel)
+  FAIL 48 :1193 font-family literal "'Karla', sans-serif" on .resumeTimelineLabel
+  FAIL 48 :1206 colour literal rgba(255,255,255,0.86) outside tokens (background on .resumeSubsection)
+  FAIL 48 :1207 colour literal #e3eae0 outside tokens (border on .resumeSubsection)
+  FAIL 48 :1210 colour literal rgba(31, 41, 51, 0.04) outside tokens (box-shadow on .resumeSubsection)
+  FAIL 48 :1224 colour literal #ffffff outside tokens (background on .resumeSubsection:hover)
+  FAIL 48 :1225 colour literal rgba(74,111,165,0.08) outside tokens (box-shadow on .resumeSubsection:hover)
+  FAIL 48 :1235 colour literal #315d4e outside tokens (background on .resumeSubsection::before)
+  FAIL 48 :1235 colour literal #A2BBDD outside tokens (background on .resumeSubsection::before)
+  FAIL 48 :1256 colour literal rgba(14, 116, 144, 0.22) outside tokens (border-color on .resumeSubsectionFeatured)
+  FAIL 48 :1260 colour literal rgba(255, 255, 255, 0.66) outside tokens (background on .resumeSubsectionSecondary)
+  FAIL 48 :1274 colour literal #edf6fb outside tokens (background on .resumeIconFallback)
+  FAIL 48 :1275 colour literal #e3eae0 outside tokens (border on .resumeIconFallback)
+  FAIL 48 :1277 colour literal #315d4e outside tokens (color on .resumeIconFallback)
+  FAIL 48 :1294 colour literal rgba(34, 211, 238, 0.08) outside tokens (background on .resumeMetaStrip span)
+  FAIL 48 :1295 colour literal #d9e5d7 outside tokens (border on .resumeMetaStrip span)
+  FAIL 48 :1297 colour literal #536575 outside tokens (color on .resumeMetaStrip span)
+  FAIL 48 :1313 colour literal #f0f0f0 outside tokens (border on img.resumeIcon)
+  FAIL 48 :1320 colour literal rgba(0,0,0,0.1) outside tokens (box-shadow on img.resumeIcon)
+  FAIL 48 :1327 colour literal #315d4e outside tokens (border-color on img.resumeIcon:hover)
+  FAIL 48 :1328 colour literal rgba(74,111,165,0.18) outside tokens (box-shadow on img.resumeIcon:hover)
+  FAIL 48 :1348 colour literal #333333 outside tokens (color on .resumeLink)
+  FAIL 48 :1361 colour literal #485C82 outside tokens (color on .resumeSubheader)
+  FAIL 48 :1377 colour literal #315d4e outside tokens (color on .resumeSkill)
+  FAIL 48 :1378 colour literal #315d4e outside tokens (border on .resumeSkill)
+  FAIL 48 :1403 colour literal #315d4e outside tokens (background on .resumeSkill::before)
+  FAIL 48 :1403 colour literal #5d9273 outside tokens (background on .resumeSkill::before)
+  FAIL 48 :1415 colour literal #ffffff outside tokens (color on .resumeSkill:hover)
+  FAIL 48 :1417 colour literal rgba(74,111,165,0.22) outside tokens (box-shadow on .resumeSkill:hover)
+  FAIL 48 :1418 colour literal #315d4e outside tokens (border-color on .resumeSkill:hover)
+  FAIL 48 :1448 colour literal #ffffff outside tokens (background on .expertiseCategory)
+  FAIL 48 :1448 colour literal #f8f9fa outside tokens (background on .expertiseCategory)
+  FAIL 48 :1450 colour literal #e3eae0 outside tokens (border on .expertiseCategory)
+  FAIL 48 :1452 colour literal rgba(31, 41, 51, 0.04) outside tokens (box-shadow on .expertiseCategory)
+  FAIL 48 :1457 colour literal rgba(74,111,165,0.08) outside tokens (box-shadow on .expertiseCategory:hover)
+  FAIL 48 :1462 colour literal #2d2d2d outside tokens (background on body.dark-mode .expertiseCate…)
+  FAIL 48 :1462 colour literal #252526 outside tokens (background on body.dark-mode .expertiseCate…)
+  FAIL 48 :1468 colour literal #315d4e outside tokens (color on .expertiseTitle)
+  FAIL 48 :1480 colour literal #A2BBDD outside tokens (color on body.dark-mode .expertiseTitle)
+  FAIL 48 :1492 colour literal #333 outside tokens (color on .expertiseList li)
+  FAIL 48 :1501 colour literal #315d4e outside tokens (color on .expertiseList li::before)
+  FAIL 48 :1506 colour literal #e0e0e0 outside tokens (color on body.dark-mode .expertiseList…)
+  FAIL 48 :1510 colour literal #A2BBDD outside tokens (color on body.dark-mode .expertiseList…)
+  FAIL 48 :1515 colour literal #ffffff outside tokens (background on .portfolioSection)
+  FAIL 48 :1515 colour literal #fbf8f2 outside tokens (background on .portfolioSection)
+  FAIL 48 :1515 colour literal #fbfaf6 outside tokens (background on .portfolioSection)
+  FAIL 48 :1532 font-family literal "'Karla', sans-serif" on .btn
+  FAIL 48 :1542 colour literal rgba(255, 255, 255, 0.78) outside tokens (background-color on .btn)
+  FAIL 48 :1543 colour literal #3f4d5e outside tokens (color on .btn)
+  FAIL 48 :1546 colour literal rgba(31, 41, 51, 0.04) outside tokens (box-shadow on .btn)
+  FAIL 48 :1558 colour literal rgba(61,90,133,0.1) outside tokens (background on .btn::before)
+  FAIL 48 :1570 colour literal #1f2933 outside tokens (background on .btn.active)
+  FAIL 48 :1571 colour literal #ffffff outside tokens (color on .btn.active)
+  FAIL 48 :1574 colour literal rgba(31, 41, 51, 0.16) outside tokens (box-shadow on .btn.active)
+  FAIL 48 :1575 colour literal #1f2933 outside tokens (border-color on .btn.active)
+  FAIL 48 :1580 colour literal #ffffff outside tokens (background-color on .btn:hover)
+  FAIL 48 :1583 colour literal rgba(31, 41, 51, 0.10) outside tokens (box-shadow on .btn:hover)
+  FAIL 48 :1588 colour literal #2f3b49 outside tokens (background on .btn.active:hover)
+  FAIL 48 :1589 colour literal #ffffff outside tokens (color on .btn.active:hover)
+  FAIL 48 :1602 colour literal #ffffff outside tokens (background on .projectDeck)
+  FAIL 48 :1602 colour literal #fbfaf6 outside tokens (background on .projectDeck)
+  FAIL 48 :1602 colour literal #fbf8f2 outside tokens (background on .projectDeck)
+  FAIL 48 :1604 colour literal #d9e5d7 outside tokens (border on .projectDeck)
+  FAIL 48 :1606 colour literal rgba(31, 41, 51, 0.09) outside tokens (box-shadow on .projectDeck)
+  FAIL 48 :1613 colour literal #2d2d2d outside tokens (background on body.dark-mode .projectDeck)
+  FAIL 48 :1613 colour literal #252526 outside tokens (background on body.dark-mode .projectDeck)
+  FAIL 48 :1614 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .projectDeck)
+  FAIL 48 :1615 colour literal rgba(0, 0, 0, 0.38) outside tokens (box-shadow on body.dark-mode .projectDeck)
+  FAIL 48 :1627 colour literal #273d30 outside tokens (color on .projectDeckHeader h3)
+  FAIL 48 :1628 font-family literal "'Karla', sans-serif" on .projectDeckHeader h3
+  FAIL 48 :1635 colour literal #A2BBDD outside tokens (color on body.dark-mode .projectDeckHe…)
+  FAIL 48 :1648 colour literal #eef4fa outside tokens (background on .projectViewSwitch)
+  FAIL 48 :1649 colour literal #cfddce outside tokens (border on .projectViewSwitch)
+  FAIL 48 :1659 colour literal #536475 outside tokens (color on .projectViewButton)
+  FAIL 48 :1661 font-family literal "'Karla', sans-serif" on .projectViewButton
+  FAIL 48 :1672 colour literal #ffffff outside tokens (background on .projectViewButton.active)
+  FAIL 48 :1673 colour literal rgba(49, 89, 134, 0.12) outside tokens (box-shadow on .projectViewButton.active)
+  FAIL 48 :1674 colour literal #273d30 outside tokens (color on .projectViewButton.active)
+  FAIL 48 :1678 colour literal #2e624f outside tokens (color on .projectViewButton:hover)
+  FAIL 48 :1689 colour literal #ffffff outside tokens (background on .projectDeckNav)
+  FAIL 48 :1690 colour literal #cfddce outside tokens (border on .projectDeckNav)
+  FAIL 48 :1692 colour literal #2e624f outside tokens (color on .projectDeckNav)
+  FAIL 48 :1702 colour literal #2e624f outside tokens (background on .projectDeckNav:hover)
+  FAIL 48 :1703 colour literal rgba(49, 89, 134, 0.22) outside tokens (box-shadow on .projectDeckNav:hover)
+  FAIL 48 :1704 colour literal #ffffff outside tokens (color on .projectDeckNav:hover)
+  FAIL 48 :1709 colour literal #242424 outside tokens (background on body.dark-mode .projectDeckNav)
+  FAIL 48 :1710 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .projectDeckNav)
+  FAIL 48 :1711 colour literal #A2BBDD outside tokens (color on body.dark-mode .projectDeckNav)
+  FAIL 48 :1715 colour literal rgba(162, 187, 221, 0.10) outside tokens (background on body.dark-mode .projectViewSw…)
+  FAIL 48 :1716 colour literal rgba(162, 187, 221, 0.28) outside tokens (border-color on body.dark-mode .projectViewSw…)
+  FAIL 48 :1720 colour literal #d0d0d0 outside tokens (color on body.dark-mode .projectViewBu…)
+  FAIL 48 :1724 colour literal rgba(162, 187, 221, 0.18) outside tokens (background on body.dark-mode .projectViewBu…)
+  FAIL 48 :1726 colour literal #ffffff outside tokens (color on body.dark-mode .projectViewBu…)
+  FAIL 48 :1730 colour literal #536475 outside tokens (color on .projectDeckCounter)
+  FAIL 48 :1731 font-family literal "'Karla', sans-serif" on .projectDeckCounter
+  FAIL 48 :1739 colour literal #d0d0d0 outside tokens (color on body.dark-mode .projectDeckCo…)
+  FAIL 48 :1743 colour literal rgba(255, 255, 255, 0.72) outside tokens (background on .projectDeckCard)
+  FAIL 48 :1744 colour literal rgba(215, 226, 238, 0.88) outside tokens (border on .projectDeckCard)
+  FAIL 48 :1757 colour literal rgba(255, 255, 255, 0.04) outside tokens (background on body.dark-mode .projectDeckCa…)
+  FAIL 48 :1758 colour literal rgba(162, 187, 221, 0.18) outside tokens (border-color on body.dark-mode .projectDeckCa…)
+  FAIL 48 :1772 colour literal #f4f8fc outside tokens (background on .projectDeckMedia)
+  FAIL 48 :1809 colour literal #eaf2e9 outside tokens (background on .projectDeckCategory, .projec…)
+  FAIL 48 :1810 colour literal #cfddce outside tokens (border on .projectDeckCategory, .projec…)
+  FAIL 48 :1812 colour literal #2e624f outside tokens (color on .projectDeckCategory, .projec…)
+  FAIL 48 :1813 font-family literal "'Karla', sans-serif" on .projectDeckCategory, .projectDeckTech span
+  FAIL 48 :1823 colour literal rgba(162, 187, 221, 0.12) outside tokens (background on body.dark-mode .projectDeckCa…)
+  FAIL 48 :1824 colour literal rgba(162, 187, 221, 0.32) outside tokens (border-color on body.dark-mode .projectDeckCa…)
+  FAIL 48 :1825 colour literal #A2BBDD outside tokens (color on body.dark-mode .projectDeckCa…)
+  FAIL 48 :1829 colour literal #273d30 outside tokens (color on .projectDeckContent h3)
+  FAIL 48 :1830 font-family literal "'Karla', sans-serif" on .projectDeckContent h3
+  FAIL 48 :1839 colour literal #e0e0e0 outside tokens (color on body.dark-mode .projectDeckCo…)
+  FAIL 48 :1848 colour literal #e3eae0 outside tokens (border-top on .projectDeckRows div)
+  FAIL 48 :1861 colour literal #2e624f outside tokens (color on .projectDeckRows span)
+  FAIL 48 :1862 font-family literal "'Karla', sans-serif" on .projectDeckRows span
+  FAIL 48 :1870 colour literal #42566c outside tokens (color on .projectDeckRows p)
+  FAIL 48 :1877 colour literal #404040 outside tokens (border-top-color on body.dark-mode .projectDeckRo…)
+  FAIL 48 :1881 colour literal #A2BBDD outside tokens (color on body.dark-mode .projectDeckRo…)
+  FAIL 48 :1885 colour literal #d6d6d6 outside tokens (color on body.dark-mode .projectDeckRo…)
+  FAIL 48 :1898 colour literal #1f2933 outside tokens (background on .projectDeckLink)
+  FAIL 48 :1899 colour literal #1f2933 outside tokens (border on .projectDeckLink)
+  FAIL 48 :1901 colour literal #ffffff outside tokens (color on .projectDeckLink)
+  FAIL 48 :1903 font-family literal "'Karla', sans-serif" on .projectDeckLink
+  FAIL 48 :1914 colour literal #2e624f outside tokens (background on .projectDeckLink:hover)
+  FAIL 48 :1915 colour literal rgba(49, 89, 134, 0.20) outside tokens (box-shadow on .projectDeckLink:hover)
+  FAIL 48 :1916 colour literal #ffffff outside tokens (color on .projectDeckLink:hover)
+  FAIL 48 :1937 colour literal #b8c8d8 outside tokens (scrollbar-color on .projectDeckRail)
+  FAIL 48 :1942 colour literal #ffffff outside tokens (background on .projectDeckThumb)
+  FAIL 48 :1943 colour literal #d9e5d7 outside tokens (border on .projectDeckThumb)
+  FAIL 48 :1945 colour literal #26384d outside tokens (color on .projectDeckThumb)
+  FAIL 48 :1948 font-family literal "'Karla', sans-serif" on .projectDeckThumb
+  FAIL 48 :1960 colour literal #2e624f outside tokens (border-color on .projectDeckThumb:hover, .pro…)
+  FAIL 48 :1961 colour literal rgba(49, 89, 134, 0.14) outside tokens (box-shadow on .projectDeckThumb:hover, .pro…)
+  FAIL 48 :1966 colour literal #f4f8fc outside tokens (background on .projectDeckThumb.active)
+  FAIL 48 :1970 colour literal #242424 outside tokens (background on body.dark-mode .projectDeckTh…)
+  FAIL 48 :1971 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .projectDeckTh…)
+  FAIL 48 :1972 colour literal #e0e0e0 outside tokens (color on body.dark-mode .projectDeckTh…)
+  FAIL 48 :1977 colour literal #A2BBDD outside tokens (border-color on body.dark-mode .projectDeckTh…)
+  FAIL 48 :1981 colour literal #ffffff outside tokens (background on .projectEvidenceIndex)
+  FAIL 48 :1982 colour literal #d9e5d7 outside tokens (border on .projectEvidenceIndex)
+  FAIL 48 :1984 colour literal rgba(31, 41, 51, 0.06) outside tokens (box-shadow on .projectEvidenceIndex)
+  FAIL 48 :1995 colour literal #242424 outside tokens (background on body.dark-mode .projectEviden…)
+  FAIL 48 :1996 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .projectEviden…)
+  FAIL 48 :1997 colour literal rgba(0, 0, 0, 0.32) outside tokens (box-shadow on body.dark-mode .projectEviden…)
+  FAIL 48 :2009 colour literal #273d30 outside tokens (color on .projectEvidenceIntro h3)
+  FAIL 48 :2010 font-family literal "'Karla', sans-serif" on .projectEvidenceIntro h3
+  FAIL 48 :2017 colour literal #536475 outside tokens (color on .projectEvidenceIntro p:last-…)
+  FAIL 48 :2024 colour literal #e0e0e0 outside tokens (color on body.dark-mode .projectEviden…)
+  FAIL 48 :2028 colour literal #d0d0d0 outside tokens (color on body.dark-mode .projectEviden…)
+  FAIL 48 :2032 colour literal #e3eae0 outside tokens (border on .projectIndexList)
+  FAIL 48 :2038 colour literal #404040 outside tokens (border-color on body.dark-mode .projectIndexL…)
+  FAIL 48 :2043 colour literal #ffffff outside tokens (background on .projectIndexRow)
+  FAIL 48 :2044 colour literal #e3eae0 outside tokens (border-top on .projectIndexRow)
+  FAIL 48 :2057 colour literal #fbfdff outside tokens (background on .projectIndexRow:hover)
+  FAIL 48 :2065 colour literal #242424 outside tokens (background on body.dark-mode .projectIndexR…)
+  FAIL 48 :2066 colour literal #404040 outside tokens (border-top-color on body.dark-mode .projectIndexR…)
+  FAIL 48 :2070 colour literal #2a2a2a outside tokens (background on body.dark-mode .projectIndexR…)
+  FAIL 48 :2077 font-family literal "'Karla', sans-serif" on .projectIndexName, .projectIndexDomain, .projectIndexBoundary, .projectInd…
+  FAIL 48 :2081 colour literal #273d30 outside tokens (color on .projectIndexName)
+  FAIL 48 :2089 colour literal #6a7d91 outside tokens (color on .projectIndexDomain)
+  FAIL 48 :2099 colour literal #42566c outside tokens (color on .projectIndexRow p)
+  FAIL 48 :2108 colour literal #eaf2e9 outside tokens (background on .projectIndexRow a, .projectI…)
+  FAIL 48 :2109 colour literal #cfddce outside tokens (border on .projectIndexRow a, .projectI…)
+  FAIL 48 :2111 colour literal #2e624f outside tokens (color on .projectIndexRow a, .projectI…)
+  FAIL 48 :2124 colour literal #2e624f outside tokens (background on .projectIndexRow a:hover)
+  FAIL 48 :2125 colour literal #2e624f outside tokens (border-color on .projectIndexRow a:hover)
+  FAIL 48 :2126 colour literal #ffffff outside tokens (color on .projectIndexRow a:hover)
+  FAIL 48 :2131 colour literal #536475 outside tokens (color on .projectIndexBoundary)
+  FAIL 48 :2135 colour literal #e0e0e0 outside tokens (color on body.dark-mode .projectIndexN…)
+  FAIL 48 :2141 colour literal #d0d0d0 outside tokens (color on body.dark-mode .projectIndexD…)
+  FAIL 48 :2146 colour literal rgba(162, 187, 221, 0.12) outside tokens (background on body.dark-mode .projectIndexR…)
+  FAIL 48 :2147 colour literal rgba(162, 187, 221, 0.32) outside tokens (border-color on body.dark-mode .projectIndexR…)
+  FAIL 48 :2148 colour literal #A2BBDD outside tokens (color on body.dark-mode .projectIndexR…)
+  FAIL 48 :2195 colour literal #ffffff outside tokens (background on .filterItem)
+  FAIL 48 :2201 colour literal rgba(217, 227, 239, 0.95) outside tokens (border on .filterItem)
+  FAIL 48 :2217 colour literal rgba(49, 89, 134, 0.04) outside tokens (background on .filterItem::before)
+  FAIL 48 :2217 colour literal rgba(249, 168, 37, 0.035) outside tokens (background on .filterItem::before)
+  FAIL 48 :2230 colour literal rgba(49, 89, 134, 0.22) outside tokens (border-color on .filterItem:hover)
+  FAIL 48 :2257 colour literal #f4f8fc outside tokens (background on .filterItemImg)
+  FAIL 48 :2258 colour literal #dde6ef outside tokens (border-bottom on .filterItemImg)
+  FAIL 48 :2266 colour literal #3f4d5e outside tokens (color on .filterItemDesc)
+  FAIL 48 :2280 colour literal #315d4e outside tokens (color on .filterItemLink)
+  FAIL 48 :2287 colour literal #5d9273 outside tokens (color on .filterItemLink:hover)
+  FAIL 48 :2297 colour literal #315d4e outside tokens (background-color on .filterItemLink::after)
+  FAIL 48 :2311 colour literal #e1e9f2 outside tokens (border-top on .filterItemReport)
+  FAIL 48 :2322 colour literal #404040 outside tokens (border-top-color on body.dark-mode .filterItemRep…)
+  FAIL 48 :2335 colour literal #edf2f7 outside tokens (border-top on .filterItemProblem, .filterIt…)
+  FAIL 48 :2351 colour literal rgba(237, 244, 251, 0.72) outside tokens (background on .filterItemResults)
+  FAIL 48 :2351 colour literal rgba(255, 255, 255, 0.64) outside tokens (background on .filterItemResults)
+  FAIL 48 :2352 colour literal #dfe9f3 outside tokens (border on .filterItemResults)
+  FAIL 48 :2361 colour literal #315d4e outside tokens (color on .filterItemProblem strong, .f…)
+  FAIL 48 :2364 font-family literal "'Karla', sans-serif" on .filterItemProblem strong, .filterItemArchitecture strong, .filterItemResu…
+  FAIL 48 :2374 colour literal #A2BBDD outside tokens (color on body.dark-mode .filterItemPro…)
+  FAIL 48 :2387 colour literal #eaf2e9 outside tokens (background on .techBadge)
+  FAIL 48 :2388 colour literal #315d4e outside tokens (color on .techBadge)
+  FAIL 48 :2393 colour literal #d0d8e0 outside tokens (border on .techBadge)
+  FAIL 48 :2400 colour literal #285b4c outside tokens (background on .techBadge:hover)
+  FAIL 48 :2403 colour literal rgba(74,111,165,0.3) outside tokens (box-shadow on .techBadge:hover)
+  FAIL 48 :2407 colour literal #2d2d2d outside tokens (background on body.dark-mode .techBadge)
+  FAIL 48 :2408 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .techBadge)
+  FAIL 48 :2409 colour literal #A2BBDD outside tokens (color on body.dark-mode .techBadge)
+  FAIL 48 :2413 colour literal #A2BBDD outside tokens (background on body.dark-mode .techBadge:hov…)
+  FAIL 48 :2413 colour literal #315d4e outside tokens (background on body.dark-mode .techBadge:hov…)
+  FAIL 48 :2414 colour literal #1a1a1a outside tokens (color on body.dark-mode .techBadge:hov…)
+  FAIL 48 :2460 colour literal #f8f9fa outside tokens (background on .testimonialsSection)
+  FAIL 48 :2460 colour literal #ffffff outside tokens (background on .testimonialsSection)
+  FAIL 48 :2460 colour literal #f0f4f8 outside tokens (background on .testimonialsSection)
+  FAIL 48 :2471 colour literal #1a1a1a outside tokens (background on body.dark-mode .testimonialsS…)
+  FAIL 48 :2471 colour literal #2d2d2d outside tokens (background on body.dark-mode .testimonialsS…)
+  FAIL 48 :2471 colour literal #1f1f1f outside tokens (background on body.dark-mode .testimonialsS…)
+  FAIL 48 :2479 colour literal rgba(0,0,0,0.08) outside tokens (box-shadow on .testimonialCard)
+  FAIL 48 :2495 colour literal #315d4e outside tokens (background on .testimonialCard::before)
+  FAIL 48 :2495 colour literal #A2BBDD outside tokens (background on .testimonialCard::before)
+  FAIL 48 :2503 colour literal rgba(74,111,165,0.18) outside tokens (box-shadow on .testimonialCard:hover)
+  FAIL 48 :2511 colour literal #2d2d2d outside tokens (background on body.dark-mode .testimonialCa…)
+  FAIL 48 :2512 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on body.dark-mode .testimonialCa…)
+  FAIL 48 :2521 colour literal #A2BBDD outside tokens (color on .testimonialQuote i)
+  FAIL 48 :2529 colour literal #333 outside tokens (color on .testimonialQuote p)
+  FAIL 48 :2535 colour literal #e0e0e0 outside tokens (color on body.dark-mode .testimonialQu…)
+  FAIL 48 :2543 colour literal #e0e0e0 outside tokens (border-top on .testimonialAuthor)
+  FAIL 48 :2547 colour literal #4a4a4a outside tokens (border-top-color on body.dark-mode .testimonialAu…)
+  FAIL 48 :2556 colour literal #f0f0f0 outside tokens (border on .testimonialLogo)
+  FAIL 48 :2562 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .testimonialLo…)
+  FAIL 48 :2572 colour literal #333 outside tokens (color on .testimonialName)
+  FAIL 48 :2577 colour literal #e0e0e0 outside tokens (color on body.dark-mode .testimonialNa…)
+  FAIL 48 :2582 colour literal #315d4e outside tokens (color on .testimonialRole)
+  FAIL 48 :2589 colour literal #666 outside tokens (color on .testimonialCompany)
+  FAIL 48 :2594 colour literal #b0b0b0 outside tokens (color on body.dark-mode .testimonialCo…)
+  FAIL 48 :2616 colour literal #ffffff outside tokens (background on .readingSection)
+  FAIL 48 :2622 colour literal #1f1f1f outside tokens (background on body.dark-mode .readingSection)
+  FAIL 48 :2626 colour literal #fbfaf6 outside tokens (background on .readingIntro)
+  FAIL 48 :2626 colour literal #ffffff outside tokens (background on .readingIntro)
+  FAIL 48 :2627 colour literal #d9e5d7 outside tokens (border on .readingIntro)
+  FAIL 48 :2629 colour literal rgba(61, 90, 133, 0.08) outside tokens (box-shadow on .readingIntro)
+  FAIL 48 :2636 colour literal #2d2d2d outside tokens (background on body.dark-mode .readingIntro)
+  FAIL 48 :2637 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .readingIntro)
+  FAIL 48 :2638 colour literal rgba(0, 0, 0, 0.32) outside tokens (box-shadow on body.dark-mode .readingIntro)
+  FAIL 48 :2642 colour literal #33465c outside tokens (color on .readingIntro p)
+  FAIL 48 :2649 colour literal #e0e0e0 outside tokens (color on body.dark-mode .readingIntro p)
+  FAIL 48 :2659 colour literal #eaf2e9 outside tokens (background on .readingSignal)
+  FAIL 48 :2660 colour literal #cfddce outside tokens (border on .readingSignal)
+  FAIL 48 :2662 colour literal #2e624f outside tokens (color on .readingSignal)
+  FAIL 48 :2663 font-family literal "'Karla', Arial, sans-serif" on .readingSignal
+  FAIL 48 :2672 colour literal rgba(162, 187, 221, 0.12) outside tokens (background on body.dark-mode .readingSignal)
+  FAIL 48 :2673 colour literal rgba(162, 187, 221, 0.32) outside tokens (border-color on body.dark-mode .readingSignal)
+  FAIL 48 :2674 colour literal #A2BBDD outside tokens (color on body.dark-mode .readingSignal)
+  FAIL 48 :2678 colour literal #ffffff outside tokens (background on .bookCarousel)
+  FAIL 48 :2678 colour literal #fbfaf6 outside tokens (background on .bookCarousel)
+  FAIL 48 :2678 colour literal #fbf8f2 outside tokens (background on .bookCarousel)
+  FAIL 48 :2680 colour literal #d9e5d7 outside tokens (border on .bookCarousel)
+  FAIL 48 :2682 colour literal rgba(31, 41, 51, 0.09) outside tokens (box-shadow on .bookCarousel)
+  FAIL 48 :2690 colour literal #2d2d2d outside tokens (background on body.dark-mode .bookCarousel)
+  FAIL 48 :2690 colour literal #252526 outside tokens (background on body.dark-mode .bookCarousel)
+  FAIL 48 :2691 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .bookCarousel)
+  FAIL 48 :2692 colour literal rgba(0, 0, 0, 0.38) outside tokens (box-shadow on body.dark-mode .bookCarousel)
+  FAIL 48 :2704 colour literal #273d30 outside tokens (color on .bookCarouselHeader h3)
+  FAIL 48 :2705 font-family literal "'Karla', Arial, sans-serif" on .bookCarouselHeader h3
+  FAIL 48 :2712 colour literal #A2BBDD outside tokens (color on body.dark-mode .bookCarouselH…)
+  FAIL 48 :2722 colour literal #ffffff outside tokens (background on .bookNav)
+  FAIL 48 :2723 colour literal #cfddce outside tokens (border on .bookNav)
+  FAIL 48 :2725 colour literal #2e624f outside tokens (color on .bookNav)
+  FAIL 48 :2735 colour literal #2e624f outside tokens (background on .bookNav:hover)
+  FAIL 48 :2736 colour literal rgba(49, 89, 134, 0.22) outside tokens (box-shadow on .bookNav:hover)
+  FAIL 48 :2737 colour literal #ffffff outside tokens (color on .bookNav:hover)
+  FAIL 48 :2742 colour literal #242424 outside tokens (background on body.dark-mode .bookNav)
+  FAIL 48 :2743 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .bookNav)
+  FAIL 48 :2744 colour literal #A2BBDD outside tokens (color on body.dark-mode .bookNav)
+  FAIL 48 :2748 colour literal rgba(255, 255, 255, 0.58) outside tokens (background on .bookCarouselShell)
+  FAIL 48 :2749 colour literal rgba(215, 226, 238, 0.72) outside tokens (border on .bookCarouselShell)
+  FAIL 48 :2755 colour literal rgba(255, 255, 255, 0.04) outside tokens (background on body.dark-mode .bookCarouselS…)
+  FAIL 48 :2756 colour literal rgba(162, 187, 221, 0.18) outside tokens (border-color on body.dark-mode .bookCarouselS…)
+  FAIL 48 :2769 colour literal #e9f1f9 outside tokens (background on .bookCoverFrame)
+  FAIL 48 :2769 colour literal #ffffff outside tokens (background on .bookCoverFrame)
+  FAIL 48 :2770 colour literal #d1deea outside tokens (border on .bookCoverFrame)
+  FAIL 48 :2772 colour literal rgba(31, 41, 51, 0.16) outside tokens (box-shadow on .bookCoverFrame)
+  FAIL 48 :2772 colour literal rgba(31, 41, 51, 0.08) outside tokens (box-shadow on .bookCoverFrame)
+  FAIL 48 :2788 colour literal rgba(0, 0, 0, 0.20) outside tokens (background on .bookCoverFrame::before)
+  FAIL 48 :2788 colour literal rgba(255, 255, 255, 0.18) outside tokens (background on .bookCoverFrame::before)
+  FAIL 48 :2788 colour literal rgba(0, 0, 0, 0.12) outside tokens (background on .bookCoverFrame::before)
+  FAIL 48 :2799 colour literal rgba(255, 255, 255, 0.34) outside tokens (background on .bookCoverFrame::after)
+  FAIL 48 :2831 colour literal #2e624f outside tokens (background on .bookCoverFallback)
+  FAIL 48 :2831 colour literal #273d30 outside tokens (background on .bookCoverFallback)
+  FAIL 48 :2833 colour literal #ffffff outside tokens (color on .bookCoverFallback)
+  FAIL 48 :2846 font-family literal "'Karla', Arial, sans-serif" on .fallbackTitle
+  FAIL 48 :2862 colour literal #eaf2e9 outside tokens (background on .bookTheme)
+  FAIL 48 :2863 colour literal #cfddce outside tokens (border on .bookTheme)
+  FAIL 48 :2865 colour literal #2e624f outside tokens (color on .bookTheme)
+  FAIL 48 :2867 font-family literal "'Karla', Arial, sans-serif" on .bookTheme
+  FAIL 48 :2875 colour literal #273d30 outside tokens (color on .bookCopy h3)
+  FAIL 48 :2876 font-family literal "'Karla', Arial, sans-serif" on .bookCopy h3
+  FAIL 48 :2884 colour literal #2e624f outside tokens (color on .bookAuthor)
+  FAIL 48 :2885 font-family literal "'Karla', Arial, sans-serif" on .bookAuthor
+  FAIL 48 :2892 colour literal #42566c outside tokens (color on .bookCopy p:last-child)
+  FAIL 48 :2899 colour literal rgba(162, 187, 221, 0.12) outside tokens (background on body.dark-mode .bookTheme)
+  FAIL 48 :2900 colour literal rgba(162, 187, 221, 0.32) outside tokens (border-color on body.dark-mode .bookTheme)
+  FAIL 48 :2901 colour literal #A2BBDD outside tokens (color on body.dark-mode .bookTheme)
+  FAIL 48 :2907 colour literal #e0e0e0 outside tokens (color on body.dark-mode .bookCopy h3, …)
+  FAIL 48 :2916 colour literal #b8c8d8 outside tokens (scrollbar-color on .bookThumbs)
+  FAIL 48 :2922 colour literal #ffffff outside tokens (background on .bookThumb)
+  FAIL 48 :2923 colour literal #d9e5d7 outside tokens (border on .bookThumb)
+  FAIL 48 :2925 colour literal #26384d outside tokens (color on .bookThumb)
+  FAIL 48 :2938 colour literal #2e624f outside tokens (border-color on .bookThumb:hover, .bookThumb.…)
+  FAIL 48 :2939 colour literal rgba(49, 89, 134, 0.14) outside tokens (box-shadow on .bookThumb:hover, .bookThumb.…)
+  FAIL 48 :2944 colour literal #f4f8fc outside tokens (background on .bookThumb.active)
+  FAIL 48 :2948 colour literal #eaf2e9 outside tokens (background on .bookThumb img)
+  FAIL 48 :2958 font-family literal "'Karla', Arial, sans-serif" on .bookThumb span
+  FAIL 48 :2965 colour literal #242424 outside tokens (background on body.dark-mode .bookThumb)
+  FAIL 48 :2966 colour literal #4a4a4a outside tokens (border-color on body.dark-mode .bookThumb)
+  FAIL 48 :2967 colour literal #e0e0e0 outside tokens (color on body.dark-mode .bookThumb)
+  FAIL 48 :2972 colour literal #A2BBDD outside tokens (border-color on body.dark-mode .bookThumb:hov…)
+  FAIL 48 :2973 colour literal rgba(0, 0, 0, 0.32) outside tokens (box-shadow on body.dark-mode .bookThumb:hov…)
+  FAIL 48 :2977 colour literal rgba(162, 187, 221, 0.12) outside tokens (background on body.dark-mode .bookThumb.act…)
+  FAIL 48 :3062 colour literal #fafafa outside tokens (background-color on .writingSection)
+  FAIL 48 :3068 colour literal #1f1f1f outside tokens (background-color on body.dark-mode .writingSection)
+  FAIL 48 :3076 colour literal rgba(0,0,0,0.08) outside tokens (box-shadow on .writingCard)
+  FAIL 48 :3092 colour literal #315d4e outside tokens (background on .writingCard::before)
+  FAIL 48 :3092 colour literal #A2BBDD outside tokens (background on .writingCard::before)
+  FAIL 48 :3104 colour literal rgba(74,111,165,0.16) outside tokens (box-shadow on .writingCard:hover)
+  FAIL 48 :3108 colour literal #2d2d2d outside tokens (background on body.dark-mode .writingCard)
+  FAIL 48 :3109 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on body.dark-mode .writingCard)
+  FAIL 48 :3115 colour literal #315d4e outside tokens (background on .writingIcon)
+  FAIL 48 :3115 colour literal #A2BBDD outside tokens (background on .writingIcon)
+  FAIL 48 :3129 colour literal #eaf2e9 outside tokens (background on .writingThumb)
+  FAIL 48 :3130 colour literal #d9e5d7 outside tokens (border-bottom on .writingThumb)
+  FAIL 48 :3158 colour literal #333 outside tokens (color on .writingTitle a)
+  FAIL 48 :3164 colour literal #315d4e outside tokens (color on .writingTitle a:hover)
+  FAIL 48 :3168 colour literal #e0e0e0 outside tokens (color on body.dark-mode .writingTitle a)
+  FAIL 48 :3172 colour literal #A2BBDD outside tokens (color on body.dark-mode .writingTitle …)
+  FAIL 48 :3180 colour literal #666 outside tokens (color on .writingMeta)
+  FAIL 48 :3185 colour literal #b0b0b0 outside tokens (color on body.dark-mode .writingMeta)
+  FAIL 48 :3190 colour literal #315d4e outside tokens (color on .writingPlatform)
+  FAIL 48 :3196 colour literal #555 outside tokens (color on .writingExcerpt)
+  FAIL 48 :3202 colour literal #b0b0b0 outside tokens (color on body.dark-mode .writingExcerpt)
+  FAIL 48 :3214 colour literal #f0f4f8 outside tokens (background on .writingTag)
+  FAIL 48 :3215 colour literal #315d4e outside tokens (color on .writingTag)
+  FAIL 48 :3225 colour literal #1a1a1a outside tokens (background on body.dark-mode .writingTag)
+  FAIL 48 :3226 colour literal #A2BBDD outside tokens (color on body.dark-mode .writingTag)
+  FAIL 48 :3232 colour literal #315d4e outside tokens (color on .writingLink)
+  FAIL 48 :3245 colour literal #5d9273 outside tokens (color on .writingLink:hover)
+  FAIL 48 :3269 colour literal #ffffff outside tokens (background on .certificationsSection)
+  FAIL 48 :3269 colour literal #f8f9fa outside tokens (background on .certificationsSection)
+  FAIL 48 :3274 colour literal #2d2d2d outside tokens (background on body.dark-mode .certification…)
+  FAIL 48 :3274 colour literal #1a1a1a outside tokens (background on body.dark-mode .certification…)
+  FAIL 48 :3282 colour literal rgba(0,0,0,0.08) outside tokens (box-shadow on .certCard)
+  FAIL 48 :3297 colour literal #315d4e outside tokens (background on .certCard::before)
+  FAIL 48 :3297 colour literal #A2BBDD outside tokens (background on .certCard::before)
+  FAIL 48 :3308 colour literal rgba(74,111,165,0.2) outside tokens (box-shadow on .certCard:hover)
+  FAIL 48 :3312 colour literal #2d2d2d outside tokens (background on body.dark-mode .certCard)
+  FAIL 48 :3313 colour literal rgba(0,0,0,0.4) outside tokens (box-shadow on body.dark-mode .certCard)
+  FAIL 48 :3319 colour literal #315d4e outside tokens (background on .certIcon)
+  FAIL 48 :3319 colour literal #A2BBDD outside tokens (background on .certIcon)
+  FAIL 48 :3326 colour literal rgba(74,111,165,0.3) outside tokens (box-shadow on .certIcon)
+  FAIL 48 :3341 colour literal #333 outside tokens (color on .certTitle)
+  FAIL 48 :3346 colour literal #e0e0e0 outside tokens (color on body.dark-mode .certTitle)
+  FAIL 48 :3351 colour literal #315d4e outside tokens (color on .certIssuer)
+  FAIL 48 :3358 colour literal #666 outside tokens (color on .certDate)
+  FAIL 48 :3363 colour literal #b0b0b0 outside tokens (color on body.dark-mode .certDate)
+  FAIL 48 :3375 colour literal #f0f4f8 outside tokens (background on .certTopic)
+  FAIL 48 :3376 colour literal #315d4e outside tokens (color on .certTopic)
+  FAIL 48 :3386 colour literal #1a1a1a outside tokens (background on body.dark-mode .certTopic)
+  FAIL 48 :3387 colour literal #A2BBDD outside tokens (color on body.dark-mode .certTopic)
+  FAIL 48 :3393 colour literal #315d4e outside tokens (color on .certVerify)
+  FAIL 48 :3406 colour literal #5d9273 outside tokens (color on .certVerify:hover)
+  FAIL 48 :3423 colour literal #f4f8fb outside tokens (background on .contactSection)
+  FAIL 48 :3444 colour literal #ffffff outside tokens (background on .contactPanel)
+  FAIL 48 :3489 font-family literal "'Karla', sans-serif" on .contactLink
+  FAIL 48 :3506 colour literal #ffffff outside tokens (color on .contactLink:hover)
+  FAIL 48 :3551 colour literal #315d4e outside tokens (outline on a:focus)
+  FAIL 48 :3590 colour literal #d9e5d7 outside tokens (border-top on .resumeTimelineWrap .resumeSu…)
+  FAIL 48 :3706 colour literal #315d4e outside tokens (outline on button:focus-visible, a:focus…)
+  FAIL 48 :3717 colour literal #315d4e outside tokens (background on #backToTop)
+  FAIL 48 :3717 colour literal #5d9273 outside tokens (background on #backToTop)
+  FAIL 48 :3717 colour literal #6a8fc5 outside tokens (background on #backToTop)
+  FAIL 48 :3725 colour literal rgba(74,111,165,0.4) outside tokens (box-shadow on #backToTop)
+  FAIL 48 :3740 colour literal #A2BBDD outside tokens (background on #backToTop::before)
+  FAIL 48 :3740 colour literal #315d4e outside tokens (background on #backToTop::before)
+  FAIL 48 :3770 colour literal rgba(74,111,165,0.5) outside tokens (box-shadow on #backToTop:hover)
+  FAIL 48 :3794 colour literal #315d4e outside tokens (background on #loadingScreen)
+  FAIL 48 :3794 colour literal #5d9273 outside tokens (background on #loadingScreen)
+  FAIL 48 :3794 colour literal #A2BBDD outside tokens (background on #loadingScreen)
+  FAIL 48 :3808 colour literal rgba(255,255,255,0.1) outside tokens (background on #loadingScreen::before)
+  FAIL 48 :3861 colour literal #070b12 outside tokens (--lab-bg on body.dark-mode)
+  FAIL 48 :3862 colour literal #0d1420 outside tokens (--lab-bg-soft on body.dark-mode)
+  FAIL 48 :3863 colour literal rgba(13, 20, 32, 0.78) outside tokens (--lab-panel on body.dark-mode)
+  FAIL 48 :3864 colour literal #101827 outside tokens (--lab-panel-solid on body.dark-mode)
+  FAIL 48 :3865 colour literal #f4f8fb outside tokens (--lab-ink on body.dark-mode)
+  FAIL 48 :3866 colour literal #9fb1c2 outside tokens (--lab-muted on body.dark-mode)
+  FAIL 48 :3867 colour literal #6f8193 outside tokens (--lab-dim on body.dark-mode)
+  FAIL 48 :3868 colour literal rgba(159, 177, 194, 0.18) outside tokens (--lab-line on body.dark-mode)
+  FAIL 48 :3869 colour literal rgba(34, 211, 238, 0.34) outside tokens (--lab-line-strong on body.dark-mode)
+  FAIL 48 :3870 colour literal #a8d4b3 outside tokens (--lab-accent on body.dark-mode)
+  FAIL 48 :3871 colour literal #c5e4c9 outside tokens (--lab-accent-hover on body.dark-mode)
+  FAIL 48 :3872 colour literal rgba(34, 211, 238, 0.12) outside tokens (--lab-accent-soft on body.dark-mode)
+  FAIL 48 :3873 colour literal #34d399 outside tokens (--lab-success on body.dark-mode)
+  FAIL 48 :3874 colour literal #061016 outside tokens (--lab-on-accent on body.dark-mode)
+  FAIL 48 :3875 colour literal rgba(0, 0, 0, 0.38) outside tokens (--lab-shadow on body.dark-mode)
+  FAIL 48 :3876 colour literal rgba(0, 0, 0, 0.22) outside tokens (--lab-card-shadow on body.dark-mode)
+  FAIL 48 :3877 colour literal rgba(255, 255, 255, 0.045) outside tokens (--lab-surface-wash on body.dark-mode)
+  FAIL 48 :3891 colour literal rgba(255, 255, 255, 0.84) outside tokens (background on #navigation)
+  FAIL 48 :3893 colour literal rgba(15, 35, 52, 0.08) outside tokens (box-shadow on #navigation)
+  FAIL 48 :3898 colour literal rgba(7, 11, 18, 0.9) outside tokens (background on body.dark-mode #navigation)
+  FAIL 48 :3903 colour literal rgba(15, 35, 52, 0.12) outside tokens (box-shadow on .fixedNav #navigation)
+  FAIL 48 :3933 colour literal rgba(255, 255, 255, 0.7) outside tokens (background on .search-input)
+  FAIL 48 :3945 colour literal rgba(255, 255, 255, 0.06) outside tokens (background on body.dark-mode .search-input)
+  FAIL 48 :3949 colour literal rgba(255, 255, 255, 0.09) outside tokens (background on body.dark-mode .search-input:…)
+  FAIL 48 :3986 colour literal rgba(14, 116, 144, 0.22) outside tokens (box-shadow on .dark-mode-toggle, body.dark-…)
+  FAIL 48 :3990 colour literal rgba(14, 116, 144, 0.13) outside tokens (background on #heroSection)
+  FAIL 48 :3990 colour literal rgba(4, 120, 87, 0.08) outside tokens (background on #heroSection)
+  FAIL 48 :3990 colour literal #f8fbfd outside tokens (background on #heroSection)
+  FAIL 48 :3990 colour literal #edf6fb outside tokens (background on #heroSection)
+  FAIL 48 :3990 colour literal #ffffff outside tokens (background on #heroSection)
+  FAIL 48 :3999 colour literal rgba(34, 211, 238, 0.18) outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :3999 colour literal rgba(52, 211, 153, 0.12) outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :3999 colour literal #070b12 outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :3999 colour literal #0a111d outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :3999 colour literal #101827 outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :4020 colour literal rgba(255, 255, 255, 0.82) outside tokens (background on .heroEvidencePanel)
+  FAIL 48 :4021 colour literal rgba(14, 116, 144, 0.2) outside tokens (border on .heroEvidencePanel)
+  FAIL 48 :4023 colour literal rgba(31, 41, 51, 0.12) outside tokens (box-shadow on .heroEvidencePanel)
+  FAIL 48 :4035 colour literal rgba(10, 17, 29, 0.84) outside tokens (background on body.dark-mode .heroEvidenceP…)
+  FAIL 48 :4036 colour literal rgba(34, 211, 238, 0.24) outside tokens (border-color on body.dark-mode .heroEvidenceP…)
+  FAIL 48 :4037 colour literal rgba(0, 0, 0, 0.32) outside tokens (box-shadow on body.dark-mode .heroEvidenceP…)
+  FAIL 48 :4043 font-family literal "'Karla', sans-serif" on .heroEvidenceHeader span
+  FAIL 48 :4059 colour literal #f7fbff outside tokens (background on .heroEvidenceMedia)
+  FAIL 48 :4077 colour literal rgba(14, 116, 144, 0.08) outside tokens (background on .heroEvidenceRows span)
+  FAIL 48 :4078 colour literal rgba(14, 116, 144, 0.16) outside tokens (border on .heroEvidenceRows span)
+  FAIL 48 :4116 font-family literal "'Inconsolata', monospace" on .heroSubtitle
+  FAIL 48 :4150 colour literal rgba(255, 255, 255, 0.24) outside tokens (background on .heroButton::before)
+  FAIL 48 :4168 colour literal rgba(14, 116, 144, 0.22) outside tokens (box-shadow on .heroButtonPrimary)
+  FAIL 48 :4185 colour literal rgba(255, 255, 255, 0.72) outside tokens (background on .heroButtonTertiary)
+  FAIL 48 :4191 colour literal rgba(255, 255, 255, 0.06) outside tokens (background on body.dark-mode .heroButtonTer…)
+  FAIL 48 :4214 colour literal rgba(15, 35, 52, 0.08) outside tokens (box-shadow on .heroMetric)
+  FAIL 48 :4231 font-family literal "'Karla', sans-serif" on .heroMetric span
+  FAIL 48 :4253 colour literal rgba(34, 211, 238, 0.28) outside tokens (box-shadow on .section::before, .sectionTit…)
+  FAIL 48 :4276 colour literal #fbfaf6 outside tokens (background on .proofSection)
+  FAIL 48 :4276 colour literal #f0f4ec outside tokens (background on .proofSection)
+  FAIL 48 :4282 colour literal #070b12 outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :4282 colour literal #0a111d outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :4296 font-family literal "'Karla', sans-serif" on .proofHeader h2
+  FAIL 48 :4322 colour literal rgba(15, 35, 52, 0.08) outside tokens (box-shadow on .reviewerScan article)
+  FAIL 48 :4330 font-family literal "'Karla', sans-serif" on .reviewerScan span
+  FAIL 48 :4340 font-family literal "'Karla', sans-serif" on .reviewerScan h3
+  FAIL 48 :4358 font-family literal "'Karla', sans-serif" on .reviewerScan p a
+  FAIL 48 :4384 colour literal rgba(15, 35, 52, 0.1) outside tokens (box-shadow on .proofCard)
+  FAIL 48 :4393 colour literal rgba(34, 211, 238, 0.18) outside tokens (background on .proofCard::before)
+  FAIL 48 :4406 colour literal rgba(15, 35, 52, 0.16) outside tokens (box-shadow on .proofCard:hover)
+  FAIL 48 :4415 colour literal rgba(255, 255, 255, 0.92) outside tokens (background on .proofCardPrimary)
+  FAIL 48 :4415 colour literal rgba(238, 246, 251, 0.84) outside tokens (background on .proofCardPrimary)
+  FAIL 48 :4423 colour literal rgba(34, 211, 238, 0.18) outside tokens (background on body.dark-mode .proofCardPrim…)
+  FAIL 48 :4423 colour literal rgba(13, 20, 32, 0.88) outside tokens (background on body.dark-mode .proofCardPrim…)
+  FAIL 48 :4432 font-family literal "'Karla', sans-serif" on .proofLabel, .proofMetric
+  FAIL 48 :4450 font-family literal "'Karla', sans-serif" on .proofTag
+  FAIL 48 :4458 font-family literal "'Karla', sans-serif" on .proofCard h3
+  FAIL 48 :4475 font-family literal "'Karla', sans-serif" on .proofQualifier
+  FAIL 48 :4488 font-family literal "'Karla', sans-serif" on .proofCard a
+  FAIL 48 :4520 colour literal #ffffff outside tokens (background on .visualStorySection)
+  FAIL 48 :4520 colour literal #f4f8fb outside tokens (background on .visualStorySection)
+  FAIL 48 :4526 colour literal #0a111d outside tokens (background on body.dark-mode .visualStorySe…)
+  FAIL 48 :4526 colour literal #0d1420 outside tokens (background on body.dark-mode .visualStorySe…)
+  FAIL 48 :4540 font-family literal "'Karla', sans-serif" on .visualStoryHeader h2
+  FAIL 48 :4566 colour literal rgba(15, 35, 52, 0.09) outside tokens (box-shadow on .visualStoryCard)
+  FAIL 48 :4577 colour literal rgba(15, 35, 52, 0.15) outside tokens (box-shadow on .visualStoryCard:hover)
+  FAIL 48 :4593 font-family literal "'Karla', sans-serif" on .visualStoryCard span
+  FAIL 48 :4603 font-family literal "'Karla', sans-serif" on .visualStoryCard h3
+  FAIL 48 :4632 colour literal rgba(15, 35, 52, 0.28) outside tokens (background on .commandPaletteBackdrop)
+  FAIL 48 :4639 colour literal rgba(2, 6, 12, 0.72) outside tokens (background on body.dark-mode .commandPalett…)
+  FAIL 48 :4702 font-family literal "'Karla', sans-serif" on .commandPaletteTitle
+  FAIL 48 :4733 colour literal rgba(34, 211, 238, 0.1) outside tokens (background on .commandItem:hover, .commandI…)
+  FAIL 48 :4750 font-family literal "'Karla', sans-serif" on .commandItemTitle
+  FAIL 48 :4764 font-family literal "'Inconsolata', monospace" on .commandItemKey
+  FAIL 48 :4936 font-family literal "'Karla', sans-serif" on .projectDeckReviewerNotes span
+  FAIL 48 :4987 colour literal rgba(34, 211, 238, 0.12) outside tokens (box-shadow on .projectDeckNav:hover, .bookN…)
+  FAIL 48 :5008 colour literal rgba(34, 211, 238, 0.08) outside tokens (background on .btn, .projectDeckCategory, .…)
+  FAIL 48 :5025 colour literal rgba(15, 35, 52, 0.08) outside tokens (box-shadow on .writingTypeCard)
+  FAIL 48 :5032 font-family literal "'Karla', sans-serif" on .writingTypeCard span
+  FAIL 48 :5097 colour literal rgba(34, 211, 238, 0.055) outside tokens (background on .filterItemResults)
+  FAIL 48 :5320 colour literal rgba(14, 116, 144, 0.16) outside tokens (border on .spinner)
+  FAIL 48 :5322 colour literal rgba(14, 116, 144, 0.56) outside tokens (border-right on .spinner)
+  FAIL 48 :5326 colour literal rgba(14, 116, 144, 0.18) outside tokens (box-shadow on .spinner)
+  FAIL 48 :5330 colour literal rgba(255, 255, 255, 0.2) outside tokens (border-color on body.dark-mode .spinner)
+  FAIL 48 :5331 colour literal rgba(255, 255, 255, 0.8) outside tokens (border-right-color on body.dark-mode .spinner)
+  FAIL 48 :5333 colour literal rgba(255, 255, 255, 0.3) outside tokens (box-shadow on body.dark-mode .spinner)
+  FAIL 48 :5343 font-family literal "'Karla', sans-serif" on .loading-text
+  FAIL 48 :5353 font-family literal "'Lato', sans-serif" on .loading-fact
+  FAIL 48 :5366 colour literal rgba(0, 0, 0, 0.3) outside tokens (text-shadow on body.dark-mode .loading-text)
+  FAIL 48 :5370 colour literal rgba(255, 255, 255, 0.88) outside tokens (color on body.dark-mode .loading-fact)
+  FAIL 48 :5371 colour literal rgba(0, 0, 0, 0.24) outside tokens (text-shadow on body.dark-mode .loading-fact)
+  FAIL 48 :5414 colour literal rgba(49, 89, 134, 0.04) outside tokens (background on .filterItem::before)
+  FAIL 48 :5414 colour literal rgba(249, 168, 37, 0.035) outside tokens (background on .filterItem::before)
+  FAIL 48 :5478 colour literal rgba(14, 116, 144, 0.18) outside tokens (background on #loadingScreen)
+  FAIL 48 :5478 colour literal #f8fbfd outside tokens (background on #loadingScreen)
+  FAIL 48 :5478 colour literal #f0f4ec outside tokens (background on #loadingScreen)
+  FAIL 48 :5478 colour literal #ffffff outside tokens (background on #loadingScreen)
+  FAIL 48 :5484 colour literal rgba(34, 211, 238, 0.22) outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5484 colour literal #070b12 outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5484 colour literal #0a111d outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5484 colour literal #101827 outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5490 colour literal rgba(14, 116, 144, 0.08) outside tokens (background on #loadingScreen::before)
+  FAIL 48 :5490 colour literal rgba(14, 116, 144, 0.055) outside tokens (background on #loadingScreen::before)
+  FAIL 48 :5496 colour literal rgba(34, 211, 238, 0.08) outside tokens (background on body.dark-mode #loadingScreen…)
+  FAIL 48 :5496 colour literal rgba(34, 211, 238, 0.055) outside tokens (background on body.dark-mode #loadingScreen…)
+  FAIL 48 :5502 colour literal rgba(34, 211, 238, 0.08) outside tokens (background on .filterItem::before)
+  FAIL 48 :5502 colour literal rgba(52, 211, 153, 0.035) outside tokens (background on .filterItem::before)
+  FAIL 48 :5563 colour literal #111512 outside tokens (--lab-bg on body.dark-mode)
+  FAIL 48 :5564 colour literal #1a211b outside tokens (--lab-bg-soft on body.dark-mode)
+  FAIL 48 :5565 colour literal rgba(28, 36, 30, 0.92) outside tokens (--lab-panel on body.dark-mode)
+  FAIL 48 :5566 colour literal #1c261f outside tokens (--lab-panel-solid on body.dark-mode)
+  FAIL 48 :5567 colour literal #f2f5ee outside tokens (--lab-ink on body.dark-mode)
+  FAIL 48 :5568 colour literal #bacabc outside tokens (--lab-muted on body.dark-mode)
+  FAIL 48 :5569 colour literal #a0b2a3 outside tokens (--lab-dim on body.dark-mode)
+  FAIL 48 :5570 colour literal rgba(188, 210, 190, 0.2) outside tokens (--lab-line on body.dark-mode)
+  FAIL 48 :5571 colour literal rgba(148, 198, 160, 0.45) outside tokens (--lab-line-strong on body.dark-mode)
+  FAIL 48 :5572 colour literal #a8d4b3 outside tokens (--lab-accent on body.dark-mode)
+  FAIL 48 :5573 colour literal #c5e4c9 outside tokens (--lab-accent-hover on body.dark-mode)
+  FAIL 48 :5574 colour literal rgba(168, 212, 179, 0.12) outside tokens (--lab-accent-soft on body.dark-mode)
+  FAIL 48 :5575 colour literal #15251b outside tokens (--lab-on-accent on body.dark-mode)
+  FAIL 48 :5577 colour literal #b16d3e outside tokens (outline on .navFindButton:focus-visible)
+  FAIL 48 :5578 colour literal rgba(251, 250, 246, 0.94) outside tokens (background on #navigation)
+  FAIL 48 :5578 colour literal rgba(39, 58, 45, 0.06) outside tokens (box-shadow on #navigation)
+  FAIL 48 :5579 colour literal rgba(17, 21, 18, 0.96) outside tokens (background on body.dark-mode #navigation)
+  FAIL 48 :5582 colour literal rgba(139, 170, 130, 0.13) outside tokens (background on #heroSection)
+  FAIL 48 :5582 colour literal #fbfaf6 outside tokens (background on #heroSection)
+  FAIL 48 :5582 colour literal #f0f4ec outside tokens (background on #heroSection)
+  FAIL 48 :5582 colour literal #fffdf8 outside tokens (background on #heroSection)
+  FAIL 48 :5584 colour literal rgba(146, 187, 149, 0.08) outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :5584 colour literal #111512 outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :5584 colour literal #1a211b outside tokens (background on body.dark-mode #heroSection)
+  FAIL 48 :5585 colour literal #fbfaf6 outside tokens (background on .proofSection)
+  FAIL 48 :5585 colour literal #f0f4ec outside tokens (background on .proofSection)
+  FAIL 48 :5586 colour literal #111512 outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :5586 colour literal #1a211b outside tokens (background on body.dark-mode .proofSection)
+  FAIL 48 :5587 colour literal #fbfaf6 outside tokens (background on #loadingScreen)
+  FAIL 48 :5587 colour literal #f0f4ec outside tokens (background on #loadingScreen)
+  FAIL 48 :5588 colour literal #111a16 outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5588 colour literal #19251e outside tokens (background on body.dark-mode #loadingScreen)
+  FAIL 48 :5589 colour literal rgba(40, 91, 76, 0.2) outside tokens (box-shadow on .heroButtonPrimary)
+  FAIL 48 :5590 colour literal rgba(40, 91, 76, 0.16) outside tokens (box-shadow on .dark-mode-toggle, body.dark-…)
+  FAIL 48 :5607 colour literal #fff outside tokens (background on .resumeDetails)
+  FAIL 48 :5618 colour literal #b16d3e outside tokens (outline on .resumeDetails summary:focus-…)
+  FAIL 62 :802 .sidebar-nav is hidden at rest (opacity: 0) and depends on a script to appear | fix: Visible by default: scope the hidden state under a .js class the script adds, or animate from visible with @starting-style
+  FAIL 62 :5110 .motion-reveal is hidden at rest (opacity: 0) and depends on a script to appear
+  FAIL 62 :5375 .loading-fact.fact-changing is hidden at rest (opacity: 0) and depends on a script to appear
+  FAIL 67 :301 #navigation: uppercase tracked 0.0625em in a label role
+  FAIL 67 :323 .search-input: letter-spaced tracked 0.038461538461538464em at 13px in a label role
+  FAIL 67 :813 .sidebar-link: uppercase tracked 0.07692307692307693em at 13px in a label role
+  FAIL 67 :912 .sectionTitle: uppercase tracked 0.16em at 14px in a label role
+  FAIL 67 :1050 .console-title: letter-spaced tracked 0.038461538461538464em at 13px in a label role
+  FAIL 67 :1191 .resumeTimelineLabel: uppercase tracked 0.12em at 12px in a label role
+  FAIL 67 :1376 .resumeSkill: uppercase tracked 0.05em at 10px in a label role
+  FAIL 67 :1808 .projectDeckCategory, .projectDeckTech span: uppercase tracked 0.04em at 10px in a label role
+  FAIL 67 :1860 .projectDeckRows span: uppercase tracked 0.06em at 12px in a label role
+  FAIL 67 :1896 .projectDeckLink: uppercase at 12px in a label role
+  FAIL 67 :2088 .projectIndexDomain: uppercase tracked 0.06em at 11px in a label role
+  FAIL 67 :2106 .projectIndexRow a, .projectIndexBoundary: uppercase at 11px in a label role
+  FAIL 67 :2269 .filterItemName: uppercase tracked 0.04em at 18px in a label role
+  FAIL 67 :2360 .filterItemProblem strong, .filterItemArchitecture strong, .filterItemResults strong: uppercase tracked 0.06em at 12px …
+  FAIL 67 :2385 .techBadge: uppercase tracked 0.05em at 10px in a label role
+  FAIL 67 :2658 .readingSignal: uppercase at 11px in a label role
+  FAIL 67 :3212 .writingTag: uppercase tracked 0.05em at 10px in a label role
+  FAIL 67 :3373 .certTopic: uppercase tracked 0.05em at 10px in a label role
+  FAIL 67 :3482 .contactLink: letter-spaced tracked 0.04em at 14px in a label role
+  FAIL 67 :3519 .copyright: letter-spaced tracked 0.04em at 13px in a label role
+  FAIL 67 :3915 .nav-link, body.dark-mode .nav-link: letter-spaced tracked 0.08em in a label role
+  FAIL 67 :4040 .heroEvidenceHeader span: uppercase tracked 0.12em at 11px in a label role
+  FAIL 67 :4327 .reviewerScan span: uppercase tracked 0.12em at 11px in a label role
+  FAIL 67 :4429 .proofLabel, .proofMetric: uppercase tracked 0.12em at 12px in a label role
+  FAIL 67 :4472 .proofQualifier: letter-spaced tracked 0.04em at 12px in a label role
+  FAIL 67 :4482 .proofCard a: uppercase at 12px in a label role
+  FAIL 67 :4590 .visualStoryCard span: uppercase tracked 0.12em at 11px in a label role
+  FAIL 67 :4700 .commandPaletteTitle: uppercase tracked 0.14em at 11px in a label role
+  FAIL 67 :4933 .projectDeckReviewerNotes span: uppercase tracked 0.08em at 11px in a label role
+  FAIL 67 :5029 .writingTypeCard span: uppercase tracked 0.1em at 12px in a label role
+  REFLEX 7b :15 pure #fff: --color-surface: #ffffff (:root) | fix: Tint the base toward the anchor hue
+  REFLEX 7b :72 pure #fff: background-color: var(--color-surface) (body)
+  REFLEX 7b :3939 pure #fff: background: var(--lab-panel-solid) (.search-input:focus)
+  REFLEX 7b :3954 pure #fff: background: var(--lab-panel-solid) (.search-results, body.dark-mode .search-results)
+  REFLEX 7b :3985 pure #fff: color: var(--lab-on-accent) (.dark-mode-toggle, body.dark-mode .dark-mode-toggle, .sidebar-toggle, body.dark…
+  REFLEX 7b :4169 pure #fff: color: var(--lab-on-accent) (.heroButtonPrimary)
+  REFLEX 7b :4175 pure #fff: color: var(--lab-on-accent) (.heroButtonPrimary:hover)
+  REFLEX 7b :4486 pure #fff: color: var(--lab-on-accent) (.proofCard a)
+  REFLEX 7b :4643 pure #fff: background: var(--lab-panel-solid) (.commandPalettePanel)
+  REFLEX 7b :4930 pure #fff: color: var(--lab-on-accent) (.contactLink:hover, body.dark-mode .contactLink:hover)
+  REFLEX 7b :5059 pure #fff: color: var(--lab-on-accent) (.btn.active, .btn:hover, .projectDeckLink, .writingIcon, .certIcon, body.dark-m…
+  REFLEX 24b :305 padding: 14px 20px (off the 4px scale) on #navigation
+  REFLEX 24b :325 padding: 8px 35px 8px 15px (off the 4px scale) on .search-input
+  REFLEX 24b :356 margin-top: 10px (off the 4px scale) on .search-results
+  REFLEX 24b :374 padding: 12px 15px (off the 4px scale) on .search-result-item
+  REFLEX 24b :392 margin-bottom: 5px (off the 4px scale) on .search-result-title
+  REFLEX 24b :417 margin: 15px 0 (off the 4px scale) on .search-container
+  REFLEX 24b :442 margin-left: 15px (off the 4px scale) on .dark-mode-toggle
+  REFLEX 24b :469 margin: 10px 0 (off the 4px scale) on .dark-mode-toggle
+  REFLEX 24b :543 padding: 0 10px (off the 4px scale) on .navbar-brand, .navbar-brand:hover
+  REFLEX 24b :572 margin-bottom: 26px (off the 4px scale) on .heroTitle
+  REFLEX 24b :581 margin: 0 10px (off the 4px scale) on .title-word
+  REFLEX 24b :606 margin: 18px 0 0 (off the 4px scale) on .heroSubtitle
+  REFLEX 24b :613 margin: 14px auto 0 (off the 4px scale) on .heroPositioning
+  REFLEX 24b :624 gap: 14px (off the 4px scale) on .heroActions
+  REFLEX 24b :625 margin-top: 26px (off the 4px scale) on .heroActions
+  REFLEX 24b :634 padding: 10px 22px (off the 4px scale) on .heroButton
+  REFLEX 24b :716 margin-bottom: 18px (off the 4px scale) on .heroTitle
+  REFLEX 24b :731 gap: 10px (off the 4px scale) on .heroActions
+  REFLEX 24b :738 padding: 9px 16px (off the 4px scale) on .heroButton
+  REFLEX 24b :744 margin-top: 30px (off the 4px scale) on .hero-scroll-hint
+  REFLEX 24b :800 padding: 15px 0 (off the 4px scale) on .sidebar-nav
+  REFLEX 24b :829 margin-right: 10px (off the 4px scale) on .sidebar-link i
+  REFLEX 24b :882 padding: 10px 15px (off the 4px scale) on .sidebar-link
+  REFLEX 24b :919 padding-bottom: 30px (off the 4px scale) on .sectionTitle
+  REFLEX 24b :941 padding-bottom: 10px (off the 4px scale) on .sectionTagline
+  REFLEX 24b :942 margin: 20px 0 10px 0 (off the 4px scale) on .sectionTagline
+  REFLEX 24b :959 padding: 100px 70px (off the 4px scale) on .aboutSection
+  REFLEX 24b :1032 padding: 15px 25px (off the 4px scale) on .console-header
+  REFLEX 24b :1058 padding: 40px 50px (off the 4px scale) on .console-content
+  REFLEX 24b :1140 margin-bottom: 30px (off the 4px scale) on .resumePriorityWrap
+  REFLEX 24b :1145 gap: 14px (off the 4px scale) on .resumePriorityGrid
+  REFLEX 24b :1155 padding: 22px (off the 4px scale) on .resumePriorityCard
+  REFLEX 24b :1184 margin-bottom: 34px (off the 4px scale) on .resumeTimelineWrap
+  REFLEX 24b :1197 margin: 0 0 10px (off the 4px scale) on .resumeTimelineLabel
+  REFLEX 24b :1203 padding: 34px 30px (off the 4px scale) on .resumeSubsection
+  REFLEX 24b :1251 padding-bottom: 26px (off the 4px scale) on .resumeSubsectionCompact
+  REFLEX 24b :1252 padding-top: 26px (off the 4px scale) on .resumeSubsectionCompact
+  REFLEX 24b :1282 margin-top: 5px (off the 4px scale) on .resumeIconFallback
+  REFLEX 24b :1288 gap: 10px (off the 4px scale) on .resumeMetaStrip
+  REFLEX 24b :1290 margin-top: 22px (off the 4px scale) on .resumeMetaStrip
+  REFLEX 24b :1316 margin-top: 5px (off the 4px scale) on img.resumeIcon
+  REFLEX 24b :1322 padding: 5px (off the 4px scale) on img.resumeIcon
+  REFLEX 24b :1337 margin-bottom: 10px (off the 4px scale) on .resumeName
+  REFLEX 24b :1344 margin: 0 0 10px 0 (off the 4px scale) on .resumeDesc
+  REFLEX 24b :1356 margin: 0 0 5px 0 (off the 4px scale) on .resumeRole
+  REFLEX 24b :1363 margin-bottom: 5px (off the 4px scale) on .resumeSubheader
+  REFLEX 24b :1386 padding: 9px 22px (off the 4px scale) on .resumeSkill
+  REFLEX 24b :1426 padding: 0 15px 0 0 (off the 4px scale) on th, td
+  REFLEX 24b :1436 gap: 30px (off the 4px scale) on .expertiseGrid
+  REFLEX 24b :1449 padding: 25px (off the 4px scale) on .expertiseCategory
+  REFLEX 24b :1469 margin-bottom: 15px (off the 4px scale) on .expertiseTitle
+  REFLEX 24b :1475 margin-right: 10px (off the 4px scale) on .expertiseTitle .fas
+  REFLEX 24b :1527 margin-bottom: 18px (off the 4px scale) on #filter
+  REFLEX 24b :1538 padding: 10px 18px (off the 4px scale) on .btn
+  REFLEX 24b :1596 padding: 10px 15px (off the 4px scale) on .btn
+  REFLEX 24b :1597 margin: 5px 2px (off the 4px scale) on .btn
+  REFLEX 24b :1607 margin: 18px auto 24px (off the 4px scale) on .projectDeck
+  REFLEX 24b :1621 gap: 18px (off the 4px scale) on .projectDeckHeader
+  REFLEX 24b :1623 margin-bottom: 18px (off the 4px scale) on .projectDeckHeader
+  REFLEX 24b :1652 padding: 3px (off the 4px scale) on .projectViewSwitch
+  REFLEX 24b :1666 padding: 7px 14px (off the 4px scale) on .projectViewButton
+  REFLEX 24b :1684 gap: 10px (off the 4px scale) on .projectDeckNavGroup
+  REFLEX 24b :1793 padding: 30px 30px 30px 0 (off the 4px scale) on .projectDeckContent
+  REFLEX 24b :1804 margin-bottom: 14px (off the 4px scale) on .projectDeckCategories
+  REFLEX 24b :1817 padding: 6px 10px (off the 4px scale) on .projectDeckCategory, .projectDeckTech span
+  REFLEX 24b :1834 margin: 0 0 18px (off the 4px scale) on .projectDeckContent h3
+  REFLEX 24b :1889 margin-top: 18px (off the 4px scale) on .projectDeckTech
+  REFLEX 24b :1893 margin-top: 18px (off the 4px scale) on .projectDeckActions
+  REFLEX 24b :1908 padding: 10px 16px (off the 4px scale) on .projectDeckLink
+  REFLEX 24b :1933 gap: 10px (off the 4px scale) on .projectDeckRail
+  REFLEX 24b :1936 padding: 2px 2px 10px (off the 4px scale) on .projectDeckRail
+  REFLEX 24b :1953 padding: 10px 12px (off the 4px scale) on .projectDeckThumb
+  REFLEX 24b :2003 gap: 18px (off the 4px scale) on .projectEvidenceIntro
+  REFLEX 24b :2005 margin-bottom: 18px (off the 4px scale) on .projectEvidenceIntro
+  REFLEX 24b :2046 gap: 18px (off the 4px scale) on .projectIndexRow
+  REFLEX 24b :2048 padding: 16px 18px (off the 4px scale) on .projectIndexRow
+  REFLEX 24b :2094 margin-top: 6px (off the 4px scale) on .projectIndexDomain
+  REFLEX 24b :2259 padding: 10px (off the 4px scale) on .filterItemImg
+  REFLEX 24b :2309 margin: 18px 0 0 (off the 4px scale) on .filterItemReport
+  REFLEX 24b :2310 padding-top: 14px (off the 4px scale) on .filterItemReport
+  REFLEX 24b :2318 gap: 6px (off the 4px scale) on .filterItemReport .filterItemLink
+  REFLEX 24b :2327 padding: 28px 34px 30px (off the 4px scale) on .filterItemContent
+  REFLEX 24b :2338 column-gap: 14px (off the 4px scale) on .filterItemProblem, .filterItemArchitecture, .filterItemResults
+  REFLEX 24b :2340 padding: 13px 0 (off the 4px scale) on .filterItemProblem, .filterItemArchitecture, .filterItemResults
+  REFLEX 24b :2355 padding: 12px 14px (off the 4px scale) on .filterItemResults
+  REFLEX 24b :2391 padding: 6px 12px (off the 4px scale) on .techBadge
+  REFLEX 24b :2419 margin-right: 5px (off the 4px scale) on .filterItemLink i
+  REFLEX 24b :2454 padding: 5px 10px (off the 4px scale) on .techBadge
+  REFLEX 24b :2477 padding: 35px 30px (off the 4px scale) on .testimonialCard
+  REFLEX 24b :2516 margin-bottom: 25px (off the 4px scale) on .testimonialQuote
+  REFLEX 24b :2523 margin-bottom: 15px (off the 4px scale) on .testimonialQuote i
+  REFLEX 24b :2555 margin-right: 15px (off the 4px scale) on .testimonialLogo
+  REFLEX 24b :2558 padding: 5px (off the 4px scale) on .testimonialLogo
+  REFLEX 24b :2573 margin: 0 0 5px 0 (off the 4px scale) on .testimonialName
+  REFLEX 24b :2583 margin: 0 0 3px 0 (off the 4px scale) on .testimonialRole
+  REFLEX 24b :2600 padding: 25px 20px (off the 4px scale) on .testimonialCard
+  REFLEX 24b :2601 margin: 15px 0 (off the 4px scale) on .testimonialCard
+  REFLEX 24b :2632 padding: 26px 30px (off the 4px scale) on .readingIntro
+  REFLEX 24b :2645 margin: 0 0 18px (off the 4px scale) on .readingIntro p
+  REFLEX 24b :2655 gap: 9px (off the 4px scale) on .readingSignals
+  REFLEX 24b :2667 padding: 7px 11px (off the 4px scale) on .readingSignal
+  REFLEX 24b :2700 margin-bottom: 18px (off the 4px scale) on .bookCarouselHeader
+  REFLEX 24b :2751 padding: 22px (off the 4px scale) on .bookCarouselShell
+  REFLEX 24b :2870 margin-bottom: 14px (off the 4px scale) on .bookTheme
+  REFLEX 24b :2871 padding: 7px 11px (off the 4px scale) on .bookTheme
+  REFLEX 24b :2888 margin: 0 0 14px (off the 4px scale) on .bookAuthor
+  REFLEX 24b :2912 gap: 10px (off the 4px scale) on .bookThumbs
+  REFLEX 24b :2913 margin-top: 18px (off the 4px scale) on .bookThumbs
+  REFLEX 24b :2915 padding: 2px 2px 10px (off the 4px scale) on .bookThumbs
+  REFLEX 24b :2929 gap: 10px (off the 4px scale) on .bookThumb
+  REFLEX 24b :3010 padding: 22px (off the 4px scale) on .readingIntro
+  REFLEX 24b :3014 padding: 18px (off the 4px scale) on .bookCarousel
+  REFLEX 24b :3032 padding: 18px (off the 4px scale) on .bookCarouselShell
+  REFLEX 24b :3074 padding: 30px (off the 4px scale) on .writingCard
+  REFLEX 24b :3132 margin: -30px -30px 22px (off the 4px scale) on .writingThumb
+  REFLEX 24b :3181 margin-bottom: 15px (off the 4px scale) on .writingMeta
+  REFLEX 24b :3218 padding: 5px 12px (off the 4px scale) on .writingTag
+  REFLEX 24b :3254 margin: 15px 0 (off the 4px scale) on .writingCard
+  REFLEX 24b :3255 padding: 25px 20px (off the 4px scale) on .writingCard
+  REFLEX 24b :3259 margin: -25px -20px 20px (off the 4px scale) on .writingThumb
+  REFLEX 24b :3280 padding: 30px (off the 4px scale) on .certCard
+  REFLEX 24b :3353 margin: 0 0 5px 0 (off the 4px scale) on .certIssuer
+  REFLEX 24b :3359 margin: 0 0 15px 0 (off the 4px scale) on .certDate
+  REFLEX 24b :3369 gap: 6px (off the 4px scale) on .certTopics
+  REFLEX 24b :3379 padding: 4px 10px (off the 4px scale) on .certTopic
+  REFLEX 24b :3397 margin-top: 10px (off the 4px scale) on .certVerify
+  REFLEX 24b :3402 margin-right: 5px (off the 4px scale) on .certVerify i
+  REFLEX 24b :3412 padding: 25px 20px (off the 4px scale) on .certCard
+  REFLEX 24b :3417 margin-bottom: 15px (off the 4px scale) on .certIcon
+  REFLEX 24b :3451 padding: 38px (off the 4px scale) on .contactPanel
+  REFLEX 24b :3459 margin-bottom: 22px (off the 4px scale) on .contactCopy .sectionTitle
+  REFLEX 24b :3497 padding: 12px 14px (off the 4px scale) on .contactLink
+  REFLEX 24b :3582 margin: 20px 30px (off the 4px scale) on .resumeSection
+  REFLEX 24b :3586 padding: 30px 0 (off the 4px scale) on .resumeSubsection
+  REFLEX 24b :3591 margin-top: 18px (off the 4px scale) on .resumeTimelineWrap .resumeSubsection .col-md-2
+  REFLEX 24b :3592 padding-top: 14px (off the 4px scale) on .resumeTimelineWrap .resumeSubsection .col-md-2
+  REFLEX 24b :3611 padding: 18px (off the 4px scale) on .projectDeck
+  REFLEX 24b :3672 padding: 18px (off the 4px scale) on .projectEvidenceIndex
+  REFLEX 24b :3682 gap: 10px (off the 4px scale) on .projectIndexRow
+  REFLEX 24b :4025 gap: 14px (off the 4px scale) on .heroEvidencePanel
+  REFLEX 24b :4026 padding: 18px (off the 4px scale) on .heroEvidencePanel
+  REFLEX 24b :4047 margin-bottom: 6px (off the 4px scale) on .heroEvidenceHeader span
+  REFLEX 24b :4083 padding: 9px 10px (off the 4px scale) on .heroEvidenceRows span
+  REFLEX 24b :4119 margin: 26px 0 0 (off the 4px scale) on .heroSubtitle
+  REFLEX 24b :4137 margin-top: 30px (off the 4px scale) on .heroActions
+  REFLEX 24b :4142 gap: 9px (off the 4px scale) on .heroButton
+  REFLEX 24b :4203 gap: 10px (off the 4px scale) on .heroMetrics
+  REFLEX 24b :4205 margin-top: 34px (off the 4px scale) on .heroMetrics
+  REFLEX 24b :4234 margin-bottom: 6px (off the 4px scale) on .heroMetric span
+  REFLEX 24b :4290 margin: 0 auto 34px (off the 4px scale) on .proofHeader
+  REFLEX 24b :4314 margin: 0 auto 34px (off the 4px scale) on .reviewerScan
+  REFLEX 24b :4361 margin: 0 6px 8px 0 (off the 4px scale) on .reviewerScan p a
+  REFLEX 24b :4362 padding: 7px 10px (off the 4px scale) on .reviewerScan p a
+  REFLEX 24b :4436 margin-bottom: 18px (off the 4px scale) on .proofLabel, .proofMetric
+  REFLEX 24b :4462 margin: 0 0 14px (off the 4px scale) on .proofCard h3
+  REFLEX 24b :4491 margin-top: 26px (off the 4px scale) on .proofCard a
+  REFLEX 24b :4493 padding: 10px 14px (off the 4px scale) on .proofCard a
+  REFLEX 24b :4506 gap: 10px (off the 4px scale) on .commandTrigger
+  REFLEX 24b :4507 margin: 18px auto 0 (off the 4px scale) on .commandTrigger
+  REFLEX 24b :4534 margin: 0 auto 34px (off the 4px scale) on .visualStoryHeader
+  REFLEX 24b :4556 gap: 14px (off the 4px scale) on .visualStoryGrid
+  REFLEX 24b :4597 margin: 18px 18px 10px (off the 4px scale) on .visualStoryCard span
+  REFLEX 24b :4607 margin: 0 18px 10px (off the 4px scale) on .visualStoryCard h3
+  REFLEX 24b :4614 margin: 0 18px 20px (off the 4px scale) on .visualStoryCard p
+  REFLEX 24b :4667 padding: 14px 16px (off the 4px scale) on .commandPaletteHeader
+  REFLEX 24b :4706 margin: 14px 16px 8px (off the 4px scale) on .commandPaletteTitle
+  REFLEX 24b :4889 padding: 14px (off the 4px scale) on .projectDeckReviewerNotes div
+  REFLEX 24b :5017 margin: 0 auto 22px (off the 4px scale) on .writingHubGrid
+  REFLEX 24b :5036 margin-bottom: 10px (off the 4px scale) on .writingTypeCard span
+  REFLEX 24b :5048 row-gap: 10px (off the 4px scale) on .writingArticleGrid
+  REFLEX 24b :5191 padding-left: 5px (off the 4px scale) on #navigation li
+  REFLEX 24b :5192 padding-right: 5px (off the 4px scale) on #navigation li
+  REFLEX 24b :5255 padding: 13px (off the 4px scale) on .heroMetric
+  REFLEX 24b :5286 padding: 28px 22px (off the 4px scale) on .contactPanel
+  REFLEX 24b :5325 margin: 0 auto 30px (off the 4px scale) on .spinner
+  REFLEX 24b :5359 padding: 0 22px (off the 4px scale) on .loading-fact
+  REFLEX 37 :310 5 font families: font awesome 5 brands, font awesome 5 free, lato, karla… | fix: Drop the extra family; three is the ceiling
+  REFLEX 38iii :4107 accented word inside a heading (.title-line) | fix: Set the whole head one way: a line break, a second line at a second size, or the whole head in the accent. Guard: the theme names the coloured word as its signature and it appears once on the page, in the hero
+  WARN 3 :856 side stripe border-right: 3px solid #315d4e on .sidebar-link.active-section | fix: Hairline all round, none, or an accent square
+  WARN 3 :5322 side stripe border-right: 5px solid rgba(14, 116, 144, 0.… on .spinner
+  WARN 10b :313 transitioning padding on #navigation | fix: Animate transform or opacity instead
+  WARN 11 :450 hover scale(1.1) on 2 selectors | fix: One hover signal per element
+  WARN 11 :1416 the hover lift (translateY plus shadow) on 19 selectors (#code, img.resumeIcon, .resumeSkill) | fix: One signal per element; the same lift on every card is the template
+  WARN 11 :3147 image transforms on hover (.writingCard:hover .writingThumb img) | fix: Imagery sits still; give the container the feedback
+  WARN 29 :303 glass panel: backdrop-filter blur over a translucent white on #navigation | fix: Solid or grained surface; elevation by lightness
+  WARN 29 :4253 chromatic zero-offset glow (blur 24px) on .section::before, .sectionTitle::af… | fix: Shadows carry offset and blur in a neutral; colour is not depth
+  WARN 29 :5326 chromatic zero-offset glow (blur 30px) on .spinner
+  WARN 41 :93 dark surface (L 30%) on body.dark-mode #navigation sets no text colour
+  WARN 41 :133 dark surface (L 30%) on body.dark-mode .search-results sets no text colour
+  WARN 41 :158 dark surface (L 30%) on body.dark-mode .sidebar-nav sets no text colour
+  WARN 41 :182 dark surface (L 30%) on body.dark-mode .aboutSection sets no text colour
+  WARN 41 :186 dark surface (L 24%) on body.dark-mode #code sets no text colour
+  WARN 41 :190 dark surface (L 26%) on body.dark-mode .console-header sets no text colour
+  WARN 41 :195 dark surface (L 22%) on body.dark-mode .resumeSection sets no text colour
+  WARN 41 :245 dark surface (L 24%) on body.dark-mode .portfolioSection sets no text colour
+  WARN 41 :263 dark surface (L 30%) on body.dark-mode .filterItem sets no text colour
+  WARN 41 :285 dark surface (L 30%) on body.dark-mode .contactSection sets no text colour
+  WARN 41 :1995 dark surface (L 26%) on body.dark-mode .projectEvidenceIndex sets no text colour
+  WARN 41 :2065 dark surface (L 26%) on body.dark-mode .projectIndexRow sets no text colour
+  WARN 41 :2511 dark surface (L 30%) on body.dark-mode .testimonialCard sets no text colour
+  WARN 41 :2622 dark surface (L 24%) on body.dark-mode .readingSection sets no text colour
+  WARN 41 :2636 dark surface (L 30%) on body.dark-mode .readingIntro sets no text colour
+  WARN 41 :3068 dark surface (L 24%) on body.dark-mode .writingSection sets no text colour
+  WARN 41 :3108 dark surface (L 30%) on body.dark-mode .writingCard sets no text colour
+  WARN 41 :3312 dark surface (L 30%) on body.dark-mode .certCard sets no text colour
+  WARN F3 :4294 no text-wrap: balance on any display head (3 head rule(s), e.g. .proofHeader h2) | fix: Add text-wrap: balance to h1/h2-level heads
+  WARN F7 :1808 same container recipe on 6 selectors (.projectDeckCategory, .projectDeckTech span, .p…...) | fix: Vary weight, radius, or fill by role; not every box is the same box
+  WARN F7 :1811 the pill radius on 11 non-control selectors (.projectDeckCategory, .projectDeckTech span, .p…) | fix: Pills are for controls; boxes and media take the card radius
+  WARN F24 :651 a hairline border under a wide soft shadow on .heroButtonPrimary | fix: Commit to one: a defined edge, or elevation by shadow
+index.html
+  FAIL 19 :7 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+  FAIL 19 :628 buzzword "seamless" | fix: Say what the product does, in its own nouns
+  FAIL 19 :940 buzzword "streamline"
+  FAIL 67 :954 "HDBSCAN" typed in capitals tracked 0.1em (<span class="resumeSkill">) | fix: Sentence case in the body face; capitals survive only as a wordmark or as the display voice
+  WARN 19 :1791 template footer line: "All rights reserved" | fix: A stock line with no legal effect; cut it unless the owner wants it
+  WARN 30b :1 icon libraries mixed: font-awesome + feather | fix: One icon library per page; guard: the second is a brand mark in at most two slots
+  WARN 58 :1 2476 visible words on the page (450 at most) | fix: Cut copy: one idea per screen, sections become objects
+  WARN F1 :370 straight quote in prose x54 (first: Tony's contribution) | fix: Use typographic quotes: “ ” ’
+  WARN F4 :125 two filled buttons side by side in the hero: "View Projects" and "Discuss a Project" | fix: One filled primary per screen; the second action is outlined or a typographic link
+css/superslides.css
+  FAIL 20 :1 no Hallmark stamp on the first non-empty line of any CSS | fix: The stamp comment is line 1 of the CSS; only @charset may precede it
+  FAIL 48 :48 colour literal #222 outside tokens (border on .slides-pagination a)
+  FAIL 48 :64 colour literal #222 outside tokens (background on .slides-pagination a.current)
+  WARN F15 :1 3 different column gaps across multi-column sections (30px, 24px, 28px) | fix: One column gap for every multi-column section
+.hallmark/before.json
+  FAIL kept :1 links the page had before and no longer has: #evidence, #proof, #testimonials | fix: Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason> */
+  WARN kept :1 ids gone or reworded since the before record: backToTop, commandPalette, commandPaletteInput, commandPaletteResults, commandPaletteTitle, commandPaletteTrigger, evidence, headerImage and 6 more | fix: Restore it, or record it in the stamp: /* Hallmark · reworded "<old>" to "<new>" · <the gate that named it> */ or dropped <item> · <the reason>
+sloplint: 1080 FAIL, 211 REFLEX, 48 WARN across 1 file(s).
+kept: links 17/20, handlers 6/6, script hooks 7/7; before 885 FAIL, 197 REFLEX, now 1080 FAIL, 211 REFLEX

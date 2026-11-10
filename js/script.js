@@ -413,6 +413,8 @@ $(document).ready(function () {
     });
 
     projectDeck.on("keydown", function (e) {
+      if (projectDeck.hasClass("is-grid-mode")) return;
+
       if (e.key === "ArrowLeft") {
         e.preventDefault();
         moveProject(-1);
@@ -443,7 +445,7 @@ $(document).ready(function () {
       setProjectView($(this).data("project-view"));
     });
 
-    setProjectView("deck");
+    setProjectView("grid");
 
     window.updateProjectDeckFilter("all");
   }
