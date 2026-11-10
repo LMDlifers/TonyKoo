@@ -48,4 +48,18 @@ checkEntries("log.html", full);
 assert.equal(home.length, 5, "homepage shows the 5 newest entries");
 assert.deepEqual(home.map((e) => e.href), full.slice(0, 5).map((e) => e.href), "homepage entries are the first 5 of log.html");
 
-console.log(`Evidence dates match git for ${full.length} log entries.`);
+// Receipts: every report states when it was added and the commit that added it.
+const addSha = (path) => git("log", "--diff-filter=A", "--format=%h", "-1", "--", path);
+const reports = fs.readdirSync(new URL("reports/", root)).filter((name) => name.endsWith(".html"));
+for (const name of reports) {
+  const path = `reports/${name}`;
+  const page = read(path);
+  const receipts = page.match(/<section class="reportReceipts"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(receipts, `${path}: has a receipts block`);
+  const added = receipts.match(/<dt>Added to site<\/dt>\s*<dd><time datetime="([^"]+)"/)?.[1];
+  assert.equal(added, addDate(path), `${path}: receipts date matches git`);
+  const sha = receipts.match(/blob\/([0-9a-f]+)\/reports\//)?.[1];
+  assert.ok(sha && sha.startsWith(addSha(path)), `${path}: receipts source commit matches git (${sha} vs ${addSha(path)})`);
+}
+
+console.log(`Evidence dates match git for ${full.length} log entries and ${reports.length} report receipts.`);
