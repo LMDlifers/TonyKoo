@@ -219,6 +219,7 @@ Run the site and checks in separate terminals:
 ```bash
 python3 -m http.server 8000
 node scripts/check-launch-readiness.mjs
+node scripts/check-evidence.mjs
 node scripts/check-polish.mjs
 node scripts/smoke-responsive.mjs
 ```
