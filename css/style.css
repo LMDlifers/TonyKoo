@@ -22,7 +22,7 @@
     --color-primary-soft: #eaf2e9;
     --color-accent: #F9A825;
     --radius-card: 8px;
-    --radius-control: 999px;
+    --radius-control: 8px;
     --shadow-soft: 0 10px 30px rgba(31, 41, 51, 0.08);
     --shadow-card: 0 14px 36px rgba(31, 41, 51, 0.09), 0 0 0 1px rgba(31, 41, 51, 0.04);
     --shadow-card-hover: 0 24px 54px rgba(31, 41, 51, 0.15), 0 0 0 1px rgba(49, 89, 134, 0.12);
@@ -232,9 +232,6 @@ body.dark-mode .sectionTitle {
     color: #e0e0e0;
 }
 
-body.dark-mode .sectionTitle::after {
-    background-color: #A2BBDD;
-}
 
 body.dark-mode .sectionTagline {
     color: #e0e0e0;
@@ -308,8 +305,6 @@ body.dark-mode #backToTop:hover {
     z-index: 100;
     width: 100%;
     font-family: 'Karla', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     transition: background-color var(--motion-standard) ease, box-shadow var(--motion-standard) ease, padding var(--motion-standard) ease;
     box-shadow: 0 1px 0 rgba(31, 41, 51, 0.08);
 }
@@ -328,7 +323,6 @@ body.dark-mode #backToTop:hover {
     font-family: 'Lato', sans-serif;
     font-size: 13px;
     text-transform: none;
-    letter-spacing: 0.5px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     outline: none;
 }
@@ -818,8 +812,6 @@ body.dark-mode .dark-mode-toggle i:before {
     text-decoration: none;
     font-family: 'Karla', sans-serif;
     font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
     position: relative;
     white-space: nowrap;
@@ -897,42 +889,18 @@ body.dark-mode .dark-mode-toggle i:before {
     position: relative;
 }
 
-.section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #315d4e, transparent);
-    opacity: 0.5;
-}
 
 .sectionTitle {
     font-family: 'Karla', sans-serif;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: 14px;
-    text-align: center;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.1;
+    text-align: left;
     font-weight: 700;
     padding-bottom: 30px;
     position: relative;
     margin-bottom: 40px;
 }
 
-.sectionTitle::after {
-    content: '';
-    position: absolute;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #315d4e, #A2BBDD);
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(74,111,165,0.4);
-}
 
 .sectionTagline {
     text-align: left;
@@ -1051,7 +1019,6 @@ body.dark-mode .dark-mode-toggle i:before {
     color: #999;
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.5px;
 }
 
 .console-content {
@@ -1193,9 +1160,7 @@ body.dark-mode .dark-mode-toggle i:before {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
     margin: 0 0 10px;
-    text-transform: uppercase;
 }
 
 .resumeSubsection {
@@ -1377,7 +1342,6 @@ img.resumeIcon:hover {
     color: #315d4e;
     border: 2px solid #315d4e;
     margin-right: 12px;
-    text-transform: uppercase;
     font-weight: 700;
     width: auto;
     display: inline-block;
@@ -1390,7 +1354,6 @@ img.resumeIcon:hover {
     transition: color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
     overflow: hidden;
-    letter-spacing: 0.5px;
 }
 
 .resumeSkill::before {
@@ -1531,7 +1494,6 @@ body.dark-mode .expertiseList li::before {
 .btn {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
-    text-transform: uppercase;
     border: 1px solid var(--color-line-strong);
     outline: none;
     border-radius: var(--radius-control);
@@ -1615,7 +1577,7 @@ body.dark-mode .projectDeck {
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.38);
 }
 
-.projectDeckHeader {
+.projectDeckToolbar {
     align-items: center;
     display: flex;
     gap: 18px;
@@ -1623,17 +1585,7 @@ body.dark-mode .projectDeck {
     margin-bottom: 18px;
 }
 
-.projectDeckHeader h3 {
-    color: #273d30;
-    font-family: 'Karla', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin: 0;
-}
 
-body.dark-mode .projectDeckHeader h3 {
-    color: #A2BBDD;
-}
 
 .projectDeckControls {
     align-items: center;
@@ -1647,7 +1599,7 @@ body.dark-mode .projectDeckHeader h3 {
     align-items: center;
     background: #eef4fa;
     border: 1px solid #cfddce;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     display: inline-flex;
     padding: 3px;
 }
@@ -1655,16 +1607,14 @@ body.dark-mode .projectDeckHeader h3 {
 .projectViewButton {
     background: transparent;
     border: 0;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #536475;
     cursor: pointer;
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.04em;
     min-height: 34px;
     padding: 7px 14px;
-    text-transform: uppercase;
     transition: background var(--motion-fast) ease, box-shadow var(--motion-fast) ease, color var(--motion-fast) ease;
 }
 
@@ -1808,14 +1758,12 @@ body.dark-mode .projectDeckCard {
 .projectDeckTech span {
     background: #eaf2e9;
     border: 1px solid #cfddce;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #2e624f;
     font-family: 'Karla', sans-serif;
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.04em;
     padding: 6px 10px;
-    text-transform: uppercase;
 }
 
 body.dark-mode .projectDeckCategory,
@@ -1832,7 +1780,6 @@ body.dark-mode .projectDeckTech span {
     font-weight: 700;
     line-height: 1.2;
     margin: 0 0 18px;
-    text-transform: uppercase;
 }
 
 body.dark-mode .projectDeckContent h3 {
@@ -1862,8 +1809,6 @@ body.dark-mode .projectDeckContent h3 {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
 }
 
 .projectDeckRows p {
@@ -1897,7 +1842,7 @@ body.dark-mode .projectDeckRows p {
     align-items: center;
     background: #1f2933;
     border: 1px solid #1f2933;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #ffffff;
     display: inline-flex;
     font-family: 'Karla', sans-serif;
@@ -1906,7 +1851,6 @@ body.dark-mode .projectDeckRows p {
     justify-content: center;
     min-height: 42px;
     padding: 10px 16px;
-    text-transform: uppercase;
     transition: background var(--motion-fast) ease, transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
 }
 
@@ -2090,9 +2034,7 @@ body.dark-mode .projectIndexRow:hover {
     display: block;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.06em;
     margin-top: 6px;
-    text-transform: uppercase;
 }
 
 .projectIndexRow p {
@@ -2107,7 +2049,7 @@ body.dark-mode .projectIndexRow:hover {
     align-items: center;
     background: #eaf2e9;
     border: 1px solid #cfddce;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #2e624f;
     display: inline-flex;
     font-size: 11px;
@@ -2116,7 +2058,6 @@ body.dark-mode .projectIndexRow:hover {
     padding: 8px 12px;
     text-align: center;
     text-decoration: none;
-    text-transform: uppercase;
     white-space: nowrap;
 }
 
@@ -2269,10 +2210,8 @@ body.dark-mode .projectIndexBoundary {
 .filterItemName {
     font-weight: bold;
     font-size: 18px;
-    text-transform: uppercase;
     line-height: 1.32;
     margin: 0 0 16px 0;
-    letter-spacing: 0.04em;
     color: var(--color-ink);
 }
 
@@ -2392,8 +2331,6 @@ body.dark-mode .filterItemReport {
     padding: 6px 12px;
     border-radius: var(--radius-control);
     border: 1px solid #d0d8e0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     transition: background var(--motion-fast) ease, color var(--motion-fast) ease, transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
 }
 
@@ -2645,14 +2582,12 @@ body.dark-mode .readingIntro p {
 .readingSignal {
     background: #eaf2e9;
     border: 1px solid #cfddce;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #2e624f;
     font-family: 'Karla', Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0;
     padding: 7px 11px;
-    text-transform: uppercase;
 }
 
 body.dark-mode .readingSignal {
@@ -2848,7 +2783,7 @@ body.dark-mode .bookCarouselShell {
 .bookTheme {
     background: #eaf2e9;
     border: 1px solid #cfddce;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     color: #2e624f;
     display: inline-flex;
     font-family: 'Karla', Arial, sans-serif;
@@ -3204,8 +3139,6 @@ body.dark-mode .writingExcerpt {
     font-weight: 600;
     padding: 5px 12px;
     border-radius: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 body.dark-mode .writingTag {
@@ -3365,8 +3298,6 @@ body.dark-mode .certDate {
     font-weight: 600;
     padding: 4px 10px;
     border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 body.dark-mode .certTopic {
@@ -3447,10 +3378,6 @@ body.dark-mode .certTopic {
     text-align: left;
 }
 
-.contactCopy .sectionTitle::after {
-    left: 0;
-    transform: none;
-}
 
 .contactCopy p {
     color: var(--color-muted);
@@ -3478,7 +3405,6 @@ body.dark-mode .certTopic {
     font-weight: 700;
     gap: 8px;
     justify-content: center;
-    letter-spacing: 0.04em;
     margin: 0;
     min-height: 48px;
     padding: 12px 14px;
@@ -3508,7 +3434,6 @@ body.dark-mode .certTopic {
     font-size: 13px;
     font-weight: 300;
     grid-column: 1 / -1;
-    letter-spacing: 0.04em;
     margin: 4px 0 0;
     text-align: center;
 }
@@ -3598,7 +3523,7 @@ a:focus {
         padding: 18px;
     }
 
-    .projectDeckHeader {
+    .projectDeckToolbar {
         align-items: flex-start;
         flex-direction: column;
     }
@@ -3901,7 +3826,6 @@ body.dark-mode .navbar-brand {
 .nav-link,
 body.dark-mode .nav-link {
     color: var(--lab-muted);
-    letter-spacing: 0.08em;
 }
 
 .nav-link:hover,
@@ -4030,9 +3954,7 @@ body.dark-mode .heroEvidencePanel {
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
     margin-bottom: 6px;
-    text-transform: uppercase;
 }
 
 .heroEvidenceHeader strong {
@@ -4234,16 +4156,8 @@ body.dark-mode .heroButtonTertiary {
     padding: 96px 0;
 }
 
-.section::before,
-.sectionTitle::after {
-    background: var(--lab-accent);
-    box-shadow: 0 0 24px rgba(34, 211, 238, 0.28);
-}
-
 .sectionTitle {
     color: var(--lab-ink);
-    font-size: 13px;
-    letter-spacing: 0.16em;
 }
 
 .sectionIntro {
@@ -4317,9 +4231,7 @@ body.dark-mode .proofSection {
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
     margin-bottom: 12px;
-    text-transform: uppercase;
 }
 
 .reviewerScan h3 {
@@ -4340,7 +4252,7 @@ body.dark-mode .proofSection {
 
 .reviewerScan p a {
     border: 1px solid var(--lab-line);
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     display: inline-flex;
     font-family: 'Karla', sans-serif;
     font-size: 12px;
@@ -4419,9 +4331,7 @@ body.dark-mode .proofCardPrimary {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
     margin-bottom: 18px;
-    text-transform: uppercase;
 }
 
 .proofMetric {
@@ -4462,7 +4372,6 @@ body.dark-mode .proofCardPrimary {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.04em;
     margin-top: 12px;
 }
 
@@ -4479,7 +4388,6 @@ body.dark-mode .proofCardPrimary {
     min-height: 42px;
     padding: 10px 14px;
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 .commandTrigger {
@@ -4580,9 +4488,7 @@ body.dark-mode .visualStorySection {
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
     margin: 18px 18px 10px;
-    text-transform: uppercase;
 }
 
 .visualStoryCard h3 {
@@ -4689,9 +4595,7 @@ body.dark-mode .commandPaletteBackdrop {
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.14em;
     margin: 14px 16px 8px;
-    text-transform: uppercase;
 }
 
 .commandPaletteResults {
@@ -4811,7 +4715,6 @@ body.dark-mode .bookCarouselShell {
 }
 
 .projectDeckContent h3,
-.projectDeckHeader h3,
 .projectEvidenceIntro h3,
 .projectIndexName,
 .resumeName,
@@ -4823,7 +4726,6 @@ body.dark-mode .bookCarouselShell {
 .bookCarouselHeader h3,
 .bookCopy h3,
 body.dark-mode .projectDeckContent h3,
-body.dark-mode .projectDeckHeader h3,
 body.dark-mode .projectEvidenceIntro h3,
 body.dark-mode .projectIndexName,
 body.dark-mode .resumeName,
@@ -4923,9 +4825,7 @@ body.dark-mode .contactLink:hover {
     font-family: 'Karla', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
     margin-bottom: 8px;
-    text-transform: uppercase;
 }
 
 .projectDeckReviewerNotes p {
@@ -5019,9 +4919,7 @@ body.dark-mode .projectIndexBoundary {
     font-family: 'Karla', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.1em;
     margin-bottom: 10px;
-    text-transform: uppercase;
 }
 
 .writingTypeCard p {
@@ -5175,7 +5073,6 @@ body.dark-mode .filterItemResults strong {
     .nav-link,
     body.dark-mode .nav-link {
         font-size: 11px;
-        letter-spacing: 0.04em;
     }
 
     .search-container {
@@ -5618,3 +5515,35 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
 }
 
 .navFindButton { border: 0; background: transparent; cursor: pointer; font: inherit; }
+
+/* Section heads sit inside the container, on the grid's left edge. */
+.sectionTitle,
+.sectionIntro {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Grid view drops the deck's panel so the cards stand on the page. */
+.projectDeck.is-grid-mode,
+body.dark-mode .projectDeck.is-grid-mode {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+#filter {
+    justify-content: flex-start;
+}
+
+.projectDeck {
+    max-width: 1110px;
+}
+
+.evidenceLabel,
+.evidenceLabel dt,
+.evidenceLabel dd {
+    text-align: left;
+}
+
