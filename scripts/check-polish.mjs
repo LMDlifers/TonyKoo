@@ -21,7 +21,7 @@ assert.doesNotMatch(heroBlock, /heroEyebrow/, "no hero eyebrow");
 assert.doesNotMatch(html, /heroGuideLine|projectDeckEyebrow|sectionKicker|bookCarouselEyebrow/, "no eyebrow markup left");
 assert.doesNotMatch(css, /\.heroGuideLine|\.heroEyebrow|\.sectionKicker|\.projectDeckEyebrow|\.bookCarouselEyebrow/, "no eyebrow css left");
 assert.match(css, /\.heroButtonSecondary\s*\{[^}]*background:\s*transparent/, "secondary hero button is outlined");
-assert.doesNotMatch(html, /<h4[^>]*>[\s\S]*?<(em|i)\b[\s\S]*?<\/h4>/, "no italics or icon-font <i> inside h4");
+for (const [, inner] of html.matchAll(/<h4\b[^>]*>([\s\S]*?)<\/h4>/g)) assert.doesNotMatch(inner, /<(em|i)\b/, "no italics or icon-font <i> inside h4");
 assert.doesNotMatch(html, /class="dot |console-dots/, "no decorative window dots");
 assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a phrase");
 assert.doesNotMatch(html, /Explore the AI Engineering Research[^<]*→/, "no glued arrow");
@@ -31,6 +31,9 @@ assert.doesNotMatch(heroBlock, /class="fieldScene"/, "field scene not in hero");
 const iPortfolioEnd = html.indexOf("</section>", html.indexOf('id="portfolio"'));
 const iField = html.indexOf('id="field"');
 assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
+
+const fieldSection = html.slice(iField, html.indexOf("</section>", iField));
+assert.match(fieldSection, /<h2\b/, "#field has an h2");
 
 assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
 

@@ -413,6 +413,8 @@ $(document).ready(function () {
     });
 
     projectDeck.on("keydown", function (e) {
+      if (projectDeck.hasClass("is-grid-mode")) return;
+
       if (e.key === "ArrowLeft") {
         e.preventDefault();
         moveProject(-1);
