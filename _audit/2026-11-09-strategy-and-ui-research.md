@@ -102,3 +102,15 @@ Method: Hallmark `audit` (linter, before-record, judged from screenshots) plus t
 ## 5. Open questions (grill round 1)
 
 See the chat reply. The decisions are yours. Nothing above should be built until they are settled.
+
+## Polish result (2026-11-10)
+
+Branch polish/hallmark-audit, commits since 2d77078 (listed newest first in the log, ending with da052dc "fix: css defects from hallmark audit", 73f5fab "feat: open project browser in grid view", cf99291 "fix: use svh for hero min-height", 44cac3c "feat: move field scene below projects").
+
+Sloplint gate counts, before to after: 6a 1 to 0, 10a 21 to 0, 34 3 to 2, 38i 4 to 0, 50 3 to 0, 54 10 to 0, 62 4 to 3, 63 10 to 0. Totals went from 1149 FAIL, 217 REFLEX, 47 WARN to 1080 FAIL, 211 REFLEX, 48 WARN. The two runs list files in a different order and the after run also scans the vendored css/all.min.css, so totals are not a strict like-for-like comparison.
+
+The --kept check reports FAIL for #evidence, #proof, #testimonials and a missing resume pdf link, plus WARN for ids such as commandPalette and backToTop. The before record in .hallmark/before.json came from a stale checkout 48 commits behind. None of these links or ids exist in the true pre-polish page (2d77078), so they are record noise, not regressions. Real kept regressions: none.
+
+Waived on purpose: findAskDialog uses 100vw because it is a full-screen modal. The .sidebar-nav, .motion-reveal and .loading-fact rules are state-driven, so the linter reads their hidden or initial states as defects.
+
+Screenshot verdict (1440x900 and 375x812, before and after): the hero now reads alone on the first screen, with the field scene gone from it, and the featured projects section opens in grid view as the next thing. Nothing overlaps or is cut. Not fixed here: the "Find" nav item has a different font and case from its neighbours, and the right half of the desktop hero is empty.
