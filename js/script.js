@@ -443,7 +443,7 @@ $(document).ready(function () {
       setProjectView($(this).data("project-view"));
     });
 
-    setProjectView("deck");
+    setProjectView("grid");
 
     window.updateProjectDeckFilter("all");
   }

@@ -3,6 +3,7 @@ import fs from "node:fs";
 
 const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
 const html = read("../index.html");
+const js = read("../js/script.js");
 const cssDir = new URL("../css/", import.meta.url);
 const css = fs
   .readdirSync(cssDir)
@@ -32,5 +33,8 @@ const iField = html.indexOf('id="field"');
 assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
 
 assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
+
+assert.match(html, /data-project-view="grid"\s+aria-pressed="true"/, "grid pressed at load");
+assert.match(js, /setProjectView\("grid"\);/, "grid is the initial view");
 
 console.log("Polish checks passed.");
