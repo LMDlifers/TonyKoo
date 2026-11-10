@@ -110,15 +110,12 @@ for (const pagePath of pages) {
       );
 
       const heroSelectors = [
-        ".heroEyebrow",
         ".heroTitle",
         ".heroSubtitle",
         ".heroPositioning",
         ".heroActions",
         "#portfolio",
         ".fieldIntro",
-        ".fieldScene",
-        ".personaStation",
       ];
       const viewportWidth = document.documentElement.clientWidth;
       const clippedHeroElements = heroSelectors

@@ -12,7 +12,7 @@
 
 .fieldScene { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0; position: relative; color: #223a3e; }
 .fieldToolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 8px 12px; }
-.fieldToolbarTitle { color: #536a69; font-size: 12px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.fieldToolbarTitle { color: #536a69; margin: 0; font-size: 18px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
 .fieldToolbarControls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .fieldCastChoices, .fieldSeasonChoices { display: flex; gap: 4px; padding: 4px; border: 1px solid #bdc9c9; border-radius: 999px; background: #f4f6f3; }
 .fieldCastChoices[hidden] { display: none; }
@@ -94,7 +94,7 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
   #heroSection { padding-top: 85px; }
   .fieldIntro { padding: 20px 6vw; }
   .fieldToolbar { padding-left: 0; padding-right: 0; gap: 8px; }
-  .fieldToolbarTitle { font-size: 9px; letter-spacing: .1em; }
+  .fieldToolbarTitle { font-size: 16px; }
   .fieldToolbar { flex-wrap: wrap; }
   .fieldToolbarControls { width: 100%; justify-content: flex-start; }
   .fieldCastChoices button, .fieldSeasonChoices button { min-width: 66px; min-height: 36px; padding: 4px 8px; }
