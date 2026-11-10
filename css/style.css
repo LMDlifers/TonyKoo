@@ -2329,49 +2329,50 @@ body.dark-mode .filterItemReport {
     z-index: 1;
 }
 
-.filterItemProblem,
-.filterItemArchitecture,
-.filterItemResults {
-    border-top: 1px solid #edf2f7;
+.evidenceLabel {
     display: grid;
-    grid-template-columns: 86px minmax(0, 1fr);
-    column-gap: 14px;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
     margin: 0;
-    padding: 13px 0;
-    line-height: 1.65;
     font-size: 14px;
+    line-height: 1.6;
 }
 
-.filterItemProblem {
+.evidenceLabel dt,
+.evidenceLabel dd {
+    margin: 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--lab-line);
+}
+
+.evidenceLabel dt:first-of-type,
+.evidenceLabel dt:first-of-type + dd {
     border-top: 0;
     padding-top: 2px;
 }
 
-.filterItemResults {
-    background: linear-gradient(180deg, rgba(237, 244, 251, 0.72), rgba(255, 255, 255, 0.64));
-    border: 1px solid #dfe9f3;
-    border-radius: var(--radius-card);
-    margin-top: 4px;
-    padding: 12px 14px;
+.evidenceLabel dt {
+    color: var(--lab-muted);
+    font-size: 13px;
+    font-weight: 400;
 }
 
-.filterItemProblem strong,
-.filterItemArchitecture strong,
-.filterItemResults strong {
-    color: #315d4e;
-    font-weight: 700;
-    display: block;
-    font-family: 'Karla', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.06em;
+.evidenceLabel dd {
     min-width: 0;
-    text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
-body.dark-mode .filterItemProblem strong,
-body.dark-mode .filterItemArchitecture strong,
-body.dark-mode .filterItemResults strong {
-    color: #A2BBDD;
+.evidenceLabel dd strong {
+    font-weight: 700;
+}
+
+.evidenceLabel .filterItemTech {
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .evidenceLabel { grid-template-columns: minmax(0, 1fr); }
+    .evidenceLabel dt { padding-bottom: 0; }
+    .evidenceLabel dd { border-top: 0; padding-top: 2px; }
 }
 
 /* Technology Badges */
@@ -2433,20 +2434,6 @@ body.dark-mode .techBadge:hover {
 
     .filterItemContent {
         padding: 24px 24px 28px;
-    }
-
-    .filterItemProblem,
-    .filterItemArchitecture,
-    .filterItemResults {
-        grid-template-columns: 1fr;
-        row-gap: 4px;
-    }
-
-    .filterItemProblem strong,
-    .filterItemArchitecture strong,
-    .filterItemResults strong {
-        display: block;
-        margin-bottom: 2px;
     }
 
     .techBadge {
@@ -5085,16 +5072,9 @@ body.dark-mode .filterItemDesc {
     color: var(--lab-ink);
 }
 
-.filterItemProblem,
-.filterItemArchitecture,
-.filterItemResults,
 .filterItemReport,
 body.dark-mode .filterItemReport {
     border-color: var(--lab-line);
-}
-
-.filterItemResults {
-    background: rgba(34, 211, 238, 0.055);
 }
 
 .filterItemProblem strong,
