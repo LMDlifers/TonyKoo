@@ -116,6 +116,7 @@ for (const pagePath of pages) {
         ".heroActions",
         "#portfolio",
         ".fieldIntro",
+        ".fieldScene",
       ];
       const viewportWidth = document.documentElement.clientWidth;
       const clippedHeroElements = heroSelectors

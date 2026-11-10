@@ -27,13 +27,9 @@ assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a ph
 assert.doesNotMatch(html, /Explore the AI Engineering Research[^<]*→/, "no glued arrow");
 assert.doesNotMatch(html, /&bull;|[·•]/, "no middle-dot meta strings");
 
-assert.doesNotMatch(heroBlock, /class="fieldScene"/, "field scene not in hero");
-const iPortfolioEnd = html.indexOf("</section>", html.indexOf('id="portfolio"'));
-const iField = html.indexOf('id="field"');
-assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
-
-const fieldSection = html.slice(iField, html.indexOf("</section>", iField));
-assert.match(fieldSection, /<h2\b/, "#field has an h2");
+assert.match(heroBlock, /class="fieldScene"/, "field scene in hero");
+assert.doesNotMatch(html, /<section id="field"/, "no separate field section");
+assert.match(heroBlock, /<h2 id="fieldHeading"/, "field keeps its h2 heading");
 
 assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
 
