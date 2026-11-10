@@ -49,7 +49,7 @@ assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in h
 
 const labels = [...html.matchAll(/<dl class="evidenceLabel">([\s\S]*?)<\/dl>/g)].map((m) => m[1]);
 assert.equal(labels.length, 11, "every project has an evidence label");
-for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Built", "Evidence", "Does not claim", "Stack", "Added to site"], "fixed label rows");
+for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Built", "Evidence", "Does not claim", "Stack", "Report added"], "fixed label rows");
 for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
 
 assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
@@ -60,5 +60,10 @@ assert.doesNotMatch(homeCss, /text-transform:\s*uppercase/, "homepage labels, na
 assert.doesNotMatch(html, /class="projectDeckHeader"/, "no empty projects header box");
 assert.doesNotMatch(css, /\.sectionTitle::after/, "no bar under section titles");
 assert.doesNotMatch(css, /\.(btn|projectViewButton|projectViewSwitch)[^{]*\{[^}]*border-radius:\s*(999px|50px|9999px|var\(--radius-pill\))/, "chips and view switch are not pills");
+
+const colophon = read("../colophon.html");
+assert.doesNotMatch(colophon, /every date on the site/i, "colophon does not overclaim date checks");
+assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim page coverage");
+assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
 
 console.log("Polish checks passed.");

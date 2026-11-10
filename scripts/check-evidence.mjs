@@ -62,4 +62,12 @@ for (const name of reports) {
   assert.ok(sha && sha.startsWith(addSha(path)), `${path}: receipts source commit matches git (${sha} vs ${addSha(path)})`);
 }
 
+// Project cards: "Report added" is the linked report's git add date.
+const cards = [...read("index.html").matchAll(/<dl class="evidenceLabel">([\s\S]*?)<\/dl>([\s\S]*?)(?=<dl class="evidenceLabel">|<section id="log")/g)];
+assert.equal(cards.length, 11, "found all 11 project cards");
+for (const [, label, rest] of cards) {
+  const shown = label.match(/<dt>Report added<\/dt><dd[^>]*>(?:<time datetime="([^"]+)">)?/)?.[1] || null;
+  const report = rest.match(/href="(reports\/[^"]+\.html)"/)?.[1] || null;
+  assert.equal(shown, report ? addDate(report) : null, `card linking ${report || "no report"}: Report added date`);
+}
 console.log(`Evidence dates match git for ${full.length} log entries and ${reports.length} report receipts.`);
