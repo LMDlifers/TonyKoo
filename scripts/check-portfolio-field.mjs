@@ -81,6 +81,11 @@ try {
       await page.locator('[data-cast-choice="ideas"]').click();
       assert.equal(await page.locator('.fieldScene').getAttribute('data-cast'), 'ideas');
       assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['researcher','writer','reader']);
+      if (width >= 1024) {
+        await page.locator('[data-persona="researcher"]').click();
+        assert.match(await page.locator('.fieldSelectionStatus').textContent(), /^Latest: .+, \d{1,2} [A-Z][a-z]{2} \d{4}$/, `Researcher card shows its latest dated entry at ${width}`);
+        await page.locator('.fieldSelectionClose').click();
+      }
       await page.locator('[data-persona="writer"]').click();
       assert.equal(await page.locator('.fieldSelectionLink').getAttribute('href'), '#writing');
       await page.locator('[data-cast-choice="work"]').click();
