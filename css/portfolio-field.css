@@ -78,7 +78,7 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
 }
 @media (max-width: 899px) {
   .fieldScene { padding: 0 14px; }
-  .fieldWorld { display: grid; grid-template-columns: 1fr; align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
+  .fieldWorld { display: grid; grid-template-columns: minmax(0, 1fr); align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
   .personaStation { position: relative; left: auto; top: auto; transform: none; width: 100%; min-height: 78px; display: grid; grid-template-columns: 54px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 8px; padding: 6px 10px; border: 1px solid #c5d1ce; border-radius: 11px; background: #fbfcf9f2; text-align: left; cursor: pointer; touch-action: auto; }
   .personaStation::before { display: none; }
   .personaStill { width: 48px; height: 60px; grid-row: 1 / 3; }

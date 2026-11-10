@@ -62,7 +62,7 @@
 <link rel="stylesheet" href="css/site-theme.css"></head>
 
 <body class="dark-mode">
-    <script>try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
+    <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
     <nav id="navigation" class="shadow-sm navbar navbar-expand-lg" role="navigation" aria-label="Main navigation">
         <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Tony Koo - Home">
             <img src="images/portfolio/tonykoo.png" alt="Tony Koo Logo" width="30" height="30"
