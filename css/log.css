@@ -1,0 +1,28 @@
+/* Lab log: one dated list shared by the homepage and log.html. */
+.logList {
+    --log-line: var(--color-line, var(--line));
+    --log-muted: var(--color-muted, var(--muted));
+    --log-mono: 'Inconsolata', monospace;
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    max-width: 880px;
+}
+.logEntry {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-top: 1px solid var(--log-line);
+}
+.logEntry:last-child { border-bottom: 1px solid var(--log-line); }
+.logEntry time { font-family: var(--log-mono); color: var(--log-muted); }
+.logEntry a { overflow-wrap: break-word; min-width: 0; }
+.logKind { font-size: .875em; color: var(--log-muted); }
+.logSection h2 { margin: 0; text-align: left; }
+.logLead { margin: 8px 0 0; color: var(--log-muted); }
+.logMore { display: inline-block; margin-top: 16px; }
+@media (max-width: 560px) {
+    .logEntry { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
