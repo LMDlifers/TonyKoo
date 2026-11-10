@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="How Tony Koo's portfolio is built, checked and dated.">
+  <title>Colophon | Tony Koo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Lato:wght@400;700&family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/research.css">
+  <link rel="stylesheet" href="css/site-theme.css">
+</head>
+<body class="dark-mode">
+  <script>try{if(localStorage.getItem("darkMode")==="disabled")document.body.classList.remove("dark-mode")}catch(_){}</script>
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="researchNav" aria-label="Site navigation"><div class="researchNavInner"><a class="researchBrand" href="index.html">Tony Koo <span>/ Colophon</span></a><div class="researchNavLinks"><a href="index.html">Portfolio</a><a href="log.html">Lab log</a><a href="research/">Research</a></div></div></nav>
+  <main id="main" class="researchShell">
+    <header class="researchHero">
+      <h1>Colophon</h1>
+      <p class="deck">How this site is built, checked and dated.</p>
+    </header>
+    <section class="researchSection" aria-labelledby="built">
+      <h2 id="built">How it's built</h2>
+      <p>Static HTML, CSS and JavaScript, served by GitHub Pages with no build step. Type is Karla for headings, Lato for text and Inconsolata for dates and code. The isometric field on the homepage is drawn as SVG and pixel sprites by <code>scripts/build-portfolio-field-art.py</code>.</p>
+    </section>
+    <section class="researchSection" aria-labelledby="checked">
+      <h2 id="checked">How it's checked</h2>
+      <p>The scripts in <code>scripts/</code> check the site:</p>
+      <ul>
+        <li><code>check-polish.mjs</code> pins the layout decisions: no tracked capitals, no middle-dot meta lines, the field in the hero, a fixed evidence label on every project.</li>
+        <li><code>check-evidence.mjs</code> compares the dates in the lab log, on the project cards and in the report receipts with git.</li>
+        <li><code>check-portfolio-field.mjs</code> drives the field at five widths, in both themes, with the keyboard and with scripts off.</li>
+        <li><code>smoke-responsive.mjs</code> loads the pages listed in the script from 320 to 1440 pixels wide and fails on overflow, clipped hero content or a missing image.</li>
+      </ul>
+      <p>The Hallmark design linter was run against the homepage for the 2026 redesign; its before and after results are in <code>_audit/</code> in the repository.</p>
+    </section>
+    <section class="researchSection" aria-labelledby="dates">
+      <h2 id="dates">How dates work</h2>
+      <p>Every date in the <a href="log.html">lab log</a> and on each report is the day that page was added to this site, taken from git. It is not the day the work was done. Each report links to the commit that added it and to its full history in the <a href="https://github.com/LMDlifers/TonyKoo">public repository</a>.</p>
+    </section>
+    <section class="researchSection" aria-labelledby="private">
+      <h2 id="private">What stays private</h2>
+      <p>Five of the eight reports end with this note: "Sanitized report prepared for portfolio publication. Raw academic materials and private data are not published." The project cards state what each public summary leaves out.</p>
+    </section>
+  </main>
+  <footer class="researchFooter"><a href="index.html">Portfolio</a><a href="log.html">Lab log</a><a href="research/">Research</a></footer>
+</body>
+</html>

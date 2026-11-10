@@ -46,4 +46,25 @@ for (const sel of ["bookStage", "projectDeckCard", "fieldWorld"]) {
 assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "resume visible without JS");
 assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
 
+
+const labels = [...html.matchAll(/<div class="evidenceLabel">([\s\S]*?<\/details>)\s*<\/div>/g)].map((m) => m[1]);
+assert.equal(labels.length, 11, "every project has an evidence label");
+for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Evidence", "Does not claim", "Built", "Stack", "Report added"], "fixed label rows");
+for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
+for (const l of labels) assert.match(l, /<details class="labelMore"><summary>Full label<\/summary>\s*<dl>[\s\S]*<dt>Built<\/dt>[\s\S]*<dt>Stack<\/dt>[\s\S]*<dt>Report added<\/dt>[\s\S]*<\/dl>\s*<\/details>/, "build detail behind Full label");
+
+assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
+assert.ok(fs.existsSync(new URL("../colophon.html", import.meta.url)), "colophon page exists");
+
+const homeCss = ["style.css", "site-theme.css", "portfolio-field.css", "log.css"].map((f) => read(`../css/${f}`)).join("\n");
+assert.doesNotMatch(homeCss, /text-transform:\s*uppercase/, "homepage labels, nav and titles use sentence case");
+assert.doesNotMatch(html, /class="projectDeckHeader"/, "no empty projects header box");
+assert.doesNotMatch(css, /\.sectionTitle::after/, "no bar under section titles");
+assert.doesNotMatch(css, /\.(btn|projectViewButton|projectViewSwitch)[^{]*\{[^}]*border-radius:\s*(999px|50px|9999px|var\(--radius-pill\))/, "chips and view switch are not pills");
+
+const colophon = read("../colophon.html");
+assert.doesNotMatch(colophon, /every date on the site/i, "colophon does not overclaim date checks");
+assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim page coverage");
+assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
+
 console.log("Polish checks passed.");

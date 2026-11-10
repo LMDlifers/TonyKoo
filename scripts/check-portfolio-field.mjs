@@ -31,6 +31,10 @@ try {
       const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
       await page.goto(base);
       await page.evaluate(isDark => document.body.classList.toggle('dark-mode', isDark), dark);
+      if (width === 1440 && !dark) {
+        const words = await page.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length);
+        assert.ok(words <= 1744, `Homepage visible words ${words} exceed the 1744 budget`);
+      }
       await page.locator('.fieldScene').scrollIntoViewIfNeeded();
       await page.evaluate(() => document.fonts.ready);
       const geometry = await page.evaluate(() => {
@@ -81,6 +85,11 @@ try {
       await page.locator('[data-cast-choice="ideas"]').click();
       assert.equal(await page.locator('.fieldScene').getAttribute('data-cast'), 'ideas');
       assert.deepEqual(await page.locator('.personaStation:visible').evaluateAll(els => els.map(el => el.dataset.persona)), ['researcher','writer','reader']);
+      if (width >= 1024) {
+        await page.locator('[data-persona="researcher"]').click();
+        assert.match(await page.locator('.fieldSelectionStatus').textContent(), /^Latest: .+, added \d{1,2} [A-Z][a-z]{2} \d{4}$/, `Researcher card shows its latest dated entry at ${width}`);
+        await page.locator('.fieldSelectionClose').click();
+      }
       await page.locator('[data-persona="writer"]').click();
       assert.equal(await page.locator('.fieldSelectionLink').getAttribute('href'), '#writing');
       await page.locator('[data-cast-choice="work"]').click();
