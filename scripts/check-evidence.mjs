@@ -63,7 +63,7 @@ for (const name of reports) {
 }
 
 // Project cards: "Report added" is the linked report's git add date.
-const cards = [...read("index.html").matchAll(/<dl class="evidenceLabel">([\s\S]*?)<\/dl>([\s\S]*?)(?=<dl class="evidenceLabel">|<section id="log")/g)];
+const cards = [...read("index.html").matchAll(/<div class="evidenceLabel">([\s\S]*?<\/details>)\s*<\/div>([\s\S]*?)(?=<div class="evidenceLabel">|<section id="log")/g)];
 assert.equal(cards.length, 11, "found all 11 project cards");
 for (const [, label, rest] of cards) {
   const shown = label.match(/<dt>Report added<\/dt><dd[^>]*>(?:<time datetime="([^"]+)">)?/)?.[1] || null;

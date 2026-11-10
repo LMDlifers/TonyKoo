@@ -31,6 +31,10 @@ try {
       const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
       await page.goto(base);
       await page.evaluate(isDark => document.body.classList.toggle('dark-mode', isDark), dark);
+      if (width === 1440 && !dark) {
+        const words = await page.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length);
+        assert.ok(words <= 1744, `Homepage visible words ${words} exceed the 1744 budget`);
+      }
       await page.locator('.fieldScene').scrollIntoViewIfNeeded();
       await page.evaluate(() => document.fonts.ready);
       const geometry = await page.evaluate(() => {
