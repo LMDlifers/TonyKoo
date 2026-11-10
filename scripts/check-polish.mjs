@@ -55,4 +55,10 @@ for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank l
 assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
 assert.ok(fs.existsSync(new URL("../colophon.html", import.meta.url)), "colophon page exists");
 
+const homeCss = ["style.css", "site-theme.css", "portfolio-field.css", "log.css"].map((f) => read(`../css/${f}`)).join("\n");
+assert.doesNotMatch(homeCss, /text-transform:\s*uppercase/, "homepage labels, nav and titles use sentence case");
+assert.doesNotMatch(html, /class="projectDeckHeader"/, "no empty projects header box");
+assert.doesNotMatch(css, /\.sectionTitle::after/, "no bar under section titles");
+assert.doesNotMatch(css, /\.(btn|projectViewButton|projectViewSwitch)[^{]*\{[^}]*border-radius:\s*(999px|50px|9999px|var\(--radius-pill\))/, "chips and view switch are not pills");
+
 console.log("Polish checks passed.");
