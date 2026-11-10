@@ -26,4 +26,9 @@ assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a ph
 assert.doesNotMatch(html, /Explore the AI Engineering Research[^<]*→/, "no glued arrow");
 assert.doesNotMatch(html, /&bull;|[·•]/, "no middle-dot meta strings");
 
+assert.doesNotMatch(heroBlock, /class="fieldScene"/, "field scene not in hero");
+const iPortfolioEnd = html.indexOf("</section>", html.indexOf('id="portfolio"'));
+const iField = html.indexOf('id="field"');
+assert.ok(iField > iPortfolioEnd && iField < html.indexOf('id="proof"'), "field between projects and proof");
+
 console.log("Polish checks passed.");
