@@ -70,4 +70,9 @@ for (const [, label, rest] of cards) {
   const report = rest.match(/href="(reports\/[^"]+\.html)"/)?.[1] || null;
   assert.equal(shown, report ? addDate(report) : null, `card linking ${report || "no report"}: Report added date`);
 }
+// Hero proof line: its count and date come from log.html.
+const proofText = read("index.html").match(/<a class="heroProof"[^>]*>([^<]+)<\/a>/)?.[1].trim();
+const newest = read("log.html").match(/<li class="logEntry"[^>]*>\s*<time datetime="[^"]+"[^>]*>([^<]+)<\/time>/)?.[1];
+assert.equal(proofText, `${full.length} pages logged, latest added ${newest}`, "hero proof line matches the log");
+
 console.log(`Evidence dates match git for ${full.length} log entries and ${reports.length} report receipts.`);
