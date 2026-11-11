@@ -26,6 +26,9 @@ const browser = await chromium.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 });
 const base = process.env.SITE_BASE_URL || "http://localhost:8000";
+const hit = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+// Reads any CSS colour (rgb, oklab, color()) as 0-255 RGB by painting it on a 1px canvas. Runs in the page.
+const RGB_IN_PAGE = `window.__rgb = (c) => { const x = document.createElement("canvas").getContext("2d"); x.fillStyle = c; x.fillRect(0, 0, 1, 1); return [...x.getImageData(0, 0, 1, 1).data].slice(0, 3); };`;
 try {
   // Day is the default; a remembered night choice applies before first paint.
   // The probe records the body class the moment the first non-script element is inserted,
@@ -63,13 +66,13 @@ try {
 
   // Body text contrast holds in day and night.
   const contrastPage = await browser.newPage();
+  await contrastPage.addInitScript(RGB_IN_PAGE);
   await contrastPage.goto(base);
   for (const dark of [false, true]) {
     await contrastPage.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
     await contrastPage.waitForTimeout(600);
     const ratio = await contrastPage.evaluate(() => {
-      const ctx = document.createElement("canvas").getContext("2d");
-      const rgb = (c) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data].slice(0, 3); };
+      const rgb = window.__rgb;
       const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
       const bg = getComputedStyle(document.body).backgroundColor;
       const fg = getComputedStyle(document.querySelector(".heroPositioning")).color;
@@ -81,6 +84,7 @@ try {
   await contrastPage.close();
 
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.addInitScript(RGB_IN_PAGE);
   await page.goto(base);
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());
   assert.equal(easeOut, "cubic-bezier(0.32, 0.72, 0, 1)", "house ease-out token");
@@ -110,13 +114,7 @@ try {
     const pressedState = await state(button);
     const pressed = scaleOf(pressedState.transform);
     if (selector === ".heroButtonPrimary") {
-      const luminance = (bg) => button.evaluate((el, c) => {
-        const ctx = document.createElement("canvas").getContext("2d");
-        ctx.fillStyle = c;
-        ctx.fillRect(0, 0, 1, 1);
-        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-        return (r + g + b) / 765;
-      }, bg);
+      const luminance = (bg) => button.evaluate((el, c) => window.__rgb(c).reduce((a, v) => a + v, 0) / 765, bg);
       assert.ok((await luminance(pressedState.background)) < (await luminance(hover.background)) - 0.02, `${selector} press is a darker step than hover`);
     }
     assert.ok(pressed >= 0.96 && pressed <= 0.98, `${selector} press scale ${pressed}`);
@@ -126,7 +124,7 @@ try {
     assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
   }
 
-  // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1440, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
+  // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1000px, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
   for (const [width, w, h] of [[1440, 128, 160], [1680, 128, 160], [390, 64, 80]]) {
     await page.setViewportSize({ width, height: 900 });
     await page.locator(".fieldScene").scrollIntoViewIfNeeded();
@@ -153,7 +151,6 @@ try {
       });
       for (const r of rows) assert.ok(r > 0.9, `phone list row spans the field (${r.toFixed(2)}) at ${width}`);
     }
-    const hit = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     if (width >= 900) {
       cast.boxes.forEach((a, i) => cast.boxes.slice(i + 1).forEach((b) => assert.ok(!hit(a, b), `stations overlap at ${width}`)));
       for (const a of cast.boxes) assert.ok(!hit(a, cast.season), `station covers the season control at ${width}`);
@@ -184,6 +181,76 @@ try {
     await laptop.close();
   }
 
+  // The cast sits on whole pixels, standing still and while walking.
+  for (const [w, h] of [[1440, 900], [1280, 800]]) {
+    const snap = await browser.newPage({ viewport: { width: w, height: h } });
+    await snap.goto(base);
+    await snap.locator(".fieldScene").scrollIntoViewIfNeeded();
+    await snap.waitForTimeout(300);
+    // Offsets are measured from the map's own box: the page above it has text-height fractions the
+    // browser snaps at paint, but anything fractional inside the map comes from our positioning.
+    const spriteRects = () => snap.evaluate(() => {
+      const world = document.querySelector(".fieldWorld").getBoundingClientRect();
+      return [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+        .map((el) => el.getBoundingClientRect()).filter((r) => r.height > 0).map((r) => [r.left - world.left, r.top - world.top]);
+    });
+    const onPixel = (rects, note) => {
+      assert.ok(rects.length > 0, `sprites found (${note})`);
+      for (const [x, y] of rects) assert.ok(Math.abs(x - Math.round(x)) < 0.01 && Math.abs(y - Math.round(y)) < 0.01, `sprite at ${x},${y} is between pixels (${note})`);
+    };
+    onPixel(await spriteRects(), `still, width ${w}`);
+    await snap.evaluate(() => {
+      document.querySelector(".fieldScene").dataset.active = "true";
+      document.querySelector(".personaStation:not([hidden])").classList.add("is-walking");
+    });
+    await snap.waitForTimeout(200);
+    onPixel(await spriteRects(), `walking, width ${w}`);
+
+    // Walk frames: six 128px frames, stepped, ending exactly one strip away.
+    if (w === 1440) {
+      const walk = await snap.evaluate(() => {
+        const el = document.querySelector(".personaStation.is-walking .personaAnimated");
+        const cs = getComputedStyle(el);
+        let end = null;
+        for (const sheet of document.styleSheets) {
+          try {
+            for (const rule of sheet.cssRules) {
+              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames2x") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
+            }
+          } catch {}
+        }
+        return { size: cs.backgroundSize, name: cs.animationName, timing: cs.animationTimingFunction, end };
+      });
+      assert.equal(walk.size, "768px 160px", "walk strip is 6 frames x 128px");
+      assert.equal(walk.name, "fieldWalkFrames2x", "2x walk keyframes");
+      assert.match(walk.timing, /steps\(6/, "walk steps through 6 frames");
+      assert.equal(walk.end, "-768px", "walk keyframes end one full strip away");
+    }
+    await snap.close();
+  }
+
+  // The theme toggle shows the icon for the theme it switches to.
+  {
+    const iconOf = (p) => p.locator("#darkModeToggle svg[data-icon]").getAttribute("data-icon");
+    const day = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await day.goto(base);
+    await day.waitForSelector("#darkModeToggle svg[data-icon]");
+    assert.equal(await iconOf(day), "moon", "day shows the moon");
+    assert.equal(await day.locator("#darkModeToggle").getAttribute("aria-label"), "Switch to dark mode");
+    await day.locator("#darkModeToggle").click();
+    await day.waitForSelector('#darkModeToggle svg[data-icon="sun"]', { timeout: 2000 });
+    assert.equal(await day.locator("#darkModeToggle").getAttribute("aria-label"), "Switch to light mode");
+    await day.locator("#darkModeToggle").click();
+    await day.waitForSelector('#darkModeToggle svg[data-icon="moon"]', { timeout: 2000 });
+    await day.close();
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    await ctx.addInitScript(() => localStorage.setItem("darkMode", "enabled"));
+    const night = await ctx.newPage();
+    await night.goto(base);
+    await night.waitForSelector('#darkModeToggle svg[data-icon="sun"]', { timeout: 2000 });
+    await ctx.close();
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
@@ -192,8 +259,7 @@ try {
     await page.waitForTimeout(200);
     const rects = await page.evaluate(() => [".fieldSelectionCard", ".fieldSeasonChoices"].map((s) => document.querySelector(s).getBoundingClientRect().toJSON()));
     const [c, z] = rects;
-    const overlap = c.left < z.right && c.right > z.left && c.top < z.bottom && c.bottom > z.top;
-    assert.ok(!overlap, `selection card covers the season control at ${width}`);
+    assert.ok(!hit(c, z), `selection card covers the season control at ${width}`);
     await page.locator(".fieldSelectionClose").click();
   }
   await page.setViewportSize({ width: 1440, height: 900 });

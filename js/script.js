@@ -42,9 +42,8 @@ $(document).ready(function () {
   function syncThemeToggle() {
     const isDark = body.hasClass("dark-mode");
     darkModeToggle.attr("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-    darkModeToggle.find("i")
-      .toggleClass("fa-moon", !isDark)
-      .toggleClass("fa-sun", isDark);
+    // Font Awesome swaps <i> for <svg>, so re-insert an <i> and let its observer redraw the icon.
+    darkModeToggle.html(`<i class="fas fa-${isDark ? "sun" : "moon"}" aria-hidden="true"></i>`);
   }
 
   syncThemeToggle();
