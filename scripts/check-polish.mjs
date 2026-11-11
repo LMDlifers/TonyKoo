@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
 const html = read("../index.html");
@@ -68,5 +69,16 @@ assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim 
 assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
 assert.doesNotMatch(colophon.slice(colophon.indexOf("<main")), /Karla/, "colophon prose names the current typefaces");
 assert.match(colophon, /Pixelify Sans/, "colophon names the display face");
+
+// Karla is retired on every page; pages styled with var(--font-body) load the token's definition.
+const tracked = execFileSync("git", ["ls-files", "*.html"], { cwd: new URL("..", import.meta.url), encoding: "utf8" }).trim().split("\n");
+const tokenCss = new Set(fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && /var\(--font-body\)/.test(fs.readFileSync(new URL(f, cssDir), "utf8"))));
+for (const f of tracked) {
+  const page = read(`../${f}`);
+  assert.doesNotMatch(page, /Karla/, `${f}: no Karla`);
+  const links = [...page.matchAll(/href="([^"]*css\/([^"/]+\.css))"/g)].map((m) => m[2]);
+  if (links.some((l) => tokenCss.has(l))) assert.ok(links.includes("site-theme.css"), `${f}: uses --font-body, so it loads site-theme.css`);
+}
+assert.doesNotMatch(css, /Karla/, "no Karla in our CSS");
 
 console.log("Polish checks passed.");
