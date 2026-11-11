@@ -21,6 +21,7 @@
 /* Nothing lifts or glows: hover is a colour step in place. */
 .heroButton:hover,
 .heroButtonPrimary:hover,
+#filter .btn.active,
 #filter .btn:hover,
 .projectViewButton:hover,
 .fieldCastChoices button:hover,
@@ -57,7 +58,9 @@ body.dark-mode .heroButtonPrimary:hover {
 .fieldSeasonChoices button:active,
 .contactLink:active,
 .fieldSelectionLink:active,
-.logMore:active {
+.logMore:active,
+.labelMore > summary:active,
+#filter .btn.active:active {
     transform: scale(0.97);
 }
 
@@ -138,6 +141,8 @@ body.dark-mode .filterItemImg {
     background: var(--lab-bg-soft);
     aspect-ratio: 16 / 10;
     height: auto;
+    max-height: 300px;
+    min-height: 180px;
 }
 
 /* Field controls: one cast choice in the toolbar; the season pair sits quietly in the map's corner. */
@@ -151,7 +156,7 @@ body.dark-mode .filterItemImg {
 .fieldWorld .fieldSeasonChoices {
     position: absolute;
     top: 12px;
-    right: 12px;
+    left: 12px;
     z-index: 30;
     padding: 2px;
     gap: 2px;
@@ -166,13 +171,6 @@ body.dark-mode .filterItemImg {
     place-items: center;
 }
 
-/* On phones the Ask launcher sits bottom right, so the season pair moves to the map's left corner. */
-@media (max-width: 560px) {
-    .fieldWorld .fieldSeasonChoices {
-        left: 12px;
-        right: auto;
-    }
-}
 
 /* Links: a tinted, offset underline that takes the link colour on hover. */
 .logEntry a,

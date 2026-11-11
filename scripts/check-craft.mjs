@@ -38,7 +38,7 @@ try {
     const cs = getComputedStyle(el);
     return { transform: cs.transform, background: cs.backgroundColor, shadow: cs.boxShadow };
   });
-  for (const selector of [".heroButtonPrimary", "#filter .btn:nth-of-type(2)", ".fieldCastChoices button:nth-of-type(2)"]) {
+  for (const selector of [".heroButtonPrimary", "#filter .btn.active", "#filter .btn:nth-of-type(2)", ".fieldCastChoices button:nth-of-type(2)", ".filterItem:visible .labelMore > summary"]) {
     const button = page.locator(selector).first();
     await button.scrollIntoViewIfNeeded();
     await page.mouse.move(0, 0);
@@ -72,6 +72,26 @@ try {
     await page.waitForTimeout(300);
     assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
   }
+
+  // An open selection card never covers the season control.
+  for (const width of [1440, 1024, 900]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.locator(".fieldScene").scrollIntoViewIfNeeded();
+    await page.locator('[data-persona="researcher"]').click();
+    await page.waitForTimeout(200);
+    const rects = await page.evaluate(() => [".fieldSelectionCard", ".fieldSeasonChoices"].map((s) => document.querySelector(s).getBoundingClientRect().toJSON()));
+    const [c, z] = rects;
+    const overlap = c.left < z.right && c.right > z.left && c.top < z.bottom && c.bottom > z.top;
+    assert.ok(!overlap, `selection card covers the season control at ${width}`);
+    await page.locator(".fieldSelectionClose").click();
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  // Card images keep the old 300px ceiling at tablet width.
+  await page.setViewportSize({ width: 768, height: 1024 });
+  const tabletImg = await page.locator(".filterItem:visible .filterItemImg").first().evaluate((el) => el.getBoundingClientRect().height);
+  assert.ok(tabletImg <= 300, `card image ${tabletImg}px tall at 768`);
+  await page.setViewportSize({ width: 1440, height: 900 });
 
   // Type: display heads tighten as they grow; each face has one role.
   const type = await page.evaluate(() => {
