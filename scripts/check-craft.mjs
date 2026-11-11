@@ -88,6 +88,21 @@ try {
   assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
   assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
 
+  // Hero controls: the season pair sits quietly inside the map; toolbar groups match the 8px control radius.
+  const controls = await page.evaluate(() => {
+    const season = document.querySelector(".fieldSeasonChoices");
+    return {
+      seasonInWorld: Boolean(season?.closest(".fieldWorld")),
+      seasonLabels: [...season.querySelectorAll("button")].map((b) => b.getAttribute("aria-label") || ""),
+      seasonSizes: [...season.querySelectorAll("button")].map((b) => Math.round(b.getBoundingClientRect().width)),
+      radii: [".fieldCastChoices", ".fieldSeasonChoices"].map((s) => parseFloat(getComputedStyle(document.querySelector(s)).borderTopLeftRadius)),
+    };
+  });
+  assert.ok(controls.seasonInWorld, "season control sits inside the field map");
+  assert.deepEqual(controls.seasonLabels, ["Summer", "Snow"], "season buttons are labelled");
+  for (const w of controls.seasonSizes) assert.ok(w >= 40 && w <= 48, `season button is icon-sized (${w}px)`);
+  for (const r of controls.radii) assert.ok(r <= 10, `toolbar group radius ${r}px, not a pill`);
+
   // Surfaces: cards have a hairline plus soft layers, never lift, and hold a tinted image box before load.
   for (const dark of [false, true]) {
     await page.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
