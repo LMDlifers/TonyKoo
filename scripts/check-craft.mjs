@@ -285,6 +285,24 @@ try {
     assert.notEqual(await link.evaluate((el) => getComputedStyle(el).outlineStyle), "none", "card links keep a focus ring");
   }
 
+  // Filters are a game menu: a pixel cursor on the active choice, width reserved so nothing shifts.
+  {
+    const cursor = (sel) => page.evaluate((s) => getComputedStyle(document.querySelector(s), "::before").content, sel);
+    await page.locator("#filter").scrollIntoViewIfNeeded();
+    const widths = () => page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => b.getBoundingClientRect().width));
+    const before = await widths();
+    assert.match(await cursor("#filter .btn.active"), /►/, "active menu item shows the cursor");
+    assert.doesNotMatch(await cursor("#filter .btn:not(.active)"), /►/, "inactive items show no cursor");
+    await page.locator('#filter [data-project-filter="quant"]').click();
+    await page.waitForTimeout(200);
+    const after = await widths();
+    before.forEach((w, i) => assert.ok(Math.abs(w - after[i]) < 0.5, `menu item ${i} keeps its width (${w} vs ${after[i]})`));
+    assert.match(await cursor('#filter [data-project-filter="quant"]'), /►/, "cursor follows the active item");
+    const chipFont = await page.evaluate(() => getComputedStyle(document.querySelector("#filter .btn")).fontFamily);
+    assert.match(chipFont, /^"?Pixelify Sans/, "menu items are pixel type");
+    await page.locator("#filter .btn").first().click();
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });

@@ -401,3 +401,31 @@ body.dark-mode .filterItem.pixelFrame {
     font-weight: 600;
     letter-spacing: 0;
 }
+
+/* Filters as a game menu: pixel type, a ► cursor on the active item, its width reserved on every
+   item so choosing one never shifts the row. */
+#filter .btn,
+#filter .btn.active {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+#filter .btn::before {
+    content: "";
+    position: static;
+    display: inline-block;
+    width: 1.25ch;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+    background: none;
+    opacity: 1;
+    transform: none;
+    text-align: left;
+}
+
+#filter .btn.active::before {
+    content: "►";
+}
