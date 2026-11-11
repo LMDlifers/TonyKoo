@@ -379,3 +379,25 @@ body.dark-mode .filterItemImg {
 body.dark-mode .pixelFrame {
     border-image-source: url(../images/ui/pixel-frame-night.svg);
 }
+
+/* Projects as item cards: the frame replaces the soft shadow; hover brightens, nothing lifts. */
+.filterItem.pixelFrame,
+body.dark-mode .filterItem.pixelFrame {
+    box-shadow: none;
+    background: none;
+    transition: filter var(--dur-hover) var(--ease-standard);
+}
+
+@media (hover: hover) {
+    .filterItem.pixelFrame:hover {
+        filter: brightness(1.03);
+        box-shadow: none;
+    }
+}
+
+.filterItemName {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0;
+}

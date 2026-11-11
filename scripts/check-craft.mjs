@@ -267,6 +267,24 @@ try {
     assert.match(frame.night, /pixel-frame-night\.svg/, "pixel frame uses the night art in dark mode");
   }
 
+  // Projects are item cards: every card in the pixel frame, titles in pixel type, focus still visible.
+  {
+    const cards = await page.evaluate(() => [...document.querySelectorAll(".filterItem")].map((el) => ({
+      framed: el.classList.contains("pixelFrame") && getComputedStyle(el).borderImageSource !== "none",
+      title: (() => { const t = el.querySelector(".filterItemName"); const cs = getComputedStyle(t); return [cs.fontFamily, cs.fontSize, cs.letterSpacing]; })(),
+    })));
+    assert.equal(cards.length, 11, "11 project cards");
+    for (const c of cards) {
+      assert.ok(c.framed, "card sits in the pixel frame");
+      assert.match(c.title[0], /^"?Pixelify Sans/, "card title is pixel type");
+      assert.equal(c.title[1], "24px", "card title is 24px");
+      assert.ok(c.title[2] === "normal" || c.title[2] === "0px", "card title untracked");
+    }
+    const link = page.locator(".filterItem:visible a").first();
+    await link.focus();
+    assert.notEqual(await link.evaluate((el) => getComputedStyle(el).outlineStyle), "none", "card links keep a focus ring");
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
@@ -372,14 +390,15 @@ try {
       const ics = getComputedStyle(img);
       return {
         shadow: cs.boxShadow,
+        frame: cs.borderImageSource,
         cardBg: cs.backgroundColor,
         imgBg: ics.backgroundColor,
         imgHeight: img.getBoundingClientRect().height,
       };
     });
-    const layers = surface.shadow.split(/,(?![^(]*\))/);
-    assert.ok(layers.length >= 2, `card shadow has ${layers.length} layer(s) (dark=${dark})`);
-    assert.ok(layers.some((l) => /0px 0px 0px 1px/.test(l)), `card shadow has a hairline (dark=${dark})`);
+    // Retro PR 2: the pixel frame (with its built-in hard shadow) replaces the soft shadow layers.
+    assert.match(surface.frame, dark ? /pixel-frame-night/ : /pixel-frame-day/, `card is framed (dark=${dark})`);
+    assert.equal(surface.shadow, "none", `framed card drops the soft shadow (dark=${dark})`);
     assert.notEqual(surface.imgBg, "rgba(0, 0, 0, 0)", `image box is tinted (dark=${dark})`);
     assert.notEqual(surface.imgBg, surface.cardBg, `image box differs from card (dark=${dark})`);
     assert.ok(surface.imgHeight >= 200, `image box holds its height ${surface.imgHeight} (dark=${dark})`);
