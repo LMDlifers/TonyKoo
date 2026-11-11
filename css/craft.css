@@ -69,21 +69,7 @@ body.dark-mode .heroButtonPrimary:hover {
     border-color: color-mix(in srgb, var(--lab-accent-hover) 86%, black);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .heroButton,
-    #filter .btn,
-    .projectViewButton,
-    .fieldCastChoices button,
-    .fieldSeasonChoices button,
-    .contactLink,
-    .labelMore > summary,
-    .fieldSelectionLink,
-    .logMore {
-        transition-duration: 0s;
-    }
-}
-
-/* Type: display heads tighten as they grow; buttons and nav share one voice. */
+/* Type: balanced wrapping on display heads; buttons untracked. */
 .heroTitle,
 .fieldIntro .heroTitle,
 .sectionTitle {
@@ -96,7 +82,7 @@ body.dark-mode .heroButtonPrimary:hover {
 
 /* Mono is for dates, versions and code; the subtitle is prose. */
 .heroSubtitle {
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-body);
 }
 
 #navigation .navFindButton.nav-link {
@@ -173,7 +159,8 @@ body.dark-mode .filterItemImg {
 .sectionIntro a,
 .contactCopy a,
 .evidenceLabel a,
-.heroProof {
+.heroProof,
+.heroTextLink {
     text-decoration-line: underline;
     text-decoration-color: var(--lab-line-strong);
     text-decoration-thickness: 1px;
@@ -199,7 +186,7 @@ body.dark-mode .filterItemImg {
 
 .heroProof {
     color: var(--lab-muted);
-    font-family: 'Inconsolata', monospace;
+    font-family: var(--font-data);
     font-size: 14px;
 }
 
@@ -308,11 +295,6 @@ body.dark-mode .filterItemImg {
     color: var(--lab-ink);
     font-family: var(--font-body);
     font-weight: 700;
-    text-decoration-line: underline;
-    text-decoration-color: var(--lab-line-strong);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color var(--dur-ui) var(--ease-standard), color var(--dur-hover) var(--ease-standard);
 }
 
 @media (hover: hover) {
@@ -327,7 +309,6 @@ body.dark-mode .filterItemImg {
     outline-offset: 4px;
 }
 
-/* The field spills past the hero's lower edge, like a cast walking off the page. */
 /* Vellum's shape: the words sit on top, the cast spreads wide beneath them and spills
    past the hero's lower edge. A wide field also gives 2x characters room to move. */
 @media (min-width: 900px) {
@@ -342,6 +323,7 @@ body.dark-mode .filterItemImg {
         min-height: 0;
         gap: 0;
         padding-top: 0;
+        padding-bottom: 0;
     }
 
     .fieldIntro {
@@ -373,10 +355,6 @@ body.dark-mode .filterItemImg {
 
     .heroTitle .title-line {
         margin-top: 8px;
-    }
-
-    #portfolioField {
-        padding-bottom: 0;
     }
 
     #portfolio {
