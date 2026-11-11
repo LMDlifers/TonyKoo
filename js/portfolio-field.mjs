@@ -15,7 +15,7 @@ const ROUTES = {
 function nearestWalkable(x, y, occupied = [], width = 960, height = 520) {
   x = Math.max(.06, Math.min(.94, x));
   y = Math.max(.38, Math.min(.78, y));
-  const clear = (px, py) => occupied.every(([ox, oy]) => Math.abs(px - ox) * width >= 124 || Math.abs(py - oy) * height >= 142);
+  const clear = (px, py) => occupied.every(([ox, oy]) => Math.abs(px - ox) * width >= 140 || Math.abs(py - oy) * height >= 200);
   if (walkable(x, y) && clear(x, y)) return [x, y];
   let best = [x, y];
   let distance = Infinity;

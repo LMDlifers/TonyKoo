@@ -86,9 +86,9 @@ const heroActions = html.match(
 )?.[0];
 assert.ok(heroActions, "Missing hero actions");
 assert.equal(
-  [...heroActions.matchAll(/class="heroButton\b/g)].length,
+  [...heroActions.matchAll(/class="(heroButton|heroTextLink)\b/g)].length,
   2,
-  "Hero must contain exactly two actions",
+  "Hero must contain exactly two actions: one button and one text link",
 );
 assert.match(heroActions, /View Projects/);
 assert.match(heroActions, /Discuss a Project/);

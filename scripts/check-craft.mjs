@@ -103,6 +103,43 @@ try {
     assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
   }
 
+  // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1440, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
+  for (const [width, w, h] of [[1440, 128, 160], [1680, 128, 160], [390, 64, 80]]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.locator(".fieldScene").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    const cast = await page.evaluate(() => {
+      const sprites = [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+        .filter((el) => el.getBoundingClientRect().width > 0)
+        .map((el) => ({ w: el.getBoundingClientRect().width, h: el.getBoundingClientRect().height, r: getComputedStyle(el).imageRendering }));
+      const boxes = [...document.querySelectorAll(".personaStation:not([hidden])")].map((el) => el.getBoundingClientRect().toJSON());
+      const season = document.querySelector(".fieldSeasonChoices").getBoundingClientRect().toJSON();
+      return { sprites, boxes, season };
+    });
+    assert.ok(cast.sprites.length > 0, `sprites visible at ${width}`);
+    for (const s of cast.sprites) {
+      assert.deepEqual([Math.round(s.w), Math.round(s.h)], [w, h], `sprite ${Math.round(s.w)}x${Math.round(s.h)} at ${width}`);
+      assert.equal(s.r, "pixelated", `sprite rendering at ${width}`);
+    }
+    const hit = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    if (width >= 900) {
+      cast.boxes.forEach((a, i) => cast.boxes.slice(i + 1).forEach((b) => assert.ok(!hit(a, b), `stations overlap at ${width}`)));
+      for (const a of cast.boxes) assert.ok(!hit(a, cast.season), `station covers the season control at ${width}`);
+    }
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  // Hero: one button plus a text link; the field spills past the hero's bottom edge.
+  const hero = await page.evaluate(() => {
+    const link = document.querySelector("#heroSection a.heroTextLink");
+    const heroBox = document.querySelector("#heroSection").getBoundingClientRect();
+    const field = document.querySelector(".fieldScene").getBoundingClientRect();
+    return { link: link?.textContent.trim() || "", buttons: document.querySelectorAll("#heroSection .heroButton").length, fieldBottom: field.bottom, heroBottom: heroBox.bottom };
+  });
+  assert.match(hero.link, /Discuss a project/i, "secondary action is a text link");
+  assert.equal(hero.buttons, 1, "one hero button");
+  assert.ok(hero.fieldBottom > hero.heroBottom, `field spills past the hero (${Math.round(hero.fieldBottom)} vs ${Math.round(hero.heroBottom)})`);
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });

@@ -20,7 +20,7 @@ assert.doesNotMatch(heroBlock, /heroEyebrow/, "no hero eyebrow");
 
 assert.doesNotMatch(html, /heroGuideLine|projectDeckEyebrow|sectionKicker|bookCarouselEyebrow/, "no eyebrow markup left");
 assert.doesNotMatch(css, /\.heroGuideLine|\.heroEyebrow|\.sectionKicker|\.projectDeckEyebrow|\.bookCarouselEyebrow/, "no eyebrow css left");
-assert.match(css, /\.heroButtonSecondary\s*\{[^}]*background:\s*transparent/, "secondary hero button is outlined");
+assert.match(html, /<a class="heroTextLink" href="#contact">/, "secondary hero action is a text link");
 for (const [, inner] of html.matchAll(/<h4\b[^>]*>([\s\S]*?)<\/h4>/g)) assert.doesNotMatch(inner, /<(em|i)\b/, "no italics or icon-font <i> inside h4");
 assert.doesNotMatch(html, /class="dot |console-dots/, "no decorative window dots");
 assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a phrase");

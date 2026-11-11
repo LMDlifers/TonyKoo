@@ -251,3 +251,112 @@ body.dark-mode .filterItemImg {
         font-size: 32px;
     }
 }
+
+/* The cast at whole-number scale: 64x80 art drawn at 2x on desktop, 1x in the phone list. */
+.personaStill,
+.personaAnimated {
+    width: 128px;
+    height: 160px;
+    image-rendering: pixelated;
+}
+
+.personaAnimated {
+    background-size: 512px 160px;
+}
+
+.fieldScene[data-active="true"] .personaStation.is-walking .personaAnimated {
+    background-size: 768px 160px;
+    animation-name: fieldWalkFrames2x;
+}
+
+@keyframes fieldWalkFrames2x {
+    to { background-position-x: -768px; }
+}
+
+.personaStation {
+    width: 136px;
+    min-height: 196px;
+}
+
+.personaStation::before {
+    top: 148px;
+    width: 88px;
+}
+
+@media (max-width: 899px) {
+    .personaStation {
+        grid-template-columns: 64px minmax(0, 1fr);
+        min-height: 92px;
+    }
+
+    .personaStill {
+        width: 64px;
+        height: 80px;
+    }
+}
+
+/* The secondary action is a quiet text link beside the one button. */
+.heroTextLink {
+    align-self: center;
+    margin-left: 8px;
+    color: var(--lab-ink);
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-decoration-color: var(--lab-line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-ui) var(--ease-standard), color var(--dur-hover) var(--ease-standard);
+}
+
+@media (hover: hover) {
+    .heroTextLink:hover {
+        color: var(--lab-accent);
+        text-decoration-color: currentColor;
+    }
+}
+
+.heroTextLink:focus-visible {
+    outline: 3px solid var(--lab-accent);
+    outline-offset: 4px;
+}
+
+/* The field spills past the hero's lower edge, like a cast walking off the page. */
+/* Vellum's shape: the words sit on top, the cast spreads wide beneath them and spills
+   past the hero's lower edge. A wide field also gives 2x characters room to move. */
+@media (min-width: 900px) {
+    #heroSection {
+        position: relative;
+        z-index: 2;
+    }
+
+    #portfolioField {
+        grid-template-columns: minmax(0, 1fr);
+        align-content: start;
+        min-height: 0;
+        gap: 0;
+        padding-top: 0;
+    }
+
+    .fieldIntro {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .fieldScene {
+        position: relative;
+        width: 100%;
+        max-width: 1120px;
+        margin: 40px auto -200px;
+    }
+
+    #portfolioField {
+        padding-bottom: 0;
+    }
+
+    #portfolio {
+        position: relative;
+        z-index: 1;
+        padding-top: 280px;
+    }
+}
