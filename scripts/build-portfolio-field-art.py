@@ -153,3 +153,17 @@ for role in roles:
   for i in range(count): s.append(f'<g transform="translate({i*64},{row*80})">'+''.join(rect(*v) for v in frame(role,state,i))+'</g>')
   row+=1
 Path('/tmp/portfolio-contact.svg').write_text(svg(384,row*80,s))
+
+# RPG UI art: a 24x24 nine-slice pixel frame (2px edge, stepped corners, 2px hard shadow on the
+# bottom and right) in day and night palettes, and a 12x12 quest-complete check. Slice at 8px.
+ui = Path('images/ui'); ui.mkdir(exist_ok=True)
+def pixel_frame(edge, fill, shadow):
+ # Box spans columns/rows 0-21; the 2px hard shadow sits on 22-23 (bottom and right only).
+ s=[rect(2,2,18,18,fill)]
+ s+=[rect(4,0,14,2,edge),rect(4,20,14,2,edge),rect(0,4,2,14,edge),rect(20,4,2,14,edge)]
+ s+=[rect(2,2,2,2,edge),rect(18,2,2,2,edge),rect(2,18,2,2,edge),rect(18,18,2,2,edge)]
+ s+=[rect(6,22,14,2,shadow),rect(22,6,2,14,shadow),rect(20,20,2,2,shadow)]
+ return svg(24,24,s)
+ui.joinpath('pixel-frame-day.svg').write_text(pixel_frame('#1f2a2a','#fbfaf6','#c9c2b0'))
+ui.joinpath('pixel-frame-night.svg').write_text(pixel_frame('#dbe7e4','#1b282f','#0e161b'))
+ui.joinpath('quest-done.svg').write_text(svg(12,12,[rect(1,6,2,2,'#2f5d50'),rect(3,8,2,2,'#2f5d50'),rect(5,6,2,2,'#2f5d50'),rect(7,4,2,2,'#2f5d50'),rect(9,2,2,2,'#2f5d50')]))

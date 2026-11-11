@@ -89,7 +89,9 @@ try {
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());
   assert.equal(easeOut, "cubic-bezier(0.32, 0.72, 0, 1)", "house ease-out token");
 
-  // Buttons: hover changes colour in place, press gives a little, release returns.
+  // Buttons press like console buttons: a hard 2px shadow at rest, pressed 2px down into it,
+  // hover a colour step in place, release back to rest. (Retro PR 2 replaces the 0.97 scale.)
+  const dropOf = (t) => (t === "none" ? 0 : Number(t.match(/matrix\([^)]*,\s*(-?[\d.]+)\)$/)?.[1] ?? 0));
   const scaleOf = (t) => (t === "none" ? 1 : Number(t.match(/matrix\(([^,]+)/)?.[1] ?? 1));
   const state = (loc) => loc.evaluate((el) => {
     const cs = getComputedStyle(el);
@@ -102,6 +104,8 @@ try {
     await page.waitForTimeout(300);
     const rest = await state(button);
     assert.equal(rest.transform, "none", `${selector} rests flat`);
+    const hard = !selector.includes("summary");
+    if (hard) assert.match(rest.shadow, /0px 2px 0px( 0px)?$|0px 2px 0px( 0px)?,/, `${selector} rests on a hard 2px shadow (${rest.shadow})`);
     await button.hover();
     await page.waitForTimeout(300);
     const hover = await state(button);
@@ -112,16 +116,17 @@ try {
     await page.mouse.down();
     await page.waitForTimeout(160);
     const pressedState = await state(button);
-    const pressed = scaleOf(pressedState.transform);
     if (selector === ".heroButtonPrimary") {
       const luminance = (bg) => button.evaluate((el, c) => window.__rgb(c).reduce((a, v) => a + v, 0) / 765, bg);
       assert.ok((await luminance(pressedState.background)) < (await luminance(hover.background)) - 0.02, `${selector} press is a darker step than hover`);
     }
-    assert.ok(pressed >= 0.96 && pressed <= 0.98, `${selector} press scale ${pressed}`);
+    assert.equal(scaleOf(pressedState.transform), 1, `${selector} press does not scale`);
+    assert.equal(dropOf(pressedState.transform), hard ? 2 : 1, `${selector} presses down`);
+    if (hard) assert.ok(pressedState.shadow === "none" || /0px 0px 0px/.test(pressedState.shadow), `${selector} settles into its shadow (${pressedState.shadow})`);
     await page.mouse.up();
     await page.mouse.move(0, 0);
     await page.waitForTimeout(300);
-    assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
+    assert.equal((await state(button)).transform, "none", `${selector} returns to rest`);
   }
 
   // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1000px, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
@@ -251,6 +256,121 @@ try {
     await ctx.close();
   }
 
+  // The pixel frame: one class, a day frame by default and a night frame in dark mode.
+  {
+    const frame = await page.evaluate(async () => {
+      const el = Object.assign(document.createElement("div"), { className: "pixelFrame" });
+      document.body.append(el);
+      const day = getComputedStyle(el).borderImageSource;
+      document.body.classList.add("dark-mode");
+      const night = getComputedStyle(el).borderImageSource;
+      document.body.classList.remove("dark-mode");
+      el.remove();
+      return { day, night };
+    });
+    assert.match(frame.day, /pixel-frame-day\.svg/, "pixel frame uses the day art");
+    assert.match(frame.night, /pixel-frame-night\.svg/, "pixel frame uses the night art in dark mode");
+  }
+
+  // Projects are item cards: every card in the pixel frame, titles in pixel type, focus still visible.
+  {
+    const cards = await page.evaluate(() => [...document.querySelectorAll(".filterItem")].map((el) => ({
+      framed: el.classList.contains("pixelFrame") && getComputedStyle(el).borderImageSource !== "none",
+      title: (() => { const t = el.querySelector(".filterItemName"); const cs = getComputedStyle(t); return [cs.fontFamily, cs.fontSize, cs.letterSpacing]; })(),
+    })));
+    assert.equal(cards.length, 11, "11 project cards");
+    for (const c of cards) {
+      assert.ok(c.framed, "card sits in the pixel frame");
+      assert.match(c.title[0], /^"?Pixelify Sans/, "card title is pixel type");
+      assert.equal(c.title[1], "24px", "card title is 24px");
+      assert.ok(c.title[2] === "normal" || c.title[2] === "0px", "card title untracked");
+    }
+    const link = page.locator(".filterItem:visible a").first();
+    await link.focus();
+    assert.notEqual(await link.evaluate((el) => getComputedStyle(el).outlineStyle), "none", "card links keep a focus ring");
+  }
+
+  // Filters are a game menu: a pixel cursor on the active choice, width reserved so nothing shifts.
+  {
+    const cursor = (sel) => page.evaluate((s) => getComputedStyle(document.querySelector(s), "::before").content, sel);
+    await page.locator("#filter").scrollIntoViewIfNeeded();
+    const widths = () => page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => b.getBoundingClientRect().width));
+    const before = await widths();
+    assert.match(await cursor("#filter .btn.active"), /►/, "active menu item shows the cursor");
+    assert.doesNotMatch(await cursor("#filter .btn:not(.active)"), /►/, "inactive items show no cursor");
+    await page.locator('#filter [data-project-filter="quant"]').click();
+    await page.waitForTimeout(200);
+    const after = await widths();
+    before.forEach((w, i) => assert.ok(Math.abs(w - after[i]) < 0.5, `menu item ${i} keeps its width (${w} vs ${after[i]})`));
+    assert.match(await cursor('#filter [data-project-filter="quant"]'), /►/, "cursor follows the active item");
+    const chipFont = await page.evaluate(() => getComputedStyle(document.querySelector("#filter .btn")).fontFamily);
+    assert.match(chipFont, /^"?Pixelify Sans/, "menu items are pixel type");
+    await page.locator("#filter .btn").first().click();
+  }
+
+  // The field card is a dialogue box: pixel frame, pixel name tag, the character's portrait.
+  {
+    await page.locator(".fieldScene").scrollIntoViewIfNeeded();
+    const dialogue = async (persona) => {
+      // Walking characters never hold still for Playwright's stability wait, so force the click.
+      await page.locator(`[data-persona="${persona}"]`).click({ force: true });
+      await page.waitForTimeout(200);
+      const d = await page.evaluate(() => {
+        const card = document.querySelector(".fieldSelectionCard");
+        const img = card.querySelector(".fieldSelectionPortrait");
+        const r = img.getBoundingClientRect();
+        const tag = getComputedStyle(card.querySelector(".fieldSelectionTitle"));
+        const link = card.querySelector(".fieldSelectionLink").getBoundingClientRect();
+        const title = card.querySelector(".fieldSelectionTitle").getBoundingClientRect();
+        return { frame: getComputedStyle(card).borderImageSource, src: img.getAttribute("src"), w: r.width, h: r.height, font: tag.fontFamily, size: tag.fontSize, linkLeft: link.left, titleLeft: title.left, linkHeight: link.height };
+      });
+      await page.locator(".fieldSelectionClose").click();
+      return d;
+    };
+    await page.locator('[data-cast-choice="work"]').click(); // an earlier press test leaves the Ideas cast showing
+    const engineer = await dialogue("ai-engineer");
+    assert.match(engineer.frame, /pixel-frame/, "dialogue box sits in the pixel frame");
+    assert.match(engineer.src || "", /ai-engineer-still\.png$/, "dialogue shows the AI Engineer's portrait");
+    assert.deepEqual([Math.round(engineer.w), Math.round(engineer.h)], [64, 80], "portrait at 1x");
+    assert.match(engineer.font, /^"?Pixelify Sans/, "name tag is pixel type");
+    assert.ok(engineer.linkLeft >= engineer.titleLeft - 0.5, "dialogue link sits in the text column, not under the portrait");
+    assert.ok(engineer.linkHeight < 40, `dialogue link stays on one line (${engineer.linkHeight}px)`);
+    assert.equal(engineer.size, "16px", "name tag is 16px");
+    await page.locator('[data-cast-choice="ideas"]').click();
+    const researcher = await dialogue("researcher");
+    assert.match(researcher.src || "", /researcher-still\.png$/, "portrait follows the selected character in another cast");
+    await page.locator('[data-cast-choice="work"]').click();
+  }
+
+  // Framed boxes stay see-through outside the art in night mode, so the stepped corners show.
+  {
+    const bgs = await page.evaluate(() => {
+      document.body.classList.add("dark-mode");
+      const card = document.querySelector(".fieldSelectionCard");
+      card.hidden = false;
+      const out = [getComputedStyle(card).backgroundColor, getComputedStyle(document.querySelector(".filterItem")).backgroundColor];
+      card.hidden = true;
+      document.body.classList.remove("dark-mode");
+      return out;
+    });
+    for (const bg of bgs) assert.equal(bg, "rgba(0, 0, 0, 0)", `framed box paints no rectangle under the frame at night (${bg})`);
+  }
+
+  // The pressed toggle rests on the same hard shadow as every other control.
+  {
+    const pressedShadow = await page.evaluate(() => getComputedStyle(document.querySelector('.fieldCastChoices button[aria-pressed="true"]')).boxShadow);
+    assert.match(pressedShadow, /0px 2px 0px/, `pressed toggle uses the hard 2px shadow (${pressedShadow})`);
+  }
+
+  // On phones every menu item keeps one line and the same height.
+  {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator("#filter").scrollIntoViewIfNeeded();
+    const heights = await page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => Math.round(b.getBoundingClientRect().height)));
+    assert.equal(new Set(heights).size, 1, `menu items share one height at 390 (${heights})`);
+    await page.setViewportSize({ width: 1440, height: 900 });
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
@@ -356,14 +476,15 @@ try {
       const ics = getComputedStyle(img);
       return {
         shadow: cs.boxShadow,
+        frame: cs.borderImageSource,
         cardBg: cs.backgroundColor,
         imgBg: ics.backgroundColor,
         imgHeight: img.getBoundingClientRect().height,
       };
     });
-    const layers = surface.shadow.split(/,(?![^(]*\))/);
-    assert.ok(layers.length >= 2, `card shadow has ${layers.length} layer(s) (dark=${dark})`);
-    assert.ok(layers.some((l) => /0px 0px 0px 1px/.test(l)), `card shadow has a hairline (dark=${dark})`);
+    // Retro PR 2: the pixel frame (with its built-in hard shadow) replaces the soft shadow layers.
+    assert.match(surface.frame, dark ? /pixel-frame-night/ : /pixel-frame-day/, `card is framed (dark=${dark})`);
+    assert.equal(surface.shadow, "none", `framed card drops the soft shadow (dark=${dark})`);
     assert.notEqual(surface.imgBg, "rgba(0, 0, 0, 0)", `image box is tinted (dark=${dark})`);
     assert.notEqual(surface.imgBg, surface.cardBg, `image box differs from card (dark=${dark})`);
     assert.ok(surface.imgHeight >= 200, `image box holds its height ${surface.imgHeight} (dark=${dark})`);

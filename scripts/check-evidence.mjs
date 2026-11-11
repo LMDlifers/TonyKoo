@@ -72,7 +72,14 @@ for (const [, label, rest] of cards) {
 }
 // Hero proof line: its count and date come from log.html.
 const proofText = read("index.html").match(/<a class="heroProof"[^>]*>([^<]+)<\/a>/)?.[1].trim();
-const newest = read("log.html").match(/<li class="logEntry"[^>]*>\s*<time datetime="[^"]+"[^>]*>([^<]+)<\/time>/)?.[1];
+const newest = read("log.html").match(/<li class="logEntry"[^>]*>[\s\S]*?<time datetime="[^"]+"[^>]*>([^<]+)<\/time>/)?.[1];
 assert.equal(proofText, `${full.length} pages logged, latest added ${newest}`, "hero proof line matches the log");
+
+// Quest log: every entry carries the decorative completed mark.
+for (const [label, html] of [["index.html", read("index.html")], ["log.html", read("log.html")]]) {
+  for (const [, body] of html.matchAll(/<li class="logEntry"[^>]*>([\s\S]*?)<\/li>/g)) {
+    assert.match(body, /<img class="questMark"[^>]*aria-hidden="true"/, `${label}: log entry has a decorative quest mark`);
+  }
+}
 
 console.log(`Evidence dates match git for ${full.length} log entries and ${reports.length} report receipts.`);

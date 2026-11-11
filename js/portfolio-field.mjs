@@ -53,6 +53,7 @@ export function initPortfolioField(root = document) {
   const cardTitle = card.querySelector('.fieldSelectionTitle');
   const cardDescription = card.querySelector('.fieldSelectionDescription');
   const cardStatus = card.querySelector('.fieldSelectionStatus');
+  const cardPortrait = card.querySelector('.fieldSelectionPortrait');
   const cardLink = card.querySelector('.fieldSelectionLink');
   const people = [...scene.querySelectorAll('.personaStation')].map((element) => ({
     element,
@@ -90,6 +91,7 @@ export function initPortfolioField(root = document) {
       if (candidate === person) candidate.element.classList.remove('is-walking');
     }
     cardTitle.textContent = person.element.querySelector('.personaRole').textContent;
+    if (cardPortrait) cardPortrait.src = person.element.querySelector('.personaStill').getAttribute('src');
     cardDescription.textContent = person.element.querySelector('.personaDescription').textContent;
     const latest = latestEntryFor(person.element.getAttribute('href'), root);
     cardStatus.hidden = !(latest && latest.title);

@@ -17,6 +17,27 @@ for (const role of roles) for (const [state, width] of [['idle', 256], ['walk', 
   assert.equal(data.readUInt32BE(20), 80, `${name}: height`);
   assert.equal(data[25], 6, `${name}: RGBA transparency`);
 }
+// RPG UI art: the 24x24 pixel frame in day and night, and the 12x12 quest mark.
+const ui = new URL('../images/ui/', import.meta.url);
+for (const [name, size] of [['pixel-frame-day.svg', 24], ['pixel-frame-night.svg', 24], ['quest-done.svg', 12]]) {
+  const data = await readFile(new URL(name, ui), 'utf8');
+  assert.match(data, /shape-rendering="crispEdges"/, `${name}: crisp edges`);
+  assert.match(data, new RegExp(`viewBox="0 0 ${size} ${size}"`), `${name}: ${size}x${size}`);
+  assert.doesNotMatch(data, /(?:href\s*=\s*["'](?!#)|<script\b|<foreignObject\b)/i, `${name}: no external references`);
+}
+// The frame's edge and fill are mirror-symmetric (only the hard shadow sits bottom/right).
+for (const [name, edge] of [['pixel-frame-day.svg', '#1f2a2a'], ['pixel-frame-night.svg', '#dbe7e4']]) {
+  const data = await readFile(new URL(name, ui), 'utf8');
+  const on = new Set();
+  for (const [, x, y, w, h, fill] of data.matchAll(/<rect x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)" fill="([^"]+)"/g)) {
+    if (fill !== edge) continue;
+    for (let i = +x; i < +x + +w; i++) for (let j = +y; j < +y + +h; j++) on.add(`${i},${j}`);
+  }
+  for (const key of on) {
+    const [i, j] = key.split(',').map(Number);
+    assert.ok(on.has(`${21 - i},${j}`) && on.has(`${i},${21 - j}`), `${name}: edge pixel ${key} has no mirror`);
+  }
+}
 let bytes = 0;
 for (const name of await readdir(root)) bytes += (await stat(new URL(name, root))).size;
 assert.ok(bytes <= 600 * 1024, `scene assets exceed 600 KB: ${bytes}`);

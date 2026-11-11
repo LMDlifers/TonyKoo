@@ -15,7 +15,7 @@
         background-color var(--dur-hover) var(--ease-standard),
         border-color var(--dur-hover) var(--ease-standard),
         color var(--dur-hover) var(--ease-standard),
-        box-shadow var(--dur-hover) var(--ease-standard);
+        box-shadow var(--dur-press) var(--ease-out);
 }
 
 /* Nothing lifts or glows: hover is a colour step in place. */
@@ -32,11 +32,20 @@
     transform: none;
 }
 
+/* Console-button press: every control rests on a hard 2px shadow and presses 2px down into it. */
+.heroButton,
+#filter .btn,
+.fieldCastChoices button,
+.fieldSeasonChoices button,
+.contactLink {
+    box-shadow: 0 2px 0 var(--lab-line-strong);
+}
+
 .heroButtonPrimary,
 .heroButtonPrimary:hover,
 body.dark-mode .heroButtonPrimary,
 body.dark-mode .heroButtonPrimary:hover {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.18);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--lab-accent) 70%, black);
 }
 
 .heroButton::before {
@@ -59,9 +68,15 @@ body.dark-mode .heroButtonPrimary:hover {
 .contactLink:active,
 .fieldSelectionLink:active,
 .logMore:active,
-.labelMore > summary:active,
-#filter .btn.active:active {
-    transform: scale(0.97);
+#filter .btn.active:active,
+.heroButtonPrimary:active,
+body.dark-mode .heroButtonPrimary:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.labelMore > summary:active {
+    transform: translateY(1px);
 }
 
 .heroButtonPrimary:active {
@@ -362,4 +377,110 @@ body.dark-mode .filterItemImg {
         z-index: 1;
         padding-top: 280px;
     }
+}
+
+/* RPG skin: one 9-slice pixel frame (images/ui, built by scripts/build-portfolio-field-art.py).
+   The hard 2px shadow lives in the art, so framed boxes drop their soft shadows. */
+.pixelFrame {
+    border-style: solid;
+    border-width: 8px;
+    border-radius: 0;
+    border-image: url(../images/ui/pixel-frame-day.svg) 8 fill / 8px / 0 stretch;
+    image-rendering: pixelated;
+    background: none;
+    box-shadow: none;
+}
+
+body.dark-mode .pixelFrame {
+    border-image-source: url(../images/ui/pixel-frame-night.svg);
+}
+
+/* Projects as item cards: the frame replaces the soft shadow; hover brightens, nothing lifts. */
+.filterItem.pixelFrame,
+body.dark-mode .filterItem.pixelFrame {
+    box-shadow: none;
+    background: none;
+    transition: filter var(--dur-hover) var(--ease-standard);
+}
+
+@media (hover: hover) {
+    .filterItem.pixelFrame:hover {
+        filter: brightness(1.03);
+        box-shadow: none;
+    }
+}
+
+.filterItemName {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+/* Filters as a game menu: pixel type, a ► cursor on the active item, its width reserved on every
+   item so choosing one never shifts the row. */
+#filter .btn,
+#filter .btn.active {
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+#filter .btn::before {
+    content: "";
+    position: static;
+    display: inline-block;
+    width: 1.25ch;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+    background: none;
+    opacity: 1;
+    transform: none;
+    text-align: left;
+}
+
+#filter .btn.active::before {
+    content: "►" / "";
+}
+
+/* The pressed toggle rests on the same hard shadow as every control. */
+.fieldCastChoices button[aria-pressed="true"],
+.fieldSeasonChoices button[aria-pressed="true"],
+body.dark-mode .fieldCastChoices button[aria-pressed="true"],
+body.dark-mode .fieldSeasonChoices button[aria-pressed="true"] {
+    box-shadow: 0 2px 0 var(--lab-line-strong);
+}
+
+/* The field card as an RPG dialogue box: the speaker's portrait, a pixel name tag, the line. */
+.fieldSelectionCard.pixelFrame {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+}
+
+/* The link and every later line stay in the text column; the portrait owns column one. */
+.fieldSelectionCard.pixelFrame > :not(.fieldSelectionPortrait):not(.fieldSelectionClose) {
+    grid-column: 2;
+}
+
+.fieldSelectionCard.pixelFrame,
+body.dark-mode .fieldSelectionCard.pixelFrame {
+    background: none;
+}
+
+.fieldSelectionPortrait {
+    width: 64px;
+    height: 80px;
+    image-rendering: pixelated;
+}
+
+.fieldSelectionTitle {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
 }

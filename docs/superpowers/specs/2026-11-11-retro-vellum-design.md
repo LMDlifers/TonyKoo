@@ -140,3 +140,8 @@ No new claims or copy. The word budget still holds.
 - **Hero layout:** the field is stacked full width under the intro, with its toolbar overlaid in the map's empty sky. A side column was too narrow for characters to move apart at 2×. Full width also matches Vellum's cast under the headline.
 - **Karla:** retired on the homepage only in PR 1. Research, report and chat pages still load Karla. Retiring it there belongs to a later PR.
 
+## Amendments from PR 2 (2026-11-12)
+- **Portrait size:** the dialogue-box portrait renders at 1× (64×80). At 2× it would take over a 270px card. It is still a whole-number scale.
+- **Where the pixel frame goes:** item cards and the dialogue box get the frame. The filter menu and the quest log keep their plain rows, with the ► cursor and the quest marks carrying the game feel. Framing every block would make the page heavy.
+- **Console press:** applies to filled controls only (hero button, filter menu, cast/season toggles, contact links). Text-style links press without a hard shadow, because on a transparent link the shadow reads as a second underline.
+
