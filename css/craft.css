@@ -139,3 +139,37 @@ body.dark-mode .filterItemImg {
     aspect-ratio: 16 / 10;
     height: auto;
 }
+
+/* Field controls: one cast choice in the toolbar; the season pair sits quietly in the map's corner. */
+.fieldCastChoices,
+.fieldSeasonChoices,
+.fieldCastChoices button,
+.fieldSeasonChoices button {
+    border-radius: var(--radius-control);
+}
+
+.fieldWorld .fieldSeasonChoices {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 30;
+    padding: 2px;
+    gap: 2px;
+}
+
+.fieldWorld .fieldSeasonChoices button {
+    min-width: 0;
+    width: 44px;
+    height: 40px;
+    padding: 0;
+    display: inline-grid;
+    place-items: center;
+}
+
+/* On phones the Ask launcher sits bottom right, so the season pair moves to the map's left corner. */
+@media (max-width: 560px) {
+    .fieldWorld .fieldSeasonChoices {
+        left: 12px;
+        right: auto;
+    }
+}
