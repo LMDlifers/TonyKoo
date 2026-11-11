@@ -87,6 +87,37 @@ try {
   assert.ok(type.buttonSpacing <= 0, `hero button tracking ${type.buttonSpacing}`);
   assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
   assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
+
+  // Surfaces: cards have a hairline plus soft layers, never lift, and hold a tinted image box before load.
+  for (const dark of [false, true]) {
+    await page.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
+    const card = page.locator(".filterItem:visible").first();
+    await card.scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(300);
+    const surface = await card.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const img = el.querySelector(".filterItemImg");
+      const ics = getComputedStyle(img);
+      return {
+        shadow: cs.boxShadow,
+        cardBg: cs.backgroundColor,
+        imgBg: ics.backgroundColor,
+        imgHeight: img.getBoundingClientRect().height,
+      };
+    });
+    const layers = surface.shadow.split(/,(?![^(]*\))/);
+    assert.ok(layers.length >= 2, `card shadow has ${layers.length} layer(s) (dark=${dark})`);
+    assert.ok(layers.some((l) => /0px 0px 0px 1px/.test(l)), `card shadow has a hairline (dark=${dark})`);
+    assert.notEqual(surface.imgBg, "rgba(0, 0, 0, 0)", `image box is tinted (dark=${dark})`);
+    assert.notEqual(surface.imgBg, surface.cardBg, `image box differs from card (dark=${dark})`);
+    assert.ok(surface.imgHeight >= 200, `image box holds its height ${surface.imgHeight} (dark=${dark})`);
+    await card.hover();
+    await page.waitForTimeout(300);
+    const cardTransform = await card.evaluate((el) => getComputedStyle(el).transform);
+    const m = cardTransform === "none" ? [1, 0, 0, 1, 0, 0] : cardTransform.match(/matrix\(([^)]+)\)/)[1].split(",").map(Number);
+    assert.ok(m[0] === 1 && m[3] === 1 && m[5] === 0, `card does not lift: ${cardTransform} (dark=${dark})`);
+  }
 } finally {
   await browser.close();
 }
