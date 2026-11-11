@@ -251,6 +251,22 @@ try {
     await ctx.close();
   }
 
+  // The pixel frame: one class, a day frame by default and a night frame in dark mode.
+  {
+    const frame = await page.evaluate(async () => {
+      const el = Object.assign(document.createElement("div"), { className: "pixelFrame" });
+      document.body.append(el);
+      const day = getComputedStyle(el).borderImageSource;
+      document.body.classList.add("dark-mode");
+      const night = getComputedStyle(el).borderImageSource;
+      document.body.classList.remove("dark-mode");
+      el.remove();
+      return { day, night };
+    });
+    assert.match(frame.day, /pixel-frame-day\.svg/, "pixel frame uses the day art");
+    assert.match(frame.night, /pixel-frame-night\.svg/, "pixel frame uses the night art in dark mode");
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });

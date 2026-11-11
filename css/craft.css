@@ -363,3 +363,19 @@ body.dark-mode .filterItemImg {
         padding-top: 280px;
     }
 }
+
+/* RPG skin: one 9-slice pixel frame (images/ui, built by scripts/build-portfolio-field-art.py).
+   The hard 2px shadow lives in the art, so framed boxes drop their soft shadows. */
+.pixelFrame {
+    border-style: solid;
+    border-width: 8px;
+    border-radius: 0;
+    border-image: url(../images/ui/pixel-frame-day.svg) 8 fill / 8px / 0 stretch;
+    image-rendering: pixelated;
+    background: none;
+    box-shadow: none;
+}
+
+body.dark-mode .pixelFrame {
+    border-image-source: url(../images/ui/pixel-frame-night.svg);
+}
