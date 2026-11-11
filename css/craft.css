@@ -372,10 +372,9 @@ body.dark-mode .filterItemImg {
         margin-top: 8px;
     }
 
-    #portfolio {
-        position: relative;
-        z-index: 1;
-        padding-top: 280px;
+    /* The hero field spills 200px into whatever follows; the first chapter takes that space. */
+    #chapter-projects {
+        padding-top: 216px;
     }
 }
 
@@ -484,3 +483,60 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     font-weight: 600;
     letter-spacing: 0;
 }
+
+/* Two story chapters (retro spec section 5): one character, large, beside its section's intro line.
+   Static by default; the walk-in lives only inside the motion and support guards below. */
+.chapter {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 512px minmax(0, 560px);
+    justify-content: center;
+    align-items: end;
+    gap: 32px;
+    max-width: 1140px;
+    max-height: 100svh;
+    margin: 0 auto;
+    padding: 24px 15px;
+    overflow-x: clip;
+}
+
+.chapterSprite {
+    width: 512px;
+    height: 640px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+}
+
+.chapterSprite--ai-engineer { background-image: url(../images/portfolio-field/ai-engineer-still.png); --chapter-walk: url(../images/portfolio-field/ai-engineer-walk.png); }
+.chapterSprite--student { background-image: url(../images/portfolio-field/student-still.png); --chapter-walk: url(../images/portfolio-field/student-walk.png); }
+
+.chapterDialogue {
+    margin: 0 0 96px;
+    padding: 8px 12px;
+    font-family: var(--font-body);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--lab-ink);
+}
+
+@media (max-width: 899px) {
+    .chapter {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 16px;
+    }
+
+    .chapterSprite {
+        width: 256px;
+        height: 320px;
+    }
+
+    .chapterDialogue {
+        margin: 0;
+        font-size: 18px;
+    }
+}
+
