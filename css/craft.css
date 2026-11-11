@@ -1,0 +1,81 @@
+/* Craft layer: how controls respond. Values come from the 2026-11-11 reference study
+   (Linear and Meta Muse press scale 0.97-0.98, colour steps on hover, nothing lifts). */
+
+.heroButton,
+#filter .btn,
+.projectViewButton,
+.fieldCastChoices button,
+.fieldSeasonChoices button,
+.contactLink,
+.labelMore > summary,
+.fieldSelectionLink,
+.logMore {
+    transition:
+        transform var(--dur-press) var(--ease-out),
+        background-color var(--dur-hover) var(--ease-standard),
+        border-color var(--dur-hover) var(--ease-standard),
+        color var(--dur-hover) var(--ease-standard),
+        box-shadow var(--dur-hover) var(--ease-standard);
+}
+
+/* Nothing lifts or glows: hover is a colour step in place. */
+.heroButton:hover,
+.heroButtonPrimary:hover,
+#filter .btn:hover,
+.projectViewButton:hover,
+.fieldCastChoices button:hover,
+.fieldSeasonChoices button:hover,
+.contactLink:hover,
+.fieldSelectionLink:hover,
+.logMore:hover {
+    transform: none;
+}
+
+.heroButtonPrimary,
+.heroButtonPrimary:hover,
+body.dark-mode .heroButtonPrimary,
+body.dark-mode .heroButtonPrimary:hover {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.18);
+}
+
+.heroButton::before {
+    display: none;
+}
+
+@media (hover: hover) {
+    .heroButtonPrimary:hover {
+        background: var(--lab-accent-hover);
+        border-color: var(--lab-accent-hover);
+    }
+}
+
+/* Press gives a little, one shade darker, then springs back. */
+.heroButton:active,
+#filter .btn:active,
+.projectViewButton:active,
+.fieldCastChoices button:active,
+.fieldSeasonChoices button:active,
+.contactLink:active,
+.fieldSelectionLink:active,
+.logMore:active {
+    transform: scale(0.97);
+}
+
+.heroButtonPrimary:active {
+    background: color-mix(in srgb, var(--lab-accent-hover) 86%, var(--lab-ink));
+    border-color: color-mix(in srgb, var(--lab-accent-hover) 86%, var(--lab-ink));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heroButton,
+    #filter .btn,
+    .projectViewButton,
+    .fieldCastChoices button,
+    .fieldSeasonChoices button,
+    .contactLink,
+    .labelMore > summary,
+    .fieldSelectionLink,
+    .logMore {
+        transition-duration: 0s;
+    }
+}

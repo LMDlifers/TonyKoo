@@ -9,7 +9,7 @@ const { chromium } = require(
     "/Users/kootony/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
 );
 const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
-const ownCss = ["style.css", "site-theme.css", "portfolio-field.css", "log.css"].map((f) => [f, read(`../css/${f}`)]);
+const ownCss = ["style.css", "site-theme.css", "portfolio-field.css", "log.css", "craft.css"].map((f) => [f, read(`../css/${f}`)]);
 
 // Every transition part names one of the house curves; bare or missing timing falls back to `ease`.
 for (const [file, css] of ownCss) {
@@ -31,6 +31,36 @@ try {
   await page.goto(base);
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());
   assert.equal(easeOut, "cubic-bezier(0.32, 0.72, 0, 1)", "house ease-out token");
+
+  // Buttons: hover changes colour in place, press gives a little, release returns.
+  const scaleOf = (t) => (t === "none" ? 1 : Number(t.match(/matrix\(([^,]+)/)?.[1] ?? 1));
+  const state = (loc) => loc.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return { transform: cs.transform, background: cs.backgroundColor, shadow: cs.boxShadow };
+  });
+  for (const selector of [".heroButtonPrimary", "#filter .btn:nth-of-type(2)", ".fieldCastChoices button:nth-of-type(2)"]) {
+    const button = page.locator(selector).first();
+    await button.scrollIntoViewIfNeeded();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(300);
+    const rest = await state(button);
+    assert.equal(rest.transform, "none", `${selector} rests flat`);
+    await button.hover();
+    await page.waitForTimeout(300);
+    const hover = await state(button);
+    assert.equal(scaleOf(hover.transform), 1, `${selector} does not move on hover`);
+    assert.doesNotMatch(hover.transform, /matrix\([^)]*,\s*-?[1-9][\d.]*\)$/, `${selector} does not lift on hover`);
+    assert.doesNotMatch(hover.shadow, /rgba\(249, 168, 37/, `${selector} has no amber glow`);
+    if (selector === ".heroButtonPrimary") assert.notEqual(hover.background, rest.background, `${selector} hover changes colour`);
+    await page.mouse.down();
+    await page.waitForTimeout(160);
+    const pressed = scaleOf((await state(button)).transform);
+    assert.ok(pressed >= 0.96 && pressed <= 0.98, `${selector} press scale ${pressed}`);
+    await page.mouse.up();
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(300);
+    assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
+  }
 } finally {
   await browser.close();
 }
