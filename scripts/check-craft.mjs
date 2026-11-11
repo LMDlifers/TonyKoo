@@ -27,6 +27,36 @@ const browser = await chromium.launch({
 });
 const base = process.env.SITE_BASE_URL || "http://localhost:8000";
 try {
+  // Day is the default; a remembered night choice applies before first paint.
+  for (const [stored, expectDark] of [[null, false], ["enabled", true], ["disabled", false]]) {
+    const ctx = await browser.newContext();
+    if (stored) await ctx.addInitScript((v) => localStorage.setItem("darkMode", v), stored);
+    const p = await ctx.newPage();
+    const atReady = p.waitForEvent("domcontentloaded").then(() => p.evaluate(() => document.body.classList.contains("dark-mode")));
+    await p.goto(base, { waitUntil: "domcontentloaded" });
+    assert.equal(await atReady, expectDark, `stored=${stored}: dark-mode at first paint`);
+    await ctx.close();
+  }
+
+  // Body text contrast holds in day and night.
+  const contrastPage = await browser.newPage();
+  await contrastPage.goto(base);
+  for (const dark of [false, true]) {
+    await contrastPage.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
+    await contrastPage.waitForTimeout(600);
+    const ratio = await contrastPage.evaluate(() => {
+      const ctx = document.createElement("canvas").getContext("2d");
+      const rgb = (c) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data].slice(0, 3); };
+      const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+      const bg = getComputedStyle(document.body).backgroundColor;
+      const fg = getComputedStyle(document.querySelector(".heroPositioning")).color;
+      const [a, b] = [lum(rgb(fg)), lum(rgb(bg))].sort((x, y) => y - x);
+      return (a + 0.05) / (b + 0.05);
+    });
+    assert.ok(ratio >= 4.5, `body text contrast ${ratio.toFixed(2)} (dark=${dark})`);
+  }
+  await contrastPage.close();
+
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(base);
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());

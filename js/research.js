@@ -12,7 +12,7 @@ if (researchHero) {
 }
 (() => {
   const toggle = document.querySelector('[data-theme-toggle]');
-  try { if (localStorage.getItem('darkMode') !== 'disabled') document.body.classList.add('dark-mode'); } catch (_) { document.body.classList.add('dark-mode'); }
+  try { if (localStorage.getItem('darkMode') === 'enabled') document.body.classList.add('dark-mode'); } catch (_) {}
   const updateTheme = () => {
     if (!toggle) return;
     const dark = document.body.classList.contains('dark-mode');
