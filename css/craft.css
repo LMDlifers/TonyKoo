@@ -35,12 +35,9 @@
 /* Console-button press: every control rests on a hard 2px shadow and presses 2px down into it. */
 .heroButton,
 #filter .btn,
-.projectViewButton,
 .fieldCastChoices button,
 .fieldSeasonChoices button,
-.contactLink,
-.fieldSelectionLink,
-.logMore {
+.contactLink {
     box-shadow: 0 2px 0 var(--lab-line-strong);
 }
 
@@ -424,6 +421,7 @@ body.dark-mode .filterItem.pixelFrame {
    item so choosing one never shifts the row. */
 #filter .btn,
 #filter .btn.active {
+    white-space: nowrap;
     font-family: var(--font-display);
     font-size: 16px;
     font-weight: 600;
@@ -445,15 +443,15 @@ body.dark-mode .filterItem.pixelFrame {
 }
 
 #filter .btn.active::before {
-    content: "►";
+    content: "►" / "";
 }
 
-/* Quest log: each dated entry carries a small completed mark. */
-.questMark {
-    width: 12px;
-    height: 12px;
-    image-rendering: pixelated;
-    vertical-align: middle;
+/* The pressed toggle rests on the same hard shadow as every control. */
+.fieldCastChoices button[aria-pressed="true"],
+.fieldSeasonChoices button[aria-pressed="true"],
+body.dark-mode .fieldCastChoices button[aria-pressed="true"],
+body.dark-mode .fieldSeasonChoices button[aria-pressed="true"] {
+    box-shadow: 0 2px 0 var(--lab-line-strong);
 }
 
 /* The field card as an RPG dialogue box: the speaker's portrait, a pixel name tag, the line. */
@@ -462,6 +460,16 @@ body.dark-mode .filterItem.pixelFrame {
     grid-template-columns: 64px minmax(0, 1fr);
     column-gap: 12px;
     align-items: start;
+}
+
+/* The link and every later line stay in the text column; the portrait owns column one. */
+.fieldSelectionCard.pixelFrame > :not(.fieldSelectionPortrait):not(.fieldSelectionClose) {
+    grid-column: 2;
+}
+
+.fieldSelectionCard.pixelFrame,
+body.dark-mode .fieldSelectionCard.pixelFrame {
+    background: none;
 }
 
 .fieldSelectionPortrait {

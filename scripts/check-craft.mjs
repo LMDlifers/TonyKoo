@@ -320,7 +320,9 @@ try {
         const img = card.querySelector(".fieldSelectionPortrait");
         const r = img.getBoundingClientRect();
         const tag = getComputedStyle(card.querySelector(".fieldSelectionTitle"));
-        return { frame: getComputedStyle(card).borderImageSource, src: img.getAttribute("src"), w: r.width, h: r.height, font: tag.fontFamily, size: tag.fontSize };
+        const link = card.querySelector(".fieldSelectionLink").getBoundingClientRect();
+        const title = card.querySelector(".fieldSelectionTitle").getBoundingClientRect();
+        return { frame: getComputedStyle(card).borderImageSource, src: img.getAttribute("src"), w: r.width, h: r.height, font: tag.fontFamily, size: tag.fontSize, linkLeft: link.left, titleLeft: title.left, linkHeight: link.height };
       });
       await page.locator(".fieldSelectionClose").click();
       return d;
@@ -331,11 +333,42 @@ try {
     assert.match(engineer.src || "", /ai-engineer-still\.png$/, "dialogue shows the AI Engineer's portrait");
     assert.deepEqual([Math.round(engineer.w), Math.round(engineer.h)], [64, 80], "portrait at 1x");
     assert.match(engineer.font, /^"?Pixelify Sans/, "name tag is pixel type");
+    assert.ok(engineer.linkLeft >= engineer.titleLeft - 0.5, "dialogue link sits in the text column, not under the portrait");
+    assert.ok(engineer.linkHeight < 40, `dialogue link stays on one line (${engineer.linkHeight}px)`);
     assert.equal(engineer.size, "16px", "name tag is 16px");
     await page.locator('[data-cast-choice="ideas"]').click();
     const researcher = await dialogue("researcher");
     assert.match(researcher.src || "", /researcher-still\.png$/, "portrait follows the selected character in another cast");
     await page.locator('[data-cast-choice="work"]').click();
+  }
+
+  // Framed boxes stay see-through outside the art in night mode, so the stepped corners show.
+  {
+    const bgs = await page.evaluate(() => {
+      document.body.classList.add("dark-mode");
+      const card = document.querySelector(".fieldSelectionCard");
+      card.hidden = false;
+      const out = [getComputedStyle(card).backgroundColor, getComputedStyle(document.querySelector(".filterItem")).backgroundColor];
+      card.hidden = true;
+      document.body.classList.remove("dark-mode");
+      return out;
+    });
+    for (const bg of bgs) assert.equal(bg, "rgba(0, 0, 0, 0)", `framed box paints no rectangle under the frame at night (${bg})`);
+  }
+
+  // The pressed toggle rests on the same hard shadow as every other control.
+  {
+    const pressedShadow = await page.evaluate(() => getComputedStyle(document.querySelector('.fieldCastChoices button[aria-pressed="true"]')).boxShadow);
+    assert.match(pressedShadow, /0px 2px 0px/, `pressed toggle uses the hard 2px shadow (${pressedShadow})`);
+  }
+
+  // On phones every menu item keeps one line and the same height.
+  {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator("#filter").scrollIntoViewIfNeeded();
+    const heights = await page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => Math.round(b.getBoundingClientRect().height)));
+    assert.equal(new Set(heights).size, 1, `menu items share one height at 390 (${heights})`);
+    await page.setViewportSize({ width: 1440, height: 900 });
   }
 
   // An open selection card never covers the season control.
