@@ -61,6 +61,32 @@ try {
     await page.waitForTimeout(300);
     assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
   }
+
+  // Type: display heads tighten as they grow; each face has one role.
+  const type = await page.evaluate(() => {
+    const ratio = (el) => {
+      const cs = getComputedStyle(el);
+      const ls = cs.letterSpacing === "normal" ? 0 : parseFloat(cs.letterSpacing);
+      return ls / parseFloat(cs.fontSize);
+    };
+    const font = (el) => {
+      const cs = getComputedStyle(el);
+      return [cs.fontFamily, cs.fontSize, cs.fontWeight, cs.letterSpacing, cs.textTransform].join("|");
+    };
+    return {
+      h1: ratio(document.querySelector("h1.heroTitle")),
+      titles: [...document.querySelectorAll(".sectionTitle")].map(ratio),
+      buttonSpacing: parseFloat(getComputedStyle(document.querySelector(".heroButton")).letterSpacing) || 0,
+      subtitleFont: getComputedStyle(document.querySelector(".heroSubtitle")).fontFamily,
+      findFont: font(document.querySelector(".navFindButton")),
+      navFont: font(document.querySelector("a.nav-link")),
+    };
+  });
+  assert.ok(type.h1 >= -0.03 && type.h1 <= -0.015, `hero title tracking ratio ${type.h1}`);
+  for (const r of type.titles) assert.ok(r >= -0.025 && r <= -0.01, `section title tracking ratio ${r}`);
+  assert.ok(type.buttonSpacing <= 0, `hero button tracking ${type.buttonSpacing}`);
+  assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
+  assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
 } finally {
   await browser.close();
 }

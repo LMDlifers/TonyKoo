@@ -79,3 +79,32 @@ body.dark-mode .heroButtonPrimary:hover {
         transition-duration: 0s;
     }
 }
+
+/* Type: display heads tighten as they grow; buttons and nav share one voice. */
+.heroTitle,
+.fieldIntro .heroTitle {
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+.sectionTitle {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.heroButton {
+    letter-spacing: 0;
+}
+
+/* Mono is for dates, versions and code; the subtitle is prose. */
+.heroSubtitle {
+    font-family: 'Lato', sans-serif;
+}
+
+#navigation .navFindButton.nav-link {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
+}
