@@ -51,7 +51,7 @@
 }
 
 /* FONT STYLE */
-/* headers, navigation: Karla */
+/* headers: Pixelify Sans; navigation and body: Lato */
 /* body: Lato */
 
 html {
@@ -304,7 +304,7 @@ body.dark-mode #backToTop:hover {
     top: 0;
     z-index: 100;
     width: 100%;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     transition: background-color var(--motion-standard) var(--ease-standard), box-shadow var(--motion-standard) var(--ease-standard), padding var(--motion-standard) var(--ease-standard);
     box-shadow: 0 1px 0 rgba(31, 41, 51, 0.08);
 }
@@ -560,7 +560,7 @@ body.dark-mode .dark-mode-toggle i:before {
 
 
 .heroTitle {
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 5rem;
     font-weight: 700;
     margin-bottom: 26px;
@@ -627,7 +627,7 @@ body.dark-mode .dark-mode-toggle i:before {
     min-height: 44px;
     padding: 10px 22px;
     border-radius: var(--radius-control);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-weight: 700;
     text-decoration: none;
     transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), box-shadow var(--motion-fast) var(--ease-standard);
@@ -810,7 +810,7 @@ body.dark-mode .dark-mode-toggle i:before {
     padding: 12px 20px;
     color: #4C5364;
     text-decoration: none;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 13px;
     transition: color var(--dur-ui) var(--ease-standard), background-color var(--dur-ui) var(--ease-standard), transform var(--dur-ui) var(--ease-out);
     position: relative;
@@ -891,7 +891,7 @@ body.dark-mode .dark-mode-toggle i:before {
 
 
 .sectionTitle {
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: clamp(28px, 3vw, 40px);
     line-height: 1.1;
     text-align: left;
@@ -904,7 +904,7 @@ body.dark-mode .dark-mode-toggle i:before {
 
 .sectionTagline {
     text-align: left;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-weight: 700;
     padding-bottom: 10px;
     margin: 20px 0 10px 0;
@@ -1125,7 +1125,7 @@ body.dark-mode .dark-mode-toggle i:before {
 .resumePriorityCard span {
     color: var(--lab-accent, #315d4e);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     font-weight: 700;
     margin-top: 12px;
@@ -1133,7 +1133,7 @@ body.dark-mode .dark-mode-toggle i:before {
 
 .resumePriorityCard h3 {
     color: var(--lab-ink, #111);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -1157,7 +1157,7 @@ body.dark-mode .dark-mode-toggle i:before {
 
 .resumeTimelineLabel {
     color: var(--lab-accent, #315d4e);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin: 0 0 10px;
@@ -1492,7 +1492,7 @@ body.dark-mode .expertiseList li::before {
   
 /* Style the buttons */
 .btn {
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     border: 1px solid var(--color-line-strong);
     outline: none;
@@ -1610,7 +1610,7 @@ body.dark-mode .projectDeck {
     border-radius: var(--radius-control);
     color: #536475;
     cursor: pointer;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     min-height: 34px;
@@ -1678,7 +1678,7 @@ body.dark-mode .projectViewButton.active {
 
 .projectDeckCounter {
     color: #536475;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     min-width: 54px;
@@ -1760,7 +1760,7 @@ body.dark-mode .projectDeckCard {
     border: 1px solid #cfddce;
     border-radius: var(--radius-control);
     color: #2e624f;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 10px;
     font-weight: 700;
     padding: 6px 10px;
@@ -1775,7 +1775,7 @@ body.dark-mode .projectDeckTech span {
 
 .projectDeckContent h3 {
     color: #273d30;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 28px;
     font-weight: 700;
     line-height: 1.2;
@@ -1806,7 +1806,7 @@ body.dark-mode .projectDeckContent h3 {
 
 .projectDeckRows span {
     color: #2e624f;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
 }
@@ -1845,7 +1845,7 @@ body.dark-mode .projectDeckRows p {
     border-radius: var(--radius-control);
     color: #ffffff;
     display: inline-flex;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     justify-content: center;
@@ -1889,7 +1889,7 @@ body.dark-mode .projectDeckRows p {
     color: #26384d;
     cursor: pointer;
     flex: 0 0 170px;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     line-height: 1.25;
@@ -1951,7 +1951,7 @@ body.dark-mode .projectEvidenceIndex {
 
 .projectEvidenceIntro h3 {
     color: #273d30;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 22px;
     font-weight: 700;
     margin: 0;
@@ -2018,7 +2018,7 @@ body.dark-mode .projectIndexRow:hover {
 .projectIndexDomain,
 .projectIndexBoundary,
 .projectIndexRow a {
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
 }
 
 .projectIndexName {
@@ -2613,7 +2613,7 @@ body.dark-mode .readingIntro p {
     border: 1px solid #cfddce;
     border-radius: var(--radius-control);
     color: #2e624f;
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     padding: 7px 11px;
@@ -2653,7 +2653,7 @@ body.dark-mode .bookCarousel {
 
 .bookCarouselHeader h3 {
     color: #273d30;
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 22px;
     font-weight: 700;
     margin: 0;
@@ -2794,7 +2794,7 @@ body.dark-mode .bookCarouselShell {
 }
 
 .fallbackTitle {
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 20px;
     font-weight: 700;
     line-height: 1.25;
@@ -2815,7 +2815,7 @@ body.dark-mode .bookCarouselShell {
     border-radius: var(--radius-control);
     color: #2e624f;
     display: inline-flex;
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 14px;
@@ -2824,7 +2824,7 @@ body.dark-mode .bookCarouselShell {
 
 .bookCopy h3 {
     color: #273d30;
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 30px;
     font-weight: 700;
     line-height: 1.2;
@@ -2833,7 +2833,7 @@ body.dark-mode .bookCarouselShell {
 
 .bookAuthor {
     color: #2e624f;
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     font-weight: 700;
     margin: 0 0 14px;
@@ -2906,7 +2906,7 @@ body.dark-mode .bookCopy p:last-child {
 }
 
 .bookThumb span {
-    font-family: 'Karla', Arial, sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     line-height: 1.25;
@@ -3429,7 +3429,7 @@ body.dark-mode .certTopic {
     border-radius: var(--radius-card);
     color: var(--color-primary);
     display: inline-flex;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     font-weight: 700;
     gap: 8px;
@@ -3980,7 +3980,7 @@ body.dark-mode .heroEvidencePanel {
 .heroEvidenceHeader span {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -4166,7 +4166,7 @@ body.dark-mode .heroButtonTertiary {
 .heroMetric span {
     color: var(--lab-ink);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -4223,7 +4223,7 @@ body.dark-mode .proofSection {
 
 .proofHeader h2 {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: clamp(34px, 4vw, 58px);
     font-weight: 700;
     line-height: 1;
@@ -4257,7 +4257,7 @@ body.dark-mode .proofSection {
 .reviewerScan span {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -4265,7 +4265,7 @@ body.dark-mode .proofSection {
 
 .reviewerScan h3 {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 21px;
     font-weight: 700;
     line-height: 1.18;
@@ -4283,7 +4283,7 @@ body.dark-mode .proofSection {
     border: 1px solid var(--lab-line);
     border-radius: var(--radius-control);
     display: inline-flex;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin: 0 6px 8px 0;
@@ -4357,7 +4357,7 @@ body.dark-mode .proofCardPrimary {
 .proofMetric {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin-bottom: 18px;
@@ -4373,7 +4373,7 @@ body.dark-mode .proofCardPrimary {
 .proofTag {
     color: var(--lab-success);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -4381,7 +4381,7 @@ body.dark-mode .proofCardPrimary {
 
 .proofCard h3 {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 24px;
     font-weight: 700;
     line-height: 1.15;
@@ -4398,7 +4398,7 @@ body.dark-mode .proofCardPrimary {
 .proofQualifier {
     color: var(--lab-dim);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin-top: 12px;
@@ -4410,7 +4410,7 @@ body.dark-mode .proofCardPrimary {
     border-radius: var(--lab-radius);
     color: var(--lab-on-accent);
     display: inline-flex;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin-top: 26px;
@@ -4461,7 +4461,7 @@ body.dark-mode .visualStorySection {
 
 .visualStoryHeader h2 {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: clamp(34px, 4vw, 56px);
     font-weight: 700;
     line-height: 1;
@@ -4514,7 +4514,7 @@ body.dark-mode .visualStorySection {
 .visualStoryCard span {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     margin: 18px 18px 10px;
@@ -4522,7 +4522,7 @@ body.dark-mode .visualStorySection {
 
 .visualStoryCard h3 {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 19px;
     font-weight: 700;
     line-height: 1.18;
@@ -4621,7 +4621,7 @@ body.dark-mode .commandPaletteBackdrop {
 
 .commandPaletteTitle {
     color: var(--lab-dim);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     margin: 14px 16px 8px;
@@ -4667,7 +4667,7 @@ body.dark-mode .commandPaletteBackdrop {
 
 .commandItemTitle {
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     font-weight: 700;
 }
@@ -4851,7 +4851,7 @@ body.dark-mode .contactLink:hover {
 .projectDeckReviewerNotes span {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
     margin-bottom: 8px;
@@ -4945,7 +4945,7 @@ body.dark-mode .projectIndexBoundary {
 .writingTypeCard span {
     color: var(--lab-accent);
     display: block;
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -5246,7 +5246,7 @@ body.dark-mode .spinner {
 
 .loading-text {
     color: var(--lab-ink);
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 20px;
     font-weight: 600;
     letter-spacing: 3px;
@@ -5502,7 +5502,7 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
 }
 .resumeDownload a {
     color: var(--lab-accent);
-    font: 700 .95rem/1.5 'Karla', sans-serif;
+    font: 700 .95rem/1.5 var(--font-body);
     text-underline-offset: .2em;
 }
 .resumeDetails {
@@ -5518,7 +5518,7 @@ body.dark-mode #loadingScreen { background: linear-gradient(135deg, #111a16 0%, 
     display: list-item;
     padding: 1rem 1.4rem;
     cursor: pointer;
-    font: 700 1rem/1.5 'Karla', sans-serif;
+    font: 700 1rem/1.5 var(--font-body);
 }
 .resumeDetails summary:hover { background: var(--lab-bg-soft); }
 .resumeDetails summary:focus-visible { outline: 3px solid #b16d3e; outline-offset: -4px; }

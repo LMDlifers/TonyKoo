@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="css/research.css">
   <link rel="stylesheet" href="css/site-theme.css">
 </head>
-<body class="dark-mode">
-  <script>try{if(localStorage.getItem("darkMode")==="disabled")document.body.classList.remove("dark-mode")}catch(_){}</script>
+<body>
+  <script>try{if(localStorage.getItem("darkMode")==="enabled")document.body.classList.add("dark-mode")}catch(_){}</script>
   <a class="skip" href="#main">Skip to content</a>
   <nav class="researchNav" aria-label="Site navigation"><div class="researchNavInner"><a class="researchBrand" href="index.html">Tony Koo <span>/ Colophon</span></a><div class="researchNavLinks"><a href="index.html">Portfolio</a><a href="log.html">Lab log</a><a href="research/">Research</a></div></div></nav>
   <main id="main" class="researchShell">
@@ -22,7 +22,7 @@
     </header>
     <section class="researchSection" aria-labelledby="built">
       <h2 id="built">How it's built</h2>
-      <p>Static HTML, CSS and JavaScript, served by GitHub Pages with no build step. Type is Karla for headings, Lato for text and Inconsolata for dates and code. The isometric field on the homepage is drawn as SVG and pixel sprites by <code>scripts/build-portfolio-field-art.py</code>.</p>
+      <p>Static HTML, CSS and JavaScript, served by GitHub Pages with no build step. Type is Pixelify Sans for the wordmark and section titles, Lato for text and Inconsolata for dates and code. The isometric field on the homepage is drawn as SVG and pixel sprites by <code>scripts/build-portfolio-field-art.py</code>.</p>
     </section>
     <section class="researchSection" aria-labelledby="checked">
       <h2 id="checked">How it's checked</h2>

@@ -27,6 +27,59 @@ const browser = await chromium.launch({
 });
 const base = process.env.SITE_BASE_URL || "http://localhost:8000";
 try {
+  // Day is the default; a remembered night choice applies before first paint.
+  // The probe records the body class the moment the first non-script element is inserted,
+  // which is before any deferred or jQuery-ready script can fix it up.
+  const firstPaint = async (path, stored, { stripBootstrap = false } = {}) => {
+    const ctx = await browser.newContext();
+    await ctx.addInitScript((v) => {
+      if (v) localStorage.setItem("darkMode", v);
+      window.__firstPaintDark = null;
+      new MutationObserver((_, obs) => {
+        const el = document.body && [...document.body.children].find((c) => c.tagName !== "SCRIPT");
+        if (el) { window.__firstPaintDark = document.body.classList.contains("dark-mode"); obs.disconnect(); }
+      }).observe(document, { childList: true, subtree: true });
+    }, stored);
+    if (stripBootstrap) {
+      await ctx.route("**/" , async (route) => {
+        const res = await route.fetch();
+        const body = (await res.text()).replace(/<script>[^<]*darkMode[^<]*<\/script>/, "");
+        await route.fulfill({ response: res, body });
+      });
+    }
+    const p = await ctx.newPage();
+    await p.goto(base + path, { waitUntil: "domcontentloaded" });
+    const dark = await p.evaluate(() => window.__firstPaintDark);
+    await ctx.close();
+    return dark;
+  };
+  for (const path of ["/", "/reports/faiss-caching-llm-cost-latency.html", "/research/when-agents-need-search.html", "/chat/", "/log.html"]) {
+    for (const [stored, expectDark] of [[null, false], ["enabled", true], ["disabled", false]]) {
+      assert.equal(await firstPaint(path, stored), expectDark, `${path} stored=${stored}: dark-mode at first paint`);
+    }
+  }
+  // Negative control: without the inline bootstrap, a night visitor would see day first. The probe must notice.
+  assert.equal(await firstPaint("/", "enabled", { stripBootstrap: true }), false, "first-paint probe is sensitive to a missing bootstrap");
+
+  // Body text contrast holds in day and night.
+  const contrastPage = await browser.newPage();
+  await contrastPage.goto(base);
+  for (const dark of [false, true]) {
+    await contrastPage.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
+    await contrastPage.waitForTimeout(600);
+    const ratio = await contrastPage.evaluate(() => {
+      const ctx = document.createElement("canvas").getContext("2d");
+      const rgb = (c) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data].slice(0, 3); };
+      const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+      const bg = getComputedStyle(document.body).backgroundColor;
+      const fg = getComputedStyle(document.querySelector(".heroPositioning")).color;
+      const [a, b] = [lum(rgb(fg)), lum(rgb(bg))].sort((x, y) => y - x);
+      return (a + 0.05) / (b + 0.05);
+    });
+    assert.ok(ratio >= 4.5, `body text contrast ${ratio.toFixed(2)} (dark=${dark})`);
+  }
+  await contrastPage.close();
+
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(base);
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());
@@ -73,6 +126,64 @@ try {
     assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
   }
 
+  // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1440, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
+  for (const [width, w, h] of [[1440, 128, 160], [1680, 128, 160], [390, 64, 80]]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.locator(".fieldScene").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    const cast = await page.evaluate(() => {
+      const sprites = [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+        .filter((el) => el.getBoundingClientRect().width > 0)
+        .map((el) => ({ w: el.getBoundingClientRect().width, h: el.getBoundingClientRect().height, r: getComputedStyle(el).imageRendering }));
+      const boxes = [...document.querySelectorAll(".personaStation:not([hidden])")].map((el) => el.getBoundingClientRect().toJSON());
+      const season = document.querySelector(".fieldSeasonChoices").getBoundingClientRect().toJSON();
+      return { sprites, boxes, season };
+    });
+    assert.ok(cast.sprites.length > 0, `sprites visible at ${width}`);
+    for (const s of cast.sprites) {
+      assert.deepEqual([Math.round(s.w), Math.round(s.h)], [w, h], `sprite ${Math.round(s.w)}x${Math.round(s.h)} at ${width}`);
+      assert.equal(s.r, "pixelated", `sprite rendering at ${width}`);
+    }
+    if (width < 900) {
+      const rows = await page.evaluate(() => {
+        const world = document.querySelector(".fieldWorld");
+        const cs = getComputedStyle(world);
+        const inner = world.getBoundingClientRect().width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        return [...document.querySelectorAll(".personaStation:not([hidden])")].map((el) => el.getBoundingClientRect().width / inner);
+      });
+      for (const r of rows) assert.ok(r > 0.9, `phone list row spans the field (${r.toFixed(2)}) at ${width}`);
+    }
+    const hit = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    if (width >= 900) {
+      cast.boxes.forEach((a, i) => cast.boxes.slice(i + 1).forEach((b) => assert.ok(!hit(a, b), `stations overlap at ${width}`)));
+      for (const a of cast.boxes) assert.ok(!hit(a, cast.season), `station covers the season control at ${width}`);
+    }
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  // Hero: one button plus a text link; the field spills past the hero's bottom edge.
+  const hero = await page.evaluate(() => {
+    const link = document.querySelector("#heroSection a.heroTextLink");
+    const heroBox = document.querySelector("#heroSection").getBoundingClientRect();
+    const field = document.querySelector(".fieldScene").getBoundingClientRect();
+    return { link: link?.textContent.trim() || "", buttons: document.querySelectorAll("#heroSection .heroButton").length, fieldBottom: field.bottom, heroBottom: heroBox.bottom };
+  });
+  assert.match(hero.link, /Discuss a project/i, "secondary action is a text link");
+  assert.equal(hero.buttons, 1, "one hero button");
+  assert.ok(hero.fieldBottom > hero.heroBottom, `field spills past the hero (${Math.round(hero.fieldBottom)} vs ${Math.round(hero.heroBottom)})`);
+
+  // The cast reaches the first screen on a common laptop: at least half of one character is visible at 1280x800.
+  {
+    const laptop = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await laptop.goto(base);
+    await laptop.waitForTimeout(600);
+    const tops = await laptop.evaluate(() => [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+      .map((el) => el.getBoundingClientRect()).filter((r) => r.height > 0).map((r) => r.top + r.height / 2));
+    assert.ok(tops.length > 0, "visible character sprites found at 1280x800");
+    assert.ok(tops.some((t) => t <= 800), `a character is half on screen at 1280x800 (${tops.map(Math.round)})`);
+    await laptop.close();
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
@@ -113,11 +224,30 @@ try {
       navFont: font(document.querySelector("a.nav-link")),
     };
   });
-  assert.ok(type.h1 >= -0.03 && type.h1 <= -0.015, `hero title tracking ratio ${type.h1}`);
-  for (const r of type.titles) assert.ok(r >= -0.025 && r <= -0.01, `section title tracking ratio ${r}`);
+  assert.equal(type.h1, 0, `hero title tracking ${type.h1}: pixel glyphs stay untracked`);
+  for (const r of type.titles) assert.equal(r, 0, `section title tracking ${r}: pixel glyphs stay untracked`);
   assert.ok(type.buttonSpacing <= 0, `hero button tracking ${type.buttonSpacing}`);
   assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
   assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
+
+  // Three faces, fixed roles: Pixelify Sans for display, Lato for body, Inconsolata for data. Karla is retired.
+  const faces = await page.evaluate(() => {
+    const fam = (el) => getComputedStyle(el).fontFamily;
+    const all = [...document.querySelectorAll("body *")].filter((el) => el.offsetParent || el === document.body);
+    const pixel = all.filter((el) => /^"?Pixelify Sans/.test(fam(el)) && el.textContent.trim());
+    return {
+      karla: all.filter((el) => /Karla/i.test(fam(el))).map((el) => el.tagName + "." + el.className).slice(0, 5),
+      h1: fam(document.querySelector("h1.heroTitle")),
+      titles: [...document.querySelectorAll(".sectionTitle")].map(fam),
+      body: [fam(document.body), fam(document.querySelector("a.nav-link")), fam(document.querySelector(".heroButton"))],
+      pixelSizes: pixel.map((el) => [el.className, parseFloat(getComputedStyle(el).fontSize)]),
+    };
+  });
+  assert.deepEqual(faces.karla, [], "no Karla on the homepage");
+  assert.match(faces.h1, /^"?Pixelify Sans/, "wordmark is pixel type");
+  for (const f of faces.titles) assert.match(f, /^"?Pixelify Sans/, "section titles are pixel type");
+  for (const f of faces.body) assert.match(f, /^"?Lato/, "body, nav and buttons are Lato");
+  for (const [cls, size] of faces.pixelSizes) assert.ok(size >= 16 && size % 8 === 0, `pixel type ${cls} at ${size}px`);
 
   // Hero controls: the season pair sits quietly inside the map; toolbar groups match the 8px control radius.
   const controls = await page.evaluate(() => {

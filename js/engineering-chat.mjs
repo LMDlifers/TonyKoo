@@ -652,7 +652,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault();
   window.top.location.assign(link.href);
 });
-try { if (localStorage.getItem('darkMode') === 'disabled') document.body.classList.remove('dark-mode'); } catch {}
+try { if (localStorage.getItem('darkMode') === 'enabled') document.body.classList.add('dark-mode'); } catch {}
 const glyphField = startGlyphField(document.querySelector('#glyphField'), document.querySelector('#main'), scrollEl);
 function updateTheme() {
   const dark = document.body.classList.contains('dark-mode');

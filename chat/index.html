@@ -10,9 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/engineering-chat.css">
 <link rel="stylesheet" href="../css/site-theme.css"></head>
-<body class="dark-mode">
+<body>
   <script>if(new URLSearchParams(location.search).has('embed'))document.body.classList.add('embedded')</script>
-  <script>try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
+  <script>try{if(localStorage.getItem('darkMode')==='enabled')document.body.classList.add('dark-mode')}catch(_){}</script>
   <a class="skipLink" href="#chatComposer">Skip to chat input</a>
   <div class="chatApp">
     <aside class="chatRail" id="chatRail" aria-label="Chat navigation">

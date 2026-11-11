@@ -14,19 +14,19 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     for (const path of ['/', '/chat/', '/research/', '/research/when-agents-need-search.html', '/reports/faiss-caching-llm-cost-latency.html']) {
       await page.goto(base + path, { waitUntil: 'domcontentloaded' });
-      assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true, `${path} did not open dark`);
-      await page.waitForFunction(() => getComputedStyle(document.body).backgroundColor === 'rgb(18, 21, 25)');
+      assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), false, `${path} did not open light`);
+      await page.waitForFunction(() => getComputedStyle(document.body).backgroundColor !== 'rgb(18, 21, 25)');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), false, `${path} overflows`);
     }
     await page.locator('.reportThemeButton').click();
-    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), false);
+    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true);
     await page.goto(base + '/chat/');
-    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), false, 'light preference did not follow visitor');
+    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true, 'dark preference did not follow visitor');
     await page.locator('#themeToggle').click();
     await page.goto(base + '/research/');
-    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true, 'dark preference did not follow visitor');
+    assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), false, 'light preference did not follow visitor');
     assert.deepEqual(errors, []);
     await context.close();
   }
-  console.log('Theme browser checks passed: dark default, report toggle, cross-page preference, and no overflow.');
+  console.log('Theme browser checks passed: light default, report toggle, cross-page preference, and no overflow.');
 } finally { await browser.close(); }

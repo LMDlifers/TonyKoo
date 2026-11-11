@@ -20,7 +20,7 @@ assert.doesNotMatch(heroBlock, /heroEyebrow/, "no hero eyebrow");
 
 assert.doesNotMatch(html, /heroGuideLine|projectDeckEyebrow|sectionKicker|bookCarouselEyebrow/, "no eyebrow markup left");
 assert.doesNotMatch(css, /\.heroGuideLine|\.heroEyebrow|\.sectionKicker|\.projectDeckEyebrow|\.bookCarouselEyebrow/, "no eyebrow css left");
-assert.match(css, /\.heroButtonSecondary\s*\{[^}]*background:\s*transparent/, "secondary hero button is outlined");
+assert.match(html, /<a class="heroTextLink" href="#contact">/, "secondary hero action is a text link");
 for (const [, inner] of html.matchAll(/<h4\b[^>]*>([\s\S]*?)<\/h4>/g)) assert.doesNotMatch(inner, /<(em|i)\b/, "no italics or icon-font <i> inside h4");
 assert.doesNotMatch(html, /class="dot |console-dots/, "no decorative window dots");
 assert.match(html, /<h3>Data Scientist Intern, SKEZI<\/h3>/, "role reads as a phrase");
@@ -66,5 +66,7 @@ const colophon = read("../colophon.html");
 assert.doesNotMatch(colophon, /every date on the site/i, "colophon does not overclaim date checks");
 assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim page coverage");
 assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
+assert.doesNotMatch(colophon.slice(colophon.indexOf("<main")), /Karla/, "colophon prose names the current typefaces");
+assert.match(colophon, /Pixelify Sans/, "colophon names the display face");
 
 console.log("Polish checks passed.");

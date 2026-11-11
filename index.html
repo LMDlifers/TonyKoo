@@ -51,9 +51,8 @@
 
 
     <!-- font styles -->
-    <!-- karla: navigation, headers -->
-    <link href='https://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet'
-        type='text/css'>
+    <!-- pixelify sans: wordmark, section titles, game labels -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <!-- lato: body -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
@@ -63,8 +62,8 @@
 <link rel="stylesheet" href="css/site-theme.css">
 <link rel="stylesheet" href="css/craft.css"></head>
 
-<body class="dark-mode">
-    <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
+<body>
+    <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('darkMode')==='enabled')document.body.classList.add('dark-mode')}catch(_){}</script>
     <nav id="navigation" class="shadow-sm navbar navbar-expand-lg" role="navigation" aria-label="Main navigation">
         <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Tony Koo - Home">
             <img src="images/portfolio/tonykoo.png" alt="Tony Koo Logo" width="30" height="30"
@@ -124,7 +123,7 @@
             </p>
             <div class="heroActions" aria-label="Primary actions">
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
-                <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
+                <a class="heroTextLink" href="#contact">Discuss a Project</a>
             </div>
             <p class="heroProofLine"><a class="heroProof" href="log.html">22 pages logged, latest added 22 Oct 2026</a></p>
             </div>
