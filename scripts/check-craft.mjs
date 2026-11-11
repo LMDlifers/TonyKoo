@@ -220,14 +220,14 @@ try {
         for (const sheet of document.styleSheets) {
           try {
             for (const rule of sheet.cssRules) {
-              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames2x") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
+              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
             }
           } catch {}
         }
         return { size: cs.backgroundSize, name: cs.animationName, timing: cs.animationTimingFunction, end };
       });
       assert.equal(walk.size, "768px 160px", "walk strip is 6 frames x 128px");
-      assert.equal(walk.name, "fieldWalkFrames2x", "2x walk keyframes");
+      assert.equal(walk.name, "fieldWalkFrames", "walk keyframes");
       assert.match(walk.timing, /steps\(6/, "walk steps through 6 frames");
       assert.equal(walk.end, "-768px", "walk keyframes end one full strip away");
     }
