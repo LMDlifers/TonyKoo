@@ -1,0 +1,209 @@
+/* Craft layer: how controls respond. Values come from the 2026-11-11 reference study
+   (Linear and Meta Muse press scale 0.97-0.98, colour steps on hover, nothing lifts). */
+
+.heroButton,
+#filter .btn,
+.projectViewButton,
+.fieldCastChoices button,
+.fieldSeasonChoices button,
+.contactLink,
+.labelMore > summary,
+.fieldSelectionLink,
+.logMore {
+    transition:
+        transform var(--dur-press) var(--ease-out),
+        background-color var(--dur-hover) var(--ease-standard),
+        border-color var(--dur-hover) var(--ease-standard),
+        color var(--dur-hover) var(--ease-standard),
+        box-shadow var(--dur-hover) var(--ease-standard);
+}
+
+/* Nothing lifts or glows: hover is a colour step in place. */
+.heroButton:hover,
+.heroButtonPrimary:hover,
+#filter .btn.active,
+#filter .btn:hover,
+.projectViewButton:hover,
+.fieldCastChoices button:hover,
+.fieldSeasonChoices button:hover,
+.contactLink:hover,
+.fieldSelectionLink:hover,
+.logMore:hover {
+    transform: none;
+}
+
+.heroButtonPrimary,
+.heroButtonPrimary:hover,
+body.dark-mode .heroButtonPrimary,
+body.dark-mode .heroButtonPrimary:hover {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.18);
+}
+
+.heroButton::before {
+    display: none;
+}
+
+@media (hover: hover) {
+    .heroButtonPrimary:hover {
+        background: var(--lab-accent-hover);
+        border-color: var(--lab-accent-hover);
+    }
+}
+
+/* Press gives a little, one shade darker, then springs back. */
+.heroButton:active,
+#filter .btn:active,
+.projectViewButton:active,
+.fieldCastChoices button:active,
+.fieldSeasonChoices button:active,
+.contactLink:active,
+.fieldSelectionLink:active,
+.logMore:active,
+.labelMore > summary:active,
+#filter .btn.active:active {
+    transform: scale(0.97);
+}
+
+.heroButtonPrimary:active {
+    background: color-mix(in srgb, var(--lab-accent-hover) 86%, black);
+    border-color: color-mix(in srgb, var(--lab-accent-hover) 86%, black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heroButton,
+    #filter .btn,
+    .projectViewButton,
+    .fieldCastChoices button,
+    .fieldSeasonChoices button,
+    .contactLink,
+    .labelMore > summary,
+    .fieldSelectionLink,
+    .logMore {
+        transition-duration: 0s;
+    }
+}
+
+/* Type: display heads tighten as they grow; buttons and nav share one voice. */
+.heroTitle,
+.fieldIntro .heroTitle {
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+.sectionTitle {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.heroButton {
+    letter-spacing: 0;
+}
+
+/* Mono is for dates, versions and code; the subtitle is prose. */
+.heroSubtitle {
+    font-family: 'Lato', sans-serif;
+}
+
+#navigation .navFindButton.nav-link {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+/* Surfaces: a hairline plus two soft layers (after Linear). Hover deepens the shadow; nothing lifts. */
+:root {
+    --shadow-card-craft: 0 0 0 1px var(--lab-line), 0 1px 2px rgb(0 0 0 / 0.08), 0 8px 24px -12px rgb(0 0 0 / 0.22);
+    --shadow-card-craft-hover: 0 0 0 1px var(--lab-line-strong), 0 1px 2px rgb(0 0 0 / 0.1), 0 16px 36px -14px rgb(0 0 0 / 0.32);
+}
+
+body.dark-mode {
+    --shadow-card-craft: 0 0 0 1px var(--lab-line), 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --shadow-card-craft-hover: 0 0 0 1px var(--lab-line-strong), 0 1px 2px rgb(0 0 0 / 0.35), 0 16px 36px -14px rgb(0 0 0 / 0.75);
+}
+
+.filterItem,
+body.dark-mode .filterItem {
+    box-shadow: var(--shadow-card-craft);
+    transition: box-shadow var(--dur-hover) var(--ease-standard), border-color var(--dur-hover) var(--ease-standard);
+}
+
+.filterItem:hover,
+body.dark-mode .filterItem:hover {
+    transform: none;
+    box-shadow: var(--shadow-card-craft-hover);
+}
+
+/* The image box holds its size and a tint before the image arrives. */
+.filterItemImg,
+body.dark-mode .filterItemImg {
+    background: var(--lab-bg-soft);
+    aspect-ratio: 16 / 10;
+    height: auto;
+    max-height: 300px;
+    min-height: 180px;
+}
+
+/* Field controls: one cast choice in the toolbar; the season pair sits quietly in the map's corner. */
+.fieldCastChoices,
+.fieldSeasonChoices,
+.fieldCastChoices button,
+.fieldSeasonChoices button {
+    border-radius: var(--radius-control);
+}
+
+.fieldWorld .fieldSeasonChoices {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 30;
+    padding: 2px;
+    gap: 2px;
+}
+
+.fieldWorld .fieldSeasonChoices button {
+    min-width: 0;
+    width: 44px;
+    height: 40px;
+    padding: 0;
+    display: inline-grid;
+    place-items: center;
+}
+
+
+/* Links: a tinted, offset underline that takes the link colour on hover. */
+.logEntry a,
+.logMore,
+.sectionIntro a,
+.contactCopy a,
+.evidenceLabel a,
+.heroProof {
+    text-decoration-line: underline;
+    text-decoration-color: var(--lab-line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-ui) var(--ease-standard), color var(--dur-hover) var(--ease-standard), transform var(--dur-press) var(--ease-out);
+}
+
+@media (hover: hover) {
+    .logEntry a:hover,
+    .logMore:hover,
+    .sectionIntro a:hover,
+    .contactCopy a:hover,
+    .evidenceLabel a:hover,
+    .heroProof:hover {
+        text-decoration-color: currentColor;
+    }
+}
+
+/* The proof line: a count and a date anyone can check against the lab log. */
+.heroProofLine {
+    margin: 18px 0 0;
+}
+
+.heroProof {
+    color: var(--lab-muted);
+    font-family: 'Inconsolata', monospace;
+    font-size: 14px;
+}

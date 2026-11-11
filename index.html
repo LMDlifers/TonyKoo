@@ -60,7 +60,8 @@
     <!-- inconsolata: code -->
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:300,400,500,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/guide-widget.css">
-<link rel="stylesheet" href="css/site-theme.css"></head>
+<link rel="stylesheet" href="css/site-theme.css">
+<link rel="stylesheet" href="css/craft.css"></head>
 
 <body class="dark-mode">
     <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('darkMode')==='disabled')document.body.classList.remove('dark-mode')}catch(_){}</script>
@@ -125,6 +126,7 @@
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
                 <a class="heroButton heroButtonSecondary" href="#contact"><i class="fas fa-envelope"></i> Discuss a Project</a>
             </div>
+            <p class="heroProofLine"><a class="heroProof" href="log.html">22 pages logged, latest added 22 Oct 2026</a></p>
             </div>
             <div class="fieldScene" data-season="summer" data-cast="work" role="region" aria-labelledby="fieldHeading">
                 <div class="fieldToolbar">
@@ -135,13 +137,13 @@
                         <button type="button" data-cast-choice="ideas" aria-pressed="false">Ideas</button>
                         <button type="button" data-cast-choice="methods" aria-pressed="false">Methods</button>
                     </div>
-                    <div class="fieldSeasonChoices" role="group" aria-label="Map season">
-                        <button type="button" data-season-choice="summer" aria-pressed="true">Summer</button>
-                        <button type="button" data-season-choice="snow" aria-pressed="false">Snow</button>
-                    </div>
                     </div>
                 </div>
                 <div class="fieldWorld">
+                <div class="fieldSeasonChoices" role="group" aria-label="Map season">
+                    <button type="button" data-season-choice="summer" aria-pressed="true" aria-label="Summer"><i class="fas fa-sun" aria-hidden="true"></i></button>
+                    <button type="button" data-season-choice="snow" aria-pressed="false" aria-label="Snow"><i class="fas fa-snowflake" aria-hidden="true"></i></button>
+                </div>
                 <a class="personaStation" data-persona="ai-engineer" data-casts="work" data-destination-label="Projects" data-x="0.28" data-y="0.62" style="--x: .28; --y: .62" href="#portfolio" aria-controls="fieldSelectionCard" aria-expanded="false">
                     <img class="personaStill" src="images/portfolio-field/ai-engineer-still.png" alt="" width="128" height="160">
                     <span class="personaAnimated" hidden aria-hidden="true"></span>
