@@ -160,7 +160,7 @@ TonyKoo/
 - **Original template inspiration**: [ValaryLim](https://github.com/ValaryLim)
 - **Design & development**: Tony Koo Ye Long
 - **Icons**: Font Awesome (https://fontawesome.com)
-- **Fonts**: Google Fonts (Pixelify Sans, Lato, Inconsolata; research, report and chat pages still use Karla)
+- **Fonts**: Google Fonts (Pixelify Sans, Lato, Inconsolata)
 - **Lightbox**: Fancybox 3.5.7
 - **Framework**: Bootstrap 4.3.1
 

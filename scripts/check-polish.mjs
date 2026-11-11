@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const read = (p) => fs.readFileSync(new URL(p, import.meta.url), "utf8");
 const html = read("../index.html");
@@ -68,5 +69,48 @@ assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim 
 assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
 assert.doesNotMatch(colophon.slice(colophon.indexOf("<main")), /Karla/, "colophon prose names the current typefaces");
 assert.match(colophon, /Pixelify Sans/, "colophon names the display face");
+
+// Karla is retired on every page; pages styled with var(--font-body) load the token's definition.
+const tracked = execFileSync("git", ["ls-files", "*.html"], { cwd: new URL("..", import.meta.url), encoding: "utf8" }).trim().split("\n");
+const tokenCss = new Set(fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && /var\(--font-body\)/.test(fs.readFileSync(new URL(f, cssDir), "utf8"))));
+for (const f of tracked) {
+  const page = read(`../${f}`);
+  assert.doesNotMatch(page, /Karla/, `${f}: no Karla`);
+  const links = [...page.matchAll(/href="([^"]*css\/([^"/]+\.css))"/g)].map((m) => m[2]);
+  if (links.some((l) => tokenCss.has(l))) {
+    assert.ok(links.includes("site-theme.css"), `${f}: uses --font-body, so it loads site-theme.css`);
+    // Shared conversations make no third-party requests (no-referrer page), so they fall back to system-ui.
+    if (f !== "chat/shared.html") assert.match(page, /fonts\.googleapis\.com\/css2\?family=Lato/, `${f}: uses --font-body, so it loads Lato`);
+  }
+}
+assert.doesNotMatch(css, /Karla/, "no Karla in our CSS");
+
+// Hover colours only on devices that hover, so a tap never leaves a stuck colour.
+// Brace scan: every rule naming one of these hovers sits inside @media (hover: hover),
+// unless it only resets transform.
+let hoverRules = 0;
+const HOVERS = /(\.btn|\.projectViewButton|\.contactLink|\.fieldCastChoices button|\.fieldSeasonChoices button):hover(?!::)/;
+for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))) {
+  const src = fs.readFileSync(new URL(f, cssDir), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+  const stack = [];
+  let start = 0;
+  for (let i = 0; i < src.length; i++) {
+    if (src[i] === "{") { stack.push(src.slice(start, i).trim()); start = i + 1; }
+    else if (src[i] === ";" ) { start = i + 1; }
+    else if (src[i] === "}") {
+      const head = stack.pop() ?? "";
+      if (!head.startsWith("@") && HOVERS.test(head)) {
+        hoverRules++;
+        const body = src.slice(src.lastIndexOf("{", i) + 1, i);
+        const onlyTransformReset = /^\s*transform:\s*none\s*(!important)?\s*;?\s*$/.test(body);
+        const guarded = stack.some((h) => /@media[^{]*\(hover:\s*hover\)/.test(h));
+        assert.ok(guarded || onlyTransformReset, `${f}: "${head.slice(0, 80)}" sits inside @media (hover: hover)`);
+      }
+      start = i + 1;
+    }
+  }
+}
+
+assert.ok(hoverRules >= 8, `hover scan found the rules it guards (${hoverRules})`);
 
 console.log("Polish checks passed.");

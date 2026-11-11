@@ -17,18 +17,22 @@
 .fieldCastChoices[hidden] { display: none; }
 .fieldCastChoices button, .fieldSeasonChoices button { min-width: 76px; min-height: 36px; padding: 4px 12px; border: 0; border-radius: 999px; background: transparent; color: #405759; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 .fieldCastChoices button[aria-pressed="true"], .fieldSeasonChoices button[aria-pressed="true"] { background: #283f44; color: #fff; box-shadow: 0 1px 4px #172c3030; }
+@media (hover: hover) {
 .fieldCastChoices button:hover:not([aria-pressed="true"]), .fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #e3e9e7; }
+}
 .fieldWorld { position: relative; width: 100%; aspect-ratio: 960 / 520; overflow: hidden; isolation: isolate; border: 1px solid #c4d0d0; border-radius: 20px; background: #e9eeed url('../images/portfolio-field/field-summer.svg') center / 100% 100% no-repeat; box-shadow: 0 18px 46px #19303816; }
 .fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow.svg'); }
 body.dark-mode .fieldWorld { border-color: #40545b; background-color: #101923; background-image: url('../images/portfolio-field/field-summer-night.svg'); }
 body.dark-mode .fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow-night.svg'); }
 
-.personaStation { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); z-index: var(--depth, 2); display: flex; flex-direction: column; align-items: center; width: 120px; min-height: 138px; padding: 3px 2px; transform: translate(-50%, -80%); color: #263d41; text-decoration: none; text-align: center; cursor: grab; touch-action: none; user-select: none; }
+.personaStation { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); z-index: var(--depth, 2); display: flex; flex-direction: column; align-items: center; width: 136px; min-height: 196px; padding: 3px 2px; transform: translate(-68px, -156px); color: #263d41; text-decoration: none; text-align: center; cursor: grab; touch-action: none; user-select: none; }
+/* Snap to whole pixels so 2x pixel art never lands between device pixels; older browsers keep the plain calc(). */
+@supports (left: round(nearest, 1px, 1px)) { .personaStation { left: round(nearest, calc(var(--x) * 100%), 1px); top: round(nearest, calc(var(--y) * 100%), 1px); } }
 .personaStation[hidden] { display: none !important; }
 .personaStation:active { cursor: grabbing; }
-.personaStation::before { content: ''; position: absolute; top: 89px; width: 56px; height: 12px; border-radius: 50%; background: #0d222a3d; filter: blur(4px); z-index: -1; }
-.personaStill { width: 80px; height: 100px; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
-.personaAnimated { display: none; width: 80px; height: 100px; flex: 0 0 auto; image-rendering: pixelated; background-image: var(--idle); background-size: 320px 100px; background-repeat: no-repeat; pointer-events: none; }
+.personaStation::before { content: ''; position: absolute; top: 148px; width: 88px; height: 12px; border-radius: 50%; background: #0d222a3d; filter: blur(4px); z-index: -1; }
+.personaStill { width: 128px; height: 160px; object-fit: contain; image-rendering: pixelated; pointer-events: none; }
+.personaAnimated { display: none; width: 128px; height: 160px; flex: 0 0 auto; image-rendering: pixelated; background-image: var(--idle); background-size: 512px 160px; background-repeat: no-repeat; pointer-events: none; }
 [data-persona="ai-engineer"] { --idle: url('../images/portfolio-field/ai-engineer-idle.png'); --walk: url('../images/portfolio-field/ai-engineer-walk.png'); }
 [data-persona="researcher"] { --idle: url('../images/portfolio-field/researcher-idle.png'); --walk: url('../images/portfolio-field/researcher-walk.png'); }
 [data-persona="student"] { --idle: url('../images/portfolio-field/student-idle.png'); --walk: url('../images/portfolio-field/student-walk.png'); }
@@ -46,9 +50,9 @@ body.dark-mode .fieldScene[data-season="snow"] .fieldWorld { background-image: u
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   .fieldScene[data-active="true"] .personaStill { display: none; }
   .fieldScene[data-active="true"] .personaAnimated { display: block; }
-  .fieldScene[data-active="true"] .personaStation.is-walking .personaAnimated { background-image: var(--walk); background-size: 480px 100px; animation: fieldWalkFrames .75s steps(6) infinite; }
+  .fieldScene[data-active="true"] .personaStation.is-walking .personaAnimated { background-image: var(--walk); background-size: 768px 160px; animation: fieldWalkFrames .75s steps(6) infinite; }
 }
-@keyframes fieldWalkFrames { to { background-position-x: -480px; } }
+@keyframes fieldWalkFrames { to { background-position-x: -768px; } }
 
 .fieldSelectionCard { position: absolute; z-index: 40; top: 74px; right: 38px; width: min(270px, 32%); padding: 18px 38px 18px 18px; border: 1px solid #c6d2d0; border-radius: 14px; background: #fbfcf9f7; box-shadow: 0 16px 35px #142b3440; }
 .fieldSelectionCard[hidden] { display: none; }
@@ -64,7 +68,9 @@ body.dark-mode .fieldToolbarTitle { color: #a9babf; }
 body.dark-mode .fieldCastChoices, body.dark-mode .fieldSeasonChoices { border-color: #465860; background: #1b282f; }
 body.dark-mode .fieldCastChoices button, body.dark-mode .fieldSeasonChoices button { color: #d4e2e2; }
 body.dark-mode .fieldCastChoices button[aria-pressed="true"], body.dark-mode .fieldSeasonChoices button[aria-pressed="true"] { background: #dbe7e4; color: #22353c; }
+@media (hover: hover) {
 body.dark-mode .fieldCastChoices button:hover:not([aria-pressed="true"]), body.dark-mode .fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #34484c; }
+}
 body.dark-mode .personaLabel, body.dark-mode .fieldSelectionCard { border-color: #4b6369; background: #213239f2; color: #eef3f1; }
 body.dark-mode .personaStation:is(:hover, :focus-visible, [aria-expanded="true"]) .personaLabel { border-color: #d3a073; background: #31444b; }
 body.dark-mode .fieldSelectionCard p { color: #bfd0d0; }
@@ -78,9 +84,9 @@ body.dark-mode .fieldSelectionClose { color: #d4e2e2; }
 @media (max-width: 899px) {
   .fieldScene { padding: 0 14px; }
   .fieldWorld { display: grid; grid-template-columns: minmax(0, 1fr); align-content: end; gap: 8px; aspect-ratio: auto; min-height: 540px; padding: 245px 14px 14px; background-size: 100% auto; background-position: center top; }
-  .personaStation { position: relative; left: auto; top: auto; transform: none; width: 100%; min-height: 78px; display: grid; grid-template-columns: 54px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 8px; padding: 6px 10px; border: 1px solid #c5d1ce; border-radius: 11px; background: #fbfcf9f2; text-align: left; cursor: pointer; touch-action: auto; }
+  .personaStation { position: relative; left: auto; top: auto; transform: none; width: 100%; min-height: 92px; display: grid; grid-template-columns: 64px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 8px; padding: 6px 10px; border: 1px solid #c5d1ce; border-radius: 11px; background: #fbfcf9f2; text-align: left; cursor: pointer; touch-action: auto; }
   .personaStation::before { display: none; }
-  .personaStill { width: 48px; height: 60px; grid-row: 1 / 3; }
+  .personaStill { width: 64px; height: 80px; grid-row: 1 / 3; }
   .personaAnimated { display: none !important; }
   .personaLabel { max-width: none; align-self: end; padding: 0; border: 0; background: none; box-shadow: none; font-size: 15px; white-space: normal; }
   .personaDescription { position: static; width: auto; height: auto; clip-path: none; overflow: visible; align-self: start; color: #607171; font-size: 12px; white-space: normal; }

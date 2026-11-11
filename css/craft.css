@@ -254,55 +254,6 @@ body.dark-mode .filterItemImg {
     }
 }
 
-/* The cast at whole-number scale: 64x80 art drawn at 2x on desktop, 1x in the phone list. */
-.personaStill,
-.personaAnimated {
-    width: 128px;
-    height: 160px;
-    image-rendering: pixelated;
-}
-
-.personaAnimated {
-    background-size: 512px 160px;
-}
-
-.fieldScene[data-active="true"] .personaStation.is-walking .personaAnimated {
-    background-size: 768px 160px;
-    animation-name: fieldWalkFrames2x;
-}
-
-@keyframes fieldWalkFrames2x {
-    to { background-position-x: -768px; }
-}
-
-@media (min-width: 900px) {
-    /* Snap to whole pixels so 2x pixel art never lands between device pixels. */
-    .personaStation {
-        width: 136px;
-        min-height: 196px;
-        left: round(nearest, calc(var(--x) * 100%), 1px);
-        top: round(nearest, calc(var(--y) * 100%), 1px);
-        transform: translate(-68px, -156px);
-    }
-
-    .personaStation::before {
-        top: 148px;
-        width: 88px;
-    }
-}
-
-@media (max-width: 899px) {
-    .personaStation {
-        grid-template-columns: 64px minmax(0, 1fr);
-        min-height: 92px;
-    }
-
-    .personaStill {
-        width: 64px;
-        height: 80px;
-    }
-}
-
 /* The secondary action is a quiet text link beside the one button. */
 .heroTextLink {
     align-self: center;
@@ -580,4 +531,16 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
             to { transform: none; }
         }
     }
+}
+
+/* Phones: the hero actions leave the launcher's column free, so it never covers them. */
+@media (max-width: 560px) {
+    .heroActions {
+        padding-right: 64px;
+    }
+}
+
+/* Without JS the deck cannot flip, so the plain project grid stands in for it. */
+html:not(.js) .projectDeck {
+    display: none;
 }

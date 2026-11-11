@@ -220,14 +220,14 @@ try {
         for (const sheet of document.styleSheets) {
           try {
             for (const rule of sheet.cssRules) {
-              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames2x") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
+              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
             }
           } catch {}
         }
         return { size: cs.backgroundSize, name: cs.animationName, timing: cs.animationTimingFunction, end };
       });
       assert.equal(walk.size, "768px 160px", "walk strip is 6 frames x 128px");
-      assert.equal(walk.name, "fieldWalkFrames2x", "2x walk keyframes");
+      assert.equal(walk.name, "fieldWalkFrames", "walk keyframes");
       assert.match(walk.timing, /steps\(6/, "walk steps through 6 frames");
       assert.equal(walk.end, "-768px", "walk keyframes end one full strip away");
     }
@@ -493,6 +493,33 @@ try {
     const cardTransform = await card.evaluate((el) => getComputedStyle(el).transform);
     const m = cardTransform === "none" ? [1, 0, 0, 1, 0, 0] : cardTransform.match(/matrix\(([^)]+)\)/)[1].split(",").map(Number);
     assert.ok(m[0] === 1 && m[3] === 1 && m[5] === 0, `card does not lift: ${cardTransform} (dark=${dark})`);
+  }
+  // The Ask launcher never covers the hero actions on small phones, and stays a 44px+ target.
+  for (const [width, height] of [[320, 640], [390, 844]]) {
+    const p = await browser.newPage({ viewport: { width, height } });
+    await p.goto(base + "/");
+    await p.waitForSelector(".findAskLauncher");
+    const r = await p.evaluate(() => {
+      const box = (s) => { const b = document.querySelector(s).getBoundingClientRect(); return { left: b.left, right: b.right, top: b.top, bottom: b.bottom, w: b.width, h: b.height }; };
+      return { launcher: box(".findAskLauncher"), primary: box(".heroButtonPrimary"), text: box(".heroTextLink"), name: document.querySelector(".findAskLauncher").getAttribute("aria-label") };
+    });
+    assert.ok(!hit(r.launcher, r.primary) && !hit(r.launcher, r.text), `launcher clear of the hero actions at ${width}x${height}`);
+    assert.ok(r.launcher.w >= 44 && r.launcher.h >= 44, `launcher stays a 44px+ target at ${width}x${height}`);
+    assert.ok(r.name, "launcher keeps its accessible name");
+    await p.close();
+  }
+
+  // Project cards show with JS off.
+  {
+    const ctx = await browser.newContext({ javaScriptEnabled: false });
+    const p = await ctx.newPage();
+    for (const width of [1440, 390]) {
+      await p.setViewportSize({ width, height: 900 });
+      await p.goto(base + "/");
+      const shown = await p.evaluate(() => [...document.querySelectorAll(".filterItem")].filter((el) => getComputedStyle(el).display !== "none" && el.getBoundingClientRect().height > 0).length);
+      assert.equal(shown, 11, `all 11 project cards show without JS at ${width} (${shown})`);
+    }
+    await ctx.close();
   }
 } finally {
   await browser.close();
