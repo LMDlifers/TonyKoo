@@ -581,3 +581,15 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
         }
     }
 }
+
+/* Phones: the hero actions leave the launcher's column free, so it never covers them. */
+@media (max-width: 560px) {
+    .heroActions {
+        padding-right: 64px;
+    }
+}
+
+/* Without JS the deck cannot flip, so the plain project grid stands in for it. */
+html:not(.js) .projectDeck {
+    display: none;
+}

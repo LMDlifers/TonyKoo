@@ -2089,7 +2089,7 @@ body.dark-mode .projectIndexBoundary {
     color: #A2BBDD;
 }
 
-.projectGridWrap.projectGridCollapsed {
+.js .projectGridWrap.projectGridCollapsed {
     display: none;
 }
 
@@ -2138,7 +2138,6 @@ body.dark-mode .projectIndexBoundary {
     min-height: 0;
     max-height: none;
     margin: 20px;
-    display: none;
     border: 1px solid rgba(217, 227, 239, 0.95);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
@@ -2146,6 +2145,11 @@ body.dark-mode .projectIndexBoundary {
     overflow-y: visible;
     overflow-x: hidden;
     position: relative;
+}
+
+/* Filtering hides cards only when JS can show them again; without JS every card shows. */
+.js .filterItem:not(.show) {
+    display: none;
 }
 
 .filterItem::before {

@@ -16,3 +16,4 @@
 .chatOverlay[open]~.findAskLauncher{visibility:hidden}
 @media(max-width:600px){.chatOverlay{width:100vw;height:100dvh;border:0;border-radius:0}.chatOverlay::backdrop{backdrop-filter:none}.chatOverlayBar{padding-left:14px}.findAskLauncher{right:12px;bottom:max(12px,env(safe-area-inset-bottom));min-height:54px;padding:5px 11px 5px 5px;gap:4px;font-size:.82rem}.findAskLauncher img{width:44px;height:44px}.findAskLauncher small{display:none}}
 @media(prefers-reduced-motion:reduce){.findAskLauncher:hover{transform:none}}
+@media(max-width:560px){.findAskLauncher{width:48px;height:48px;min-height:48px;padding:1px;justify-content:center}.findAskLauncher span{display:none}}
