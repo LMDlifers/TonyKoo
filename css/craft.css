@@ -62,8 +62,8 @@ body.dark-mode .heroButtonPrimary:hover {
 }
 
 .heroButtonPrimary:active {
-    background: color-mix(in srgb, var(--lab-accent-hover) 86%, var(--lab-ink));
-    border-color: color-mix(in srgb, var(--lab-accent-hover) 86%, var(--lab-ink));
+    background: color-mix(in srgb, var(--lab-accent-hover) 86%, black);
+    border-color: color-mix(in srgb, var(--lab-accent-hover) 86%, black);
 }
 
 @media (prefers-reduced-motion: reduce) {

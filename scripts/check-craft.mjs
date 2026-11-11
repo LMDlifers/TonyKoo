@@ -54,7 +54,18 @@ try {
     if (selector === ".heroButtonPrimary") assert.notEqual(hover.background, rest.background, `${selector} hover changes colour`);
     await page.mouse.down();
     await page.waitForTimeout(160);
-    const pressed = scaleOf((await state(button)).transform);
+    const pressedState = await state(button);
+    const pressed = scaleOf(pressedState.transform);
+    if (selector === ".heroButtonPrimary") {
+      const luminance = (bg) => button.evaluate((el, c) => {
+        const ctx = document.createElement("canvas").getContext("2d");
+        ctx.fillStyle = c;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        return (r + g + b) / 765;
+      }, bg);
+      assert.ok((await luminance(pressedState.background)) < (await luminance(hover.background)) - 0.02, `${selector} press is a darker step than hover`);
+    }
     assert.ok(pressed >= 0.96 && pressed <= 0.98, `${selector} press scale ${pressed}`);
     await page.mouse.up();
     await page.mouse.move(0, 0);
