@@ -85,13 +85,8 @@ body.dark-mode .heroButtonPrimary:hover {
 
 /* Type: display heads tighten as they grow; buttons and nav share one voice. */
 .heroTitle,
-.fieldIntro .heroTitle {
-    letter-spacing: -0.025em;
-    text-wrap: balance;
-}
-
+.fieldIntro .heroTitle,
 .sectionTitle {
-    letter-spacing: -0.02em;
     text-wrap: balance;
 }
 
@@ -105,7 +100,7 @@ body.dark-mode .heroButtonPrimary:hover {
 }
 
 #navigation .navFindButton.nav-link {
-    font-family: 'Karla', sans-serif;
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: normal;
@@ -206,4 +201,53 @@ body.dark-mode .filterItemImg {
     color: var(--lab-muted);
     font-family: 'Inconsolata', monospace;
     font-size: 14px;
+}
+
+/* Pixel display type: whole-pixel sizes, never tracked, never below 16px. */
+.heroTitle,
+.fieldIntro .heroTitle,
+.sectionTitle,
+.fieldToolbarTitle {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+.heroTitle,
+.fieldIntro .heroTitle {
+    font-size: 96px;
+}
+
+/* The line under the wordmark is prose, so it is Lato (spec section 3). */
+.heroTitle .title-line {
+    font-family: var(--font-body);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+    display: block;
+    margin-top: 16px;
+}
+
+.sectionTitle {
+    font-size: 48px;
+}
+
+.fieldToolbarTitle {
+    font-size: 24px;
+}
+
+@media (max-width: 560px) {
+    .heroTitle,
+    .fieldIntro .heroTitle {
+        font-size: 48px;
+    }
+
+    .heroTitle .title-line {
+        font-size: 24px;
+    }
+
+    .sectionTitle {
+        font-size: 32px;
+    }
 }

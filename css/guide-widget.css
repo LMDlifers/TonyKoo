@@ -1,27 +1,27 @@
-.findAskTrigger{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.45rem .85rem;border:1px solid #b8ccba;border-radius:999px;background:#fff;color:#24392d;font:700 .82rem Karla,Arial,sans-serif;white-space:nowrap;cursor:pointer}
+.findAskTrigger{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.45rem .85rem;border:1px solid #b8ccba;border-radius:999px;background:#fff;color:#24392d;font:700 .82rem var(--font-body);white-space:nowrap;cursor:pointer}
 .findAskTrigger:hover,.findAskTrigger:focus-visible{border-color:#285b4c;color:#1b473a;box-shadow:0 0 0 3px #285b4c22}
-.findAskTrigger kbd{padding:.1rem .28rem;border:1px solid #dce6da;border-radius:4px;background:#f7f8f2;color:#657668;font:600 .67rem Karla,Arial,sans-serif}
+.findAskTrigger kbd{padding:.1rem .28rem;border:1px solid #dce6da;border-radius:4px;background:#f7f8f2;color:#657668;font:600 .67rem var(--font-body)}
 .findAskHero{display:none}
-.findAskDialog{box-sizing:border-box;width:min(680px,calc(100vw - 32px));max-height:min(760px,calc(100dvh - 32px));margin:auto;padding:0;border:1px solid #d5e1d2;border-radius:18px;background:#fff;color:#24392d;box-shadow:0 30px 90px #1a302238;font-family:Karla,Arial,sans-serif;overflow:auto}
+.findAskDialog{box-sizing:border-box;width:min(680px,calc(100vw - 32px));max-height:min(760px,calc(100dvh - 32px));margin:auto;padding:0;border:1px solid #d5e1d2;border-radius:18px;background:#fff;color:#24392d;box-shadow:0 30px 90px #1a302238;font-family:var(--font-body);overflow:auto}
 .findAskDialog *{box-sizing:border-box}
 .findAskDialog::backdrop{background:#0c20148c}
 .findAskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.65rem 1.8rem .2rem}
-.findAskHeader h2{margin:.3rem 0 0;color:inherit;font:700 clamp(1.5rem,3vw,2rem)/1.13 Karla,Arial,sans-serif}
-.findAskEyebrow,.findAskLabel{margin:0;color:#285b4c;font:700 .68rem/1.3 Karla,Arial,sans-serif;}
-.findAskClose{border:0;background:transparent;color:#285b4c;font:400 1.9rem/1 Karla,Arial,sans-serif;cursor:pointer}
+.findAskHeader h2{margin:.3rem 0 0;color:inherit;font:700 clamp(1.5rem,3vw,2rem)/1.13 var(--font-body)}
+.findAskEyebrow,.findAskLabel{margin:0;color:#285b4c;font:700 .68rem/1.3 var(--font-body);}
+.findAskClose{border:0;background:transparent;color:#285b4c;font:400 1.9rem/1 var(--font-body);cursor:pointer}
 .findAskIntro{margin:0;padding:.7rem 1.8rem 1rem;color:#576c5c;font-size:.91rem;line-height:1.5}
 .findAskModes{display:flex;gap:.35rem;margin:0 1.8rem 1rem;border-bottom:1px solid #dbe6d9}
-.findAskModes button{padding:.7rem 1rem;border:0;border-bottom:2px solid transparent;background:transparent;color:#576c5c;font:700 .9rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskModes button{padding:.7rem 1rem;border:0;border-bottom:2px solid transparent;background:transparent;color:#576c5c;font:700 .9rem var(--font-body);cursor:pointer}
 .findAskModes button[aria-pressed=true]{border-bottom-color:#285b4c;color:#24392d}
 .findAskForm{padding:0 1.8rem}
 .findAskForm label{display:block;margin:0 0 .4rem;font-size:.8rem;font-weight:700}
 .findAskForm>div{display:flex;gap:.5rem}
-.findAskForm input{width:100%;min-width:0;min-height:46px;padding:.7rem .8rem;border:1px solid #b8ccba;border-radius:9px;background:#fff;color:#24392d;font:400 .93rem Karla,Arial,sans-serif}
-.findAskForm button{min-width:86px;border:0;border-radius:9px;background:#285b4c;color:#fff;font:700 .85rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskForm input{width:100%;min-width:0;min-height:46px;padding:.7rem .8rem;border:1px solid #b8ccba;border-radius:9px;background:#fff;color:#24392d;font:400 .93rem var(--font-body)}
+.findAskForm button{min-width:86px;border:0;border-radius:9px;background:#285b4c;color:#fff;font:700 .85rem var(--font-body);cursor:pointer}
 .findAskForm button:hover{background:#1b473a}
 .findAskForm button:disabled{opacity:.55;cursor:wait}
 .findAskSuggestions{display:flex;flex-wrap:wrap;gap:.5rem;padding:.8rem 1.8rem 1.1rem}
-.findAskSuggestions button{padding:.4rem .7rem;border:1px solid #d8e5d8;border-radius:999px;background:#f7f8f2;color:#285b4c;font:600 .77rem Karla,Arial,sans-serif;cursor:pointer}
+.findAskSuggestions button{padding:.4rem .7rem;border:1px solid #d8e5d8;border-radius:999px;background:#f7f8f2;color:#285b4c;font:600 .77rem var(--font-body);cursor:pointer}
 .findAskSuggestions button:hover{background:#eaf2e9}
 .findAskResults{max-height:min(360px,40dvh);overflow:auto;padding:1rem 1.8rem;border-top:1px solid #dfe8dc;background:#fbfcf8}
 .findAskResults[hidden]{display:none}
@@ -61,10 +61,10 @@ body.dark-mode .findAskDialog,body.dark-mode .findAskTrigger,body.dark-mode .fin
 body.dark-mode .findAskResults{background:#203528}
 body.dark-mode .findAskSource:hover,body.dark-mode .findAskSource:focus-visible{background:#2b4835}
 @media(max-width:540px){.findAskDialog{border-radius:0}}
-.findAskLauncher{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:7px;min-height:58px;padding:6px 13px 6px 6px;border:0;border-radius:15px;background:#fffdf8;color:#24392d;box-shadow:0 10px 30px rgba(27,52,35,.22);font:700 .87rem/1.15 Karla,Arial,sans-serif;text-align:left;cursor:pointer}
+.findAskLauncher{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:7px;min-height:58px;padding:6px 13px 6px 6px;border:0;border-radius:15px;background:#fffdf8;color:#24392d;box-shadow:0 10px 30px rgba(27,52,35,.22);font:700 .87rem/1.15 var(--font-body);text-align:left;cursor:pointer}
 .findAskLauncher img{display:block;width:46px;height:46px;image-rendering:pixelated}
 .findAskLauncher span{display:block;white-space:nowrap}
-.findAskLauncher small{display:block;margin-top:4px;color:#576c5c;font:400 .75rem/1.2 Karla,Arial,sans-serif}
+.findAskLauncher small{display:block;margin-top:4px;color:#576c5c;font:400 .75rem/1.2 var(--font-body)}
 .findAskLauncher:hover{background:#f4f6ed;transform:translateY(-2px)}
 .findAskLauncher:focus-visible{outline:3px solid #b16d3e;outline-offset:3px}
 body.dark-mode .findAskLauncher{background:#1b2d22;color:#f1f6ed}
