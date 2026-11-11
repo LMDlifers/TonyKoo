@@ -10,7 +10,7 @@
 }
 .logEntry {
     display: grid;
-    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+    grid-template-columns: 12px 7.5rem minmax(0, 1fr) auto;
     gap: 16px;
     align-items: baseline;
     padding: 12px 0;

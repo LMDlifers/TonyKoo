@@ -429,3 +429,32 @@ body.dark-mode .filterItem.pixelFrame {
 #filter .btn.active::before {
     content: "►";
 }
+
+/* Quest log: each dated entry carries a small completed mark. */
+.questMark {
+    width: 12px;
+    height: 12px;
+    image-rendering: pixelated;
+    vertical-align: middle;
+}
+
+/* The field card as an RPG dialogue box: the speaker's portrait, a pixel name tag, the line. */
+.fieldSelectionCard.pixelFrame {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+}
+
+.fieldSelectionPortrait {
+    width: 64px;
+    height: 80px;
+    image-rendering: pixelated;
+}
+
+.fieldSelectionTitle {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+}

@@ -303,6 +303,36 @@ try {
     await page.locator("#filter .btn").first().click();
   }
 
+  // The field card is a dialogue box: pixel frame, pixel name tag, the character's portrait.
+  {
+    await page.locator(".fieldScene").scrollIntoViewIfNeeded();
+    const dialogue = async (persona) => {
+      // Walking characters never hold still for Playwright's stability wait, so force the click.
+      await page.locator(`[data-persona="${persona}"]`).click({ force: true });
+      await page.waitForTimeout(200);
+      const d = await page.evaluate(() => {
+        const card = document.querySelector(".fieldSelectionCard");
+        const img = card.querySelector(".fieldSelectionPortrait");
+        const r = img.getBoundingClientRect();
+        const tag = getComputedStyle(card.querySelector(".fieldSelectionTitle"));
+        return { frame: getComputedStyle(card).borderImageSource, src: img.getAttribute("src"), w: r.width, h: r.height, font: tag.fontFamily, size: tag.fontSize };
+      });
+      await page.locator(".fieldSelectionClose").click();
+      return d;
+    };
+    await page.locator('[data-cast-choice="work"]').click(); // an earlier press test leaves the Ideas cast showing
+    const engineer = await dialogue("ai-engineer");
+    assert.match(engineer.frame, /pixel-frame/, "dialogue box sits in the pixel frame");
+    assert.match(engineer.src || "", /ai-engineer-still\.png$/, "dialogue shows the AI Engineer's portrait");
+    assert.deepEqual([Math.round(engineer.w), Math.round(engineer.h)], [64, 80], "portrait at 1x");
+    assert.match(engineer.font, /^"?Pixelify Sans/, "name tag is pixel type");
+    assert.equal(engineer.size, "16px", "name tag is 16px");
+    await page.locator('[data-cast-choice="ideas"]').click();
+    const researcher = await dialogue("researcher");
+    assert.match(researcher.src || "", /researcher-still\.png$/, "portrait follows the selected character in another cast");
+    await page.locator('[data-cast-choice="work"]').click();
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
