@@ -15,7 +15,7 @@
         background-color var(--dur-hover) var(--ease-standard),
         border-color var(--dur-hover) var(--ease-standard),
         color var(--dur-hover) var(--ease-standard),
-        box-shadow var(--dur-hover) var(--ease-standard);
+        box-shadow var(--dur-press) var(--ease-out);
 }
 
 /* Nothing lifts or glows: hover is a colour step in place. */
@@ -32,11 +32,23 @@
     transform: none;
 }
 
+/* Console-button press: every control rests on a hard 2px shadow and presses 2px down into it. */
+.heroButton,
+#filter .btn,
+.projectViewButton,
+.fieldCastChoices button,
+.fieldSeasonChoices button,
+.contactLink,
+.fieldSelectionLink,
+.logMore {
+    box-shadow: 0 2px 0 var(--lab-line-strong);
+}
+
 .heroButtonPrimary,
 .heroButtonPrimary:hover,
 body.dark-mode .heroButtonPrimary,
 body.dark-mode .heroButtonPrimary:hover {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.18);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--lab-accent) 70%, black);
 }
 
 .heroButton::before {
@@ -59,9 +71,15 @@ body.dark-mode .heroButtonPrimary:hover {
 .contactLink:active,
 .fieldSelectionLink:active,
 .logMore:active,
-.labelMore > summary:active,
-#filter .btn.active:active {
-    transform: scale(0.97);
+#filter .btn.active:active,
+.heroButtonPrimary:active,
+body.dark-mode .heroButtonPrimary:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.labelMore > summary:active {
+    transform: translateY(1px);
 }
 
 .heroButtonPrimary:active {

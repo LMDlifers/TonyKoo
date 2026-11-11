@@ -89,7 +89,9 @@ try {
   const easeOut = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ease-out").trim());
   assert.equal(easeOut, "cubic-bezier(0.32, 0.72, 0, 1)", "house ease-out token");
 
-  // Buttons: hover changes colour in place, press gives a little, release returns.
+  // Buttons press like console buttons: a hard 2px shadow at rest, pressed 2px down into it,
+  // hover a colour step in place, release back to rest. (Retro PR 2 replaces the 0.97 scale.)
+  const dropOf = (t) => (t === "none" ? 0 : Number(t.match(/matrix\([^)]*,\s*(-?[\d.]+)\)$/)?.[1] ?? 0));
   const scaleOf = (t) => (t === "none" ? 1 : Number(t.match(/matrix\(([^,]+)/)?.[1] ?? 1));
   const state = (loc) => loc.evaluate((el) => {
     const cs = getComputedStyle(el);
@@ -102,6 +104,8 @@ try {
     await page.waitForTimeout(300);
     const rest = await state(button);
     assert.equal(rest.transform, "none", `${selector} rests flat`);
+    const hard = !selector.includes("summary");
+    if (hard) assert.match(rest.shadow, /0px 2px 0px( 0px)?$|0px 2px 0px( 0px)?,/, `${selector} rests on a hard 2px shadow (${rest.shadow})`);
     await button.hover();
     await page.waitForTimeout(300);
     const hover = await state(button);
@@ -112,16 +116,17 @@ try {
     await page.mouse.down();
     await page.waitForTimeout(160);
     const pressedState = await state(button);
-    const pressed = scaleOf(pressedState.transform);
     if (selector === ".heroButtonPrimary") {
       const luminance = (bg) => button.evaluate((el, c) => window.__rgb(c).reduce((a, v) => a + v, 0) / 765, bg);
       assert.ok((await luminance(pressedState.background)) < (await luminance(hover.background)) - 0.02, `${selector} press is a darker step than hover`);
     }
-    assert.ok(pressed >= 0.96 && pressed <= 0.98, `${selector} press scale ${pressed}`);
+    assert.equal(scaleOf(pressedState.transform), 1, `${selector} press does not scale`);
+    assert.equal(dropOf(pressedState.transform), hard ? 2 : 1, `${selector} presses down`);
+    if (hard) assert.ok(pressedState.shadow === "none" || /0px 0px 0px/.test(pressedState.shadow), `${selector} settles into its shadow (${pressedState.shadow})`);
     await page.mouse.up();
     await page.mouse.move(0, 0);
     await page.waitForTimeout(300);
-    assert.equal(scaleOf((await state(button)).transform), 1, `${selector} returns to rest`);
+    assert.equal((await state(button)).transform, "none", `${selector} returns to rest`);
   }
 
   // The cast renders at whole-number scale: 2x from 900px up (the field is capped at 1000px, so wide screens stay 2x), 1x in the phone list. Stations never overlap.
