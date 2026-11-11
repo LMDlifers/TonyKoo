@@ -34,8 +34,7 @@ try {
       ids: [...document.querySelectorAll(".chapter")].map((c) => c.id),
       after: [...document.querySelectorAll(".chapter")].map((c) => next(c)?.id),
       dialogue: Object.fromEntries([...document.querySelectorAll(".chapter")].map((c) => [c.id, c.querySelector(".chapterDialogue")?.textContent ?? ""])),
-      portfolioIntro: document.querySelector("#portfolio .sectionIntro")?.textContent ?? "",
-      contactCopy: document.querySelector("#contact .contactCopy")?.textContent ?? "",
+      body: document.body.textContent,
     };
   });
   assert.deepEqual(layout.ids, ["chapter-projects", "chapter-contact"], "exactly two chapters, in order");
@@ -43,25 +42,31 @@ try {
   for (const [id, sentence] of Object.entries(SENTENCES)) {
     assert.equal(squash(layout.dialogue[id]), sentence, `${id} dialogue carries the moved sentence`);
   }
-  assert.ok(!squash(layout.portfolioIntro).includes(SENTENCES["chapter-projects"]), "projects sentence moved, not copied");
-  assert.ok(!squash(layout.contactCopy).includes(SENTENCES["chapter-contact"]), "contact sentence moved, not copied");
+  for (const sentence of Object.values(SENTENCES)) {
+    assert.equal(squash(layout.body).split(sentence).length - 1, 1, `sentence appears once on the page (moved, not copied): ${sentence.slice(0, 30)}`);
+  }
 
-  for (const [width, height, w, h] of [[1440, 900, 512, 640], [390, 844, 256, 320]]) {
+  // Short screens step down to the next whole-number scale so the chapter still fits one screen.
+  for (const [width, height, w, h] of [[1440, 900, 512, 640], [1366, 768, 256, 320], [1280, 720, 256, 320], [390, 844, 256, 320], [320, 568, 128, 160]]) {
     await page.setViewportSize({ width, height });
     await page.waitForTimeout(200);
     const sizes = await page.evaluate(() => [...document.querySelectorAll(".chapter")].map((c) => {
       const s = c.querySelector(".chapterSprite");
       const r = s.getBoundingClientRect();
-      return { w: r.width, h: r.height, rendering: getComputedStyle(s).imageRendering, chapter: c.getBoundingClientRect().height, hidden: s.getAttribute("aria-hidden") };
+      // Measure the content, not the box: the last child's bottom from the chapter's top, plus padding.
+      const top = c.getBoundingClientRect().top;
+      const bottom = Math.max(r.bottom, c.querySelector(".chapterDialogue").getBoundingClientRect().bottom);
+      return { w: r.width, h: r.height, rendering: getComputedStyle(s).imageRendering, chapter: bottom - top + parseFloat(getComputedStyle(c).paddingBottom), box: c.getBoundingClientRect().height, hidden: s.getAttribute("aria-hidden") };
     }));
     for (const s of sizes) {
       assert.deepEqual([Math.round(s.w), Math.round(s.h)], [w, h], `chapter sprite ${Math.round(s.w)}x${Math.round(s.h)} at ${width}`);
       assert.equal(s.rendering, "pixelated", "chapter sprite stays crisp");
       assert.equal(s.hidden, "true", "chapter sprite is decorative");
       assert.ok(s.chapter <= height + 0.5, `chapter is one screen at most (${Math.round(s.chapter)} at ${width}x${height})`);
+      assert.ok(s.chapter <= s.box + 0.5, `chapter content stays inside the chapter (${Math.round(s.chapter)} > ${Math.round(s.box)} at ${width}x${height})`);
     }
   }
-  for (const width of [320, 390, 768, 1024, 1440]) {
+  for (const width of [320, 390, 768, 899, 900, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.waitForTimeout(150);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth), false, `no sideways scroll at ${width}`);

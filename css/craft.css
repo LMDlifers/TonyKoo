@@ -490,12 +490,11 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 512px minmax(0, 560px);
+    grid-template-columns: auto minmax(0, 560px);
     justify-content: center;
     align-items: end;
     gap: 32px;
     max-width: 1140px;
-    max-height: 100svh;
     margin: 0 auto;
     padding: 24px 15px;
     overflow-x: clip;
@@ -539,6 +538,21 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     .chapterDialogue {
         margin: 0;
         font-size: 18px;
+    }
+}
+
+/* Short screens: the next whole-number scale down, so a chapter never runs past one screen. */
+@media (min-width: 900px) and (max-height: 879px) {
+    .chapterSprite {
+        --chapter-frame-w: 256px;
+        --chapter-frame-h: 320px;
+    }
+}
+
+@media (max-width: 899px) and (max-height: 699px) {
+    .chapterSprite {
+        --chapter-frame-w: 128px;
+        --chapter-frame-h: 160px;
     }
 }
 
