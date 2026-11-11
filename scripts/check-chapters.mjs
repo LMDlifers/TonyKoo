@@ -88,6 +88,27 @@ try {
   }
   await page.close();
 
+  // Motion on: the character walks (6 whole frames at 8x) and slides in as the chapter scrolls into view.
+  {
+    const p = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await p.goto(base);
+    const sprite = (prop) => p.evaluate((k) => getComputedStyle(document.querySelector("#chapter-projects .chapterSprite"))[k], prop);
+    assert.match(await sprite("animationName"), /chapterWalkFrames/, "walk frames run");
+    assert.match(await sprite("animationName"), /chapterWalkIn/, "walk-in runs");
+    assert.match(await sprite("animationTimeline"), /view\(\)/, "walk-in follows the scroll");
+    assert.equal(await sprite("backgroundSize"), "3072px 640px", "walk strip is 6 frames x 512px at 8x");
+    const xAt = async (offset) => {
+      await p.evaluate((o) => { const c = document.getElementById("chapter-projects"); scrollTo(0, c.offsetTop - innerHeight + o); }, offset);
+      await p.waitForTimeout(150);
+      const t = await sprite("transform");
+      return t === "none" ? 0 : Number(t.match(/matrix\(([^)]+)\)/)[1].split(",")[4]);
+    };
+    const early = await xAt(120);
+    const later = await xAt(520);
+    assert.ok(early < later, `sprite moves in as the chapter scrolls (${Math.round(early)} -> ${Math.round(later)})`);
+    await p.close();
+  }
+
   // JS off and reduced motion: the chapters are complete and still.
   for (const opts of [{ javaScriptEnabled: false }, { reducedMotion: "reduce" }]) {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, ...opts });

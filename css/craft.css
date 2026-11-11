@@ -502,8 +502,10 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
 }
 
 .chapterSprite {
-    width: 512px;
-    height: 640px;
+    --chapter-frame-w: 512px;
+    --chapter-frame-h: 640px;
+    width: var(--chapter-frame-w);
+    height: var(--chapter-frame-h);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: 100% 100%;
@@ -530,8 +532,8 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     }
 
     .chapterSprite {
-        width: 256px;
-        height: 320px;
+        --chapter-frame-w: 256px;
+        --chapter-frame-h: 320px;
     }
 
     .chapterDialogue {
@@ -540,3 +542,28 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     }
 }
 
+
+/* Chapter motion: the character walks on the spot and slides in as its chapter scrolls into view.
+   Only where the browser supports scroll timelines and the visitor allows motion. */
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .js .chapterSprite {
+            background-image: var(--chapter-walk);
+            background-size: calc(6 * var(--chapter-frame-w)) var(--chapter-frame-h);
+            animation:
+                chapterWalkFrames 0.75s steps(6) infinite,
+                chapterWalkIn linear both;
+            animation-timeline: auto, view();
+            animation-range: normal, entry 0% cover 45%;
+        }
+
+        @keyframes chapterWalkFrames {
+            to { background-position-x: calc(-6 * var(--chapter-frame-w)); }
+        }
+
+        @keyframes chapterWalkIn {
+            from { transform: translateX(-60vw); }
+            to { transform: none; }
+        }
+    }
+}
