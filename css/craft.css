@@ -274,9 +274,13 @@ body.dark-mode .filterItemImg {
 }
 
 @media (min-width: 900px) {
+    /* Snap to whole pixels so 2x pixel art never lands between device pixels. */
     .personaStation {
         width: 136px;
         min-height: 196px;
+        left: round(nearest, calc(var(--x) * 100%), 1px);
+        top: round(nearest, calc(var(--y) * 100%), 1px);
+        transform: translate(-68px, -156px);
     }
 
     .personaStation::before {

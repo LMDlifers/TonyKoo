@@ -184,6 +184,76 @@ try {
     await laptop.close();
   }
 
+  // The cast sits on whole pixels, standing still and while walking.
+  for (const [w, h] of [[1440, 900], [1280, 800]]) {
+    const snap = await browser.newPage({ viewport: { width: w, height: h } });
+    await snap.goto(base);
+    await snap.locator(".fieldScene").scrollIntoViewIfNeeded();
+    await snap.waitForTimeout(300);
+    // Offsets are measured from the map's own box: the page above it has text-height fractions the
+    // browser snaps at paint, but anything fractional inside the map comes from our positioning.
+    const spriteRects = () => snap.evaluate(() => {
+      const world = document.querySelector(".fieldWorld").getBoundingClientRect();
+      return [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+        .map((el) => el.getBoundingClientRect()).filter((r) => r.height > 0).map((r) => [r.left - world.left, r.top - world.top]);
+    });
+    const onPixel = (rects, note) => {
+      assert.ok(rects.length > 0, `sprites found (${note})`);
+      for (const [x, y] of rects) assert.ok(Math.abs(x - Math.round(x)) < 0.01 && Math.abs(y - Math.round(y)) < 0.01, `sprite at ${x},${y} is between pixels (${note})`);
+    };
+    onPixel(await spriteRects(), `still, width ${w}`);
+    await snap.evaluate(() => {
+      document.querySelector(".fieldScene").dataset.active = "true";
+      document.querySelector(".personaStation:not([hidden])").classList.add("is-walking");
+    });
+    await snap.waitForTimeout(200);
+    onPixel(await spriteRects(), `walking, width ${w}`);
+
+    // Walk frames: six 128px frames, stepped, ending exactly one strip away.
+    if (w === 1440) {
+      const walk = await snap.evaluate(() => {
+        const el = document.querySelector(".personaStation.is-walking .personaAnimated");
+        const cs = getComputedStyle(el);
+        let end = null;
+        for (const sheet of document.styleSheets) {
+          try {
+            for (const rule of sheet.cssRules) {
+              if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === "fieldWalkFrames2x") end = rule.cssRules[rule.cssRules.length - 1].style.backgroundPositionX;
+            }
+          } catch {}
+        }
+        return { size: cs.backgroundSize, name: cs.animationName, timing: cs.animationTimingFunction, end };
+      });
+      assert.equal(walk.size, "768px 160px", "walk strip is 6 frames x 128px");
+      assert.equal(walk.name, "fieldWalkFrames2x", "2x walk keyframes");
+      assert.match(walk.timing, /steps\(6/, "walk steps through 6 frames");
+      assert.equal(walk.end, "-768px", "walk keyframes end one full strip away");
+    }
+    await snap.close();
+  }
+
+  // The theme toggle shows the icon for the theme it switches to.
+  {
+    const iconOf = (p) => p.locator("#darkModeToggle svg[data-icon]").getAttribute("data-icon");
+    const day = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await day.goto(base);
+    await day.waitForSelector("#darkModeToggle svg[data-icon]");
+    assert.equal(await iconOf(day), "moon", "day shows the moon");
+    assert.equal(await day.locator("#darkModeToggle").getAttribute("aria-label"), "Switch to dark mode");
+    await day.locator("#darkModeToggle").click();
+    await day.waitForSelector('#darkModeToggle svg[data-icon="sun"]', { timeout: 2000 });
+    assert.equal(await day.locator("#darkModeToggle").getAttribute("aria-label"), "Switch to light mode");
+    await day.locator("#darkModeToggle").click();
+    await day.waitForSelector('#darkModeToggle svg[data-icon="moon"]', { timeout: 2000 });
+    await day.close();
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    await ctx.addInitScript(() => localStorage.setItem("darkMode", "enabled"));
+    const night = await ctx.newPage();
+    await night.goto(base);
+    await night.waitForSelector('#darkModeToggle svg[data-icon="sun"]', { timeout: 2000 });
+    await ctx.close();
+  }
+
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
