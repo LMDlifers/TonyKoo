@@ -372,10 +372,9 @@ body.dark-mode .filterItemImg {
         margin-top: 8px;
     }
 
-    #portfolio {
-        position: relative;
-        z-index: 1;
-        padding-top: 280px;
+    /* The hero field spills 200px into whatever follows; the first chapter takes that space. */
+    #chapter-projects {
+        padding-top: 216px;
     }
 }
 
@@ -483,4 +482,102 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0;
+}
+
+/* Two story chapters (retro spec section 5): one character, large, beside its section's intro line.
+   Static by default; the walk-in lives only inside the motion and support guards below. */
+.chapter {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 560px);
+    justify-content: center;
+    align-items: end;
+    gap: 32px;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 24px 15px;
+    overflow-x: clip;
+}
+
+.chapterSprite {
+    --chapter-frame-w: 512px;
+    --chapter-frame-h: 640px;
+    width: var(--chapter-frame-w);
+    height: var(--chapter-frame-h);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+}
+
+.chapterSprite--ai-engineer { background-image: url(../images/portfolio-field/ai-engineer-still.png); --chapter-walk: url(../images/portfolio-field/ai-engineer-walk.png); }
+.chapterSprite--student { background-image: url(../images/portfolio-field/student-still.png); --chapter-walk: url(../images/portfolio-field/student-walk.png); }
+
+.chapterDialogue {
+    margin: 0 0 96px;
+    padding: 8px 12px;
+    font-family: var(--font-body);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--lab-ink);
+}
+
+@media (max-width: 899px) {
+    .chapter {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 16px;
+    }
+
+    .chapterSprite {
+        --chapter-frame-w: 256px;
+        --chapter-frame-h: 320px;
+    }
+
+    .chapterDialogue {
+        margin: 0;
+        font-size: 18px;
+    }
+}
+
+/* Short screens: the next whole-number scale down, so a chapter never runs past one screen. */
+@media (min-width: 900px) and (max-height: 879px) {
+    .chapterSprite {
+        --chapter-frame-w: 256px;
+        --chapter-frame-h: 320px;
+    }
+}
+
+@media (max-width: 899px) and (max-height: 699px) {
+    .chapterSprite {
+        --chapter-frame-w: 128px;
+        --chapter-frame-h: 160px;
+    }
+}
+
+
+/* Chapter motion: the character walks on the spot and slides in as its chapter scrolls into view.
+   Only where the browser supports scroll timelines and the visitor allows motion. */
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .js .chapterSprite {
+            background-image: var(--chapter-walk);
+            background-size: calc(6 * var(--chapter-frame-w)) var(--chapter-frame-h);
+            animation:
+                chapterWalkFrames 0.75s steps(6) infinite,
+                chapterWalkIn linear both;
+            animation-timeline: auto, view();
+            animation-range: normal, entry 0% cover 45%;
+        }
+
+        @keyframes chapterWalkFrames {
+            to { background-position-x: calc(-6 * var(--chapter-frame-w)); }
+        }
+
+        @keyframes chapterWalkIn {
+            from { transform: translateX(-60vw); }
+            to { transform: none; }
+        }
+    }
 }
