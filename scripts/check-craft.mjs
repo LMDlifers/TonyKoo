@@ -103,6 +103,19 @@ try {
   for (const w of controls.seasonSizes) assert.ok(w >= 40 && w <= 48, `season button is icon-sized (${w}px)`);
   for (const r of controls.radii) assert.ok(r <= 10, `toolbar group radius ${r}px, not a pill`);
 
+  // Links: a tinted, offset underline that takes the link colour on hover.
+  const link = await page.evaluate(() => {
+    const cs = getComputedStyle(document.querySelector(".logEntry a"));
+    return { deco: cs.textDecorationColor, color: cs.color, offset: parseFloat(cs.textUnderlineOffset) || 0, transition: cs.transitionProperty };
+  });
+  assert.notEqual(link.deco, link.color, "link underline is tinted, not currentColor");
+  assert.ok(link.offset >= 2, `link underline offset ${link.offset}px`);
+  assert.match(link.transition, /text-decoration-color|all/, "underline colour fades");
+
+  // A checkable proof line in the hero.
+  const proof = await page.locator(".heroProof").textContent();
+  assert.match(proof.trim(), /^\d+ pages logged, latest added \d{1,2} [A-Z][a-z]{2} \d{4}$/, "hero proof line");
+
   // Surfaces: cards have a hairline plus soft layers, never lift, and hold a tinted image box before load.
   for (const dark of [false, true]) {
     await page.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);

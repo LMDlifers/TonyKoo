@@ -173,3 +173,39 @@ body.dark-mode .filterItemImg {
         right: auto;
     }
 }
+
+/* Links: a tinted, offset underline that takes the link colour on hover. */
+.logEntry a,
+.logMore,
+.sectionIntro a,
+.contactCopy a,
+.evidenceLabel a,
+.heroProof {
+    text-decoration-line: underline;
+    text-decoration-color: var(--lab-line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-ui) var(--ease-standard), color var(--dur-hover) var(--ease-standard), transform var(--dur-press) var(--ease-out);
+}
+
+@media (hover: hover) {
+    .logEntry a:hover,
+    .logMore:hover,
+    .sectionIntro a:hover,
+    .contactCopy a:hover,
+    .evidenceLabel a:hover,
+    .heroProof:hover {
+        text-decoration-color: currentColor;
+    }
+}
+
+/* The proof line: a count and a date anyone can check against the lab log. */
+.heroProofLine {
+    margin: 18px 0 0;
+}
+
+.heroProof {
+    color: var(--lab-muted);
+    font-family: 'Inconsolata', monospace;
+    font-size: 14px;
+}
