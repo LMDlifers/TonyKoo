@@ -77,13 +77,18 @@ for (const f of tracked) {
   const page = read(`../${f}`);
   assert.doesNotMatch(page, /Karla/, `${f}: no Karla`);
   const links = [...page.matchAll(/href="([^"]*css\/([^"/]+\.css))"/g)].map((m) => m[2]);
-  if (links.some((l) => tokenCss.has(l))) assert.ok(links.includes("site-theme.css"), `${f}: uses --font-body, so it loads site-theme.css`);
+  if (links.some((l) => tokenCss.has(l))) {
+    assert.ok(links.includes("site-theme.css"), `${f}: uses --font-body, so it loads site-theme.css`);
+    // Shared conversations make no third-party requests (no-referrer page), so they fall back to system-ui.
+    if (f !== "chat/shared.html") assert.match(page, /fonts\.googleapis\.com\/css2\?family=Lato/, `${f}: uses --font-body, so it loads Lato`);
+  }
 }
 assert.doesNotMatch(css, /Karla/, "no Karla in our CSS");
 
 // Hover colours only on devices that hover, so a tap never leaves a stuck colour.
 // Brace scan: every rule naming one of these hovers sits inside @media (hover: hover),
 // unless it only resets transform.
+let hoverRules = 0;
 const HOVERS = /(\.btn|\.projectViewButton|\.contactLink|\.fieldCastChoices button|\.fieldSeasonChoices button):hover(?!::)/;
 for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))) {
   const src = fs.readFileSync(new URL(f, cssDir), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
@@ -95,6 +100,7 @@ for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["al
     else if (src[i] === "}") {
       const head = stack.pop() ?? "";
       if (!head.startsWith("@") && HOVERS.test(head)) {
+        hoverRules++;
         const body = src.slice(src.lastIndexOf("{", i) + 1, i);
         const onlyTransformReset = /^\s*transform:\s*none\s*(!important)?\s*;?\s*$/.test(body);
         const guarded = stack.some((h) => /@media[^{]*\(hover:\s*hover\)/.test(h));
@@ -104,5 +110,7 @@ for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["al
     }
   }
 }
+
+assert.ok(hoverRules >= 8, `hover scan found the rules it guards (${hoverRules})`);
 
 console.log("Polish checks passed.");

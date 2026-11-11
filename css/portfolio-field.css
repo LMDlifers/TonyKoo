@@ -25,7 +25,9 @@
 body.dark-mode .fieldWorld { border-color: #40545b; background-color: #101923; background-image: url('../images/portfolio-field/field-summer-night.svg'); }
 body.dark-mode .fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow-night.svg'); }
 
-.personaStation { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); left: round(nearest, calc(var(--x) * 100%), 1px); top: round(nearest, calc(var(--y) * 100%), 1px); z-index: var(--depth, 2); display: flex; flex-direction: column; align-items: center; width: 136px; min-height: 196px; padding: 3px 2px; transform: translate(-68px, -156px); color: #263d41; text-decoration: none; text-align: center; cursor: grab; touch-action: none; user-select: none; }
+.personaStation { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); z-index: var(--depth, 2); display: flex; flex-direction: column; align-items: center; width: 136px; min-height: 196px; padding: 3px 2px; transform: translate(-68px, -156px); color: #263d41; text-decoration: none; text-align: center; cursor: grab; touch-action: none; user-select: none; }
+/* Snap to whole pixels so 2x pixel art never lands between device pixels; older browsers keep the plain calc(). */
+@supports (left: round(nearest, 1px, 1px)) { .personaStation { left: round(nearest, calc(var(--x) * 100%), 1px); top: round(nearest, calc(var(--y) * 100%), 1px); } }
 .personaStation[hidden] { display: none !important; }
 .personaStation:active { cursor: grabbing; }
 .personaStation::before { content: ''; position: absolute; top: 148px; width: 88px; height: 12px; border-radius: 50%; background: #0d222a3d; filter: blur(4px); z-index: -1; }
