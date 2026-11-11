@@ -247,9 +247,11 @@ body.dark-mode .btn {
     color: #e0e0e0;
 }
 
+@media (hover: hover) {
 body.dark-mode .btn:hover {
     background-color: #4a4a4a;
     border-color: #A2BBDD;
+}
 }
 
 body.dark-mode .btn.active {
@@ -1537,6 +1539,7 @@ body.dark-mode .expertiseList li::before {
     border-color: #1f2933;
 }
 
+@media (hover: hover) {
 .btn:hover {
     font-weight: bold;
     background-color: #ffffff;
@@ -1544,6 +1547,7 @@ body.dark-mode .expertiseList li::before {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(31, 41, 51, 0.10);
     border-color: var(--color-primary);
+}
 }
 
 .btn.active:hover {
@@ -1624,8 +1628,10 @@ body.dark-mode .projectDeck {
     color: #273d30;
 }
 
+@media (hover: hover) {
 .projectViewButton:hover {
     color: #2e624f;
+}
 }
 
 .projectDeckNavGroup {
@@ -3446,12 +3452,14 @@ body.dark-mode .certTopic {
     transition: background var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out);
 }
 
+@media (hover: hover) {
 .contactLink:hover {
     background: var(--color-primary);
     border-color: var(--color-primary);
     color: #ffffff;
     text-decoration: none;
     transform: translateY(-2px);
+}
 }
 
 .contactLink:active {
@@ -4845,11 +4853,13 @@ body.dark-mode .contactLink {
     color: var(--lab-accent);
 }
 
+@media (hover: hover) {
 .contactLink:hover,
 body.dark-mode .contactLink:hover {
     background: var(--lab-accent);
     border-color: var(--lab-accent);
     color: var(--lab-on-accent);
+}
 }
 
 .projectDeckReviewerNotes span {
@@ -4967,7 +4977,6 @@ body.dark-mode .projectIndexBoundary {
 }
 
 .btn.active,
-.btn:hover,
 .projectDeckLink,
 .writingIcon,
 .certIcon,
@@ -4975,6 +4984,14 @@ body.dark-mode .btn.active {
     background: var(--lab-accent);
     border-color: var(--lab-accent);
     color: var(--lab-on-accent);
+}
+
+@media (hover: hover) {
+.btn:hover {
+    background: var(--lab-accent);
+    border-color: var(--lab-accent);
+    color: var(--lab-on-accent);
+}
 }
 
 .projectDeckMedia,

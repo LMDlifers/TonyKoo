@@ -81,4 +81,28 @@ for (const f of tracked) {
 }
 assert.doesNotMatch(css, /Karla/, "no Karla in our CSS");
 
+// Hover colours only on devices that hover, so a tap never leaves a stuck colour.
+// Brace scan: every rule naming one of these hovers sits inside @media (hover: hover),
+// unless it only resets transform.
+const HOVERS = /(\.btn|\.projectViewButton|\.contactLink|\.fieldCastChoices button|\.fieldSeasonChoices button):hover(?!::)/;
+for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))) {
+  const src = fs.readFileSync(new URL(f, cssDir), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+  const stack = [];
+  let start = 0;
+  for (let i = 0; i < src.length; i++) {
+    if (src[i] === "{") { stack.push(src.slice(start, i).trim()); start = i + 1; }
+    else if (src[i] === ";" ) { start = i + 1; }
+    else if (src[i] === "}") {
+      const head = stack.pop() ?? "";
+      if (!head.startsWith("@") && HOVERS.test(head)) {
+        const body = src.slice(src.lastIndexOf("{", i) + 1, i);
+        const onlyTransformReset = /^\s*transform:\s*none\s*(!important)?\s*;?\s*$/.test(body);
+        const guarded = stack.some((h) => /@media[^{]*\(hover:\s*hover\)/.test(h));
+        assert.ok(guarded || onlyTransformReset, `${f}: "${head.slice(0, 80)}" sits inside @media (hover: hover)`);
+      }
+      start = i + 1;
+    }
+  }
+}
+
 console.log("Polish checks passed.");

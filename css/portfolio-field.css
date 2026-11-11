@@ -17,7 +17,9 @@
 .fieldCastChoices[hidden] { display: none; }
 .fieldCastChoices button, .fieldSeasonChoices button { min-width: 76px; min-height: 36px; padding: 4px 12px; border: 0; border-radius: 999px; background: transparent; color: #405759; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 .fieldCastChoices button[aria-pressed="true"], .fieldSeasonChoices button[aria-pressed="true"] { background: #283f44; color: #fff; box-shadow: 0 1px 4px #172c3030; }
+@media (hover: hover) {
 .fieldCastChoices button:hover:not([aria-pressed="true"]), .fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #e3e9e7; }
+}
 .fieldWorld { position: relative; width: 100%; aspect-ratio: 960 / 520; overflow: hidden; isolation: isolate; border: 1px solid #c4d0d0; border-radius: 20px; background: #e9eeed url('../images/portfolio-field/field-summer.svg') center / 100% 100% no-repeat; box-shadow: 0 18px 46px #19303816; }
 .fieldScene[data-season="snow"] .fieldWorld { background-image: url('../images/portfolio-field/field-snow.svg'); }
 body.dark-mode .fieldWorld { border-color: #40545b; background-color: #101923; background-image: url('../images/portfolio-field/field-summer-night.svg'); }
@@ -64,7 +66,9 @@ body.dark-mode .fieldToolbarTitle { color: #a9babf; }
 body.dark-mode .fieldCastChoices, body.dark-mode .fieldSeasonChoices { border-color: #465860; background: #1b282f; }
 body.dark-mode .fieldCastChoices button, body.dark-mode .fieldSeasonChoices button { color: #d4e2e2; }
 body.dark-mode .fieldCastChoices button[aria-pressed="true"], body.dark-mode .fieldSeasonChoices button[aria-pressed="true"] { background: #dbe7e4; color: #22353c; }
+@media (hover: hover) {
 body.dark-mode .fieldCastChoices button:hover:not([aria-pressed="true"]), body.dark-mode .fieldSeasonChoices button:hover:not([aria-pressed="true"]) { background: #34484c; }
+}
 body.dark-mode .personaLabel, body.dark-mode .fieldSelectionCard { border-color: #4b6369; background: #213239f2; color: #eef3f1; }
 body.dark-mode .personaStation:is(:hover, :focus-visible, [aria-expanded="true"]) .personaLabel { border-color: #d3a073; background: #31444b; }
 body.dark-mode .fieldSelectionCard p { color: #bfd0d0; }
