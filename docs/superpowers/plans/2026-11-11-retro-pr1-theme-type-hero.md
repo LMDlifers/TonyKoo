@@ -26,8 +26,7 @@
   - Inconsolata: dates and data only.
   - Karla must not appear anywhere on the homepage.
 - **Sprites:** the native frame is 64×80. Only whole-number scales are allowed:
-  - 2× (128×160) from 900px wide up to 1599px
-  - 3× (192×240) at 1600px and wider
+  - 2× (128×160) at 900px and wider. The 3× tier was dropped; see the spec's amendments.
   - 1× (64×80) in the mobile list layout below 900px
 - **Content:** no new copy beyond the hero edits named in Task 3. Homepage words stay at 1744 or fewer; `check-portfolio-field` enforces this.
 - **Colour:** every colour is a token. The day accent comes from the field palette, green or teal (`#2f5d50` family). No purple or indigo. Body text contrast is at least 4.5:1 in both modes.

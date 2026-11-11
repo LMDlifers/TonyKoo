@@ -28,15 +28,38 @@ const browser = await chromium.launch({
 const base = process.env.SITE_BASE_URL || "http://localhost:8000";
 try {
   // Day is the default; a remembered night choice applies before first paint.
-  for (const [stored, expectDark] of [[null, false], ["enabled", true], ["disabled", false]]) {
+  // The probe records the body class the moment the first non-script element is inserted,
+  // which is before any deferred or jQuery-ready script can fix it up.
+  const firstPaint = async (path, stored, { stripBootstrap = false } = {}) => {
     const ctx = await browser.newContext();
-    if (stored) await ctx.addInitScript((v) => localStorage.setItem("darkMode", v), stored);
+    await ctx.addInitScript((v) => {
+      if (v) localStorage.setItem("darkMode", v);
+      window.__firstPaintDark = null;
+      new MutationObserver((_, obs) => {
+        const el = document.body && [...document.body.children].find((c) => c.tagName !== "SCRIPT");
+        if (el) { window.__firstPaintDark = document.body.classList.contains("dark-mode"); obs.disconnect(); }
+      }).observe(document, { childList: true, subtree: true });
+    }, stored);
+    if (stripBootstrap) {
+      await ctx.route("**/" , async (route) => {
+        const res = await route.fetch();
+        const body = (await res.text()).replace(/<script>[^<]*darkMode[^<]*<\/script>/, "");
+        await route.fulfill({ response: res, body });
+      });
+    }
     const p = await ctx.newPage();
-    const atReady = p.waitForEvent("domcontentloaded").then(() => p.evaluate(() => document.body.classList.contains("dark-mode")));
-    await p.goto(base, { waitUntil: "domcontentloaded" });
-    assert.equal(await atReady, expectDark, `stored=${stored}: dark-mode at first paint`);
+    await p.goto(base + path, { waitUntil: "domcontentloaded" });
+    const dark = await p.evaluate(() => window.__firstPaintDark);
     await ctx.close();
+    return dark;
+  };
+  for (const path of ["/", "/reports/faiss-caching-llm-cost-latency.html", "/research/when-agents-need-search.html", "/chat/", "/log.html"]) {
+    for (const [stored, expectDark] of [[null, false], ["enabled", true], ["disabled", false]]) {
+      assert.equal(await firstPaint(path, stored), expectDark, `${path} stored=${stored}: dark-mode at first paint`);
+    }
   }
+  // Negative control: without the inline bootstrap, a night visitor would see day first. The probe must notice.
+  assert.equal(await firstPaint("/", "enabled", { stripBootstrap: true }), false, "first-paint probe is sensitive to a missing bootstrap");
 
   // Body text contrast holds in day and night.
   const contrastPage = await browser.newPage();
@@ -121,6 +144,15 @@ try {
       assert.deepEqual([Math.round(s.w), Math.round(s.h)], [w, h], `sprite ${Math.round(s.w)}x${Math.round(s.h)} at ${width}`);
       assert.equal(s.r, "pixelated", `sprite rendering at ${width}`);
     }
+    if (width < 900) {
+      const rows = await page.evaluate(() => {
+        const world = document.querySelector(".fieldWorld");
+        const cs = getComputedStyle(world);
+        const inner = world.getBoundingClientRect().width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        return [...document.querySelectorAll(".personaStation:not([hidden])")].map((el) => el.getBoundingClientRect().width / inner);
+      });
+      for (const r of rows) assert.ok(r > 0.9, `phone list row spans the field (${r.toFixed(2)}) at ${width}`);
+    }
     const hit = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     if (width >= 900) {
       cast.boxes.forEach((a, i) => cast.boxes.slice(i + 1).forEach((b) => assert.ok(!hit(a, b), `stations overlap at ${width}`)));
@@ -139,6 +171,18 @@ try {
   assert.match(hero.link, /Discuss a project/i, "secondary action is a text link");
   assert.equal(hero.buttons, 1, "one hero button");
   assert.ok(hero.fieldBottom > hero.heroBottom, `field spills past the hero (${Math.round(hero.fieldBottom)} vs ${Math.round(hero.heroBottom)})`);
+
+  // The cast reaches the first screen on a common laptop: at least half of one character is visible at 1280x800.
+  {
+    const laptop = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await laptop.goto(base);
+    await laptop.waitForTimeout(600);
+    const tops = await laptop.evaluate(() => [...document.querySelectorAll(".personaStation:not([hidden]) .personaStill, .personaStation:not([hidden]) .personaAnimated")]
+      .map((el) => el.getBoundingClientRect()).filter((r) => r.height > 0).map((r) => r.top + r.height / 2));
+    assert.ok(tops.length > 0, "visible character sprites found at 1280x800");
+    assert.ok(tops.some((t) => t <= 800), `a character is half on screen at 1280x800 (${tops.map(Math.round)})`);
+    await laptop.close();
+  }
 
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {

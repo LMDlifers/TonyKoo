@@ -134,3 +134,9 @@ No new claims or copy. The word budget still holds.
 - **Pixel type is less readable.** Mitigation: never below 16px, and only for titles and labels.
 - **Scroll-driven animation support.** Support varies by browser; current Chromium/Safari/Firefox status is unverified as of 2026-11-11. Mitigation: the static fallback is the designed state, not a degraded one, and the PR 3 checks run in Chromium only.
 - **Field checks are fragile when the hero layout changes.** Mitigation: PR 1 changes only the field's container scale and placement, not its internal markup.
+
+## Amendments from PR 1 (2026-11-12)
+- **Sprite scale:** 2× everywhere at 900px and wider. There is no 3× tier, because the field is capped at 1000px and 3× stations overlap.
+- **Hero layout:** the field is stacked full width under the intro, with its toolbar overlaid in the map's empty sky. A side column was too narrow for characters to move apart at 2×. Full width also matches Vellum's cast under the headline.
+- **Karla:** retired on the homepage only in PR 1. Research, report and chat pages still load Karla. Retiring it there belongs to a later PR.
+

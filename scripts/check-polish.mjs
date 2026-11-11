@@ -66,5 +66,7 @@ const colophon = read("../colophon.html");
 assert.doesNotMatch(colophon, /every date on the site/i, "colophon does not overclaim date checks");
 assert.doesNotMatch(colophon, /loads every page/i, "colophon does not overclaim page coverage");
 assert.doesNotMatch(colophon, /The reports carry the same note/i, "colophon does not claim every report has the note");
+assert.doesNotMatch(colophon.slice(colophon.indexOf("<main")), /Karla/, "colophon prose names the current typefaces");
+assert.match(colophon, /Pixelify Sans/, "colophon names the display face");
 
 console.log("Polish checks passed.");

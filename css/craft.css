@@ -273,14 +273,16 @@ body.dark-mode .filterItemImg {
     to { background-position-x: -768px; }
 }
 
-.personaStation {
-    width: 136px;
-    min-height: 196px;
-}
+@media (min-width: 900px) {
+    .personaStation {
+        width: 136px;
+        min-height: 196px;
+    }
 
-.personaStation::before {
-    top: 148px;
-    width: 88px;
+    .personaStation::before {
+        top: 148px;
+        width: 88px;
+    }
 }
 
 @media (max-width: 899px) {
@@ -346,8 +348,27 @@ body.dark-mode .filterItemImg {
     .fieldScene {
         position: relative;
         width: 100%;
-        max-width: 1120px;
-        margin: 40px auto -200px;
+        max-width: 1000px;
+        margin: 8px auto -200px;
+    }
+
+    /* The toolbar sits in the map's empty sky instead of a row of its own, so the cast
+       climbs onto the first screen. The season pair keeps the top-left corner. */
+    .fieldToolbar {
+        position: absolute;
+        top: 12px;
+        left: 120px;
+        right: 12px;
+        z-index: 31;
+        padding: 0;
+    }
+
+    .fieldIntro .heroProofLine {
+        margin-top: 12px;
+    }
+
+    .heroTitle .title-line {
+        margin-top: 8px;
     }
 
     #portfolioField {

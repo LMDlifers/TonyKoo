@@ -13,7 +13,7 @@ Single-page portfolio application showcasing quantitative finance, data science,
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Frameworks**: Bootstrap 4.3.1, jQuery 3.4.1
 - **Features**: Dark mode, portfolio filtering, full-text search, Intersection Observer animations
-- **Fonts**: Karla (headers), Lato (body), Inconsolata (code blocks)
+- **Fonts**: Pixelify Sans (wordmark and section titles), Lato (body, nav, buttons), Inconsolata (dates and data)
 - **Libraries**: Fancybox 3.5.7 (lightbox), Typed.js (animation)
 
 ## Project Structure
@@ -160,7 +160,7 @@ TonyKoo/
 - **Original template inspiration**: [ValaryLim](https://github.com/ValaryLim)
 - **Design & development**: Tony Koo Ye Long
 - **Icons**: Font Awesome (https://fontawesome.com)
-- **Fonts**: Google Fonts (Karla, Lato, Inconsolata)
+- **Fonts**: Google Fonts (Pixelify Sans, Lato, Inconsolata; research, report and chat pages still use Karla)
 - **Lightbox**: Fancybox 3.5.7
 - **Framework**: Bootstrap 4.3.1
 
