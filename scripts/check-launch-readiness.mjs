@@ -114,7 +114,6 @@ for (const [link] of repositoryLinks) {
 }
 
 assert.doesNotMatch(html, /images\/portfolio\/ibkr_trading_bot\.png/);
-assert.match(html, /images\/portfolio\/ibkr_mean_reversion\.svg/);
 
 const ibkrVisual = fs.readFileSync(
   new URL("../images/portfolio/ibkr_mean_reversion.svg", import.meta.url),

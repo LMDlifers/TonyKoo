@@ -3,9 +3,7 @@
 #portfolioField { max-width: 1440px; margin: auto; display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); align-items: center; gap: 22px; min-height: min(78svh, 680px); padding: 18px 3vw 34px; }
 .fieldIntro { max-width: 1000px; padding: 18px 2vw 24px; position: relative; z-index: 1; }
 .fieldIntro .heroTitle { font-size: clamp(36px, 3.6vw, 56px); line-height: 1.1; margin: 12px 0; }
-.fieldIntro .heroPositioning { max-width: 760px; margin: 18px 0; }
 .fieldIntro .heroActions { margin: 20px 0 0; }
-.fieldIntro .heroSubtitle { margin: 14px 0; min-height: 0; }
 .fieldIntro .heroButton { min-height: 44px; }
 .fieldIntro .title-word, .fieldIntro .title-line { animation: none; opacity: 1; }
 

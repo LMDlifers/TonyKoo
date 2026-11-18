@@ -2,12 +2,9 @@
    (Linear and Meta Muse press scale 0.97-0.98, colour steps on hover, nothing lifts). */
 
 .heroButton,
-#filter .btn,
-.projectViewButton,
 .fieldCastChoices button,
 .fieldSeasonChoices button,
 .contactLink,
-.labelMore > summary,
 .fieldSelectionLink,
 .logMore {
     transition:
@@ -21,9 +18,6 @@
 /* Nothing lifts or glows: hover is a colour step in place. */
 .heroButton:hover,
 .heroButtonPrimary:hover,
-#filter .btn.active,
-#filter .btn:hover,
-.projectViewButton:hover,
 .fieldCastChoices button:hover,
 .fieldSeasonChoices button:hover,
 .contactLink:hover,
@@ -34,7 +28,6 @@
 
 /* Console-button press: every control rests on a hard 2px shadow and presses 2px down into it. */
 .heroButton,
-#filter .btn,
 .fieldCastChoices button,
 .fieldSeasonChoices button,
 .contactLink {
@@ -61,22 +54,15 @@ body.dark-mode .heroButtonPrimary:hover {
 
 /* Press gives a little, one shade darker, then springs back. */
 .heroButton:active,
-#filter .btn:active,
-.projectViewButton:active,
 .fieldCastChoices button:active,
 .fieldSeasonChoices button:active,
 .contactLink:active,
 .fieldSelectionLink:active,
 .logMore:active,
-#filter .btn.active:active,
 .heroButtonPrimary:active,
 body.dark-mode .heroButtonPrimary:active {
     transform: translateY(2px);
     box-shadow: none;
-}
-
-.labelMore > summary:active {
-    transform: translateY(1px);
 }
 
 .heroButtonPrimary:active {
@@ -96,9 +82,7 @@ body.dark-mode .heroButtonPrimary:active {
 }
 
 /* Mono is for dates, versions and code; the subtitle is prose. */
-.heroSubtitle {
-    font-family: var(--font-body);
-}
+
 
 #navigation .navFindButton.nav-link {
     font-family: var(--font-body);
@@ -119,27 +103,8 @@ body.dark-mode {
     --shadow-card-craft-hover: 0 0 0 1px var(--lab-line-strong), 0 1px 2px rgb(0 0 0 / 0.35), 0 16px 36px -14px rgb(0 0 0 / 0.75);
 }
 
-.filterItem,
-body.dark-mode .filterItem {
-    box-shadow: var(--shadow-card-craft);
-    transition: box-shadow var(--dur-hover) var(--ease-standard), border-color var(--dur-hover) var(--ease-standard);
-}
-
-.filterItem:hover,
-body.dark-mode .filterItem:hover {
-    transform: none;
-    box-shadow: var(--shadow-card-craft-hover);
-}
-
 /* The image box holds its size and a tint before the image arrives. */
-.filterItemImg,
-body.dark-mode .filterItemImg {
-    background: var(--lab-bg-soft);
-    aspect-ratio: 16 / 10;
-    height: auto;
-    max-height: 300px;
-    min-height: 180px;
-}
+
 
 /* Field controls: one cast choice in the toolbar; the season pair sits quietly in the map's corner. */
 .fieldCastChoices,
@@ -173,7 +138,6 @@ body.dark-mode .filterItemImg {
 .logMore,
 .sectionIntro a,
 .contactCopy a,
-.evidenceLabel a,
 .heroProof,
 .heroTextLink {
     text-decoration-line: underline;
@@ -188,7 +152,6 @@ body.dark-mode .filterItemImg {
     .logMore:hover,
     .sectionIntro a:hover,
     .contactCopy a:hover,
-    .evidenceLabel a:hover,
     .heroProof:hover {
         text-decoration-color: currentColor;
     }
@@ -208,7 +171,6 @@ body.dark-mode .filterItemImg {
 /* Pixel display type: whole-pixel sizes, never tracked, never below 16px. */
 .heroTitle,
 .fieldIntro .heroTitle,
-.sectionTitle,
 .fieldToolbarTitle {
     font-family: var(--font-display);
     font-weight: 600;
@@ -231,10 +193,6 @@ body.dark-mode .filterItemImg {
     margin-top: 16px;
 }
 
-.sectionTitle {
-    font-size: 48px;
-}
-
 .fieldToolbarTitle {
     font-size: 24px;
 }
@@ -247,10 +205,6 @@ body.dark-mode .filterItemImg {
 
     .heroTitle .title-line {
         font-size: 24px;
-    }
-
-    .sectionTitle {
-        font-size: 32px;
     }
 }
 
@@ -323,10 +277,6 @@ body.dark-mode .filterItemImg {
         margin-top: 8px;
     }
 
-    /* The hero field spills 200px into whatever follows; the first chapter takes that space. */
-    #chapter-projects {
-        padding-top: 216px;
-    }
 }
 
 /* RPG skin: one 9-slice pixel frame (images/ui, built by scripts/build-portfolio-field-art.py).
@@ -346,55 +296,11 @@ body.dark-mode .pixelFrame {
 }
 
 /* Projects as item cards: the frame replaces the soft shadow; hover brightens, nothing lifts. */
-.filterItem.pixelFrame,
-body.dark-mode .filterItem.pixelFrame {
-    box-shadow: none;
-    background: none;
-    transition: filter var(--dur-hover) var(--ease-standard);
-}
 
-@media (hover: hover) {
-    .filterItem.pixelFrame:hover {
-        filter: brightness(1.03);
-        box-shadow: none;
-    }
-}
-
-.filterItemName {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0;
-}
 
 /* Filters as a game menu: pixel type, a ► cursor on the active item, its width reserved on every
    item so choosing one never shifts the row. */
-#filter .btn,
-#filter .btn.active {
-    white-space: nowrap;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0;
-}
 
-#filter .btn::before {
-    content: "";
-    position: static;
-    display: inline-block;
-    width: 1.25ch;
-    height: auto;
-    margin: 0;
-    border-radius: 0;
-    background: none;
-    opacity: 1;
-    transform: none;
-    text-align: left;
-}
-
-#filter .btn.active::before {
-    content: "►" / "";
-}
 
 /* The pressed toggle rests on the same hard shadow as every control. */
 .fieldCastChoices button[aria-pressed="true"],
@@ -435,104 +341,6 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
     letter-spacing: 0;
 }
 
-/* Two story chapters (retro spec section 5): one character, large, beside its section's intro line.
-   Static by default; the walk-in lives only inside the motion and support guards below. */
-.chapter {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: auto minmax(0, 560px);
-    justify-content: center;
-    align-items: end;
-    gap: 32px;
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 24px 15px;
-    overflow-x: clip;
-}
-
-.chapterSprite {
-    --chapter-frame-w: 512px;
-    --chapter-frame-h: 640px;
-    width: var(--chapter-frame-w);
-    height: var(--chapter-frame-h);
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-size: 100% 100%;
-    image-rendering: pixelated;
-}
-
-.chapterSprite--ai-engineer { background-image: url(../images/portfolio-field/ai-engineer-still.png); --chapter-walk: url(../images/portfolio-field/ai-engineer-walk.png); }
-.chapterSprite--student { background-image: url(../images/portfolio-field/student-still.png); --chapter-walk: url(../images/portfolio-field/student-walk.png); }
-
-.chapterDialogue {
-    margin: 0 0 96px;
-    padding: 8px 12px;
-    font-family: var(--font-body);
-    font-size: 20px;
-    line-height: 1.5;
-    color: var(--lab-ink);
-}
-
-@media (max-width: 899px) {
-    .chapter {
-        grid-template-columns: minmax(0, 1fr);
-        justify-items: center;
-        gap: 16px;
-    }
-
-    .chapterSprite {
-        --chapter-frame-w: 256px;
-        --chapter-frame-h: 320px;
-    }
-
-    .chapterDialogue {
-        margin: 0;
-        font-size: 18px;
-    }
-}
-
-/* Short screens: the next whole-number scale down, so a chapter never runs past one screen. */
-@media (min-width: 900px) and (max-height: 879px) {
-    .chapterSprite {
-        --chapter-frame-w: 256px;
-        --chapter-frame-h: 320px;
-    }
-}
-
-@media (max-width: 899px) and (max-height: 699px) {
-    .chapterSprite {
-        --chapter-frame-w: 128px;
-        --chapter-frame-h: 160px;
-    }
-}
-
-
-/* Chapter motion: the character walks on the spot and slides in as its chapter scrolls into view.
-   Only where the browser supports scroll timelines and the visitor allows motion. */
-@media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-        .js .chapterSprite {
-            background-image: var(--chapter-walk);
-            background-size: calc(6 * var(--chapter-frame-w)) var(--chapter-frame-h);
-            animation:
-                chapterWalkFrames 0.75s steps(6) infinite,
-                chapterWalkIn linear both;
-            animation-timeline: auto, view();
-            animation-range: normal, entry 0% cover 45%;
-        }
-
-        @keyframes chapterWalkFrames {
-            to { background-position-x: calc(-6 * var(--chapter-frame-w)); }
-        }
-
-        @keyframes chapterWalkIn {
-            from { transform: translateX(-60vw); }
-            to { transform: none; }
-        }
-    }
-}
-
 /* Phones: the hero actions leave the launcher's column free, so it never covers them. */
 @media (max-width: 560px) {
     .heroActions {
@@ -541,6 +349,4 @@ body.dark-mode .fieldSelectionCard.pixelFrame {
 }
 
 /* Without JS the deck cannot flip, so the plain project grid stands in for it. */
-html:not(.js) .projectDeck {
-    display: none;
-}
+

@@ -247,8 +247,6 @@ export function initPortfolioField(root = document) {
     previous?.element.focus();
   });
   cardLink.addEventListener('click', () => {
-    const projectFilter = selected?.element.dataset.projectFilterTarget || (selected?.element.dataset.persona === 'ai-engineer' ? 'ai' : null);
-    if (projectFilter) document.querySelector(`[data-project-filter="${projectFilter}"]`)?.click();
     deselect();
   });
   scene.addEventListener('keydown', event => {
