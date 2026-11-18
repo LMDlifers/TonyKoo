@@ -97,7 +97,7 @@ try {
     const cs = getComputedStyle(el);
     return { transform: cs.transform, background: cs.backgroundColor, shadow: cs.boxShadow };
   });
-  for (const selector of [".heroButtonPrimary", "#filter .btn.active", "#filter .btn:nth-of-type(2)", ".fieldCastChoices button:nth-of-type(2)", ".filterItem:visible .labelMore > summary"]) {
+  for (const selector of [".heroButtonPrimary", ".fieldCastChoices button:nth-of-type(2)"]) {
     const button = page.locator(selector).first();
     await button.scrollIntoViewIfNeeded();
     await page.mouse.move(0, 0);
@@ -272,42 +272,6 @@ try {
     assert.match(frame.night, /pixel-frame-night\.svg/, "pixel frame uses the night art in dark mode");
   }
 
-  // Projects are item cards: every card in the pixel frame, titles in pixel type, focus still visible.
-  {
-    const cards = await page.evaluate(() => [...document.querySelectorAll(".filterItem")].map((el) => ({
-      framed: el.classList.contains("pixelFrame") && getComputedStyle(el).borderImageSource !== "none",
-      title: (() => { const t = el.querySelector(".filterItemName"); const cs = getComputedStyle(t); return [cs.fontFamily, cs.fontSize, cs.letterSpacing]; })(),
-    })));
-    assert.equal(cards.length, 11, "11 project cards");
-    for (const c of cards) {
-      assert.ok(c.framed, "card sits in the pixel frame");
-      assert.match(c.title[0], /^"?Pixelify Sans/, "card title is pixel type");
-      assert.equal(c.title[1], "24px", "card title is 24px");
-      assert.ok(c.title[2] === "normal" || c.title[2] === "0px", "card title untracked");
-    }
-    const link = page.locator(".filterItem:visible a").first();
-    await link.focus();
-    assert.notEqual(await link.evaluate((el) => getComputedStyle(el).outlineStyle), "none", "card links keep a focus ring");
-  }
-
-  // Filters are a game menu: a pixel cursor on the active choice, width reserved so nothing shifts.
-  {
-    const cursor = (sel) => page.evaluate((s) => getComputedStyle(document.querySelector(s), "::before").content, sel);
-    await page.locator("#filter").scrollIntoViewIfNeeded();
-    const widths = () => page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => b.getBoundingClientRect().width));
-    const before = await widths();
-    assert.match(await cursor("#filter .btn.active"), /►/, "active menu item shows the cursor");
-    assert.doesNotMatch(await cursor("#filter .btn:not(.active)"), /►/, "inactive items show no cursor");
-    await page.locator('#filter [data-project-filter="quant"]').click();
-    await page.waitForTimeout(200);
-    const after = await widths();
-    before.forEach((w, i) => assert.ok(Math.abs(w - after[i]) < 0.5, `menu item ${i} keeps its width (${w} vs ${after[i]})`));
-    assert.match(await cursor('#filter [data-project-filter="quant"]'), /►/, "cursor follows the active item");
-    const chipFont = await page.evaluate(() => getComputedStyle(document.querySelector("#filter .btn")).fontFamily);
-    assert.match(chipFont, /^"?Pixelify Sans/, "menu items are pixel type");
-    await page.locator("#filter .btn").first().click();
-  }
-
   // The field card is a dialogue box: pixel frame, pixel name tag, the character's portrait.
   {
     await page.locator(".fieldScene").scrollIntoViewIfNeeded();
@@ -348,7 +312,7 @@ try {
       document.body.classList.add("dark-mode");
       const card = document.querySelector(".fieldSelectionCard");
       card.hidden = false;
-      const out = [getComputedStyle(card).backgroundColor, getComputedStyle(document.querySelector(".filterItem")).backgroundColor];
+      const out = [getComputedStyle(card).backgroundColor];
       card.hidden = true;
       document.body.classList.remove("dark-mode");
       return out;
@@ -362,15 +326,6 @@ try {
     assert.match(pressedShadow, /0px 2px 0px/, `pressed toggle uses the hard 2px shadow (${pressedShadow})`);
   }
 
-  // On phones every menu item keeps one line and the same height.
-  {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.locator("#filter").scrollIntoViewIfNeeded();
-    const heights = await page.evaluate(() => [...document.querySelectorAll("#filter .btn")].map((b) => Math.round(b.getBoundingClientRect().height)));
-    assert.equal(new Set(heights).size, 1, `menu items share one height at 390 (${heights})`);
-    await page.setViewportSize({ width: 1440, height: 900 });
-  }
-
   // An open selection card never covers the season control.
   for (const width of [1440, 1024, 900]) {
     await page.setViewportSize({ width, height: 900 });
@@ -382,12 +337,6 @@ try {
     assert.ok(!hit(c, z), `selection card covers the season control at ${width}`);
     await page.locator(".fieldSelectionClose").click();
   }
-  await page.setViewportSize({ width: 1440, height: 900 });
-
-  // Card images keep the old 300px ceiling at tablet width.
-  await page.setViewportSize({ width: 768, height: 1024 });
-  const tabletImg = await page.locator(".filterItem:visible .filterItemImg").first().evaluate((el) => el.getBoundingClientRect().height);
-  assert.ok(tabletImg <= 300, `card image ${tabletImg}px tall at 768`);
   await page.setViewportSize({ width: 1440, height: 900 });
 
   // Type: display heads tighten as they grow; each face has one role.
@@ -411,7 +360,6 @@ try {
     };
   });
   assert.equal(type.h1, 0, `hero title tracking ${type.h1}: pixel glyphs stay untracked`);
-  for (const r of type.titles) assert.equal(r, 0, `section title tracking ${r}: pixel glyphs stay untracked`);
   assert.ok(type.buttonSpacing <= 0, `hero button tracking ${type.buttonSpacing}`);
   assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
   assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
@@ -431,7 +379,6 @@ try {
   });
   assert.deepEqual(faces.karla, [], "no Karla on the homepage");
   assert.match(faces.h1, /^"?Pixelify Sans/, "wordmark is pixel type");
-  for (const f of faces.titles) assert.match(f, /^"?Pixelify Sans/, "section titles are pixel type");
   for (const f of faces.body) assert.match(f, /^"?Lato/, "body, nav and buttons are Lato");
   for (const [cls, size] of faces.pixelSizes) assert.ok(size >= 16 && size % 8 === 0, `pixel type ${cls} at ${size}px`);
 
@@ -463,37 +410,6 @@ try {
   const proof = await page.locator(".heroProof").textContent();
   assert.match(proof.trim(), /^\d+ pages logged, latest added \d{1,2} [A-Z][a-z]{2} \d{4}$/, "hero proof line");
 
-  // Surfaces: cards have a hairline plus soft layers, never lift, and hold a tinted image box before load.
-  for (const dark of [false, true]) {
-    await page.evaluate((isDark) => document.body.classList.toggle("dark-mode", isDark), dark);
-    const card = page.locator(".filterItem:visible").first();
-    await card.scrollIntoViewIfNeeded();
-    await page.mouse.move(0, 0);
-    await page.waitForTimeout(300);
-    const surface = await card.evaluate((el) => {
-      const cs = getComputedStyle(el);
-      const img = el.querySelector(".filterItemImg");
-      const ics = getComputedStyle(img);
-      return {
-        shadow: cs.boxShadow,
-        frame: cs.borderImageSource,
-        cardBg: cs.backgroundColor,
-        imgBg: ics.backgroundColor,
-        imgHeight: img.getBoundingClientRect().height,
-      };
-    });
-    // Retro PR 2: the pixel frame (with its built-in hard shadow) replaces the soft shadow layers.
-    assert.match(surface.frame, dark ? /pixel-frame-night/ : /pixel-frame-day/, `card is framed (dark=${dark})`);
-    assert.equal(surface.shadow, "none", `framed card drops the soft shadow (dark=${dark})`);
-    assert.notEqual(surface.imgBg, "rgba(0, 0, 0, 0)", `image box is tinted (dark=${dark})`);
-    assert.notEqual(surface.imgBg, surface.cardBg, `image box differs from card (dark=${dark})`);
-    assert.ok(surface.imgHeight >= 200, `image box holds its height ${surface.imgHeight} (dark=${dark})`);
-    await card.hover();
-    await page.waitForTimeout(300);
-    const cardTransform = await card.evaluate((el) => getComputedStyle(el).transform);
-    const m = cardTransform === "none" ? [1, 0, 0, 1, 0, 0] : cardTransform.match(/matrix\(([^)]+)\)/)[1].split(",").map(Number);
-    assert.ok(m[0] === 1 && m[3] === 1 && m[5] === 0, `card does not lift: ${cardTransform} (dark=${dark})`);
-  }
   // The Ask launcher never covers the hero actions on small phones, and stays a 44px+ target.
   for (const [width, height] of [[320, 640], [390, 844]]) {
     const p = await browser.newPage({ viewport: { width, height } });
@@ -509,18 +425,6 @@ try {
     await p.close();
   }
 
-  // Project cards show with JS off.
-  {
-    const ctx = await browser.newContext({ javaScriptEnabled: false });
-    const p = await ctx.newPage();
-    for (const width of [1440, 390]) {
-      await p.setViewportSize({ width, height: 900 });
-      await p.goto(base + "/");
-      const shown = await p.evaluate(() => [...document.querySelectorAll(".filterItem")].filter((el) => getComputedStyle(el).display !== "none" && el.getBoundingClientRect().height > 0).length);
-      assert.equal(shown, 11, `all 11 project cards show without JS at ${width} (${shown})`);
-    }
-    await ctx.close();
-  }
 } finally {
   await browser.close();
 }

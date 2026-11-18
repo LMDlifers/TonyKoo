@@ -34,13 +34,11 @@ assert.match(heroBlock, /<h2 id="fieldHeading"/, "field keeps its h2 heading");
 
 assert.doesNotMatch(css, /#portfolioField[^{]*\{[^}]*\d+vh/, "hero min-height uses svh");
 
-assert.match(html, /data-project-view="grid"\s+aria-pressed="true"/, "grid pressed at load");
-assert.match(js, /setProjectView\("grid"\);/, "grid is the initial view");
 
 assert.doesNotMatch(css, /transition:\s*all/, "no transition: all");
 assert.doesNotMatch(css, /(^|\})\s*(html|body)[^{]*\{[^}]*overflow-x:\s*hidden/m, "html/body use overflow-x: clip");
 assert.doesNotMatch(css, /min-height:\s*calc\(100vh/, "hero uses svh");
-for (const sel of ["bookStage", "projectDeckCard", "fieldWorld"]) {
+for (const sel of ["bookStage", "fieldWorld"]) {
   const rules = [...css.matchAll(new RegExp(`\\.${sel}\\s*\\{[^}]*grid-template-columns:([^;]*);`, "g"))];
   for (const [, cols] of rules) assert.doesNotMatch(cols.replace(/minmax\([^)]*\)/g, ""), /\b1fr/, `${sel} image track uses minmax(0, 1fr)`);
 }
@@ -48,11 +46,6 @@ assert.doesNotMatch(css, /(^|\})\s*\.resumeSubsection\s*\{[^}]*opacity:\s*0/m, "
 assert.match(html, /documentElement\.classList\.add\('js'\)/, "js class set in head");
 
 
-const labels = [...html.matchAll(/<div class="evidenceLabel">([\s\S]*?<\/details>)\s*<\/div>/g)].map((m) => m[1]);
-assert.equal(labels.length, 11, "every project has an evidence label");
-for (const l of labels) assert.deepEqual([...l.matchAll(/<dt>([^<]+)<\/dt>/g)].map((m) => m[1]), ["Problem", "Evidence", "Does not claim", "Built", "Stack", "Report added"], "fixed label rows");
-for (const l of labels) assert.doesNotMatch(l, /<dd[^>]*>\s*<\/dd>/, "no blank label rows");
-for (const l of labels) assert.match(l, /<details class="labelMore"><summary>Full label<\/summary>\s*<dl>[\s\S]*<dt>Built<\/dt>[\s\S]*<dt>Stack<\/dt>[\s\S]*<dt>Report added<\/dt>[\s\S]*<\/dl>\s*<\/details>/, "build detail behind Full label");
 
 assert.match(html, /<a href="colophon\.html"/, "homepage links the colophon");
 assert.ok(fs.existsSync(new URL("../colophon.html", import.meta.url)), "colophon page exists");
@@ -61,7 +54,6 @@ const homeCss = ["style.css", "site-theme.css", "portfolio-field.css", "log.css"
 assert.doesNotMatch(homeCss, /text-transform:\s*uppercase/, "homepage labels, nav and titles use sentence case");
 assert.doesNotMatch(html, /class="projectDeckHeader"/, "no empty projects header box");
 assert.doesNotMatch(css, /\.sectionTitle::after/, "no bar under section titles");
-assert.doesNotMatch(css, /\.(btn|projectViewButton|projectViewSwitch)[^{]*\{[^}]*border-radius:\s*(999px|50px|9999px|var\(--radius-pill\))/, "chips and view switch are not pills");
 
 const colophon = read("../colophon.html");
 assert.doesNotMatch(colophon, /every date on the site/i, "colophon does not overclaim date checks");
@@ -89,7 +81,7 @@ assert.doesNotMatch(css, /Karla/, "no Karla in our CSS");
 // Brace scan: every rule naming one of these hovers sits inside @media (hover: hover),
 // unless it only resets transform.
 let hoverRules = 0;
-const HOVERS = /(\.btn|\.projectViewButton|\.contactLink|\.fieldCastChoices button|\.fieldSeasonChoices button):hover(?!::)/;
+const HOVERS = /(\.contactLink|\.fieldCastChoices button|\.fieldSeasonChoices button):hover(?!::)/;
 for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["all.min.css", "superslides.css"].includes(f))) {
   const src = fs.readFileSync(new URL(f, cssDir), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   const stack = [];
@@ -111,6 +103,6 @@ for (const f of fs.readdirSync(cssDir).filter((f) => f.endsWith(".css") && !["al
   }
 }
 
-assert.ok(hoverRules >= 8, `hover scan found the rules it guards (${hoverRules})`);
+assert.ok(hoverRules >= 5, `hover scan found the rules it guards (${hoverRules})`);
 
 console.log("Polish checks passed.");

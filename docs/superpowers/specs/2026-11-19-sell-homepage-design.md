@@ -19,7 +19,7 @@ Evaluation on 2026-11-19 against korolev.uk, jakub.kr and lawsofux.com:
 ## Decisions
 
 1. **Audience.** Hiring managers first. One client route: the existing "Discuss a Project" link.
-2. **Retro is an accent.** Keep the isometric field, the sprites, the avatar and the field's own dialogue frame. Pixelify Sans stays on the wordmark (`.title-word`) and the field title only. Every other heading is Lato 700.
+2. **Retro is an accent.** Keep the isometric field, the sprites, the avatar and the field's own dialogue frame. Pixelify Sans stays on the wordmark (`.title-word`) and inside the field (its title and the dialogue name tag) only. Every other heading is Lato 700.
 3. **Structure follows jakub.kr, cards follow lawsofux.com.** One content column, one card style, one heading scale.
 4. **Hero.**
    - Line under the name: `I build AI and quant systems whose results you can check.`

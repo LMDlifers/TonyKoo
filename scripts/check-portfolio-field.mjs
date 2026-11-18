@@ -19,7 +19,6 @@ for (const [index, [, attrs, body]] of stations.entries()) {
   assert.match(body, /class="personaStill"[^>]*alt=""/);
 }
 assert.match(html, /href="#portfolio"[^>]*>[^<]*<i[^>]*><\/i> View Projects/);
-assert.match(html, /data-project-filter="ai"/);
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || '/Users/kootony/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
@@ -119,12 +118,10 @@ try {
   assert.equal(await page.locator('.fieldSelectionCard').isVisible(), true);
   await page.locator('.fieldSelectionLink').click();
   await page.waitForFunction(() => location.hash === '#portfolio');
-  assert.ok(await page.locator('[data-project-filter="ai"]').evaluate(el => el.classList.contains('active')));
   await page.locator('[data-cast-choice="methods"]').click();
   await page.locator('[data-persona="quant"]').click();
   await page.locator('.fieldSelectionLink').click();
   await page.waitForFunction(() => location.hash === '#portfolio');
-  assert.ok(await page.locator('[data-project-filter="quant"]').evaluate(el => el.classList.contains('active')));
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await page.waitForFunction(() => document.querySelector('.fieldScene').dataset.active === 'false');
   await page.close();

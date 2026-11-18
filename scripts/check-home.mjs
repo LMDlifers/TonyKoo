@@ -59,7 +59,7 @@ try {
   assert.deepEqual(hero.gone, [], "old hero copy and the proof section are gone");
   assert.ok(hero.inHero && hero.items === 3 && hero.complete, "three proof items sit in the hero");
   assert.match(hero.nums, /tabular-nums/, "proof numbers use tabular figures");
-  for (const text of ["6.09 seconds", "~90%", "Approximate field-level accuracy on a project-scoped sanitized evaluation sample; not a production benchmark."]) {
+  for (const text of ["6.09 seconds", "Approximate field-level accuracy on a project-scoped sanitized evaluation sample; not a production benchmark."]) {
     assert.equal(squash(hero.body).split(text).length - 1, 1, `"${text}" appears once`);
   }
   for (const [width, height, max] of [[1440, 900, 900], [390, 844, 1700]]) {
@@ -80,13 +80,62 @@ try {
     assert.ok(c >= 4.5, `proof text contrast ${c.toFixed(2)} (${night ? "night" : "day"})`);
   }
 
+  // Work: four featured cards that lead with an outcome, then the rest as a plain list.
+  const FEATURED = ["Agentic Healthcare Analytics Chatbot", "Self-RL & RAG Extraction Pipelines", "Fixed Income Analytics: Yield Curve Modeling", "Judicial Analytics: Legal NLP"];
+  const OTHERS = ["IBKR Mean-Reversion Trading Prototype", "RentLock: Smart Contract Escrow dApp", "Smoodee: Sustainable Food Tech Startup", "Loan Default Analytics Pipeline", "FairTracker: Event Management & Analytics Platform", "WelfareHome: Social Impact Web Platform", "Black-Scholes Options Analytics Dashboard"];
+  const readWork = (p) => p.evaluate(async () => {
+    // Lazy images only load near the viewport: load them eagerly, with a time limit so nothing can hang.
+    await Promise.all([...document.querySelectorAll(".workCard img")].map((img) => { img.loading = "eager"; return Promise.race([img.decode().catch(() => {}), new Promise((r) => setTimeout(r, 3000))]); }));
+    return {
+      cards: [...document.querySelectorAll(".workGrid .workCard")].map((c) => ({
+        title: c.querySelector(".workTitle")?.textContent.trim(),
+        img: [...c.querySelectorAll("img")].map((i) => [i.getAttribute("alt"), i.naturalWidth, i.naturalHeight]),
+        parts: [".workOutcome", ".workContext", ".workStack"].map((s) => c.querySelectorAll(s).length),
+        links: c.querySelectorAll("a").length,
+        h: c.getBoundingClientRect().height,
+        overflow: [...c.querySelectorAll("*")].some((el) => el.getBoundingClientRect().right > c.getBoundingClientRect().right + 0.5),
+        style: [getComputedStyle(c).borderRadius, getComputedStyle(c).borderColor, getComputedStyle(c).boxShadow].join("|"),
+      })),
+      rows: [...document.querySelectorAll(".workList > li")].map((li) => ({ title: li.querySelector(".workListTitle")?.textContent.trim(), links: li.querySelectorAll("a").length, h: li.getBoundingClientRect().height, img: li.querySelectorAll("img").length })),
+      old: [".projectDeck", "#filter", ".filterItem", "#portfolio .pixelFrame", ".evidenceLabel"].filter((s) => document.querySelector(s)),
+      body: document.body.textContent,
+    };
+  });
+  const work = await readWork(page);
+  assert.deepEqual(work.cards.map((c) => c.title), FEATURED, "four featured cards, in order");
+  for (const c of work.cards) {
+    assert.deepEqual(c.img, [["", 800, 500]], `${c.title}: one decorative 800x500 image`);
+    assert.deepEqual(c.parts, [1, 1, 1], `${c.title}: outcome, context and stack`);
+    assert.equal(c.links, 1, `${c.title}: one link`);
+  }
+  assert.equal(new Set(work.cards.map((c) => c.style)).size, 1, "every card shares one radius, border and shadow");
+  assert.deepEqual(work.rows.map((r) => r.title), OTHERS, "the other seven projects are a list");
+  assert.ok(work.rows.every((r) => r.links <= 1 && r.img === 0), "list rows are text with at most one link");
+  assert.equal(work.rows.filter((r) => r.links === 1).length, 4, "the four rows with a public page link to it");
+  assert.deepEqual(work.old, [], "deck, filters, pixel card frames and evidence labels are gone");
+  for (const label of ["Does not claim", "Full label", "Report added"]) assert.ok(!work.body.includes(label), `"${label}" is off the homepage`);
+  {
+    const p = await open({ javaScriptEnabled: false });
+    const off = await readWork(p);
+    assert.ok(off.cards.length === 4 && off.cards.every((c) => c.h > 0) && off.rows.length === 7 && off.rows.every((r) => r.h > 0), "cards and list show without JS");
+    await p.context().close();
+  }
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.waitForTimeout(200);
+  assert.ok((await readWork(page)).cards.every((c) => !c.overflow), "card content stays inside the card at 320px");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const night of [false, true]) {
+    const c = await contrast(".workCard .workTitle, .workCard .workOutcome, .workCard .workContext, .workCard .workStack li, .workCard a, .workList li, .workList a", night);
+    assert.ok(c >= 4.5, `work text contrast ${c.toFixed(2)} (${night ? "night" : "day"})`);
+  }
+
   /* TASKS */
 
   // The pixel face is an accent: the wordmark and the field title only.
   const pixel = await page.evaluate(() => [...document.querySelectorAll("body *")]
-    .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && /^"?Pixelify Sans/.test(getComputedStyle(el).fontFamily) && !el.matches(".title-word, .fieldToolbarTitle"))
+    .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && /^"?Pixelify Sans/.test(getComputedStyle(el).fontFamily) && !el.matches(".title-word, .fieldToolbarTitle, .fieldSelectionTitle"))
     .map((el) => `${el.tagName}.${el.className}`).slice(0, 8));
-  assert.deepEqual(pixel, [], "Pixelify Sans only on the wordmark and the field title");
+  assert.deepEqual(pixel, [], "Pixelify Sans only on the wordmark and inside the field");
 
   // Budgets: a short page.
   for (const [width, height, max] of [[1440, 900, 9000], [390, 844, 13000]]) {
