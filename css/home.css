@@ -271,3 +271,9 @@ body.dark-mode .contactPanel {
         transform: none;
     }
 }
+
+/* Night: focus rings on the new links use the light accent, so they stay visible on dark cards. */
+body.dark-mode .workCard a:focus-visible,
+body.dark-mode .workList a:focus-visible {
+    outline-color: var(--lab-accent);
+}

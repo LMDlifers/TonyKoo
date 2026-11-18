@@ -73,7 +73,10 @@ try {
   await page.setViewportSize({ width: 1440, height: 900 });
   const contrast = async (selector, night) => {
     const p = await open({}, night);
-    const worst = await p.evaluate((sel) => Math.min(...[...document.querySelectorAll(sel)].filter((el) => el.getBoundingClientRect().height > 0).map((el) => __contrast(el))), selector);
+    const worst = await p.evaluate((sel) => {
+      const els = [...document.querySelectorAll(sel)].filter((el) => el.getBoundingClientRect().height > 0);
+      return els.length ? Math.min(...els.map((el) => __contrast(el))) : 0; // nothing matched: fail, never pass on an empty set
+    }, selector);
     await p.context().close();
     return worst;
   };
@@ -162,6 +165,46 @@ try {
     const src = fs.readFileSync(new URL(f, root), "utf8");
     const links = f === "index.html" ? /href="#([\w-]+)"/g : /href="(?:\.\.\/)?index\.html#([\w-]+)"/g;
     for (const [, id] of src.matchAll(links)) assert.ok(ids.has(id), `${f} links to homepage #${id}, which is missing`);
+  }
+  // Nav anchors land on their sections, below the fixed nav.
+  for (const id of ["portfolio", "writing", "resume", "contact"]) {
+    await page.locator(`a.nav-link[href="#${id}"]`).click();
+    let last = -1;
+    for (let i = 0; i < 40; i++) { // smooth scrolling: wait until the position stops moving
+      await page.waitForTimeout(150);
+      const y = await page.evaluate(() => scrollY);
+      if (y === last) break;
+      last = y;
+    }
+    const { top, atBottom } = await page.evaluate((i) => ({ top: document.getElementById(i).getBoundingClientRect().top, atBottom: Math.ceil(scrollY + innerHeight) >= document.documentElement.scrollHeight - 1 }), id);
+    assert.ok((top >= -1 && top <= 120) || (atBottom && top < 900), `#${id} lands after its nav link (top ${Math.round(top)})`);
+  }
+  // A closed section reopens from an in-page link even when the hash has not changed.
+  {
+    const p = await open();
+    await p.goto(`${base}/#reading`);
+    await p.waitForTimeout(300);
+    await p.evaluate(() => { document.getElementById("reading").open = false; });
+    await p.locator('.fieldFallbackLinks a[href="#reading"]').evaluate((a) => a.click());
+    await p.waitForTimeout(200);
+    assert.equal(await p.evaluate(() => document.getElementById("reading").open), true, "an in-page link reopens #reading");
+    await p.context().close();
+  }
+  // Night: the focus ring on a card link is visible against the card (3:1 or better).
+  {
+    const p = await open({}, true);
+    const link = p.locator(".workCard a").first();
+    await link.scrollIntoViewIfNeeded();
+    await p.keyboard.press("Tab");
+    await link.focus();
+    const ratio = await link.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      if (cs.outlineStyle === "none") return 0;
+      const ring = __lum(__rgba(cs.outlineColor)), card = __lum(__rgba(getComputedStyle(el.closest(".workCard")).backgroundColor));
+      return (Math.max(ring, card) + 0.05) / (Math.min(ring, card) + 0.05);
+    });
+    assert.ok(ratio >= 3, `card link focus ring contrast at night ${ratio.toFixed(2)}`);
+    await p.context().close();
   }
   for (const id of ["reading", "certifications"]) {
     const p = await open();

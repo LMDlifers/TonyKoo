@@ -360,6 +360,7 @@ try {
     };
   });
   assert.equal(type.h1, 0, `hero title tracking ${type.h1}: pixel glyphs stay untracked`);
+  for (const r of type.titles) assert.equal(r, 0, `section title tracking ${r}`);
   assert.ok(type.buttonSpacing <= 0, `hero button tracking ${type.buttonSpacing}`);
   assert.doesNotMatch(type.subtitleFont, /Inconsolata/, "subtitle uses the body face; mono is for data");
   assert.equal(type.findFont, type.navFont, "Find matches its nav siblings");
@@ -379,6 +380,7 @@ try {
   });
   assert.deepEqual(faces.karla, [], "no Karla on the homepage");
   assert.match(faces.h1, /^"?Pixelify Sans/, "wordmark is pixel type");
+  for (const f of faces.titles) assert.match(f, /^"?Lato/, "section titles are Lato");
   for (const f of faces.body) assert.match(f, /^"?Lato/, "body, nav and buttons are Lato");
   for (const [cls, size] of faces.pixelSizes) assert.ok(size >= 16 && size % 8 === 0, `pixel type ${cls} at ${size}px`);
 

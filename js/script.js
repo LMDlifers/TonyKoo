@@ -265,10 +265,14 @@ $(document).ready(function () {
   });
 });
 
-// A link to a collapsed section (#reading, #certifications) opens it.
-function openHashTarget() {
-  var target = location.hash && document.getElementById(location.hash.slice(1));
+// A link to a collapsed section (#reading, #certifications) opens it, even when the hash is already set.
+function openHashTarget(hash) {
+  var target = hash && document.getElementById(hash.slice(1));
   if (target && target.tagName === "DETAILS") { target.open = true; target.scrollIntoView(); }
 }
-window.addEventListener("hashchange", openHashTarget);
-openHashTarget();
+window.addEventListener("hashchange", function () { openHashTarget(location.hash); });
+document.addEventListener("click", function (e) {
+  var link = e.target.closest && e.target.closest('a[href^="#"]');
+  if (link) openHashTarget(link.getAttribute("href"));
+});
+openHashTarget(location.hash);

@@ -1602,51 +1602,6 @@ body.dark-mode .projectIndexBoundary {
     }
 }
 
-/* project listing */
-
-
-/* Filtering hides cards only when JS can show them again; without JS every card shows. */
-
-
-/* The "show" class is added to the filtered elements */
-/* !NEEDS TO BE AFTER .filteritem */
-
-
-/* image */
-
-
-/* description */
-
-
-/* Enhanced Portfolio Project Cards */
-
-
-/* Technology Badges */
-
-
-/* Link icons */
-
-
-/* Mobile responsiveness for project cards */
-@media (max-width: 768px) {
-    .filterItem {
-        min-height: 0;
-        max-height: none;
-    }
-
-    .filterItemImg {
-        height: 220px;
-    }
-
-    .filterItemContent {
-        padding: 24px 24px 28px;
-    }
-
-    .techBadge {
-        font-size: 9px;
-        padding: 5px 10px;
-    }
-}
 
 /* TESTIMONIALS SECTION */
 .testimonialsSection {
@@ -1805,15 +1760,7 @@ body.dark-mode .testimonialCompany {
 }
 
 /* READING SECTION */
-.readingSection {
-    background: #ffffff;
-    padding: 100px 0;
-    position: relative;
-}
 
-body.dark-mode .readingSection {
-    background: #1f1f1f;
-}
 
 .readingIntro {
     background: linear-gradient(135deg, #fbfaf6 0%, #ffffff 100%);
@@ -2193,9 +2140,6 @@ body.dark-mode .bookThumb.active {
 }
 
 @media (max-width: 768px) {
-    .readingSection {
-        padding: 72px 0;
-    }
 
     .readingIntro {
         padding: 22px;
@@ -2454,14 +2398,7 @@ body.dark-mode .writingTag {
 }
 
 /* CERTIFICATIONS SECTION */
-.certificationsSection {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    padding: 100px 0;
-}
 
-body.dark-mode .certificationsSection {
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-}
 
 .certCard {
     background: white;
@@ -2790,67 +2727,6 @@ a:focus {
         padding: 40px 20px;
     }
 
-    .projectDeck {
-        padding: 18px;
-    }
-
-    .projectDeckToolbar {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .projectDeckControls {
-        width: 100%;
-    }
-
-    .projectViewSwitch,
-    .projectDeckNavGroup {
-        width: 100%;
-    }
-
-    .projectViewButton {
-        flex: 1 1 0;
-    }
-
-    .projectDeckNav {
-        border-radius: 8px;
-        flex: 1 1 0;
-    }
-
-    .projectDeckCounter {
-        min-width: 64px;
-    }
-
-    .projectDeckCard {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .projectDeckMedia {
-        min-height: 240px;
-        padding: 12px;
-    }
-
-    .projectDeckMedia img {
-        max-height: 260px;
-    }
-
-    .projectDeckContent {
-        padding: 24px;
-    }
-
-    .projectDeckContent h3 {
-        font-size: 22px;
-    }
-
-    .projectDeckRows div {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-
-    .projectDeckThumb {
-        flex-basis: 150px;
-    }
-
     .projectEvidenceIndex {
         padding: 18px;
     }
@@ -2871,10 +2747,6 @@ a:focus {
     .projectIndexBoundary {
         justify-self: start;
         white-space: normal;
-    }
-
-    .itemsContainer {
-        text-align: center;
     }
 }
 
@@ -3469,20 +3341,6 @@ body.dark-mode .aboutSection::after {
     text-decoration: none;
 }
 
-.proofCardPrimary {
-    background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(238, 246, 251, 0.84)),
-        url("../images/reports/healthcare_agentic_pipeline_original.png") center / cover;
-    grid-row: span 2;
-    min-height: 472px;
-}
-
-body.dark-mode .proofCardPrimary {
-    background:
-        linear-gradient(145deg, rgba(34, 211, 238, 0.18), rgba(13, 20, 32, 0.88)),
-        url("../images/reports/healthcare_agentic_pipeline_original.png") center / cover;
-}
-
 .proofLabel {
     color: var(--lab-accent);
     display: block;
@@ -3762,17 +3620,13 @@ body.dark-mode .commandPaletteBackdrop {
 .resumeSection,
 .portfolioSection,
 .testimonialsSection,
-.readingSection,
 .writingSection,
-.certificationsSection,
 .contactSection,
 body.dark-mode .aboutSection,
 body.dark-mode .resumeSection,
 body.dark-mode .portfolioSection,
 body.dark-mode .testimonialsSection,
-body.dark-mode .readingSection,
 body.dark-mode .writingSection,
-body.dark-mode .certificationsSection,
 body.dark-mode .contactSection {
     background: var(--lab-bg);
 }
@@ -3859,11 +3713,6 @@ body.dark-mode .contactSection {
         linear-gradient(180deg, var(--lab-bg) 0%, var(--lab-bg-soft) 100%);
     border-top: 1px solid var(--lab-line);
     padding: 72px 0 88px;
-}
-
-.certificationsSection,
-body.dark-mode .certificationsSection {
-    padding-bottom: 72px;
 }
 
 .contactPanel,
@@ -4049,11 +3898,6 @@ body.dark-mode .writingThumb {
 
     .contactActions {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .proofCardPrimary {
-        grid-row: auto;
-        min-height: 340px;
     }
 }
 
