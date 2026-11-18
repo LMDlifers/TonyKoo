@@ -33,7 +33,7 @@ try {
       await page.evaluate(isDark => document.body.classList.toggle('dark-mode', isDark), dark);
       if (width === 1440 && !dark) {
         const words = await page.evaluate(() => document.body.innerText.split(/\s+/).filter(Boolean).length);
-        assert.ok(words <= 1744, `Homepage visible words ${words} exceed the 1744 budget`);
+        assert.ok(words <= 1200, `Homepage visible words ${words} exceed the 1200 budget`);
       }
       await page.locator('.fieldScene').scrollIntoViewIfNeeded();
       await page.evaluate(() => document.fonts.ready);
