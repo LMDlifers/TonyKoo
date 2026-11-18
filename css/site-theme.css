@@ -9,12 +9,11 @@ body.dark-mode .researchNavLinks button,body.dark-mode .researchSearch input {ba
 body.dark-mode .conceptFigure,body.dark-mode .leadFigureLink{background:#252d34}
 body.dark-mode .takeaway,body.dark-mode .worked,body.dark-mode .articleToc a:hover,body.dark-mode .researchFind:hover{background:#273139}
 body.dark-mode .caution{background:#38302a}
-body.dark-mode .reportHero,body.dark-mode .reportSection,body.dark-mode .reportTldr,body.dark-mode .sourceFigure,body.dark-mode .researchFigure,body.dark-mode .demoVideo,body.dark-mode .reportHeroVisual,body.dark-mode .visualEvidenceItem{background:#20252a;border-color:#3c454e}
-body.dark-mode .reportMeta span,body.dark-mode .tag,body.dark-mode .licenseNote,body.dark-mode .decisionTable th{background:#2b333a;border-color:#3c454e;color:#dce5eb}
+body.dark-mode .sourceFigure,body.dark-mode .researchFigure,body.dark-mode .demoVideo,body.dark-mode .reportHeroVisual,body.dark-mode .visualEvidenceItem{background:#20252a;border-color:#3c454e}
+body.dark-mode .licenseNote,body.dark-mode .decisionTable th{background:#2b333a;border-color:#3c454e;color:#dce5eb}
 body.dark-mode .chartTrack{background:#333c44}
 body.dark-mode .reportHeroAction{background:#dce5eb;border-color:#dce5eb;color:#14191d}
 body.dark-mode .reportHeroAction:hover{background:#fff;color:#14191d}
-body.dark-mode .reportHero{background:linear-gradient(145deg,#20252a,#242b32)}
 body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.flowNode,.matrixCell,.sequenceStep,.modelCard,.noteCard,.referenceItem,.chartPanel,.thoughtCard){background:#252c33;border-color:#3c454e}
 body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]){background:#2b343c;border-color:#687985}
 body.dark-mode .articleByline .authorMark{background:#303840;color:#edf3f6}
@@ -44,7 +43,7 @@ body.dark-mode .personaStation:hover,body.dark-mode .personaStation:focus-visibl
 
 
 /* Shared technical accents; article prose keeps its reading face. */
-.storyMeta,.articleQualifier,.articleMeta,.reportMeta span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.storyMeta,.articleQualifier,.articleMeta,.reportMeta span{font-family:var(--font-data)}
 :is(a,button,input,textarea):focus-visible{outline:3px solid var(--focus,#a5c0d2);outline-offset:3px}
 
 /* A still glyph scatter wakes briefly under the pointer on entry surfaces. */

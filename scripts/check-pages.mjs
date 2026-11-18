@@ -11,10 +11,10 @@ const { chromium } = require(
 );
 const base = process.env.SITE_BASE_URL || "http://localhost:8000";
 const root = new URL("..", import.meta.url);
-const PAGES = execFileSync("git", ["ls-files", "reports/*.html", "research/*.html", "log.html", "colophon.html"], { cwd: root, encoding: "utf8" }).trim().split("\n");
+const PAGES = execFileSync("git", ["ls-files", "reports/*.html", "research/*.html", "log.html", "colophon.html"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter((p) => new RegExp(process.env.PAGES_FILTER || ".").test(p));
 const REPORTS = PAGES.filter((p) => p.startsWith("reports/"));
 const ESSAYS = PAGES.filter((p) => p.startsWith("research/") && !p.endsWith("index.html"));
-assert.ok(REPORTS.length === 8 && ESSAYS.length >= 14, "found the reports and essays");
+if (!process.env.PAGES_FILTER) assert.ok(REPORTS.length === 8 && ESSAYS.length >= 14, "found the reports and essays");
 
 const HELPERS = `
 window.__rgba = (c) => { const x = document.createElement("canvas").getContext("2d"); x.clearRect(0,0,1,1); x.fillStyle = c; x.fillRect(0, 0, 1, 1); return [...x.getImageData(0, 0, 1, 1).data]; };
@@ -37,6 +37,7 @@ const open = async (path, { night = false, width = 1440 } = {}) => {
   if (night) await ctx.addInitScript(() => localStorage.setItem("darkMode", "enabled"));
   const page = await ctx.newPage();
   await page.goto(`${base}/${path}`);
+  await page.evaluate(async () => { await Promise.all([document.fonts.load("18px Lato"), document.fonts.load("700 18px Lato")]); await document.fonts.ready; await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }); // ch-based widths settle once Lato has loaded
   return page;
 };
 try {
@@ -60,6 +61,7 @@ try {
           brand: document.querySelector(".researchNav a")?.textContent.trim() ?? "",
           toggle: document.querySelectorAll(".researchNav [data-theme-toggle]").length,
           pills: document.querySelectorAll(".reportNav, .reportThemeButton").length,
+          chips: [...document.querySelectorAll(".tag, .reportMeta span")].filter((el) => __rgba(getComputedStyle(el).backgroundColor)[3] > 0 || parseFloat(getComputedStyle(el).borderTopWidth) > 0).length,
           // One surface: anything with a border on all sides or a shadow uses it; rules and dividers have no radius.
           surfaces: [...new Set([...document.querySelectorAll("main *, footer *")].filter((el) => {
             if (el.closest("svg, dialog, .findAskLauncher") || !el.getClientRects().length) return false;
@@ -77,6 +79,7 @@ try {
       assert.deepEqual(r.tracked, [], `${label}: no tracked text`);
       assert.ok(r.prose > 0 && r.contrast >= 4.5, `${label}: body text contrast ${r.contrast.toFixed(2)} over ${r.prose} paragraphs`);
       assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.pills], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
+      assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();
     }
@@ -103,7 +106,7 @@ try {
         body: prose.slice(0, 1).map((el) => [cs(el).fontSize, (parseFloat(cs(el).lineHeight) / parseFloat(cs(el).fontSize)).toFixed(2)].join("/"))[0],
         h1: [cs(document.querySelector("main h1")).fontSize, cs(document.querySelector("main h1")).fontWeight].join("/"),
         h2: [...new Set([...document.querySelectorAll(isReport ? ".reportSection > h2" : ".articleBody > section > h2")].map((el) => [cs(el).fontSize, cs(el).fontWeight].join("/")))],
-        boxes: [".reportSection", ".reportHero", ".reportTldr"].flatMap((s) => [...document.querySelectorAll(s)]).filter((el) => parseFloat(cs(el).borderTopWidth) > 0 || cs(el).boxShadow !== "none" || __rgba(cs(el).backgroundColor)[3] > 0).length,
+        boxes: [".reportSection", ".reportHero", ".reportTldr"].flatMap((s) => [...document.querySelectorAll(s)]).filter((el) => parseFloat(cs(el).borderTopWidth) > 0 || cs(el).boxShadow !== "none" || __rgba(cs(el).backgroundColor)[3] > 0 || cs(el).backgroundImage !== "none").length,
       };
     }, report);
     assert.ok(r.count > 0, `${path}: prose found`);
@@ -113,6 +116,12 @@ try {
     assert.equal(r.h1, "40px/700", `${path}: title is 40px bold`);
     assert.deepEqual(r.h2, ["28px/700"], `${path}: section headings are 28px bold`);
     if (report) assert.equal(r.boxes, 0, `${path}: sections are not boxed`);
+    if (report) {
+      const night = await open(path, { night: true });
+      const boxed = await night.evaluate(() => [".reportSection", ".reportHero", ".reportTldr"].flatMap((s) => [...document.querySelectorAll(s)]).filter((el) => { const cs = getComputedStyle(el); return parseFloat(cs.borderTopWidth) > 0 || cs.boxShadow !== "none" || __rgba(cs.backgroundColor)[3] > 0 || cs.backgroundImage !== "none"; }).length);
+      assert.equal(boxed, 0, `${path}: sections are not boxed at night`);
+      await night.context().close();
+    }
     // Phones: wide content scrolls inside its own box.
     await page.setViewportSize({ width: 320, height: 640 });
     await page.waitForTimeout(150);
