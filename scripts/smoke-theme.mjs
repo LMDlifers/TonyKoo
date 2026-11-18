@@ -18,7 +18,7 @@ try {
       await page.waitForFunction(() => getComputedStyle(document.body).backgroundColor !== 'rgb(18, 21, 25)');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), false, `${path} overflows`);
     }
-    await page.locator('.reportThemeButton').click();
+    await page.locator('[data-theme-toggle]').click();
     assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true);
     await page.goto(base + '/chat/');
     assert.equal(await page.locator('body').evaluate(node => node.classList.contains('dark-mode')), true, 'dark preference did not follow visitor');
