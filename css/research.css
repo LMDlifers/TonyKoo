@@ -214,3 +214,12 @@ body.dark-mode .conceptFigure{background:#203528}
 .researchChatInvite { display: flex; flex-wrap: wrap; gap: .3rem .75rem; align-items: baseline; margin: 1.05rem 0 0; font: .86rem/1.45 var(--font-body); }
 .researchChatInvite a { font-weight: 700; }
 .researchChatInvite span { color: var(--muted); }
+
+/* One system (inner-pages spec): essays share the report and homepage scale and reading measure. */
+.articleHero h1 { font: 700 40px/1.15 var(--font-body); text-wrap: balance; }
+.articleBody > section > h2 { font: 700 28px/1.2 var(--font-body); text-wrap: balance; }
+.articleBody > section > p, .articleBody > section > ul, .articleBody > section > ol { max-width: var(--measure); font: 400 18px/1.65 var(--font-body); text-wrap: pretty; }
+@media (max-width: 699px) {
+  .articleHero h1 { font-size: 28px; }
+  .articleBody > section > h2 { font-size: 22px; }
+}

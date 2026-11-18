@@ -25,7 +25,8 @@ window.__contrast = (el) => { const [a, b] = [__lum(__rgba(getComputedStyle(el).
 window.__texts = () => [...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, .findAskLauncher, dialog, script, style, noscript") && el.getClientRects().length && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()));
 // Width of an element in units of its own "0" glyph.
 window.__ch = (el) => { const s = document.createElement("span"); s.textContent = "0".repeat(20); s.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap"; el.append(s); const ch = s.getBoundingClientRect().width / 20; s.remove(); return el.getBoundingClientRect().width / ch; };
-window.__surface = (el) => { const cs = getComputedStyle(el); return [cs.borderTopWidth, cs.borderTopLeftRadius, cs.boxShadow].join("|"); };
+// A card may carry one thicker accent edge, so the hairline is the thinnest of its four borders.
+window.__surface = (el) => { const cs = getComputedStyle(el); return [Math.min(...["Top", "Right", "Bottom", "Left"].map((k) => parseFloat(cs["border" + k + "Width"]))) + "px", cs.borderTopLeftRadius, cs.boxShadow].join("|"); };
 `;
 const SURFACE = "1px|16px|none";
 const name = (el) => `${el.tagName.toLowerCase()}.${el.className}`;
