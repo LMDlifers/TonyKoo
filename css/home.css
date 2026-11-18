@@ -212,3 +212,32 @@
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+/* One heading system: every section title is Lato 700 at one size. */
+.sectionTitle,
+.contactCopy .sectionTitle {
+    margin: 0 0 24px;
+    font: 700 40px/1.15 var(--font-body);
+    letter-spacing: 0;
+    text-align: left;
+    text-wrap: balance;
+    color: var(--lab-ink);
+}
+
+.section p {
+    text-wrap: pretty;
+}
+
+@media (max-width: 899px) {
+    .sectionTitle,
+    .contactCopy .sectionTitle {
+        font-size: 28px;
+    }
+}
+
+/* The hero field spills 200px past the hero; the work section starts below it. */
+@media (min-width: 900px) {
+    #portfolio {
+        padding-top: 264px;
+    }
+}

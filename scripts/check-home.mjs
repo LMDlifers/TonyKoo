@@ -129,6 +129,22 @@ try {
     assert.ok(c >= 4.5, `work text contrast ${c.toFixed(2)} (${night ? "night" : "day"})`);
   }
 
+  // One heading system, and no chapters.
+  for (const [width, size] of [[1440, "40px"], [390, "28px"]]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.waitForTimeout(200);
+    const heads = await page.evaluate(() => ({
+      chapters: document.querySelectorAll(".chapter").length,
+      h2: [...document.querySelectorAll("h2:not(.fieldToolbarTitle)")].filter((el) => el.getBoundingClientRect().height > 0).map((el) => { const cs = getComputedStyle(el); return [el.textContent.trim().slice(0, 24), cs.fontFamily.split(",")[0].replace(/"/g, ""), cs.fontWeight, cs.fontSize, cs.textWrap ?? cs.textWrapStyle].join("|"); }),
+      prose: [...document.querySelectorAll(".section p")].filter((el) => !/pretty/.test(getComputedStyle(el).textWrap ?? getComputedStyle(el).textWrapStyle)).length,
+    }));
+    assert.equal(heads.chapters, 0, "no chapters");
+    assert.ok(heads.h2.length >= 5, "section headings found");
+    for (const h of heads.h2) assert.match(h, new RegExp(`\\|Lato\\|700\\|${size}\\|balance$`), `heading "${h}" is Lato 700 ${size}, balanced`);
+    assert.equal(heads.prose, 0, "section paragraphs wrap pretty");
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+
   /* TASKS */
 
   // The pixel face is an accent: the wordmark and the field title only.
