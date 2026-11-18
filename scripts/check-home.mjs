@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
 import { createRequire } from "node:module";
 
 // The selling homepage (docs/superpowers/specs/2026-11-19-sell-homepage-design.md):
@@ -144,6 +146,30 @@ try {
     assert.equal(heads.prose, 0, "section paragraphs wrap pretty");
   }
   await page.setViewportSize({ width: 1440, height: 900 });
+
+  // Short page: six nav links; Reading and Certifications are closed sections under Resume.
+  const tail = await page.evaluate(() => ({
+    nav: [...document.querySelectorAll("#navbarNav .nav-link")].map((el) => el.textContent.trim()),
+    folded: ["reading", "certifications"].map((id) => { const el = document.getElementById(id); return [el?.tagName, el?.open, !!el?.closest("#resume"), !!el?.querySelector("summary")?.textContent.trim()]; }),
+  }));
+  assert.deepEqual(tail.nav, ["Projects", "Writing", "Research", "Find", "Resume", "Contact"], "six nav links");
+  for (const f of tail.folded) assert.deepEqual(f, ["DETAILS", false, true, true], "folded section is a closed, titled <details> inside Resume");
+  // Every link to a homepage anchor, from any tracked page or script, still has a target.
+  const root = new URL("..", import.meta.url);
+  const ids = new Set(await page.evaluate(() => [...document.querySelectorAll("[id]")].map((el) => el.id)));
+  // research/ pages link to their own index.html, so they are skipped.
+  for (const f of execFileSync("git", ["ls-files", "*.html"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter((f) => !f.startsWith("research/"))) {
+    const src = fs.readFileSync(new URL(f, root), "utf8");
+    const links = f === "index.html" ? /href="#([\w-]+)"/g : /href="(?:\.\.\/)?index\.html#([\w-]+)"/g;
+    for (const [, id] of src.matchAll(links)) assert.ok(ids.has(id), `${f} links to homepage #${id}, which is missing`);
+  }
+  for (const id of ["reading", "certifications"]) {
+    const p = await open();
+    await p.goto(`${base}/#${id}`);
+    await p.waitForTimeout(300);
+    assert.equal(await p.evaluate((i) => document.getElementById(i).open, id), true, `a link to #${id} opens it`);
+    await p.context().close();
+  }
 
   /* TASKS */
 

@@ -264,3 +264,11 @@ $(document).ready(function () {
     numberObserver.observe(el);
   });
 });
+
+// A link to a collapsed section (#reading, #certifications) opens it.
+function openHashTarget() {
+  var target = location.hash && document.getElementById(location.hash.slice(1));
+  if (target && target.tagName === "DETAILS") { target.open = true; target.scrollIntoView(); }
+}
+window.addEventListener("hashchange", openHashTarget);
+openHashTarget();

@@ -15,7 +15,7 @@ const css = fs
 const heroBlock = html.slice(html.indexOf('<header id="heroSection"'), html.indexOf("</header>"));
 
 assert.doesNotMatch(html, /heroGuideLine/, "hero offers projects or contact, not chat");
-assert.match(html, /<a class="nav-link" href="chat\/"/, "nav Chat link kept");
+assert.doesNotMatch(html, /<a class="nav-link" href="chat\/"/, "no Chat link in the nav; the Ask launcher covers it");
 assert.equal((heroBlock.match(/heroButtonPrimary/g) || []).length, 1, "one primary hero action");
 assert.doesNotMatch(heroBlock, /heroEyebrow/, "no hero eyebrow");
 

@@ -66,7 +66,7 @@ try {
   }
   const navigation = await browser.newPage();
   await navigation.goto(base + '/', { waitUntil: 'domcontentloaded' });
-  await navigation.locator('a.nav-link[href="chat/"]').click();
+  await navigation.locator('.findAskLauncher').click();
   assert.equal(navigation.url(), base + '/');
   assert.equal(await navigation.locator('#tonyChatOverlay').evaluate((node) => node.open), true);
   await navigation.locator('.chatOverlayActions a').click();

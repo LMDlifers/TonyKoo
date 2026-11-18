@@ -241,3 +241,8 @@
         padding-top: 264px;
     }
 }
+
+/* Collapsed sections under Resume share one look and one gap. */
+#resume .resumeDetails + .resumeDetails {
+    margin-top: 12px;
+}
