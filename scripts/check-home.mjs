@@ -171,7 +171,25 @@ try {
     await p.context().close();
   }
 
-  /* TASKS */
+  // One surface: every card has the same hairline, radius and no shadow, in both themes, at rest and on hover.
+  for (const night of [false, true]) {
+    const p = await open({}, night);
+    const surfaces = await p.evaluate(() => [".workCard", ".resumePriorityCard", ".testimonialCard", ".writingCard", ".contactPanel", ".resumeDetails"].map((sel) => {
+      const el = document.querySelector(sel);
+      const cs = getComputedStyle(el);
+      return [sel, [cs.borderTopWidth, cs.borderTopColor, cs.borderTopLeftRadius, cs.boxShadow].join("|")];
+    }));
+    assert.equal(new Set(surfaces.map((x) => x[1])).size, 1, `cards share one surface (${night ? "night" : "day"}): ${JSON.stringify(surfaces)}`);
+    assert.match(surfaces[0][1], /^1px\|.*\|16px\|none$/, "the surface is a 1px hairline, 16px radius, no shadow");
+    for (const sel of [".writingCard", ".testimonialCard"]) {
+      await p.locator(sel).first().scrollIntoViewIfNeeded();
+      await p.locator(sel).first().hover();
+      await p.waitForTimeout(400);
+      assert.equal(await p.locator(sel).first().evaluate((el) => getComputedStyle(el).boxShadow), "none", `${sel} gains no shadow on hover`);
+    }
+    await p.context().close();
+  }
+
 
   // The pixel face is an accent: the wordmark and the field title only.
   const pixel = await page.evaluate(() => [...document.querySelectorAll("body *")]

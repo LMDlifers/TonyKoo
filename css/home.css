@@ -246,3 +246,28 @@
 #resume .resumeDetails + .resumeDetails {
     margin-top: 12px;
 }
+
+/* One surface for every card: a hairline, a 16px radius, no shadow. */
+.workCard,
+.resumePriorityCard,
+.testimonialCard,
+.writingCard,
+.contactPanel,
+.resumeDetails,
+body.dark-mode .resumePriorityCard,
+body.dark-mode .testimonialCard,
+body.dark-mode .writingCard,
+body.dark-mode .contactPanel {
+    border: 1px solid var(--lab-line);
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+@media (hover: hover) {
+    .resumePriorityCard:hover,
+    .testimonialCard:hover,
+    .writingCard:hover {
+        box-shadow: none;
+        transform: none;
+    }
+}
