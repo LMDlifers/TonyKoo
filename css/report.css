@@ -914,7 +914,7 @@ body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]) { backgr
 body.dark-mode :is(.reportSubtitle,.reportTldrHeader p,.reportTldrItem p,.fieldNote p,.sourceFigure figcaption,.reportHeroVisual figcaption,.visualCaption,.researchCredit,.researchConnection,.demoVideoCaption p,.decisionTable td,.chartLabel,.chartMeta,.referenceItem,.thoughtCard span) { color:var(--report-body); }
 body.dark-mode :is(.signalLabel,.flowNode span,.matrixCell span,.sequenceStep span,.modelCard span,.noteCard span,.matrixAxis,.reportFooter) { color:var(--report-muted); }
 body.dark-mode :is(.reportEyebrow,.reportTldrLabel,.diagramTitle,.fieldNoteLabel,.demoVideoLabel,.researchLabel,.referenceItem a,.researchCredit a,.researchConnection a,.visualCaption a,.demoVideoCaption a,.videoTranscript summary) { color:var(--report-blue); }
-body.dark-mode :is(.reportMeta span,.tag,.licenseNote,.decisionTable th) { background:#283b2d; border-color:var(--report-line); color:var(--report-blue); }
+body.dark-mode :is(.licenseNote,.decisionTable th) { background:#283b2d; border-color:var(--report-line); color:var(--report-blue); }
 body.dark-mode .reportHeroAction { background:var(--report-blue); border-color:var(--report-blue); color:#15251b; }
 body.dark-mode .reportHeroAction:hover { background:#c5e4c9; color:#15251b; }
 body.dark-mode :is(.sourceFigure img,.researchFigure img,.reportHeroVisual img,.visualEvidenceItem img,.reportFigureLink) { background:#fff; }
