@@ -498,7 +498,7 @@ $(document).ready(function () {
   );
 
   // Observe all resume subsections for fade-in effect
-  document.querySelectorAll(".proofCard, .resumeSubsection, .filterItem, .projectDeck, .testimonialCard, .bookCarousel, .writingCard, .certCard").forEach((el) => {
+  document.querySelectorAll(".resumeSubsection, .filterItem, .projectDeck, .testimonialCard, .bookCarousel, .writingCard, .certCard").forEach((el) => {
     el.classList.add("motion-reveal");
     observer.observe(el);
   });

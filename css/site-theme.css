@@ -3,7 +3,6 @@
 body.dark-mode{--lab-bg:#121519;--lab-bg-soft:#191e23;--lab-panel:rgba(31,36,42,.94);--lab-panel-solid:#1f242a;--lab-ink:#f3f5f6;--lab-muted:#bbc5cd;--lab-dim:#aab5be;--lab-line:rgba(194,207,217,.2);--lab-line-strong:rgba(190,207,219,.42);--lab-accent:#dce5eb;--lab-accent-hover:#fff;--lab-accent-soft:rgba(199,215,226,.13);--lab-on-accent:#14191d;--ink:#f3f5f6;--body:#d2d9df;--muted:#b7c2cb;--line:#3c454e;--surface:#20252a;--wash:#121519;--accent:#dce5eb;--mint:#28323a;--focus:#a5c0d2;--report-ink:#f3f5f6;--report-body:#d2d9df;--report-muted:#b7c2cb;--report-blue:#dce5eb;--report-blue-soft:#303840;--report-line:#3c454e;--report-surface:#20252a;--report-warm:#121519;background:#121519;color:#d2d9df}
 body.dark-mode #navigation,body.dark-mode .researchNav{background:rgba(18,21,25,.96)}
 body.dark-mode #heroSection{background:radial-gradient(circle at 83% 18%,rgba(169,187,201,.07),transparent 32%),linear-gradient(135deg,#121519,#1d2329)}
-body.dark-mode .proofSection{background:linear-gradient(180deg,#121519,#191e23)}
 body.dark-mode #loadingScreen{background:linear-gradient(135deg,#121519,#1d2329)}
 body.dark-mode .researchHero{background:none}
 body.dark-mode .researchNavLinks button,body.dark-mode .researchSearch input,body.dark-mode .reportThemeButton{background:#20252a;color:#f3f5f6;border-color:#3c454e}

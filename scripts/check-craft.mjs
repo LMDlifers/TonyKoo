@@ -75,7 +75,7 @@ try {
       const rgb = window.__rgb;
       const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
       const bg = getComputedStyle(document.body).backgroundColor;
-      const fg = getComputedStyle(document.querySelector(".heroPositioning")).color;
+      const fg = getComputedStyle(document.querySelector(".proofNote")).color;
       const [a, b] = [lum(rgb(fg)), lum(rgb(bg))].sort((x, y) => y - x);
       return (a + 0.05) / (b + 0.05);
     });
@@ -405,7 +405,7 @@ try {
       h1: ratio(document.querySelector("h1.heroTitle")),
       titles: [...document.querySelectorAll(".sectionTitle")].map(ratio),
       buttonSpacing: parseFloat(getComputedStyle(document.querySelector(".heroButton")).letterSpacing) || 0,
-      subtitleFont: getComputedStyle(document.querySelector(".heroSubtitle")).fontFamily,
+      subtitleFont: getComputedStyle(document.querySelector(".title-line")).fontFamily,
       findFont: font(document.querySelector(".navFindButton")),
       navFont: font(document.querySelector("a.nav-link")),
     };

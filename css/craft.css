@@ -96,9 +96,7 @@ body.dark-mode .heroButtonPrimary:active {
 }
 
 /* Mono is for dates, versions and code; the subtitle is prose. */
-.heroSubtitle {
-    font-family: var(--font-body);
-}
+
 
 #navigation .navFindButton.nav-link {
     font-family: var(--font-body);

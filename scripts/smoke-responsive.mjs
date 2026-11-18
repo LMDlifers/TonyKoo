@@ -113,8 +113,7 @@ for (const pagePath of pages) {
 
       const heroSelectors = [
         ".heroTitle",
-        ".heroSubtitle",
-        ".heroPositioning",
+        ".proofStrip",
         ".heroActions",
         "#portfolio",
         ".fieldIntro",

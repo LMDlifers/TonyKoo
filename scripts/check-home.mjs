@@ -35,13 +35,7 @@ const open = async (opts = {}, night = false) => {
 try {
   const page = await open();
 
-  // Budgets: a short page with no sideways scroll.
-  for (const [width, height, max] of [[1440, 900, 9000], [390, 844, 13000]]) {
-    await page.setViewportSize({ width, height });
-    await page.waitForTimeout(200);
-    const total = await page.evaluate(() => document.documentElement.scrollHeight);
-    assert.ok(total <= max, `page is ${total}px tall at ${width}; budget ${max}`);
-  }
+  // No sideways scroll.
   for (const width of [320, 390, 768, 899, 900, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.waitForTimeout(150);
@@ -49,13 +43,58 @@ try {
   }
   await page.setViewportSize({ width: 1440, height: 900 });
 
+  // Hero: one claim, then the proof numbers on the first screen.
+  const hero = await page.evaluate(() => ({
+    line: document.querySelector(".title-line")?.textContent ?? "",
+    gone: [".heroSubtitle", ".heroPositioning", ".proofSection"].filter((s) => document.querySelector(s)),
+    inHero: !!document.querySelector("#heroSection #proof"),
+    items: document.querySelectorAll("#proof .proofItem").length,
+    complete: [...document.querySelectorAll("#proof .proofItem")].every((li) => li.querySelector(".proofValue") && li.querySelector(".proofLabel")),
+    nums: getComputedStyle(document.querySelector("#proof .proofValue") ?? document.body).fontVariantNumeric,
+    values: [...document.querySelectorAll("#proof .proofValue")].map((el) => el.textContent.trim()),
+    body: document.body.textContent,
+  }));
+  assert.deepEqual(hero.values, ["0.86s", "~90%", "RAG"], "proof values");
+  assert.equal(squash(hero.line), "I build AI and quant systems whose results you can check.", "hero claim");
+  assert.deepEqual(hero.gone, [], "old hero copy and the proof section are gone");
+  assert.ok(hero.inHero && hero.items === 3 && hero.complete, "three proof items sit in the hero");
+  assert.match(hero.nums, /tabular-nums/, "proof numbers use tabular figures");
+  for (const text of ["6.09 seconds", "~90%", "Approximate field-level accuracy on a project-scoped sanitized evaluation sample; not a production benchmark."]) {
+    assert.equal(squash(hero.body).split(text).length - 1, 1, `"${text}" appears once`);
+  }
+  for (const [width, height, max] of [[1440, 900, 900], [390, 844, 1700]]) {
+    await page.setViewportSize({ width, height });
+    await page.waitForTimeout(200);
+    const bottom = await page.evaluate(() => document.querySelector("#proof .proofValue").getBoundingClientRect().bottom + scrollY);
+    assert.ok(bottom <= max, `first proof number ends at ${Math.round(bottom)}px at ${width}; limit ${max}`);
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const contrast = async (selector, night) => {
+    const p = await open({}, night);
+    const worst = await p.evaluate((sel) => Math.min(...[...document.querySelectorAll(sel)].filter((el) => el.getBoundingClientRect().height > 0).map((el) => __contrast(el))), selector);
+    await p.context().close();
+    return worst;
+  };
+  for (const night of [false, true]) {
+    const c = await contrast("#proof .proofValue, #proof .proofLabel, #proof .proofNote", night);
+    assert.ok(c >= 4.5, `proof text contrast ${c.toFixed(2)} (${night ? "night" : "day"})`);
+  }
+
+  /* TASKS */
+
   // The pixel face is an accent: the wordmark and the field title only.
   const pixel = await page.evaluate(() => [...document.querySelectorAll("body *")]
     .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && /^"?Pixelify Sans/.test(getComputedStyle(el).fontFamily) && !el.matches(".title-word, .fieldToolbarTitle"))
     .map((el) => `${el.tagName}.${el.className}`).slice(0, 8));
   assert.deepEqual(pixel, [], "Pixelify Sans only on the wordmark and the field title");
 
-  /* TASKS */
+  // Budgets: a short page.
+  for (const [width, height, max] of [[1440, 900, 9000], [390, 844, 13000]]) {
+    await page.setViewportSize({ width, height });
+    await page.waitForTimeout(200);
+    const total = await page.evaluate(() => document.documentElement.scrollHeight);
+    assert.ok(total <= max, `page is ${total}px tall at ${width}; budget ${max}`);
+  }
   await page.context().close();
 } finally {
   await browser.close();
