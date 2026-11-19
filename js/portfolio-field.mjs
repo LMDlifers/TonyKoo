@@ -99,6 +99,8 @@ export function initPortfolioField(root = document) {
     cardLink.href = person.element.getAttribute('href');
     cardLink.firstChild.textContent = 'Open ' + person.element.dataset.destinationLabel + ' ';
     card.hidden = false;
+    // On phones the card sits below the character list: bring it into view.
+    if (matchMedia('(max-width: 899px)').matches) card.scrollIntoView({ block: 'nearest' });
   }
 
   function deselect() {
@@ -250,6 +252,12 @@ export function initPortfolioField(root = document) {
     deselect();
   });
   scene.addEventListener('keydown', event => {
+    // A character is a link that behaves like a button, so Space opens it as Enter does.
+    if (event.key === ' ' && event.target.closest?.('.personaStation')) {
+      event.preventDefault();
+      event.target.closest('.personaStation').click();
+      return;
+    }
     if (event.key === 'Escape' && selected) {
       const previous = selected;
       deselect();

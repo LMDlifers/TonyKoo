@@ -116,7 +116,7 @@ try {
   assert.equal(new Set(work.cards.map((c) => c.style)).size, 1, "every card shares one radius, border and shadow");
   assert.deepEqual(work.rows.map((r) => r.title), OTHERS, "the other seven projects are a list");
   assert.ok(work.rows.every((r) => r.links <= 1 && r.img === 0), "list rows are text with at most one link");
-  assert.equal(work.rows.filter((r) => r.links === 1).length, 4, "the four rows with a public page link to it");
+  assert.equal(work.rows.filter((r) => r.links === 1).length, 3, "the three rows with a live public page link to it");
   assert.deepEqual(work.old, [], "deck, filters, pixel card frames and evidence labels are gone");
   for (const label of ["Does not claim", "Full label", "Report added"]) assert.ok(!work.body.includes(label), `"${label}" is off the homepage`);
   {
@@ -239,6 +239,75 @@ try {
     .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && /^"?Pixelify Sans/.test(getComputedStyle(el).fontFamily) && !el.matches(".title-word, .fieldToolbarTitle, .fieldSelectionTitle"))
     .map((el) => `${el.tagName}.${el.className}`).slice(0, 8));
   assert.deepEqual(pixel, [], "Pixelify Sans only on the wordmark and inside the field");
+
+  // Phone flows found by the 2026-11-19 UI flow tests.
+  for (const [width, height] of [[390, 844], [320, 640]]) {
+    const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: true, isMobile: true, reducedMotion: "reduce" });
+    const p = await ctx.newPage();
+    await p.goto(base + "/");
+    await p.waitForFunction(() => document.querySelector(".fieldScene")?.dataset.active !== undefined);
+    // Tapping a field character shows its card on screen, and never jumps the page away.
+    await p.locator('[data-cast-choice="ideas"]').tap();
+    await p.locator('[data-persona="reader"]').tap();
+    await p.waitForTimeout(700);
+    const card = await p.evaluate(() => { const r = document.querySelector(".fieldSelectionCard").getBoundingClientRect(); return { hidden: document.querySelector(".fieldSelectionCard").hidden, top: r.top, bottom: r.bottom, readingOpen: document.getElementById("reading").open, hash: location.hash }; });
+    assert.equal(card.hidden, false, `the Reader card opens at ${width}`);
+    assert.ok(card.top >= 0 && card.bottom <= height, `the field card is fully on screen at ${width}x${height} (${Math.round(card.top)}-${Math.round(card.bottom)})`);
+    assert.deepEqual([card.readingOpen, card.hash], [false, ""], `tapping a character does not jump to its destination at ${width}`);
+    await p.locator(".fieldSelectionClose").tap();
+    await p.evaluate(() => scrollTo(0, 0));
+    // Tap targets are at least 44px tall, and no text is under 12px.
+    await p.locator(".navbar-toggler").tap();
+    await p.waitForTimeout(500);
+    const small = await p.evaluate(() => {
+      const tall = (sel) => [...document.querySelectorAll(sel)].filter((el) => el.getClientRects().length && el.getBoundingClientRect().height < 43.5).map((el) => `${sel} ${Math.round(el.getBoundingClientRect().height)}px`);
+      return [...new Set([".navbar-nav .nav-link", ".workLink", ".workList a", ".fieldCastChoices button", ".fieldSeasonChoices button", ".heroTextLink"].flatMap(tall))];
+    });
+    assert.deepEqual(small, [], `tap targets are 44px tall at ${width}`);
+    await p.locator(".navbar-toggler").tap();
+    for (const id of ["reading", "certifications"]) await p.evaluate((i) => { document.getElementById(i).open = true; }, id);
+    await p.evaluate(() => { document.querySelector("#resume details").open = true; });
+    await p.waitForTimeout(300);
+    const read = await p.evaluate(() => ({
+      tiny: [...new Set([...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, dialog, .findAskLauncher") && el.getClientRects().length && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && parseFloat(getComputedStyle(el).fontSize) < 12).map((el) => `${el.tagName.toLowerCase()}.${el.className} ${getComputedStyle(el).fontSize}`))].slice(0, 6),
+      narrow: Math.min(...[...document.querySelectorAll("#resume details li, #resume details p")].filter((el) => el.getClientRects().length && el.textContent.trim().length > 40).map((el) => el.getBoundingClientRect().width)),
+      cover: (() => { const c = document.querySelector(".bookStage img, .bookCoverFrame img")?.getBoundingClientRect(); const box = document.querySelector(".bookCarousel")?.getBoundingClientRect(); return c && box ? [c.left >= box.left - 1, c.right <= box.right + 1] : [true, true]; })(),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    }));
+    assert.deepEqual(read.tiny, [], `no text under 12px at ${width}`);
+    assert.ok(read.narrow >= width * 0.6, `resume text column is ${Math.round(read.narrow)}px of ${width}`);
+    assert.deepEqual(read.cover, [true, true], `the book cover stays inside its carousel at ${width}`);
+    assert.equal(read.overflow, false, `no sideways scroll with every section open at ${width}`);
+    await ctx.close();
+  }
+
+  // Robustness findings from the 2026-11-19 flow tests.
+  {
+    const p = await open();
+    await p.keyboard.press("Tab");
+    assert.match(await p.evaluate(() => document.activeElement.textContent.trim()), /^Skip to content$/, "the first Tab stop is a skip link");
+    await p.locator('[data-persona="ai-engineer"]').focus();
+    await p.keyboard.press("Space");
+    await p.waitForTimeout(200);
+    assert.equal(await p.evaluate(() => document.querySelector(".fieldSelectionCard").hidden), false, "Space opens a field character's card");
+    await p.keyboard.press("Escape");
+    await p.waitForSelector(".findAskLauncher");
+    await p.locator(".findAskLauncher").focus();
+    await p.keyboard.press("Shift+Tab"); await p.keyboard.press("Tab"); // make the focus keyboard-driven
+    const ring = await p.evaluate(() => { const cs = getComputedStyle(document.querySelector(".findAskLauncher")); const [a, b] = [__lum(__rgba(cs.outlineColor)), __lum([246, 244, 238])].sort((x, y) => y - x); return cs.outlineStyle === "none" ? 0 : (a + 0.05) / (b + 0.05); });
+    assert.ok(ring >= 3, `the Ask launcher's focus ring is visible by day (${ring.toFixed(2)})`);
+    await p.context().close();
+    const night = await open({}, true);
+    await night.evaluate(() => { document.querySelector("#resume details").open = true; });
+    const low = await night.evaluate(() => [".writingLink", ".accent-success"].map((sel) => [sel, Math.min(...[...document.querySelectorAll(sel)].filter((el) => el.getClientRects().length).map((el) => __contrast(el)))]));
+    for (const [sel, c] of low) assert.ok(c >= 4.5, `${sel} contrast at night ${c.toFixed(2)}`);
+    await night.context().close();
+    const off = await open({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    const nav = await off.evaluate(() => ({ links: [...document.querySelectorAll("#navbarNav a.nav-link")].filter((el) => el.getBoundingClientRect().height > 0).length, dead: [".navbar-toggler", ".navFindButton", "#darkModeToggle"].filter((s) => document.querySelector(s)?.getBoundingClientRect().height > 0) }));
+    assert.ok(nav.links >= 5, `nav links are reachable without JS on a phone (${nav.links})`);
+    assert.deepEqual(nav.dead, [], "controls that need JS are hidden without it");
+    await off.context().close();
+  }
 
   // Budgets: a short page.
   for (const [width, height, max] of [[1440, 900, 9000], [390, 844, 13000]]) {

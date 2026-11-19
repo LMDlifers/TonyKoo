@@ -277,3 +277,164 @@ body.dark-mode .workCard a:focus-visible,
 body.dark-mode .workList a:focus-visible {
     outline-color: var(--lab-accent);
 }
+
+/* Fixes from the 2026-11-19 UI flow tests. */
+
+/* The logo keeps to its own column and never runs under the company name. */
+img.resumeIcon {
+    max-width: 100%;
+    height: auto;
+}
+
+/* JSON punctuation is readable on the dark panel. */
+#code,
+.console-content {
+    color: #d4d4d4;
+}
+
+/* Thumbnails show the whole diagram. */
+.writingThumb img {
+    object-fit: contain;
+}
+
+/* Cards in a row end level. */
+.certCard,
+.testimonialCard {
+    height: 100%;
+}
+
+/* The work section begins under the field's overhang, so its anchor lands on the heading. */
+@media (min-width: 900px) {
+    #portfolio {
+        scroll-margin-top: -168px;
+    }
+}
+
+/* Tap targets are at least 44px tall. */
+.workLink,
+.workList a,
+.heroTextLink {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.fieldCastChoices button,
+.fieldSeasonChoices button {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav .nav-link {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+    }
+}
+
+/* Small phones: the full resume and the reading carousel get their width back. */
+@media (max-width: 560px) {
+    #resume .resumeDetails {
+        width: 100%;
+        margin-inline: 0;
+    }
+
+    #resume .resumeDetailsInner {
+        padding-inline: 12px;
+    }
+
+    #resume .resumeDetails,
+    #resume .resumeDetailsInner .container,
+    #resume .resumeDetailsInner [class*="col-"],
+    #resume .resumeTimelineWrap {
+        padding-inline: 0;
+    }
+
+    #resume .resumeDetails > summary {
+        padding-inline: 12px;
+    }
+
+    #resume .expertiseCategory {
+        padding: 16px;
+    }
+
+    #resume .resumeDetailsInner .row {
+        margin-inline: 0;
+    }
+
+    .resumeList {
+        padding-left: 20px;
+    }
+}
+
+/* Small labels never drop below 12px. */
+.resumeSkill,
+.readingSignal,
+.certTopic,
+.writingTag {
+    font-size: 12px;
+}
+
+/* Night: links, highlights and icon tiles keep their contrast. */
+body.dark-mode .writingLink {
+    color: var(--lab-accent);
+}
+
+body.dark-mode .accent-success {
+    color: #8fd19e;
+}
+
+body.dark-mode .certIcon {
+    background: var(--lab-bg-soft);
+    color: var(--lab-accent);
+}
+
+/* Without JS the menu cannot open, so it stays open; controls that need JS are hidden. */
+html:not(.js) .navbar-collapse {
+    display: block;
+}
+
+html:not(.js) .navbar-toggler,
+html:not(.js) .navFindButton,
+html:not(.js) #darkModeToggle {
+    display: none;
+}
+
+@media (max-width: 560px) {
+    .bookCarousel {
+        padding: 12px;
+    }
+
+    .bookCarouselShell {
+        padding: 0;
+    }
+}
+
+/* Very small phones: the cover sits above its blurb, not beside it. */
+@media (max-width: 400px) {
+    .bookStage {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 12px;
+    }
+
+    .bookStage img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* An older rule forces 30px side margins with !important; small phones cannot spare them. */
+@media (max-width: 400px) {
+    #resume.resumeSection {
+        margin: 20px 16px !important;
+    }
+}
+
+@media (max-width: 560px) {
+    .readingIntro {
+        padding: 12px;
+    }
+}
