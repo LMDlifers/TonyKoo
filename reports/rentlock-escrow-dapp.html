@@ -9,7 +9,7 @@
     <title>RentLock Escrow dApp | Sanitized Report</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Inconsolata:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/report.css">
 
@@ -17,11 +17,9 @@
 
 <body>
     <script>try{if(localStorage.getItem("darkMode")==="enabled")document.body.classList.add("dark-mode")}catch(_){}</script>
-    <main class="reportShell">
-        <nav class="reportNav" aria-label="Report navigation">
-            <a href="../index.html#portfolio">← Projects</a>
-            <a href="../index.html#writing">Writing</a>
-        </nav>
+    <a class="skip" href="#main">Skip to content</a>
+    <nav class="researchNav" aria-label="Site navigation"><div class="researchNavInner"><a class="researchBrand" href="../index.html">Tony Koo <span>/ Case study</span></a><div class="researchNavLinks"><a href="../index.html#portfolio">Projects</a><a href="../index.html#writing">Writing</a><a href="../research/">Research</a><button type="button" data-theme-toggle aria-label="Switch to dark mode">◐</button></div></div></nav>
+    <main id="main" class="reportShell">
 
         <header class="reportHero">
             <p class="reportEyebrow">Sanitized Portfolio Report</p>
@@ -559,6 +557,7 @@
         </section>
     </main>
 
+    <script src="../js/theme-toggle.js" defer></script>
     <script src="../js/report-theme.js" defer></script>
 </body>
 
