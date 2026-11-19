@@ -52,6 +52,9 @@ try {
         const prose = [...document.querySelectorAll("main p")].filter((el) => el.getClientRects().length && el.textContent.trim().length > 60);
         return {
           dark: document.body.classList.contains("dark-mode"),
+          pageBg: getComputedStyle(document.body).backgroundColor,
+          // The old night palette was graphite-blue: a background whose blue clearly exceeds its red.
+          cool: [...new Set([...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, img, video, figure, .flowDiagram, .chartPanel, .matrixGrid, .sequenceFlow, dialog") && el.getClientRects().length).filter((el) => { const [r, , b, al] = __rgba(getComputedStyle(el).backgroundColor); return al > 200 && r < 110 && b - r > 6; }).map((el) => `${tag(el)} ${getComputedStyle(el).backgroundColor}`))].slice(0, 6),
           icon: !!document.querySelector('link[rel="icon"]'),
           tiny: [...new Set(texts.filter((el) => parseFloat(getComputedStyle(el).fontSize) < 12 && !el.closest("figure svg, .flowDiagram, .chartPanel, .matrixGrid")).map((el) => `${tag(el)} ${getComputedStyle(el).fontSize}`))].slice(0, 5),
           fonts: [...new Set(texts.filter((el) => !/^"?(Lato|Inconsolata)/.test(getComputedStyle(el).fontFamily)).map((el) => `${tag(el)} ${getComputedStyle(el).fontFamily.slice(0, 30)}`))].slice(0, 5),
@@ -78,6 +81,10 @@ try {
         };
       });
       assert.equal(r.dark, night, `${label}: theme applied`);
+      if (night) {
+        assert.equal(r.pageBg, "rgb(22, 21, 20)", `${label}: warm neutral page`);
+        assert.deepEqual(r.cool, [], `${label}: no cool blue-grey surfaces left at night`);
+      }
       assert.ok(r.icon, `${label}: declares a favicon`);
       assert.deepEqual(r.tiny, [], `${label}: no text under 12px`);
       assert.deepEqual(r.fonts, [], `${label}: only Lato and Inconsolata`);

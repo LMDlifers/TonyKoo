@@ -44,7 +44,7 @@ body.dark-mode{--ink:#ecf2f8;--body:#c9d7e5;--muted:#a6bdd2;--line:#40566b;--sur
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 /* Research reads as a publication while keeping the portfolio's blue accent. */
-:root{--ink:#242b32;--body:#303943;--muted:#65727f;--line:#e3e8ed;--wash:#fff}
+:root{--ink:#262422;--body:#303943;--muted:#65727f;--line:#e3e8ed;--wash:#fff}
 .researchShell{max-width:1140px;padding-top:.55rem}
 .researchHero{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;padding:1.55rem 0 1.35rem}
 .researchHero h1{font-size:clamp(2.35rem,4.2vw,3.4rem);margin:.1rem 0 .45rem}
