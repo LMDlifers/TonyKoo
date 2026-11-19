@@ -97,8 +97,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid var(--lab-line);
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     background: var(--lab-panel-solid);
 }
 
@@ -258,9 +257,24 @@ body.dark-mode .resumePriorityCard,
 body.dark-mode .testimonialCard,
 body.dark-mode .writingCard,
 body.dark-mode .contactPanel {
-    border: 1px solid var(--lab-line);
+    border: 0;
     border-radius: var(--card-radius);
+    background: var(--lab-panel-solid);
     box-shadow: none;
+}
+
+/* Controls are pills. */
+.heroButton,
+.findAskLauncher,
+.navFindButton {
+    border-radius: 999px;
+}
+
+/* Images inside a surface keep a faint edge, so a white diagram still reads as placed. */
+.writingThumb img,
+.workArt {
+    outline: 1px solid rgb(0 0 0 / .08);
+    outline-offset: -1px;
 }
 
 @media (hover: hover) {
@@ -437,4 +451,10 @@ html:not(.js) #darkModeToggle {
     .readingIntro {
         padding: 12px;
     }
+}
+
+/* The thumbnail takes the card's top corners itself, so the card need not clip focus rings. */
+.writingThumb {
+    overflow: hidden;
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
 }

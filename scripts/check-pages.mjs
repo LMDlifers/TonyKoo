@@ -19,7 +19,7 @@ if (!process.env.PAGES_FILTER) assert.ok(REPORTS.length === 8 && ESSAYS.length >
 const HELPERS = `
 window.__rgba = (c) => { const x = document.createElement("canvas").getContext("2d"); x.clearRect(0,0,1,1); x.fillStyle = c; x.fillRect(0, 0, 1, 1); return [...x.getImageData(0, 0, 1, 1).data]; };
 window.__lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
-window.__bg = (el) => { for (let e = el; e; e = e.parentElement) { const c = __rgba(getComputedStyle(e).backgroundColor); if (c[3] > 250) return c; } return document.body.classList.contains("dark-mode") ? [18, 21, 25, 255] : [246, 244, 238, 255]; };
+window.__bg = (el) => { for (let e = el; e; e = e.parentElement) { const c = __rgba(getComputedStyle(e).backgroundColor); if (c[3] > 250) return c; } return document.body.classList.contains("dark-mode") ? [22, 21, 20, 255] : [246, 244, 238, 255]; };
 window.__contrast = (el) => { const [a, b] = [__lum(__rgba(getComputedStyle(el).color)), __lum(__bg(el))].sort((x, y) => y - x); return (a + 0.05) / (b + 0.05); };
 // Elements that carry their own visible text, outside embedded diagrams, the chat launcher and hidden boxes.
 window.__texts = () => [...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, .findAskLauncher, dialog, script, style, noscript") && el.getClientRects().length && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()));
@@ -28,7 +28,6 @@ window.__ch = (el) => { const s = document.createElement("span"); s.textContent 
 // A card may carry one thicker accent edge, so the hairline is the thinnest of its four borders.
 window.__surface = (el) => { const cs = getComputedStyle(el); return [Math.min(...["Top", "Right", "Bottom", "Left"].map((k) => parseFloat(cs["border" + k + "Width"]))) + "px", cs.borderTopLeftRadius, cs.boxShadow].join("|"); };
 `;
-const SURFACE = "1px|16px|none";
 const name = (el) => `${el.tagName.toLowerCase()}.${el.className}`;
 
 const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" });
@@ -52,6 +51,9 @@ try {
         const prose = [...document.querySelectorAll("main p")].filter((el) => el.getClientRects().length && el.textContent.trim().length > 60);
         return {
           dark: document.body.classList.contains("dark-mode"),
+          pageBg: getComputedStyle(document.body).backgroundColor,
+          // The old night palette was graphite-blue: a background whose blue clearly exceeds its red.
+          cool: [...new Set([...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, img, video, figure, .flowDiagram, .chartPanel, .matrixGrid, .sequenceFlow, dialog") && el.getClientRects().length).filter((el) => { const [r, , b, al] = __rgba(getComputedStyle(el).backgroundColor); return al > 200 && r < 110 && b - r > 6; }).map((el) => `${tag(el)} ${getComputedStyle(el).backgroundColor}`))].slice(0, 6),
           icon: !!document.querySelector('link[rel="icon"]'),
           tiny: [...new Set(texts.filter((el) => parseFloat(getComputedStyle(el).fontSize) < 12 && !el.closest("figure svg, .flowDiagram, .chartPanel, .matrixGrid")).map((el) => `${tag(el)} ${getComputedStyle(el).fontSize}`))].slice(0, 5),
           fonts: [...new Set(texts.filter((el) => !/^"?(Lato|Inconsolata)/.test(getComputedStyle(el).fontFamily)).map((el) => `${tag(el)} ${getComputedStyle(el).fontFamily.slice(0, 30)}`))].slice(0, 5),
@@ -64,29 +66,45 @@ try {
           headers: document.querySelectorAll(".researchNav").length,
           brand: document.querySelector(".researchNav a")?.textContent.trim() ?? "",
           toggle: document.querySelectorAll(".researchNav [data-theme-toggle]").length,
-          pills: document.querySelectorAll(".reportNav, .reportThemeButton").length,
+          oldNav: document.querySelectorAll(".reportNav, .reportThemeButton").length,
           chips: [...document.querySelectorAll(".tag, .reportMeta span")].filter((el) => __rgba(getComputedStyle(el).backgroundColor)[3] > 0 || parseFloat(getComputedStyle(el).borderTopWidth) > 0).length,
-          // One surface: anything with a border on all sides or a shadow uses it; rules and dividers have no radius.
+          // One surface: any box filled a different tone from the page (or still bordered or shadowed)
+          // has no border, a 20px radius and no shadow. One thicker accent edge is allowed.
           surfaces: [...new Set([...document.querySelectorAll("main *, footer *")].filter((el) => {
-            if (el.closest("svg, dialog, .findAskLauncher") || !el.getClientRects().length) return false;
+            if (el.closest("svg, dialog, .findAskLauncher, table, pre") && !el.matches("pre") || !el.getClientRects().length) return false;
+            if (["INPUT", "BUTTON", "IMG", "VIDEO", "A", "CODE", "KBD", "MARK", "SPAN", "TIME", "SUMMARY"].includes(el.tagName)) return false;
             const cs = getComputedStyle(el);
-            const boxed = parseFloat(cs.borderTopWidth) > 0 && parseFloat(cs.borderLeftWidth) > 0 && parseFloat(cs.borderRightWidth) > 0 && parseFloat(cs.borderBottomWidth) > 0;
-            const round = cs.borderTopLeftRadius === "50%" || parseFloat(cs.borderTopLeftRadius) >= 999 ? false : true;
             const r = el.getBoundingClientRect();
-            return round && r.width >= 160 && r.height >= 56 && (boxed || cs.boxShadow !== "none") && !["INPUT", "BUTTON", "IMG", "VIDEO"].includes(el.tagName);
-          }).filter((el) => __surface(el) !== "1px|16px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
+            if (r.width < 160 || r.height < 56 || cs.borderTopLeftRadius === "50%") return false;
+            const bg = __rgba(cs.backgroundColor);
+            const page = __rgba(getComputedStyle(document.body).backgroundColor);
+            const filled = bg[3] > 250 && (Math.abs(bg[0] - page[0]) + Math.abs(bg[1] - page[1]) + Math.abs(bg[2] - page[2])) > 6;
+            const boxed = ["Top", "Right", "Bottom", "Left"].every((k) => parseFloat(cs["border" + k + "Width"]) > 0);
+            return filled || boxed || cs.boxShadow !== "none";
+          }).filter((el) => __surface(el) !== "0px|20px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
+          imgEdges: [...document.querySelectorAll("main figure img")].filter((el) => el.getClientRects().length).map((el) => getComputedStyle(el).outlineStyle !== "none"),
+          filledCards: [...document.querySelectorAll(".reportTldrItem, .modelCard, .insightCard, .takeaway, .worked")].filter((el) => el.getClientRects().length).map((el) => { const bg = __rgba(getComputedStyle(el).backgroundColor), page = __rgba(getComputedStyle(document.body).backgroundColor); return bg[3] > 250 && Math.abs(bg[0] - page[0]) + Math.abs(bg[1] - page[1]) + Math.abs(bg[2] - page[2]) > 6; }),
+          pills: [...document.querySelectorAll(".researchNavLinks [data-theme-toggle], [data-topic-filter], .reportHeroAction")].filter((el) => el.getClientRects().length && parseFloat(getComputedStyle(el).borderTopLeftRadius) < el.getBoundingClientRect().height / 2 - 0.5).map((el) => tag(el)).slice(0, 4),
         };
       });
       assert.equal(r.dark, night, `${label}: theme applied`);
+      if (night) {
+        assert.equal(r.pageBg, "rgb(22, 21, 20)", `${label}: warm neutral page`);
+        assert.deepEqual(r.cool, [], `${label}: no cool blue-grey surfaces left at night`);
+      }
       assert.ok(r.icon, `${label}: declares a favicon`);
       assert.deepEqual(r.tiny, [], `${label}: no text under 12px`);
       assert.deepEqual(r.fonts, [], `${label}: only Lato and Inconsolata`);
       assert.deepEqual(r.upper, [], `${label}: no uppercase labels`);
       assert.deepEqual(r.tracked, [], `${label}: no tracked text`);
       assert.ok(r.prose > 0 && r.contrast >= 4.5, `${label}: body text contrast ${r.contrast.toFixed(2)} over ${r.prose} paragraphs`);
-      assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.pills], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
+      assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.oldNav], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
       assert.ok(r.labels[0] >= 4.5, `${label}: small text contrast ${r.labels[0].toFixed(2)} on ${r.labels[1]}`);
       assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
+      assert.ok(r.filledCards.every(Boolean), `${label}: cards are filled one tone from the page`);
+      if (path.startsWith("reports/")) assert.ok(r.filledCards.length > 0, `${label}: filled cards were found to check`);
+      assert.ok(r.imgEdges.every(Boolean), `${label}: images inside figures keep a faint edge`);
+      assert.deepEqual(r.pills, [], `${label}: controls are pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();
     }

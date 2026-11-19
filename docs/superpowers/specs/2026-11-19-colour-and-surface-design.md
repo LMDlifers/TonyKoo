@@ -1,7 +1,7 @@
-# Colour and Surface Design (proposal)
+# Colour and Surface Design
 
 **Date:** 2026-11-19
-**Status:** proposal, not approved. It follows Tony's note that the Meta "Muse" chat interface has a good layout and nuanced colouring, with one screenshot of it in dark mode.
+**Status:** approved by Tony on 2026-11-19 ("Yes, plan and build"). It follows Tony's note that the Meta "Muse" chat interface has a good layout and nuanced colouring, with one screenshot of it in dark mode.
 **Evidence limit:** this reads one screenshot. meta.ai returned 403 to the research pass, so nothing here is taken from Meta's code.
 
 ## What the screenshot does
@@ -19,12 +19,12 @@
 | # | Change | Now | Proposed |
 |---|---|---|---|
 | C1 | Night background family | graphite-blue `#121519`, panels `#20252a` | warm neutral: page `#161514`, panel `#201f1d`, control `#2b2927` |
-| C2 | Night accent | silver `#dce5eb` | one warm accent, a muted clay `#b9794a`, for links, the primary button and the progress bars |
+| C2 | Night accent | silver `#dce5eb` | one warm accent, a clay `#cf9265`, for links, the primary button and the progress bars (6.9:1 on the page, 6.2:1 on a panel) |
 | C3 | Night text | `#f3f5f6` and `#b7c2cb` | off-white `#ece9e4` and warm grey `#a8a29a` |
 | C4 | Day palette | paper `#f6f4ee`, green accent `#2f5d50` | keep the paper and the green; add two tonal steps (`#efece4`, `#e6e2d8`) so day surfaces can layer the same way |
-| C5 | Surfaces | 1px hairline, 16px radius, no fill difference | tonal fill one step from the page, no hairline, 20px radius; the hairline stays only on images and figures |
+| C5 | Surfaces | 1px hairline, 16px radius, no fill difference | tonal fill one step from the page, no border, 20px radius; images inside a surface keep a faint 1px outline |
 | C6 | Controls | 8px radius buttons | pill radius on buttons, the theme toggle, the Ask launcher and the Find field; inner-page metadata stays plain text |
-| C7 | Body size | 16–18px | 18px on the homepage too, to match the inner pages |
+| C7 | Body size | 16–18px | dropped: the homepage height budgets (9,000px and 13,000px) leave no room for it |
 
 ## What it would not take
 
