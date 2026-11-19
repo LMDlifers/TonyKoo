@@ -23,8 +23,8 @@ window.__bg = (el) => { for (let e = el; e; e = e.parentElement) { const c = __r
 window.__contrast = (el) => { const [a, b] = [__lum(__rgba(getComputedStyle(el).color)), __lum(__bg(el))].sort((x, y) => y - x); return (a + 0.05) / (b + 0.05); };
 // Elements that carry their own visible text, outside embedded diagrams, the chat launcher and hidden boxes.
 window.__texts = () => [...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, .findAskLauncher, dialog, script, style, noscript") && el.getClientRects().length && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()));
-// Width of an element in units of its own "0" glyph.
-window.__ch = (el) => { const s = document.createElement("span"); s.textContent = "0".repeat(20); s.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap"; el.append(s); const ch = s.getBoundingClientRect().width / 20; s.remove(); return el.getBoundingClientRect().width / ch; };
+// Width of an element's text box in units of its own "0" glyph.
+window.__ch = (el) => { const s = document.createElement("span"); s.textContent = "0".repeat(20); s.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap"; el.append(s); const ch = s.getBoundingClientRect().width / 20; s.remove(); const cs = getComputedStyle(el); return (el.getBoundingClientRect().width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth)) / ch; };
 // A card may carry one thicker accent edge, so the hairline is the thinnest of its four borders.
 window.__surface = (el) => { const cs = getComputedStyle(el); return [Math.min(...["Top", "Right", "Bottom", "Left"].map((k) => parseFloat(cs["border" + k + "Width"]))) + "px", cs.borderTopLeftRadius, cs.boxShadow].join("|"); };
 `;
@@ -57,6 +57,7 @@ try {
           tracked: [...new Set(texts.filter((el) => !["normal", "0px"].includes(getComputedStyle(el).letterSpacing)).map(tag))].slice(0, 5),
           prose: prose.length,
           contrast: prose.length ? Math.min(...prose.map((el) => __contrast(el))) : 0,
+          labels: (() => { const els = texts.filter((el) => !el.closest("pre, code, .flowDiagram, .chartPanel, .matrixGrid, figure") && parseFloat(getComputedStyle(el).fontSize) <= 15); const worst = els.sort((a, b) => __contrast(a) - __contrast(b))[0]; return worst ? [__contrast(worst), tag(worst)] : [0, "none"]; })(),
           // One header: brand first, a theme toggle, no report pills.
           headers: document.querySelectorAll(".researchNav").length,
           brand: document.querySelector(".researchNav a")?.textContent.trim() ?? "",
@@ -70,7 +71,7 @@ try {
             const boxed = parseFloat(cs.borderTopWidth) > 0 && parseFloat(cs.borderLeftWidth) > 0 && parseFloat(cs.borderRightWidth) > 0 && parseFloat(cs.borderBottomWidth) > 0;
             const round = cs.borderTopLeftRadius === "50%" || parseFloat(cs.borderTopLeftRadius) >= 999 ? false : true;
             const r = el.getBoundingClientRect();
-            return round && r.width >= 160 && r.height >= 56 && (boxed || cs.boxShadow !== "none") && !["INPUT", "BUTTON", "A", "IMG", "VIDEO"].includes(el.tagName);
+            return round && r.width >= 160 && r.height >= 56 && (boxed || cs.boxShadow !== "none") && !["INPUT", "BUTTON", "IMG", "VIDEO"].includes(el.tagName);
           }).filter((el) => __surface(el) !== "1px|16px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
         };
       });
@@ -80,6 +81,7 @@ try {
       assert.deepEqual(r.tracked, [], `${label}: no tracked text`);
       assert.ok(r.prose > 0 && r.contrast >= 4.5, `${label}: body text contrast ${r.contrast.toFixed(2)} over ${r.prose} paragraphs`);
       assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.pills], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
+      assert.ok(r.labels[0] >= 4.5, `${label}: small text contrast ${r.labels[0].toFixed(2)} on ${r.labels[1]}`);
       assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();
@@ -99,13 +101,16 @@ try {
     const report = path.startsWith("reports/");
     const page = await open(path);
     const r = await page.evaluate((isReport) => {
-      const prose = [...document.querySelectorAll(isReport ? ".reportSection > p, .reportSection > ul > li, .reportSection > ol > li" : ".articleBody > section > p")].filter((el) => el.getClientRects().length);
+      const prose = [...document.querySelectorAll(isReport ? ".reportShell p, .reportShell li, .reportShell figcaption" : ".articleBody p, .articleBody li")].filter((el) => el.getClientRects().length);
+      const top = prose.filter((el) => el.matches(".reportSection > p, .articleBody > section > p"));
       const cs = (el) => getComputedStyle(el);
       return {
         count: prose.length,
         widest: Math.max(...prose.map((el) => __ch(el))),
-        body: prose.slice(0, 1).map((el) => [cs(el).fontSize, (parseFloat(cs(el).lineHeight) / parseFloat(cs(el).fontSize)).toFixed(2)].join("/"))[0],
+        body: top.slice(0, 1).map((el) => [cs(el).fontSize, (parseFloat(cs(el).lineHeight) / parseFloat(cs(el).fontSize)).toFixed(2)].join("/"))[0],
         h1: [cs(document.querySelector("main h1")).fontSize, cs(document.querySelector("main h1")).fontWeight].join("/"),
+        heroTop: Math.round(document.querySelector("main h1").getBoundingClientRect().top + scrollY),
+        small: [...document.querySelectorAll(".reportTldrHeader h2, .reportReceipts h2")].map((el) => cs(el).fontSize),
         h2: [...new Set([...document.querySelectorAll(isReport ? ".reportSection > h2" : ".articleBody > section > h2")].map((el) => [cs(el).fontSize, cs(el).fontWeight].join("/")))],
         boxes: [".reportSection", ".reportHero", ".reportTldr"].flatMap((s) => [...document.querySelectorAll(s)]).filter((el) => parseFloat(cs(el).borderTopWidth) > 0 || cs(el).boxShadow !== "none" || __rgba(cs(el).backgroundColor)[3] > 0 || cs(el).backgroundImage !== "none").length,
       };
@@ -117,16 +122,18 @@ try {
     assert.equal(r.h1, "40px/700", `${path}: title is 40px bold`);
     assert.deepEqual(r.h2, ["28px/700"], `${path}: section headings are 28px bold`);
     if (report) assert.equal(r.boxes, 0, `${path}: sections are not boxed`);
+    if (report) assert.deepEqual([...new Set(r.small)], ["22px", "20px"], `${path}: the summary and receipts headings stay smaller than section headings (${r.small})`);
     if (report) {
       const night = await open(path, { night: true });
       const boxed = await night.evaluate(() => [".reportSection", ".reportHero", ".reportTldr"].flatMap((s) => [...document.querySelectorAll(s)]).filter((el) => { const cs = getComputedStyle(el); return parseFloat(cs.borderTopWidth) > 0 || cs.boxShadow !== "none" || __rgba(cs.backgroundColor)[3] > 0 || cs.backgroundImage !== "none"; }).length);
       assert.equal(boxed, 0, `${path}: sections are not boxed at night`);
+      assert.equal(await night.evaluate(() => Math.round(document.querySelector("main h1").getBoundingClientRect().top + scrollY)), r.heroTop, `${path}: the title sits at the same height in day and night`);
       await night.context().close();
     }
     // Phones: wide content scrolls inside its own box.
     await page.setViewportSize({ width: 320, height: 640 });
     await page.waitForTimeout(150);
-    const wide = await page.evaluate(() => [...document.querySelectorAll("main *")].filter((el) => !el.closest("table, pre, svg, .tableScroll") && el.getClientRects().length && el.getBoundingClientRect().right > innerWidth + 1).map((el) => `${el.tagName.toLowerCase()}.${el.className}`.slice(0, 40)).slice(0, 4));
+    const wide = await page.evaluate(() => [...document.querySelectorAll("main *")].filter((el) => !el.parentElement.closest("table, pre, svg, .tableWrap") && !el.closest("svg") && el.getClientRects().length && el.getBoundingClientRect().right > innerWidth + 1).map((el) => `${el.tagName.toLowerCase()}.${el.className}`.slice(0, 40)).slice(0, 4));
     assert.deepEqual(wide, [], `${path}: nothing runs past a 320px screen`);
     const small = await page.evaluate(() => [getComputedStyle(document.querySelector("main h1")).fontSize, getComputedStyle(document.querySelector("main h2")).fontSize]);
     assert.deepEqual(small, ["28px", "22px"], `${path}: phone title and heading sizes`);
@@ -140,6 +147,10 @@ try {
     assert.equal(await page.evaluate(() => document.body.classList.contains("dark-mode")), true, "report toggle switches to night");
     await page.reload();
     assert.equal(await page.evaluate(() => document.body.classList.contains("dark-mode")), true, "report theme survives a reload");
+    // Printing drops the site header and the width cap.
+    await page.emulateMedia({ media: "print" });
+    assert.deepEqual(await page.evaluate(() => [getComputedStyle(document.querySelector(".researchNav")).display, getComputedStyle(document.querySelector(".reportShell")).maxWidth]), ["none", "none"], "print hides the header and uses the full page");
+    await page.emulateMedia({ media: "screen" });
     await page.locator('a[href="#demo-video"]').first().click();
     let last = -1;
     for (let i = 0; i < 40; i++) { await page.waitForTimeout(150); const y = await page.evaluate(() => scrollY); if (y === last) break; last = y; }

@@ -966,7 +966,8 @@ body.dark-mode .reportTldr {
     box-shadow: none;
 }
 
-.reportHero {
+.reportHero,
+body.dark-mode .reportHero {
     margin-top: 0;
 }
 
@@ -978,9 +979,13 @@ body.dark-mode .reportTldr {
 }
 
 .reportShell h2 {
-    margin: 0 0 16px;
-    font: 700 28px/1.2 var(--font-body);
+    font-family: var(--font-body);
+    font-weight: 700;
     text-wrap: balance;
+}
+
+.reportSection > h2 {
+    margin: 0 0 16px;
 }
 
 .reportSection > p,
@@ -1032,6 +1037,15 @@ body.dark-mode .tag {
     color: var(--report-muted);
 }
 
+/* Prose nested in notes, panels and captions keeps the same measure. */
+.reportShell :is(p, li, figcaption) {
+    max-width: var(--measure);
+}
+
+.reportTldrHeader h2 {
+    font-size: 22px;
+}
+
 @media (max-width: 699px) {
     .reportShell {
         padding: 32px 16px 72px;
@@ -1041,8 +1055,19 @@ body.dark-mode .tag {
         font-size: 28px;
     }
 
-    .reportShell h2,
     .reportSection > h2 {
         font-size: 22px;
+    }
+}
+
+@media print {
+    .researchNav,
+    .skip {
+        display: none;
+    }
+
+    .reportShell {
+        max-width: none;
+        padding: 0;
     }
 }

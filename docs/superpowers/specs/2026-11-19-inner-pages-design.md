@@ -27,7 +27,7 @@ A hiring manager who clicks from a homepage card lands on a page that looks like
 3. **Type.** Lato for headings and body on every page; Inconsolata for data. Georgia is retired. Essay and report body is Lato 18px with 1.65 line height. No Pixelify Sans on inner pages.
 4. **Labels.** No uppercase and no tracking. Small labels are Lato 700 14px in the accent colour, sentence case.
 5. **One surface.** Callouts, figures, cards and tables use the homepage surface: 1px hairline, 16px radius, no shadow. Metadata chips become plain Inconsolata text separated by spacing, with no pill.
-6. **Shared tokens.** `css/site-theme.css` defines `--card-radius: 16px`, `--card-border` and `--measure: 68ch`. `home.css`, `report.css` and `research.css` use them.
+6. **Shared tokens.** `css/site-theme.css` defines `--card-radius: 16px` and `--measure: 68ch`. `home.css`, `report.css` and `research.css` use them.
 7. **Content is unchanged.** No sentence, number, receipt block or figure is added or removed. Report receipts ("Added to site", source commit) stay exactly as they are.
 8. **Themes.** Day and night on every page, with the existing toggle behaviour.
 
