@@ -14,8 +14,8 @@ body.dark-mode .licenseNote,body.dark-mode .decisionTable th{background:#2b2927;
 body.dark-mode .chartTrack{background:#32302d}
 body.dark-mode .reportHeroAction{background:#cf9265;border-color:#cf9265;color:#161514}
 body.dark-mode .reportHeroAction:hover{background:#fff;color:#161514}
-body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.flowNode,.matrixCell,.sequenceStep,.modelCard,.noteCard,.referenceItem,.chartPanel,.thoughtCard){background:#2b2927;border-color:#3a3733}
-body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]){background:#32302d;border-color:#687985}
+body.dark-mode :is(.reportTldrItem,.signalCard,.insightCard,.diagramPanel,.modelCard,.noteCard,.referenceItem,.chartPanel,.thoughtCard){background:#2b2927;border-color:#3a3733}
+body.dark-mode :is(.callout,.fieldNote,.matrixCell[data-tone="strong"]){background:#32302d;border-color:#cf9265}
 body.dark-mode .articleByline .authorMark{background:#32302d;color:#edf3f6}
 body.dark-mode .findAskDialog,body.dark-mode .findAskTrigger,body.dark-mode .findAskFoot{background:#201f1d;color:#ece9e4;border-color:#3a3733}
 body.dark-mode .findAskResults{background:#201f1d}
@@ -33,7 +33,7 @@ body:not(.dark-mode) .chatOverlay{background:#f8f9fa;color:#2b2927;border-color:
 body:not(.dark-mode) .chatOverlayBar{background:#e9edf0;color:#2b2927;border-color:#c5d0d6}
 body:not(.dark-mode) .chatOverlayActions a,body:not(.dark-mode) .chatOverlayActions button{color:#3a3733}
 body:not(.dark-mode) .chatOverlay iframe{background:#f8f9fa}
-body.dark-mode ::selection{background:#3a3733;color:#fff}
+body.dark-mode ::selection{background:rgba(207,146,101,.38);color:#fff}
 
 body.dark-mode .fieldScene{background-color:#161514}
 body.dark-mode .personaStation{color:#eff3f5}
@@ -56,9 +56,9 @@ body.dark-mode .personaStation:hover,body.dark-mode .personaStation:focus-visibl
 
 /* The standalone chat uses the same graphite and silver surfaces as the site. */
 :root{--bg:#f8f9fa;--surface:#fff;--rail:#eef1f3;--user:#e8eef2}
-body:not(.dark-mode)::selection{background:#cf9265;color:#2b2927}
+body:not(.dark-mode)::selection{background:#cfe0d6;color:#1f2a2a}
 body:not(.dark-mode) :is(.newChat:hover,.railNav a:hover,.promptStarts button:hover){background:#e8eef2;border-color:#c5d0d6}
-:root{--accent-strong:#3a3733}
+:root{--accent-strong:#263f51}
 body:not(.dark-mode) .chatComposer{border-color:#b9c5ce;box-shadow:0 7px 24px rgba(30,43,52,.07)}
 body:not(.dark-mode) .chatComposer textarea::placeholder{color:#61707a}
 body:not(.dark-mode) .chatComposer button:disabled{background:#b9c5ce}
@@ -104,5 +104,13 @@ body:not(.dark-mode) .findAskLauncher:focus-visible{outline-color:#2f5d50}
 @supports (transition-timing-function:linear(0,1)){:root{--ease-spring:linear(0,0.006,0.025 2.8%,0.101 6.1%,0.539 18.9%,0.721 25.3%,0.849 31.5%,0.937 38.1%,0.968 41.8%,0.991 45.7%,1.006 50.1%,1.015 55%,1.017 63.9%,1.001)}}
 /* Colour and surface (docs/superpowers/specs/2026-11-19-colour-and-surface-design.md): warm neutrals,
    surfaces one tonal step from the page. Day keeps the paper and the green. */
-:root{--surface:#efece4;--surface-2:#e6e2d8;--lab-panel-solid:#efece4;--lab-panel:rgba(239,236,228,.92);--lab-bg-soft:#e6e2d8;--report-surface:#efece4;--color-surface-soft:#e6e2d8}
-body.dark-mode{--surface-2:#2b2927}
+/* Only pages with a site header: the chat app keeps its own surfaces. */
+:root:has(#navigation,.researchNav){--surface:#efece4;--surface-2:#e6e2d8;--lab-panel-solid:#efece4;--lab-panel:rgba(239,236,228,.92);--lab-bg-soft:#e6e2d8;--report-surface:#efece4;--color-surface-soft:#e6e2d8}
+:root:has(#navigation,.researchNav) body.dark-mode{--surface:#201f1d;--surface-2:#2b2927}
+/* Diagram nodes sit one tone above their panel, in both themes. */
+body.dark-mode .reportShell :is(.flowNode,.matrixCell,.sequenceStep){background:#32302d}
+body.dark-mode .chartFill{background:var(--report-blue)}
+/* The Ask launcher and its dialog bar by day: warm paper, not blue-grey; visible focus. */
+body:not(.dark-mode) .findAskLauncher{background:#efece4;border-color:#dcd7c9}
+body:not(.dark-mode) .chatOverlayActions :focus-visible{outline-color:#2f5d50}
+.researchNavLinks .researchFind,.findAskForm input{border-radius:999px}

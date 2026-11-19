@@ -1073,7 +1073,7 @@ body.dark-mode .tag {
 }
 
 /* Colour and surface: boxes are a tonal fill with no border; controls are pills. */
-.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .thoughtCard, .diagramPanel, .chartPanel, .callout, .fieldNote, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .videoTranscript, .matrixCell, .flowNode, .sequenceStep),
+.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .thoughtCard, .diagramPanel, .chartPanel, .callout, .fieldNote, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .matrixCell, .flowNode, .sequenceStep),
 .reportReceipts {
     border-top-width: 0;
     border-right-width: 0;
@@ -1083,7 +1083,7 @@ body.dark-mode .tag {
     box-shadow: none;
 }
 
-.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .diagramPanel, .chartPanel, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .videoTranscript, .matrixCell, .flowNode, .sequenceStep),
+.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .diagramPanel, .chartPanel, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .matrixCell, .flowNode, .sequenceStep),
 .reportReceipts {
     border-left-width: 0;
 }
@@ -1100,4 +1100,13 @@ body.dark-mode .tag {
 
 .reportHeroAction {
     border-radius: 999px;
+}
+
+.decisionTable td,
+.decisionTable th {
+    border-color: #d3cec2;
+}
+
+body.dark-mode .decisionTable :is(td, th) {
+    border-color: #3a3733;
 }

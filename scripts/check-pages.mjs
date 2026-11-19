@@ -19,7 +19,7 @@ if (!process.env.PAGES_FILTER) assert.ok(REPORTS.length === 8 && ESSAYS.length >
 const HELPERS = `
 window.__rgba = (c) => { const x = document.createElement("canvas").getContext("2d"); x.clearRect(0,0,1,1); x.fillStyle = c; x.fillRect(0, 0, 1, 1); return [...x.getImageData(0, 0, 1, 1).data]; };
 window.__lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
-window.__bg = (el) => { for (let e = el; e; e = e.parentElement) { const c = __rgba(getComputedStyle(e).backgroundColor); if (c[3] > 250) return c; } return document.body.classList.contains("dark-mode") ? [18, 21, 25, 255] : [246, 244, 238, 255]; };
+window.__bg = (el) => { for (let e = el; e; e = e.parentElement) { const c = __rgba(getComputedStyle(e).backgroundColor); if (c[3] > 250) return c; } return document.body.classList.contains("dark-mode") ? [22, 21, 20, 255] : [246, 244, 238, 255]; };
 window.__contrast = (el) => { const [a, b] = [__lum(__rgba(getComputedStyle(el).color)), __lum(__bg(el))].sort((x, y) => y - x); return (a + 0.05) / (b + 0.05); };
 // Elements that carry their own visible text, outside embedded diagrams, the chat launcher and hidden boxes.
 window.__texts = () => [...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, .findAskLauncher, dialog, script, style, noscript") && el.getClientRects().length && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()));
@@ -82,6 +82,7 @@ try {
             const boxed = ["Top", "Right", "Bottom", "Left"].every((k) => parseFloat(cs["border" + k + "Width"]) > 0);
             return filled || boxed || cs.boxShadow !== "none";
           }).filter((el) => __surface(el) !== "0px|20px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
+          imgEdges: [...document.querySelectorAll("main figure img")].filter((el) => el.getClientRects().length).map((el) => getComputedStyle(el).outlineStyle !== "none"),
           filledCards: [...document.querySelectorAll(".reportTldrItem, .modelCard, .insightCard, .takeaway, .worked")].filter((el) => el.getClientRects().length).map((el) => { const bg = __rgba(getComputedStyle(el).backgroundColor), page = __rgba(getComputedStyle(document.body).backgroundColor); return bg[3] > 250 && Math.abs(bg[0] - page[0]) + Math.abs(bg[1] - page[1]) + Math.abs(bg[2] - page[2]) > 6; }),
           pills: [...document.querySelectorAll(".researchNavLinks [data-theme-toggle], [data-topic-filter], .reportHeroAction")].filter((el) => el.getClientRects().length && parseFloat(getComputedStyle(el).borderTopLeftRadius) < el.getBoundingClientRect().height / 2 - 0.5).map((el) => tag(el)).slice(0, 4),
         };
@@ -101,6 +102,8 @@ try {
       assert.ok(r.labels[0] >= 4.5, `${label}: small text contrast ${r.labels[0].toFixed(2)} on ${r.labels[1]}`);
       assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
       assert.ok(r.filledCards.every(Boolean), `${label}: cards are filled one tone from the page`);
+      if (path.startsWith("reports/")) assert.ok(r.filledCards.length > 0, `${label}: filled cards were found to check`);
+      assert.ok(r.imgEdges.every(Boolean), `${label}: images inside figures keep a faint edge`);
       assert.deepEqual(r.pills, [], `${label}: controls are pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();

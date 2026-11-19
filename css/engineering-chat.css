@@ -170,13 +170,13 @@ button { cursor: pointer; }
 .chatComposer button:disabled { background: #b5c5b7; cursor: not-allowed; }
 .chatComposer button[hidden] { display: none; }
 .composerNote { margin: 9px 3px 0; color: var(--muted); font-size: .72rem; text-align: center; }
-body.dark-mode { --bg:#161514;--surface:#201f1d;--rail:#191d21;--ink:#ece9e4;--body:#d5dbe0;--muted:#b4bec7;--line:#3b444c;--accent:#cf9265;--accent-strong:#fff;--user:#2b3239;--focus:#e0a878; }
+body.dark-mode { --bg:#161514;--surface:#201f1d;--rail:#201f1d;--ink:#f4f6f7;--body:#d5dbe0;--muted:#a8a29a;--line:#3a3733;--accent:#cf9265;--accent-strong:#fff;--user:#32302d;--focus:#e0a878; }
 .dark-mode .newChat:hover, .dark-mode .railNav a:hover, .dark-mode .headerActions button:hover, .dark-mode .menuButton:hover { background: #32302d; }
-.dark-mode .promptStarts button:hover { border-color: #8898a5; background: #2b3239; }
-.dark-mode .chatComposer button { background: #cf9265; color: #13171a; }
+.dark-mode .promptStarts button:hover { border-color: #9a948c; background: #32302d; }
+.dark-mode .chatComposer button { background: #cf9265; color: #161514; }
 .dark-mode .chatComposer button:hover { background: #fff; }
-.dark-mode .chatComposer button:disabled { background: #4c5862; color: #d5dbe0; }
-.dark-mode .chatComposer textarea::placeholder { color: #b4bec7; }
+.dark-mode .chatComposer button:disabled { background: #3a3733; color: #d5dbe0; }
+.dark-mode .chatComposer textarea::placeholder { color: #a8a29a; }
 .dark-mode .turnStatus--inference { color: #efc297; }
 .dark-mode .turnStatus--unknown, .dark-mode .turnStatus--error { color: #efb3a2; }
 @media (max-width: 850px) {
@@ -216,6 +216,6 @@ body.dark-mode { --bg:#161514;--surface:#201f1d;--rail:#191d21;--ink:#ece9e4;--b
 body.embedded .chatApp{grid-template-columns:minmax(0,1fr)}
 body.embedded .chatRail,body.embedded .chatHeader{display:none}
 body.embedded .chatMain{min-width:0}
-body.dark-mode .chatComposer{border-color:#56616b;box-shadow:0 7px 24px rgba(0,0,0,.16)}
+body.dark-mode .chatComposer{border-color:#3a3733;box-shadow:0 7px 24px rgba(0,0,0,.16)}
 body.dark-mode .chatComposer:focus-within{box-shadow:0 0 0 3px rgba(165,192,210,.22)}
-body.dark-mode::selection{background:#586b79;color:#fff}
+body.dark-mode::selection{background:#3a3733;color:#fff}

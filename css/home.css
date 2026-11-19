@@ -453,7 +453,8 @@ html:not(.js) #darkModeToggle {
     }
 }
 
-/* A card clips its own thumbnail to the rounded corner. */
-.writingCard {
+/* The thumbnail takes the card's top corners itself, so the card need not clip focus rings. */
+.writingThumb {
     overflow: hidden;
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
 }

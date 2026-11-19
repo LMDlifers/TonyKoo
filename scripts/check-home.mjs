@@ -228,6 +228,13 @@ try {
     const round = await p.evaluate(() => [".heroButtonPrimary", "#darkModeToggle", ".findAskLauncher"].filter((s) => { const el = document.querySelector(s); return el && parseFloat(getComputedStyle(el).borderTopLeftRadius) < el.getBoundingClientRect().height / 2 - 0.5; }));
     assert.deepEqual(round, [], "the primary button, the theme toggle and the Ask launcher are pills");
     if (night) assert.equal(await p.evaluate(() => getComputedStyle(document.body).backgroundColor), "rgb(22, 21, 20)", "warm neutral page at night");
+    if (night) {
+      assert.equal(await p.evaluate(() => getComputedStyle(document.querySelector(".workLink")).color), "rgb(207, 146, 101)", "links take the clay accent at night");
+      const cool = await p.evaluate(() => [...new Set([...document.querySelectorAll("body *")].filter((el) => !el.closest("svg, img, dialog, #portfolioField, .console") && el.getClientRects().length).filter((el) => { const [r, , b, al] = __rgba(getComputedStyle(el).backgroundColor); return al > 200 && r < 110 && b - r > 6; }).map((el) => `${el.tagName.toLowerCase()}.${el.className} ${getComputedStyle(el).backgroundColor}`))].slice(0, 6));
+      assert.deepEqual(cool, [], "no cool blue-grey surfaces left on the homepage at night (the field keeps its own art)");
+    } else {
+      assert.equal(surfaces[0][1].split("|")[1], "rgb(239, 236, 228)", "day cards are the paper's next tone");
+    }
     for (const sel of [".writingCard", ".testimonialCard"]) {
       await p.locator(sel).first().scrollIntoViewIfNeeded();
       await p.locator(sel).first().hover();
