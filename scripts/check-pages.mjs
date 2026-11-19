@@ -28,7 +28,6 @@ window.__ch = (el) => { const s = document.createElement("span"); s.textContent 
 // A card may carry one thicker accent edge, so the hairline is the thinnest of its four borders.
 window.__surface = (el) => { const cs = getComputedStyle(el); return [Math.min(...["Top", "Right", "Bottom", "Left"].map((k) => parseFloat(cs["border" + k + "Width"]))) + "px", cs.borderTopLeftRadius, cs.boxShadow].join("|"); };
 `;
-const SURFACE = "1px|16px|none";
 const name = (el) => `${el.tagName.toLowerCase()}.${el.className}`;
 
 const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" });
@@ -67,17 +66,24 @@ try {
           headers: document.querySelectorAll(".researchNav").length,
           brand: document.querySelector(".researchNav a")?.textContent.trim() ?? "",
           toggle: document.querySelectorAll(".researchNav [data-theme-toggle]").length,
-          pills: document.querySelectorAll(".reportNav, .reportThemeButton").length,
+          oldNav: document.querySelectorAll(".reportNav, .reportThemeButton").length,
           chips: [...document.querySelectorAll(".tag, .reportMeta span")].filter((el) => __rgba(getComputedStyle(el).backgroundColor)[3] > 0 || parseFloat(getComputedStyle(el).borderTopWidth) > 0).length,
-          // One surface: anything with a border on all sides or a shadow uses it; rules and dividers have no radius.
+          // One surface: any box filled a different tone from the page (or still bordered or shadowed)
+          // has no border, a 20px radius and no shadow. One thicker accent edge is allowed.
           surfaces: [...new Set([...document.querySelectorAll("main *, footer *")].filter((el) => {
-            if (el.closest("svg, dialog, .findAskLauncher") || !el.getClientRects().length) return false;
+            if (el.closest("svg, dialog, .findAskLauncher, table, pre") && !el.matches("pre") || !el.getClientRects().length) return false;
+            if (["INPUT", "BUTTON", "IMG", "VIDEO", "A", "CODE", "KBD", "MARK", "SPAN", "TIME", "SUMMARY"].includes(el.tagName)) return false;
             const cs = getComputedStyle(el);
-            const boxed = parseFloat(cs.borderTopWidth) > 0 && parseFloat(cs.borderLeftWidth) > 0 && parseFloat(cs.borderRightWidth) > 0 && parseFloat(cs.borderBottomWidth) > 0;
-            const round = cs.borderTopLeftRadius === "50%" || parseFloat(cs.borderTopLeftRadius) >= 999 ? false : true;
             const r = el.getBoundingClientRect();
-            return round && r.width >= 160 && r.height >= 56 && (boxed || cs.boxShadow !== "none") && !["INPUT", "BUTTON", "IMG", "VIDEO"].includes(el.tagName);
-          }).filter((el) => __surface(el) !== "1px|16px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
+            if (r.width < 160 || r.height < 56 || cs.borderTopLeftRadius === "50%") return false;
+            const bg = __rgba(cs.backgroundColor);
+            const page = __rgba(getComputedStyle(document.body).backgroundColor);
+            const filled = bg[3] > 250 && (Math.abs(bg[0] - page[0]) + Math.abs(bg[1] - page[1]) + Math.abs(bg[2] - page[2])) > 6;
+            const boxed = ["Top", "Right", "Bottom", "Left"].every((k) => parseFloat(cs["border" + k + "Width"]) > 0);
+            return filled || boxed || cs.boxShadow !== "none";
+          }).filter((el) => __surface(el) !== "0px|20px|none").map((el) => `${tag(el)} ${__surface(el).slice(0, 60)}`))].slice(0, 6),
+          filledCards: [...document.querySelectorAll(".reportTldrItem, .modelCard, .insightCard, .takeaway, .worked")].filter((el) => el.getClientRects().length).map((el) => { const bg = __rgba(getComputedStyle(el).backgroundColor), page = __rgba(getComputedStyle(document.body).backgroundColor); return bg[3] > 250 && Math.abs(bg[0] - page[0]) + Math.abs(bg[1] - page[1]) + Math.abs(bg[2] - page[2]) > 6; }),
+          pills: [...document.querySelectorAll(".researchNavLinks [data-theme-toggle], [data-topic-filter], .reportHeroAction")].filter((el) => el.getClientRects().length && parseFloat(getComputedStyle(el).borderTopLeftRadius) < el.getBoundingClientRect().height / 2 - 0.5).map((el) => tag(el)).slice(0, 4),
         };
       });
       assert.equal(r.dark, night, `${label}: theme applied`);
@@ -91,9 +97,11 @@ try {
       assert.deepEqual(r.upper, [], `${label}: no uppercase labels`);
       assert.deepEqual(r.tracked, [], `${label}: no tracked text`);
       assert.ok(r.prose > 0 && r.contrast >= 4.5, `${label}: body text contrast ${r.contrast.toFixed(2)} over ${r.prose} paragraphs`);
-      assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.pills], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
+      assert.deepEqual([r.headers, r.brand.replace(/\s+/g, " ").startsWith("Tony Koo"), r.toggle, r.oldNav], [1, true, 1, 0], `${label}: one site header with the brand and a theme toggle`);
       assert.ok(r.labels[0] >= 4.5, `${label}: small text contrast ${r.labels[0].toFixed(2)} on ${r.labels[1]}`);
       assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
+      assert.ok(r.filledCards.every(Boolean), `${label}: cards are filled one tone from the page`);
+      assert.deepEqual(r.pills, [], `${label}: controls are pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();
     }

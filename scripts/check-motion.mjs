@@ -234,12 +234,12 @@ try {
     const css = (sel, prop, pseudo) => page.evaluate(([s, p, ps]) => getComputedStyle(document.querySelector(s), ps ?? undefined)[p], [sel, prop, pseudo]);
     const card = page.locator(".workCard").first();
     await card.scrollIntoViewIfNeeded();
-    const before = await css(".workCard", "borderTopColor");
+    const before = await css(".workCard", "backgroundColor");
     await card.hover();
     await page.waitForTimeout(350);
     assert.equal(await css(".workCard .workArt", "scale"), "1.02", "card art eases to 1.02 on hover");
     assert.equal(await css(".workCard .workLink > span", "translate"), "3px", "the card's arrow moves 3px");
-    assert.notEqual(await css(".workCard", "borderTopColor"), before, "the card's border steps on hover");
+    assert.notEqual(await css(".workCard", "backgroundColor"), before, "the card's tone steps on hover");
     assert.equal(await css(".workCard .workLink", "textUnderlineOffset"), "3px", "the link's underline rests at 3px while only the card is hovered");
     await page.locator(".workCard .workLink").first().hover();
     await page.waitForTimeout(350);

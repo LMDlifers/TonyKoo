@@ -274,7 +274,7 @@ html.is-leaving::after {
 /* ---------- R1–R10. Responses. Colour steps are for everyone; movement is for pointers
    and for visitors who allow motion. ---------- */
 .workCard {
-    transition: border-color var(--dur-hover) var(--ease-standard);
+    transition: background-color var(--dur-hover) var(--ease-standard);
 }
 
 .workListTitle,
@@ -284,7 +284,7 @@ html.is-leaving::after {
 
 @media (hover: hover) {
     .workCard:hover {
-        border-color: color-mix(in oklab, var(--lab-line) 40%, var(--lab-accent));
+        background-color: var(--surface-2);
     }
 
     .workList > li:hover .workListTitle {
@@ -293,7 +293,7 @@ html.is-leaving::after {
 }
 
 .workCard:has(.workLink:focus-visible) {
-    border-color: var(--lab-accent);
+    background-color: var(--surface-2);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -426,7 +426,7 @@ html.is-leaving::after {
 
     /* R10. Figures on reports: the frame takes the accent on hover. */
     .reportShell figure {
-        transition: border-color var(--dur-hover) var(--ease-standard);
+        transition: background-color var(--dur-hover) var(--ease-standard);
     }
 
     @media (hover: hover) {
@@ -452,7 +452,7 @@ html.is-leaving::after {
         }
 
         .reportShell figure:hover {
-            border-color: var(--report-blue, var(--accent));
+            background-color: var(--surface-2);
         }
     }
 }

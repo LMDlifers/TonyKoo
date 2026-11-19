@@ -8,7 +8,7 @@
 .chatOverlayActions button{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:7px;background:transparent;color:#e9edf0;cursor:pointer}
 .chatOverlayActions :focus-visible,.findAskLauncher:focus-visible{outline:3px solid #e0a878;outline-offset:2px}
 .chatOverlay iframe{display:block;flex:1;min-height:0;width:100%;border:0;background:#161514}
-.findAskLauncher{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:7px;min-height:58px;padding:6px 13px 6px 6px;border:1px solid #6a655f;border-radius:14px;background:#201f1d;color:#ece9e4;box-shadow:0 12px 32px rgba(0,0,0,.3);font:700 .87rem/1.15 var(--font-body, Lato, system-ui, sans-serif);text-align:left;cursor:pointer}
+.findAskLauncher{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:7px;min-height:58px;padding:6px 13px 6px 6px;border:1px solid #6a655f;border-radius:999px;background:#201f1d;color:#ece9e4;box-shadow:0 12px 32px rgba(0,0,0,.3);font:700 .87rem/1.15 var(--font-body, Lato, system-ui, sans-serif);text-align:left;cursor:pointer}
 .findAskLauncher img{display:block;width:46px;height:46px;image-rendering:pixelated}
 .findAskLauncher span{display:block;white-space:nowrap}
 .findAskLauncher small{display:block;margin-top:4px;color:#a8a29a;font:400 .75rem/1.2 var(--font-body, Lato, system-ui, sans-serif)}

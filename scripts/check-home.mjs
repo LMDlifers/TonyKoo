@@ -214,16 +214,20 @@ try {
     await p.context().close();
   }
 
-  // One surface: every card has the same hairline, radius and no shadow, in both themes, at rest and on hover.
+  // One surface: every card has the same tonal fill and radius, no border and no shadow, in both themes, at rest and on hover.
   for (const night of [false, true]) {
     const p = await open({}, night);
     const surfaces = await p.evaluate(() => [".workCard", ".resumePriorityCard", ".testimonialCard", ".writingCard", ".contactPanel", ".resumeDetails"].map((sel) => {
       const el = document.querySelector(sel);
       const cs = getComputedStyle(el);
-      return [sel, [cs.borderTopWidth, cs.borderTopColor, cs.borderTopLeftRadius, cs.boxShadow].join("|")];
+      return [sel, [cs.borderTopWidth, cs.backgroundColor, cs.borderTopLeftRadius, cs.boxShadow].join("|")];
     }));
     assert.equal(new Set(surfaces.map((x) => x[1])).size, 1, `cards share one surface (${night ? "night" : "day"}): ${JSON.stringify(surfaces)}`);
-    assert.match(surfaces[0][1], /^1px\|.*\|16px\|none$/, "the surface is a 1px hairline, 16px radius, no shadow");
+    assert.match(surfaces[0][1], /^0px\|.*\|20px\|none$/, "the surface has no border, a 20px radius and no shadow");
+    assert.notEqual(surfaces[0][1].split("|")[1], await p.evaluate(() => getComputedStyle(document.body).backgroundColor), "the surface is filled one tone from the page");
+    const round = await p.evaluate(() => [".heroButtonPrimary", "#darkModeToggle", ".findAskLauncher"].filter((s) => { const el = document.querySelector(s); return el && parseFloat(getComputedStyle(el).borderTopLeftRadius) < el.getBoundingClientRect().height / 2 - 0.5; }));
+    assert.deepEqual(round, [], "the primary button, the theme toggle and the Ask launcher are pills");
+    if (night) assert.equal(await p.evaluate(() => getComputedStyle(document.body).backgroundColor), "rgb(22, 21, 20)", "warm neutral page at night");
     for (const sel of [".writingCard", ".testimonialCard"]) {
       await p.locator(sel).first().scrollIntoViewIfNeeded();
       await p.locator(sel).first().hover();

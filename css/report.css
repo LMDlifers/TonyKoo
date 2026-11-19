@@ -7,7 +7,7 @@ html {
 :root {
     --report-ink: #24312b;
     --report-body: #37443b;
-    --report-muted: #617066;
+    --report-muted: #56625e;
     --report-blue: #285b4c;
     --report-blue-soft: #eaf2e9;
     --report-line: #dce5da;
@@ -35,7 +35,7 @@ body {
 .reportHero,
 .reportSection {
     background: #ffffff;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     box-shadow: none;
 }
@@ -48,7 +48,7 @@ body {
 
 .reportTldr {
     background: #ffffff;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     box-shadow: none;
     margin-bottom: 20px;
@@ -82,7 +82,7 @@ body {
 
 .reportTldrItem {
     background: linear-gradient(180deg, #fbfaf6 0%, #f5f7f0 100%);
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     padding: 16px;
 }
@@ -172,7 +172,7 @@ h1 {
 .tag {
     display: inline-flex;
     align-items: center;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: 999px;
     background: #eaf2e9;
     color: #285b4c;
@@ -216,14 +216,14 @@ h1 {
 }
 
 .signalCard {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     background: linear-gradient(180deg, #ffffff 0%, #f5f7f0 100%);
     padding: 16px;
 }
 
 .signalLabel {
-    color: #617066;
+    color: #56625e;
     display: block;
     font-family: var(--font-body);
     font-size:12px;
@@ -241,7 +241,7 @@ h1 {
 }
 
 .insightCard {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     background: #fbfaf6;
     padding: 18px;
@@ -270,7 +270,7 @@ h1 {
 
 .fieldNote {
     background: linear-gradient(180deg, #f3fbf8 0%, #eef8f6 100%);
-    border: 1px solid #b9d8d2;
+    border: 0;
     border-left: 5px solid #2f766d;
     border-radius: var(--report-radius);
     box-shadow: none;
@@ -295,7 +295,7 @@ h1 {
 }
 
 .diagramPanel {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     background: linear-gradient(180deg, #fbfaf6 0%, #f5f7f0 100%);
     padding: 20px;
@@ -322,7 +322,7 @@ h1 {
 .modelCard,
 .noteCard,
 .referenceItem {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     background: #ffffff;
     padding: 14px;
@@ -365,7 +365,7 @@ h1 {
 .sequenceStep span,
 .modelCard span,
 .noteCard span {
-    color: #617066;
+    color: #56625e;
     display: block;
     font-size: 13px;
     line-height: 1.55;
@@ -412,7 +412,7 @@ h1 {
 }
 
 .matrixAxis {
-    color: #617066;
+    color: #56625e;
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
@@ -448,7 +448,7 @@ h1 {
 }
 
 .sourceFigure {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     background: #ffffff;
     margin: 0;
@@ -499,7 +499,7 @@ h1 {
 .reportHeroVisual,
 .visualEvidenceItem {
     background: #ffffff;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     box-shadow: none;
     margin: 0;
@@ -553,7 +553,7 @@ h1 {
 
 .researchFigure {
     background: #ffffff;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     box-shadow: none;
     margin: 0;
@@ -602,7 +602,7 @@ h1 {
 .licenseNote {
     align-items: center;
     background: #eaf2e9;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: 999px;
     color: #285b4c;
     display: inline-flex;
@@ -614,7 +614,7 @@ h1 {
 
 .demoVideo {
     background: #ffffff;
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     box-shadow: none;
     margin: 24px 0 0;
@@ -663,7 +663,7 @@ h1 {
 }
 
 .tableWrap {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--card-radius);
     margin: 20px 0;
     overflow-x: auto;
@@ -700,7 +700,7 @@ h1 {
 }
 
 .chartPanel {
-    border: 1px solid #dce5da;
+    border: 0;
     border-radius: var(--report-radius);
     background: #fbfaf6;
     padding: 20px;
@@ -728,7 +728,7 @@ h1 {
 }
 
 .chartMeta {
-    color: #617066;
+    color: #56625e;
     text-align: right;
 }
 
@@ -769,7 +769,7 @@ h1 {
 }
 
 .thoughtCard span {
-    color: #617066;
+    color: #56625e;
     display: block;
     font-size: 13px;
     line-height: 1.55;
@@ -790,7 +790,7 @@ h1 {
 }
 
 .reportFooter {
-    color: #617066;
+    color: #56625e;
     font-size: 13px;
     text-align: center;
     margin-top: 28px;
@@ -1070,4 +1070,34 @@ body.dark-mode .tag {
         max-width: none;
         padding: 0;
     }
+}
+
+/* Colour and surface: boxes are a tonal fill with no border; controls are pills. */
+.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .thoughtCard, .diagramPanel, .chartPanel, .callout, .fieldNote, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .videoTranscript, .matrixCell, .flowNode, .sequenceStep),
+.reportReceipts {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-radius: var(--card-radius);
+    background: var(--report-surface);
+    box-shadow: none;
+}
+
+.reportShell :is(figure, .reportTldrItem, .modelCard, .insightCard, .signalCard, .noteCard, .diagramPanel, .chartPanel, .tableWrap, .demoVideo, .referenceItem, .visualEvidenceItem, .sourceFigure, .researchFigure, .reportHeroVisual, .licenseNote, .videoTranscript, .matrixCell, .flowNode, .sequenceStep),
+.reportReceipts {
+    border-left-width: 0;
+}
+
+.reportShell :is(.flowNode, .matrixCell, .sequenceStep) {
+    background: var(--surface-2);
+}
+
+.reportShell figure img,
+.reportShell figure video {
+    outline: 1px solid rgb(0 0 0 / .08);
+    outline-offset: -1px;
+}
+
+.reportHeroAction {
+    border-radius: 999px;
 }
