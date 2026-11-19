@@ -61,7 +61,7 @@
     <link rel="stylesheet" href="css/guide-widget.css">
 <link rel="stylesheet" href="css/site-theme.css">
 <link rel="stylesheet" href="css/craft.css">
-<link rel="stylesheet" href="css/home.css"></head>
+<link rel="stylesheet" href="css/home.css"><link rel="stylesheet" href="css/motion.css"></head>
 
 <body>
     <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('darkMode')==='enabled')document.body.classList.add('dark-mode')}catch(_){}</script>
@@ -70,7 +70,7 @@
         <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Tony Koo - Home">
             <img src="images/portfolio/tonykoo.png" alt="Tony Koo Logo" width="30" height="30"
                 class="d-inline-block align-text-top mr-2">
-            Tony Koo
+            <span class="wordmark">T<b class="wmRest"><b>ony</b></b> K<b class="wmRest"><b>oo</b></b></span>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -111,7 +111,7 @@
             <div class="fieldIntro">
             <h1 class="heroTitle">
                 <span class="title-word">Tony Koo</span>
-                <span class="title-line">I build AI and quant systems whose results you can check.</span>
+                <span class="title-line">I build AI and quant systems whose results you can check.<span class="claimCaret" aria-hidden="true"></span></span>
             </h1>
             <div class="heroActions" aria-label="Primary actions">
                 <a class="heroButton heroButtonPrimary" href="#portfolio"><i class="fas fa-layer-group"></i> View Projects</a>
@@ -222,8 +222,6 @@
         </div>
     </header>
 
-    <!-- Scroll Progress Bar -->
-    <div id="scrollProgress"></div>
 
     <!-- FEATURED PROJECTS -->
     <section id="portfolio" class="portfolioSection section" aria-labelledby="workHeading">
@@ -233,7 +231,7 @@
                 <article class="workCard">
                     <img class="workArt" src="images/cards/healthcare.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
                     <div class="workBody">
-                        <h3 class="workTitle">Agentic Healthcare Analytics Chatbot</h3>
+                        <h3 class="workTitle" style="view-transition-name: wk-healthcare">Agentic Healthcare Analytics Chatbot</h3>
                         <!-- Outcome reuses published text: Built and Problem lines of the previous card. -->
                         <p class="workOutcome">A multi-agent workflow routes each question, writes the SQL, runs the statistics, and stops for human review before results are returned.</p>
                         <p class="workContext">Clinical and research users need auditable ways to ask natural-language questions over complex healthcare data without losing traceability.</p>
@@ -244,7 +242,7 @@
                 <article class="workCard">
                     <img class="workArt" src="images/cards/extraction.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
                     <div class="workBody">
-                        <h3 class="workTitle">Self-RL &amp; RAG Extraction Pipelines</h3>
+                        <h3 class="workTitle" style="view-transition-name: wk-extraction">Self-RL &amp; RAG Extraction Pipelines</h3>
                         <!-- Outcome reuses published text: Built line of the previous card. -->
                         <p class="workOutcome">RAG pipelines with FAISS-backed semantic caching, computer-vision extraction, and a data-efficient self-RL loop for iterative output improvement.</p>
                         <p class="workContext">Convert unstructured PDF and questionnaire content into reliable structured outputs while controlling LLM latency and cost.</p>
@@ -255,7 +253,7 @@
                 <article class="workCard">
                     <img class="workArt" src="images/cards/yield-curve.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
                     <div class="workBody">
-                        <h3 class="workTitle">Fixed Income Analytics: Yield Curve Modeling</h3>
+                        <h3 class="workTitle" style="view-transition-name: wk-yield-curve">Fixed Income Analytics: Yield Curve Modeling</h3>
                         <!-- Outcome reuses published text: Built and Problem lines of the previous card. -->
                         <p class="workOutcome">Yield curve fitting in Python with Nelson-Siegel and Svensson parametric models plus monotone convex interpolation, integrated with Excel through VBA.</p>
                         <p class="workContext">Built to improve fixed income pricing accuracy for institutional clients in energy derivatives markets.</p>
@@ -266,7 +264,7 @@
                 <article class="workCard">
                     <img class="workArt" src="images/cards/judicial.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
                     <div class="workBody">
-                        <h3 class="workTitle">Judicial Analytics: Legal NLP</h3>
+                        <h3 class="workTitle" style="view-transition-name: wk-judicial">Judicial Analytics: Legal NLP</h3>
                         <!-- Outcome reuses published text: Built and Problem lines of the previous card. -->
                         <p class="workOutcome">A legal text pipeline with temporal isolation and leakage checks, benchmarking Legal-BERT embeddings against traditional ML baselines.</p>
                         <p class="workContext">Litigation risk assessment requires structured features from lengthy judgments while avoiding hindsight bias and target leakage.</p>
@@ -1295,6 +1293,6 @@
     <script src="js/script.js"></script>
     <script type="module" src="js/portfolio-field.mjs"></script>
     <script type="module" src="js/guide-widget.mjs"></script>
-</body>
+<script src="js/motion.js" defer></script></body>
 
 </html>

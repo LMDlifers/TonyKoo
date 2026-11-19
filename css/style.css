@@ -657,16 +657,7 @@ body.dark-mode .dark-mode-toggle i:before {
 }
 
 /* SCROLL PROGRESS BAR */
-#scrollProgress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #315d4e, #A2BBDD);
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(74,111,165,0.3);
-}
+
 
 /* QUICK JUMP SIDEBAR */
 .quick-jump-sidebar {

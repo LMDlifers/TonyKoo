@@ -18,7 +18,7 @@ if (!document.querySelector('#tonyChatOverlay')) {
   dialog.className = 'chatOverlay';
   dialog.setAttribute('aria-label', 'AI Engineering Lab chat');
   dialog.innerHTML = `<div class="chatOverlayPanel">
-    <div class="chatOverlayBar"><span>AI Engineering Lab</span><div class="chatOverlayActions"><a href="${chatUrl.href}">Expand chat</a><button type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
+    <div class="chatOverlayBar"><span>AI Engineering Lab <span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\uFE0E\n✶\n✻\n✽\n✻\n✶</span></span></span><div class="chatOverlayActions"><a href="${chatUrl.href}">Expand chat</a><button type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
     <iframe title="AI Engineering Lab conversation" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>`;
   document.body.append(launcher, dialog);
@@ -30,12 +30,12 @@ if (!document.querySelector('#tonyChatOverlay')) {
   function focusComposer() {
     try { frame.contentDocument?.querySelector('#chatInput')?.focus({ preventScroll: true }); } catch {}
   }
-  frame.addEventListener('load', () => { frameLoaded = true; if (dialog.open) focusComposer(); });
+  frame.addEventListener('load', () => { frameLoaded = true; delete dialog.dataset.loading; if (dialog.open) focusComposer(); });
 
   function open(trigger) {
     if (dialog.open || document.querySelector('dialog[open]')) return;
     previousFocus = trigger || document.activeElement || launcher;
-    if (!frame.src) frame.src = new URL('chat/?embed=1', new URL('../', import.meta.url)).href;
+    if (!frame.src) { dialog.dataset.loading = ''; frame.src = new URL('chat/?embed=1', new URL('../', import.meta.url)).href; }
     dialog.showModal();
     if (frameLoaded) focusComposer();
     else dialog.querySelector('button').focus({ preventScroll: true });

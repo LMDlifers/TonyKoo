@@ -36,6 +36,8 @@ try {
       }
       await page.locator('.fieldScene').scrollIntoViewIfNeeded();
       await page.evaluate(() => document.fonts.ready);
+      // Sprites may still be decoding on a busy machine: wait for them rather than sampling early.
+      await page.waitForFunction(() => [...document.querySelectorAll('.personaStill')].every(img => img.complete), null, { timeout: 15000 }).catch(() => {});
       const geometry = await page.evaluate(() => {
         const rect = el => el.getBoundingClientRect().toJSON();
         return {
@@ -78,6 +80,10 @@ try {
       }
       const first = page.locator('.personaStation').first();
       await first.focus();
+      // Browsers draw the focus ring for keyboard focus, so arrive by keyboard: step away and back.
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab');
+      assert.equal(await first.evaluate(el => document.activeElement === el), true, `Keyboard focus returns to the first character at ${width}`);
       assert.ok(await first.evaluate(el => getComputedStyle(el).outlineStyle !== 'none' && parseFloat(getComputedStyle(el).outlineWidth) >= 3), `Focus indicator at ${width}`);
       assert.equal(await page.locator('.personaAnimated').first().isVisible(), false);
       assert.equal(await page.locator('.personaStill').first().isVisible(), true);
