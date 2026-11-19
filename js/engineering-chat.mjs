@@ -304,7 +304,10 @@ function addTurn(turn) {
     article.append(avatar);
     const labels = { supported: 'From published sources', inference: 'Inference from published sources', unknown: 'Not verified', error: 'Could not answer' };
     const label = turn.sourceScope === 'web' ? 'From current publisher documentation' : labels[turn.status] || 'Checking sources…';
-    body.append(textNode('span', `turnStatus turnStatus--${turn.status || 'supported'}`, label));
+    const statusLabel = textNode('span', `turnStatus turnStatus--${turn.status || 'supported'}`, label);
+    // While sources are being checked, the label carries the loading mark (styled in css/motion.css).
+    if (!labels[turn.status] && turn.sourceScope !== 'web') statusLabel.insertAdjacentHTML('afterbegin', '<span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\n✶\n✻\n✽\n✻\n✶</span></span>');
+    body.append(statusLabel);
   }
   body.append(textNode('p', 'turnText', turn.content));
   if (turn.role === 'assistant' && (turn.citations?.length || turn.webSources?.length)) {

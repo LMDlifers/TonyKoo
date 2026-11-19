@@ -164,15 +164,6 @@ $(document).ready(function () {
     });
   }
 
-  // Scroll Progress Bar
-  $(window).on("scroll", function () {
-    const scrollTop = $(window).scrollTop();
-    const docHeight = $(document).height();
-    const winHeight = $(window).height();
-    const scrollPercent = (scrollTop / Math.max(docHeight - winHeight, 1)) * 100;
-    $("#scrollProgress").css("width", scrollPercent + "%");
-  });
-
   // Smooth scroll to sections
   $("#navigation .nav-link[href^='#']").click(function (e) {
     e.preventDefault();

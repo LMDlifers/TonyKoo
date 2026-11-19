@@ -98,15 +98,10 @@ body.dark-mode{--ink:#ecf2f8;--body:#c9d7e5;--muted:#a6bdd2;--line:#40566b;--sur
 .dark-mode .leadFigureLink{background:#e9f0f5}
 
 @media(prefers-reduced-motion:no-preference){
-  @view-transition{navigation:auto}
   .storyFeed .topicCard h3 a{transition:text-decoration-color 180ms ease}
   .leadFigureLink{transition:transform 180ms ease,box-shadow 180ms ease}
   .leadFigureLink:is(:hover,:focus-visible){transform:translateY(-2px);box-shadow:none}
-  ::view-transition-old(root){animation:90ms ease-out both research-fade-out}
-  ::view-transition-new(root){animation:180ms ease-in both research-fade-in}
 }
-@keyframes research-fade-out{to{opacity:0}}
-@keyframes research-fade-in{from{opacity:0}}
 
 .articleShell{max-width:1040px;padding-top:1.9rem}
 .articleHero{max-width:760px;background:none;border:0;border-radius:0;padding:1.5rem 0 2rem}

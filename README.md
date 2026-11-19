@@ -222,6 +222,7 @@ node scripts/check-launch-readiness.mjs
 node scripts/check-evidence.mjs
 node scripts/check-home.mjs
 node scripts/check-pages.mjs
+node scripts/check-motion.mjs
 node scripts/check-polish.mjs
 node scripts/smoke-responsive.mjs
 ```
