@@ -205,7 +205,8 @@ try {
   assert.equal(await frame.locator('#chatInput').getAttribute('maxlength'), '3000');
   assert.equal(await overlay.locator('#tonyChatOverlay').isVisible(), true);
   await overlay.locator('#tonyChatOverlay .chatOverlayActions button').click();
-  assert.equal(await overlay.locator('#tonyChatOverlay').isVisible(), false);
+  assert.equal(await overlay.locator('#tonyChatOverlay').evaluate((node) => node.open), false);
+  await overlay.locator('#tonyChatOverlay').waitFor({ state: 'hidden' }); // it fades out over 160ms
   await overlay.close();
   console.log('Chat browser checks passed: empty state, starters, bounded follow-up, citations, reload, new chat and mobile navigation.');
 } finally { await browser.close(); }

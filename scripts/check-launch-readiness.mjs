@@ -139,7 +139,7 @@ for (const unsupportedLabel of [
 
 
 assert.match(html, /id="portfolioField"/);
-assert.match(html, /<\/header>\s*<!-- Scroll Progress Bar -->[\s\S]*?<section id="portfolio"/);
+assert.match(html, /<\/header>\s*(?:<!--[^>]*-->\s*)*<section id="portfolio"/); // the work section follows the hero directly
 assert.match(html, /href="css\/portfolio-field.css"/);
 
 console.log("Launch-readiness checks passed.");
