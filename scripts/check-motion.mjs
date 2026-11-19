@@ -96,7 +96,15 @@ try {
     }));
     assert.ok(still.wm.length >= 2 && still.wm.every((w) => w > 10), `/${path}: the wordmark stays whole under reduced motion (${still.wm})`);
     assert.equal(still.hidden, 0, `/${path}: nothing is left faded under reduced motion`);
-    assert.equal(await page.evaluate(() => window.__vt), false, `/${path}: no view transition under reduced motion`);
+    await page.context().close();
+  }
+  {
+    const page = await open("", { motion: false });
+    const link = page.locator(".workCard .workLink").first();
+    await link.scrollIntoViewIfNeeded();
+    await Promise.all([page.waitForURL("**/agentic-healthcare-analytics.html"), link.click()]);
+    await page.waitForFunction(() => window.__vt !== undefined);
+    assert.equal(await page.evaluate(() => window.__vt), false, "a link click runs no view transition under reduced motion");
     await page.context().close();
   }
   // JS off: the entrance never hides content.
@@ -121,6 +129,9 @@ try {
     const top = await read();
     assert.match(top.brand, /^Tony Koo/, `/${path}: the brand still reads "Tony Koo"`);
     assert.match(top.name, /^Tony Koo/, `/${path}: the brand's accessible name starts with the name`);
+    assert.ok(await page.getByRole("link", { name: /^Tony Koo( |$)/ }).count() >= 1, `/${path}: assistive technology reads the brand as "Tony Koo"`);
+    const linkX = () => page.evaluate(() => Math.round(document.querySelector("#navbarNav .nav-link, .researchNavLinks a").getBoundingClientRect().left));
+    const restX = await linkX();
     assert.ok(top.wm.every((w) => w > 10), `/${path}: wordmark is whole at the top (${top.wm.map(Math.round)})`);
     assert.ok(near(parseFloat(top.bar), 0), `/${path}: progress bar is empty at the top (${top.bar})`);
     await page.evaluate(() => scrollTo({ top: 200, behavior: "instant" }));
@@ -128,6 +139,7 @@ try {
     const down = await read();
     assert.ok(down.wm.every((w) => w < 1), `/${path}: wordmark collapses by 200px (${down.wm.map((w) => w.toFixed(1))})`);
     assert.equal(down.navH, top.navH, `/${path}: the header keeps its height`);
+    assert.equal(await linkX(), restX, `/${path}: header links do not move as the wordmark collapses`);
     const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
     if (max > 800) {
       await page.evaluate((y) => scrollTo({ top: y, behavior: "instant" }), max / 2);
@@ -151,7 +163,7 @@ try {
     assert.deepEqual(hero.map((h) => h?.[1]), [0, 80, 160, 240, 320, 400], "hero steps are 80ms apart");
     assert.ok(hero.every((h) => h[2] === "opacity,translate"), `hero steps animate opacity and translate only (${hero[0][2]})`);
     const caret = await page.evaluate(() => window.__caret);
-    assert.ok(caret.length === 1 && Number.isFinite(caret[0]) && caret[0] <= 6, `the caret breathes a fixed number of times (${caret})`);
+    assert.deepEqual(caret, [1], `the caret plays once (${caret})`);
     await page.waitForFunction(() => window.__launcher !== undefined);
     const launcher = await page.evaluate(() => window.__launcher);
     assert.deepEqual(launcher, [400, 600, 1], "the launcher arrives once, 600ms after it is added");
@@ -164,7 +176,8 @@ try {
     for (const path of [REPORT, ESSAY]) {
       const p = await open(path);
       const steps = await p.evaluate(() => [...document.querySelector(".articleHero, .reportHeroCopy").children].slice(0, 3).map((el) => { const a = window.__entrance.find((x) => x.el === el); return a ? [a.duration, a.delay] : null; }));
-      assert.deepEqual(steps, [[400, 0], [400, 60], [400, 120]], `/${path}: title block rises in three 400ms steps`);
+      // A featured report's title is the handover target, so it does not also fade in.
+      assert.deepEqual(steps, path === REPORT ? [[400, 0], null, [400, 120]] : [[400, 0], [400, 60], [400, 120]], `/${path}: title block rises in 400ms steps`);
       await settle(p);
       assert.deepEqual(await p.evaluate(() => document.getAnimations().filter((a) => a.effect.getTiming().iterations === Infinity).map((a) => a.animationName)), [], `/${path}: nothing loops on an idle page`);
       await p.context().close();
@@ -180,6 +193,16 @@ try {
     assert.equal(await page.evaluate(() => document.documentElement.classList.contains("is-leaving")), false, "a hash link does not start the navigation hairline");
     const hairline = await page.evaluate(() => { document.documentElement.classList.add("is-leaving"); const a = document.getAnimations().find((x) => x.animationName === "nav-hairline"); const t = a?.effect.getTiming(); document.documentElement.classList.remove("is-leaving"); return t ? [t.duration, t.delay, t.iterations] : null; });
     assert.deepEqual(hairline, [1100, 200, 8], "the hairline waits 200ms and runs at most 8 times");
+    {
+      const nav = await open(REPORT);
+      await settle(nav);
+      await nav.route("**/index.html", async (route) => { await new Promise((r) => setTimeout(r, 700)); await route.continue(); });
+      const leaving = nav.waitForFunction(() => document.documentElement.classList.contains("is-leaving"), null, { timeout: 5000 }).then(() => true, () => false);
+      await nav.locator(".researchNavLinks a").first().click({ noWaitAfter: true });
+      assert.equal(await leaving, true, "clicking a same-site link marks the page as leaving");
+      await nav.waitForURL("**/index.html**");
+      await nav.context().close();
+    }
     for (const [slug, file] of [["healthcare", "agentic-healthcare-analytics"], ["extraction", "faiss-caching-llm-cost-latency"], ["yield-curve", "yield-curve-quant-engineering-notes"], ["judicial", "judicial-analytics-legal-nlp"]]) {
       // The browser may skip a transition when it cannot produce a frame in time (a loaded test machine),
       // which is the designed fallback: a plain navigation. So a skipped handover gets one more try.
@@ -201,8 +224,6 @@ try {
     await page.goBack();
     await page.waitForTimeout(300);
     assert.equal(await page.evaluate(() => document.documentElement.classList.contains("is-leaving")), false, "the hairline is cleared after going Back");
-    await page.goto(`${base}/research/`);
-    await Promise.all([page.waitForURL("**/log.html").catch(() => {}), page.goto(`${base}/log.html`)]);
     await page.context().close();
   }
 
@@ -238,7 +259,8 @@ try {
     await page.waitForSelector("#darkModeToggle svg"); // the icon library redraws the icon a moment after the click
     const icon = await page.evaluate(() => { const a = document.querySelector("#darkModeToggle svg")?.getAnimations().find((x) => /^icon-in-/.test(x.animationName)); return a ? a.effect.getTiming().duration : null; });
     assert.equal(icon, 160, "after a toggle the new icon settles in over 160ms");
-    assert.ok(!/background|color/.test(await css("body", "transitionProperty")) || (await css("body", "transitionDuration")) === "0s", "the page colours do not transition on a theme change");
+    const fades = await page.evaluate(async () => { document.querySelector("#darkModeToggle").click(); await new Promise((r) => requestAnimationFrame(r)); const n = document.getAnimations().filter((a) => /color|background|border|shadow/.test(a.transitionProperty ?? "")).map((a) => `${a.transitionProperty}@${a.effect.target.tagName}.${a.effect.target.className}`.slice(0, 50)); document.querySelector("#darkModeToggle").click(); return n; });
+    assert.deepEqual(fades.slice(0, 4), [], "no colour fades while the theme flips");
     await page.locator("#darkModeToggle").click();
     // Details: content fades and, in Chromium, the height animates.
     const details = page.locator("#resume details").first();
@@ -298,15 +320,16 @@ try {
     const page = await open("chat/", { motion });
     await page.waitForTimeout(400);
     const mark = await page.evaluate(() => {
-      const mk = (cls) => { const s = document.createElement("span"); s.className = `turnStatus ${cls}`; s.innerHTML = '<span class="loadingMark" aria-hidden="true"><span>·\\n✢\\n✳\\n✶\\n✻\\n✽\\n✻\\n✶</span></span>Checking sources…'; document.body.append(s); return s; };
+      const mk = (cls) => { const s = document.createElement("span"); s.className = `turnStatus ${cls}`; s.innerHTML = '<span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\uFE0E\n✶\n✻\n✽\n✻\n✶</span></span>Checking sources…'; document.body.append(s); return s; };
       const pending = mk("turnStatus--pending"), done = mk("turnStatus--supported");
-      const info = (el) => ({ strip: el.querySelector(".loadingMark > span").getAnimations().map((a) => { const cs = getComputedStyle(a.effect.target); return [a.animationName, a.effect.getTiming().duration, cs.animationTimingFunction, cs.animationIterationCount]; }), label: el.getAnimations().map((a) => [a.animationName, a.effect.getTiming().duration, a.effect.getTiming().easing]), box: [el.querySelector(".loadingMark").getBoundingClientRect().height, getComputedStyle(el.querySelector(".loadingMark")).overflow, el.querySelector(".loadingMark").getAttribute("aria-hidden")], rest: getComputedStyle(el.querySelector(".loadingMark > span")).translate, fs: parseFloat(getComputedStyle(el.querySelector(".loadingMark")).fontSize) });
+      const info = (el) => ({ strip: el.querySelector(".loadingMark > span").getAnimations().map((a) => { const cs = getComputedStyle(a.effect.target); return [a.animationName, a.effect.getTiming().duration, cs.animationTimingFunction, cs.animationIterationCount]; }), label: el.getAnimations().map((a) => [a.animationName, a.effect.getTiming().duration, a.effect.getTiming().easing]), lines: Math.round(el.querySelector(".loadingMark > span").getBoundingClientRect().height / parseFloat(getComputedStyle(el.querySelector(".loadingMark")).fontSize)), box: [el.querySelector(".loadingMark").getBoundingClientRect().height, getComputedStyle(el.querySelector(".loadingMark")).overflow, el.querySelector(".loadingMark").getAttribute("aria-hidden")], rest: getComputedStyle(el.querySelector(".loadingMark > span")).translate, fs: parseFloat(getComputedStyle(el.querySelector(".loadingMark")).fontSize) });
       const out = { pending: info(pending), done: info(done) };
       pending.remove(); done.remove();
       return out;
     });
     assert.deepEqual([mark.pending.box[1], mark.pending.box[2]], ["hidden", "true"], "the mark is a clipped, decorative window");
     assert.ok(Math.abs(mark.pending.box[0] - mark.pending.fs) < 1, "the window is one line tall");
+    assert.equal(mark.pending.lines, 8, "the strip holds eight glyph lines");
     assert.deepEqual(mark.done.strip, [], "a finished status does not animate its mark");
     if (motion) {
       assert.deepEqual(mark.pending.strip, [["loading-mark", 1200, "steps(8)", "infinite"]], `the mark steps through 8 glyphs in 1.2s (${JSON.stringify(mark.pending.strip)})`);

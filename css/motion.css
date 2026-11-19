@@ -52,8 +52,11 @@ html.is-leaving::after {
 /* ---------- S2. The loading mark: eight glyphs stepped through a one-character window. ---------- */
 .loadingMark {
     display: inline-block;
-    width: 1ch;
+    /* The glyphs come from a symbol fallback font and are close to 1em wide. */
+    width: 1em;
     height: 1em;
+    text-align: center;
+    font-variant-emoji: text;
     overflow: hidden;
     line-height: 1;
     vertical-align: -0.1em;
@@ -100,8 +103,20 @@ html.is-leaving::after {
         animation: label-sheen 1.5s linear infinite;
     }
 
+    .turnStatus--pending {
+        width: fit-content;
+    }
+
     .turnStatus--pending .loadingMark {
         -webkit-text-fill-color: currentColor;
+    }
+
+    @media (forced-colors: active) {
+        .turnStatus--pending {
+            background: none;
+            -webkit-text-fill-color: currentColor;
+            animation: none;
+        }
     }
 
     @keyframes label-sheen {
@@ -144,7 +159,7 @@ html.is-leaving::after {
         .researchNav {
             animation: header-edge linear both;
             animation-timeline: scroll(root block);
-            animation-range: 0 40px;
+            animation-range: 0 8px;
         }
 
         @keyframes header-edge {
@@ -161,14 +176,14 @@ html.is-leaving::after {
         navigation: auto;
     }
 
-    #navigation,
+    /* Inner pages share one header, so it holds still between them. The homepage header is a
+       different size, so it cross-fades with the page. */
     .researchNav {
         view-transition-name: site-nav;
     }
 
     .workTitle {
         view-transition-class: work-title;
-        width: fit-content;
     }
 
     ::view-transition-old(root) {
@@ -216,14 +231,14 @@ html.is-leaving::after {
     .fieldIntro .proofItem:nth-child(3) { animation-delay: calc(5 * var(--step)); }
 
     /* Inner pages: label, title and deck. */
-    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(-n + 3) {
-        animation: rise 400ms var(--ease-out) backwards;
+    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(-n + 3):not([style*="view-transition-name"]) {
+        animation: rise 400ms var(--ease-out) var(--rise-delay, 0ms) backwards;
     }
 
-    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(2) { animation-delay: 60ms; }
-    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(3) { animation-delay: 120ms; }
+    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(2) { --rise-delay: 60ms; }
+    :is(.articleHero, .researchHero, .reportHeroCopy) > :nth-child(3) { --rise-delay: 120ms; }
 
-    /* E3. A caret after the claim breathes three times, then leaves. */
+    /* E3. A caret after the claim fades in, breathes three times, then fades out. */
     .claimCaret {
         display: inline-block;
         width: 2px;
@@ -232,12 +247,18 @@ html.is-leaving::after {
         vertical-align: -0.08em;
         background: currentColor;
         opacity: 0;
-        animation: caret-breathe 650ms ease-out 700ms 6 alternate;
+        animation: caret-life 4.6s linear 500ms 1;
     }
 
-    @keyframes caret-breathe {
-        from { opacity: 1; }
-        to { opacity: .3; }
+    @keyframes caret-life {
+        0% { opacity: 0; }
+        5%, 15% { opacity: 1; }
+        30% { opacity: .3; }
+        45% { opacity: 1; }
+        60% { opacity: .3; }
+        75% { opacity: 1; }
+        90% { opacity: .3; }
+        100% { opacity: 0; }
     }
 
     /* E4. The Ask launcher arrives after the page has settled. */
@@ -345,6 +366,7 @@ html.is-leaving::after {
     .resumeDetails::details-content {
         block-size: 0;
         overflow: clip;
+        overflow-clip-margin: 8px; /* room for focus rings */
         opacity: 0;
         transition: block-size var(--dur-ui) var(--ease-out), opacity var(--dur-ui) var(--ease-out), content-visibility var(--dur-ui) allow-discrete;
     }
@@ -354,41 +376,57 @@ html.is-leaving::after {
         opacity: 1;
     }
 
-    /* R8. The Ask dialog opens from the launcher's corner and leaves a little faster. */
-    .chatOverlay {
-        transform-origin: 100% 100%;
-        opacity: 0;
-        scale: .96;
-        transition: opacity 160ms var(--ease-out), scale 160ms var(--ease-out), display 160ms allow-discrete, overlay 160ms allow-discrete;
-    }
-
+    /* R8. The Ask dialog opens from the launcher's corner. Where the browser can keep it in the
+       top layer while it leaves (overlay), it also fades out, a little faster. */
     .chatOverlay[open] {
-        opacity: 1;
-        scale: 1;
-        transition-duration: var(--dur-ui);
+        transform-origin: 100% 100%;
+        transition: opacity var(--dur-ui) var(--ease-out), scale var(--dur-ui) var(--ease-out);
     }
 
+    .chatOverlay[open]::backdrop {
+        transition: opacity var(--dur-ui) var(--ease-out);
+    }
+
+    @supports (overlay: auto) {
+        .chatOverlay {
+            transform-origin: 100% 100%;
+            opacity: 0;
+            scale: .96;
+            transition: opacity 160ms var(--ease-out), scale 160ms var(--ease-out), display 160ms allow-discrete, overlay 160ms allow-discrete;
+        }
+
+        .chatOverlay[open] {
+            opacity: 1;
+            scale: 1;
+            transition: opacity var(--dur-ui) var(--ease-out), scale var(--dur-ui) var(--ease-out), display var(--dur-ui) allow-discrete, overlay var(--dur-ui) allow-discrete;
+        }
+
+        .chatOverlay::backdrop {
+            opacity: 0;
+            transition: opacity 160ms var(--ease-out), display 160ms allow-discrete, overlay 160ms allow-discrete;
+        }
+
+        .chatOverlay[open]::backdrop {
+            opacity: 1;
+            transition: opacity var(--dur-ui) var(--ease-out), display var(--dur-ui) allow-discrete, overlay var(--dur-ui) allow-discrete;
+        }
+    }
+
+    /* Starting styles come last: they add no specificity, so a later open rule would override them. */
     @starting-style {
         .chatOverlay[open] {
             opacity: 0;
             scale: .96;
         }
-    }
 
-    .chatOverlay::backdrop {
-        opacity: 0;
-        transition: opacity 160ms var(--ease-out), display 160ms allow-discrete, overlay 160ms allow-discrete;
-    }
-
-    .chatOverlay[open]::backdrop {
-        opacity: 1;
-        transition-duration: var(--dur-ui);
-    }
-
-    @starting-style {
         .chatOverlay[open]::backdrop {
             opacity: 0;
         }
+    }
+
+    /* R10. Figures on reports: the frame takes the accent on hover. */
+    .reportShell figure {
+        transition: border-color var(--dur-hover) var(--ease-standard);
     }
 
     @media (hover: hover) {
@@ -412,11 +450,30 @@ html.is-leaving::after {
         .researchNavLinks a:hover::after {
             scale: 1 1;
         }
+
+        .reportShell figure:hover {
+            border-color: var(--report-blue, var(--accent));
+        }
     }
 }
 
-/* The theme changes at once: no colour fades across the page (Rauno Freiberg's interface guidelines). */
+/* The theme changes at once: while it switches, nothing fades (Rauno Freiberg's interface guidelines).
+   js/motion.js holds this class for two frames around the toggle. */
 body,
-body.dark-mode {
-    transition: none;
+body.dark-mode,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+    transition: none !important;
+}
+
+/* A featured title hugs its text in every mode, so its handover box matches the words. */
+.workTitle {
+    width: fit-content;
+}
+
+/* 3. The homepage brand keeps its full width while its letters collapse, so the centred links stay put. */
+.navbar-brand .wordmark {
+    display: inline-block;
+    min-width: 4.6em;
 }

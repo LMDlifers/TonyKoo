@@ -18,7 +18,7 @@ if (!document.querySelector('#tonyChatOverlay')) {
   dialog.className = 'chatOverlay';
   dialog.setAttribute('aria-label', 'AI Engineering Lab chat');
   dialog.innerHTML = `<div class="chatOverlayPanel">
-    <div class="chatOverlayBar"><span>AI Engineering Lab <span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\n✶\n✻\n✽\n✻\n✶</span></span></span><div class="chatOverlayActions"><a href="${chatUrl.href}">Expand chat</a><button type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
+    <div class="chatOverlayBar"><span>AI Engineering Lab <span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\uFE0E\n✶\n✻\n✽\n✻\n✶</span></span></span><div class="chatOverlayActions"><a href="${chatUrl.href}">Expand chat</a><button type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
     <iframe title="AI Engineering Lab conversation" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>`;
   document.body.append(launcher, dialog);

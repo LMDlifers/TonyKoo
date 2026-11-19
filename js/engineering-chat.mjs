@@ -306,7 +306,7 @@ function addTurn(turn) {
     const label = turn.sourceScope === 'web' ? 'From current publisher documentation' : labels[turn.status] || 'Checking sources…';
     const statusLabel = textNode('span', `turnStatus turnStatus--${turn.status || 'supported'}`, label);
     // While sources are being checked, the label carries the loading mark (styled in css/motion.css).
-    if (!labels[turn.status] && turn.sourceScope !== 'web') statusLabel.insertAdjacentHTML('afterbegin', '<span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\n✶\n✻\n✽\n✻\n✶</span></span>');
+    if (!labels[turn.status] && turn.sourceScope !== 'web') statusLabel.insertAdjacentHTML('afterbegin', '<span class="loadingMark" aria-hidden="true"><span>·\n✢\n✳\uFE0E\n✶\n✻\n✽\n✻\n✶</span></span>');
     body.append(statusLabel);
   }
   body.append(textNode('p', 'turnText', turn.content));

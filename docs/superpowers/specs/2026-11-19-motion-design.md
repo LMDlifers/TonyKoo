@@ -14,7 +14,7 @@ Many small, quiet responses across the site, plus three signature moves: a wordm
 3. **Durations.** Press 100ms. Hover 160ms. Small enters and toggles 240ms. The staged entrance 500ms per step, 80ms apart. Exits are shorter than enters. No interaction transition is longer than 300ms.
 4. **Easing.** `--ease-out` for enters and presses. `--ease-inout-quart: cubic-bezier(.77, 0, .175, 1)` for things that travel (the wordmark). `linear` for progress. `--ease-spring` (a `linear()` string behind `@supports`) only for the launcher's entrance.
 5. **Properties.** `opacity`, `translate`, `scale`, `rotate`, `clip-path` and colour. No `transition: all`. Layout properties animate only in two bounded cases: the wordmark letters and `<details>` height.
-6. **Not animated:** the theme change, focus rings, proof numbers, table rows, anything keyboard-initiated beyond a fade.
+6. **Not animated:** the theme change (transitions are switched off for two frames around the toggle), focus rings, proof numbers, table rows, anything keyboard-initiated beyond a fade.
 7. **Reduced motion.** Every moving rule sits inside `@media (prefers-reduced-motion: no-preference)`; the default is the end state. Colour and opacity hovers stay. The reading-progress bar stays, because it mirrors the reader's own scroll.
 8. **Pointer devices only** for hover movement: `@media (hover: hover)`.
 9. **Progressive enhancement.** Scroll-driven animation, view transitions and `<details>` height are enhancements. Without them the page is static and complete.
@@ -30,7 +30,7 @@ Many small, quiet responses across the site, plus three signature moves: a wordm
 | S2 | Loading mark `· ✢ ✳ ✶ ✻ ✽ ✻ ✶` | chat "Checking sources…" state; the chat overlay while its frame loads | A glyph strip stepped with `steps(8, end)` over 1.2s, after the Claude Code spinner. Its label carries a slow text shimmer (1.5s linear). Runs only while pending. |
 | S3 | Navigation hairline | every page | A 2px bar at the top while the next page loads. Waits 200ms; runs at most 8 times. |
 | S4 | Reading progress | reports, essays, homepage | A 2px bar on the header's lower edge, scroll-linked, `scale` only. Replaces the homepage's JavaScript bar. |
-| S5 | Card grows into its report title | four featured cards ↔ their reports | Cross-document view transition, 320ms. Other navigation cross-fades (90ms out, 180ms in). The header holds still. |
+| S5 | Card grows into its report title | four featured cards ↔ their reports | Cross-document view transition, 320ms. Other navigation cross-fades (90ms out, 180ms in). The header holds still between inner pages; the homepage header is a different size and cross-fades with the page. |
 
 ### Entrance
 
@@ -38,7 +38,7 @@ Many small, quiet responses across the site, plus three signature moves: a wordm
 |---|---|---|
 | E1 | Homepage hero | Name, claim, actions, then each proof item: opacity 0 → 1 and `translate: 0 8px` → 0, 500ms, 80ms apart. |
 | E2 | Inner page title block | Label, title, deck rise 8px and fade, 400ms, 60ms apart. |
-| E3 | Caret after the hero claim | A thin caret breathes (opacity 1 ↔ .3, 650ms) three times, then fades out. |
+| E3 | Caret after the hero claim | A thin caret fades in, breathes three times (opacity 1 ↔ .3) and fades out, over 4.6s, once. |
 | E4 | Ask launcher | Appears 600ms after load: opacity and `scale: .92` → 1 with the spring, 400ms. |
 
 ### Response
@@ -48,11 +48,11 @@ Many small, quiet responses across the site, plus three signature moves: a wordm
 | R1 | Featured card | Border colour steps to the accent mix; art scales to 1.02 inside its clip; the link arrow moves 3px. 160ms in. | Link `scale: .98`. |
 | R2 | "More projects" row | Title takes the accent colour; the link arrow moves 3px. | none |
 | R3 | Text links | Underline offset settles from 3px to 5px; underline colour takes the link colour. | none |
-| R4 | Header and nav links | An underline grows from the left (`scale` on a pseudo-element), 160ms. | none |
+| R4 | Inner-page header links | An underline grows from the left (`scale` on a pseudo-element), 160ms. The homepage nav keeps its existing underline. | none |
 | R5 | Theme toggle | Border colour step. | `scale: .94`; the icon cross-fades with `scale: .9` and `blur(2px)`, 160ms. |
-| R6 | `<details>` | Summary background step. | Marker rotates 90°, 240ms. Content height animates where supported; content fades in 240ms. |
-| R7 | Header | A hairline shadow appears once the page has scrolled 8px (scroll-driven). | n/a |
-| R8 | Ask dialog | n/a | Opens from the launcher's corner: opacity and `scale: .96` → 1, origin bottom right, 240ms; closes in 160ms. Backdrop fades. |
+| R6 | `<details>` | Summary background step. | Content height animates where supported; content fades in 240ms. The native marker already turns; it cannot be animated. |
+| R7 | Inner-page header | A hairline shadow appears over the first 8px of scroll (scroll-driven). The homepage header keeps its existing scrolled shadow. | n/a |
+| R8 | Ask dialog | n/a | Opens from the launcher's corner: opacity and `scale: .96` → 1, origin bottom right, 240ms. Where the browser supports `overlay` it also closes with a 160ms fade; elsewhere it closes at once. Backdrop fades. |
 | R9 | Log entries | Row title colour step; the tick mark nudges 2px. | none |
 | R10 | Figures on reports | Outline colour step. | none |
 
