@@ -272,6 +272,7 @@ function openHashTarget(hash) {
 }
 window.addEventListener("hashchange", function () { openHashTarget(location.hash); });
 document.addEventListener("click", function (e) {
+  if (e.defaultPrevented) return; // a link whose own handler took the click (a field character) is not a jump
   var link = e.target.closest && e.target.closest('a[href^="#"]');
   if (link) openHashTarget(link.getAttribute("href"));
 });

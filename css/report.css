@@ -91,7 +91,7 @@ body {
     color: #285b4c;
     display: block;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size:12px;
     font-weight: 700;
     margin-bottom: 8px;
 }
@@ -226,7 +226,7 @@ h1 {
     color: #617066;
     display: block;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size:12px;
     font-weight: 700;
     margin-bottom: 8px;
 }

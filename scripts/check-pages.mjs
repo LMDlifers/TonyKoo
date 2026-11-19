@@ -52,6 +52,8 @@ try {
         const prose = [...document.querySelectorAll("main p")].filter((el) => el.getClientRects().length && el.textContent.trim().length > 60);
         return {
           dark: document.body.classList.contains("dark-mode"),
+          icon: !!document.querySelector('link[rel="icon"]'),
+          tiny: [...new Set(texts.filter((el) => parseFloat(getComputedStyle(el).fontSize) < 12 && !el.closest("figure svg, .flowDiagram, .chartPanel, .matrixGrid")).map((el) => `${tag(el)} ${getComputedStyle(el).fontSize}`))].slice(0, 5),
           fonts: [...new Set(texts.filter((el) => !/^"?(Lato|Inconsolata)/.test(getComputedStyle(el).fontFamily)).map((el) => `${tag(el)} ${getComputedStyle(el).fontFamily.slice(0, 30)}`))].slice(0, 5),
           upper: [...new Set(texts.filter((el) => getComputedStyle(el).textTransform === "uppercase").map(tag))].slice(0, 5),
           tracked: [...new Set(texts.filter((el) => !["normal", "0px"].includes(getComputedStyle(el).letterSpacing)).map(tag))].slice(0, 5),
@@ -76,6 +78,8 @@ try {
         };
       });
       assert.equal(r.dark, night, `${label}: theme applied`);
+      assert.ok(r.icon, `${label}: declares a favicon`);
+      assert.deepEqual(r.tiny, [], `${label}: no text under 12px`);
       assert.deepEqual(r.fonts, [], `${label}: only Lato and Inconsolata`);
       assert.deepEqual(r.upper, [], `${label}: no uppercase labels`);
       assert.deepEqual(r.tracked, [], `${label}: no tracked text`);
@@ -85,6 +89,16 @@ try {
       assert.equal(r.chips, 0, `${label}: metadata and tags are plain text, not pills`);
       assert.deepEqual(r.surfaces, [], `${label}: every boxed element uses the one surface`);
       await page.context().close();
+    }
+    {
+      const phone = await open(path, { width: 320 });
+      const h = await phone.evaluate(() => ({
+        tiny: [...new Set(__texts().filter((el) => parseFloat(getComputedStyle(el).fontSize) < 12 && !el.closest("figure, .flowDiagram, .chartPanel, .matrixGrid")).map((el) => `${el.tagName.toLowerCase()}.${el.className} ${getComputedStyle(el).fontSize}`))].slice(0, 5),
+        short: [...document.querySelectorAll(".researchNavLinks a, .researchNavLinks button, [data-topic-filter]")].filter((el) => el.getClientRects().length && el.getBoundingClientRect().height < 43.5).map((el) => `${el.textContent.trim().slice(0, 12)} ${Math.round(el.getBoundingClientRect().height)}px`),
+      }));
+      assert.deepEqual(h.tiny, [], `${path}: no text under 12px at 320`);
+      assert.deepEqual(h.short, [], `${path}: header and filter targets are 44px tall at 320`);
+      await phone.context().close();
     }
     // No sideways scroll, and nothing wider than the screen, at any width.
     const page = await open(path);
